@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octal Converter | MultiTools Hub - Professional Online Tool</title>
+    <meta name="description" content="Free and professional Octal Converter on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body data-theme="dark">
+
+    <header>
+        <div class="container nav-inner">
+            <a href="../../index.html" class="logo">MultiTools Hub</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../about.html">About</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb" style="margin-top: 50px;">
+            <a href="../../index.html">Home</a> / Math / <span>Octal Converter</span>
+        </div>
+
+        <section class="tool-workspace" style="margin-top: 30px; position: relative; overflow: hidden;">
+            <div class="tool-header-visual" style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at center, hsla(var(--p-hue), 90%, 65%, 0.08), transparent 70%); z-index: 0Pointer-events: none;"></div>
+            
+            <div style="position: relative; z-index: 1;">
+                <h1 style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Octal Converter</h1>
+                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 40px;">Professional-grade Octal Converter utility. Fast, secure, and processing 100% in your browser for maximum privacy.</p>
+                
+                <div id="tool-container">
+                    
+<div class="input-group">
+    <label>Enter Values (Numbers Only)</label>
+    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+</div>
+
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
+                        <button id="processBtn" class="category-label active" style="border: none; padding: 18px 45px; font-size: 1.1rem; box-shadow: 0 10px 30px hsla(var(--p-hue), 90%, 65%, 0.3);">Process Octal Converter</button>
+                        <button id="downloadBtn" class="category-label" style="display:none; border: none; padding: 18px 35px;">Download Result</button>
+                        <button onclick="copyToClipboard('toolOutput')" class="category-label" style="border: none; padding: 18px 35px;">Copy Output</button>
+                        <button onclick="window.location.reload()" class="category-label" style="border: none; padding: 18px 35px;">Clear</button>
+                    </div>
+
+                    <div class="result-container" style="background: rgba(255,255,255,0.02); border-radius: 30px; border: 1px solid var(--border); padding: 40px; min-height: 200px; position: relative; backdrop-filter: blur(10px);">
+                        <label style="display:block; margin-bottom: 20px; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 3px;">Output Result</label>
+                        
+                        <div id="toolOutput" class="form-control" style="min-height: 120px; white-space: pre-wrap; background: transparent; border: none; padding: 0; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; line-height: 1.8;">
+                            The generated results will appear here...
+                        </div>
+                        
+                        <div id="imageResultContainer" style="display:none; text-align: center; margin-top: 20px;">
+                            <img id="imageOutput" style="max-width: 100%; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
+            <h2>How to use the Octal Converter Tool</h2>
+            <p>Our <strong>Octal Converter</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
+            
+            <h3>Secure & High-Speed Processing</h3>
+            <p>We've engineered this Octal Converter tool using current web standards to ensure high reliability. It's fully responsive, meaning you can use it on mobile devices, tablets, and desktops alike.</p>
+        </section>
+    </main>
+
+    <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 MultiTools Hub. Precision Engineering for Digital Creators.</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+    <script>
+        // Syncing theme state
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    </script>
+</body>
+</html>

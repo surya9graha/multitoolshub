@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiTools Hub | 100+ Professional Online Tools</title>
+    <meta name="description"
+        content="Free, fast, and SEO-optimized collection of 100+ professional tools. Modern UI with dark mode, glassmorphism, and instant search.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .hero-section h1 span {
+            background: linear-gradient(90deg, #ff00cc, #3333ff, #00d4ff, #ff00cc);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: moveGradient 8s linear infinite;
+        }
+
+        @keyframes moveGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .category-label.active {
+            box-shadow: 0 0 20px rgba(51, 51, 255, 0.4);
+            border-color: #3333ff;
+            background: var(--primary);
+            color: white;
+        }
+
+        .tool-card:hover i {
+            animation: pulseIcon 1.5s infinite;
+        }
+
+        @keyframes pulseIcon {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0 rgba(51, 51, 255, 0));
+            }
+
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 15px rgba(51, 51, 255, 0.5));
+            }
+
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0 rgba(51, 51, 255, 0));
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="dark">
+
+    <header>
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">MultiTools Hub</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+            </ul>
+            <button class="theme-btn" id="themeSwitch" title="Toggle Dark/Light Mode">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>Expert Tools for <span>Digital Creators</span></h1>
+            <p>A massive collection of over 100 functional tools built for performance, privacy, and speed. All tools
+                run 100% client-side in your browser.</p>
+
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="toolSearch"
+                    placeholder="Search for tools (e.g. JSON Formatter, Image Resizer)...">
+            </div>
+
+            <div class="category-tabs">
+                <div class="category-label active" data-category="all">All Tools</div>
+                <div class="category-label" data-category="image">Image</div>
+                <div class="category-label" data-category="text">Text</div>
+                <div class="category-label" data-category="dev">Developer</div>
+                <div class="category-label" data-category="css">CSS</div>
+                <div class="category-label" data-category="math">Math</div>
+                <div class="category-label" data-category="security">Security</div>
+                <div class="category-label" data-category="seo">SEO</div>
+                <div class="category-label" data-category="web">Web</div>
+                <div class="category-label" data-category="time">Time</div>
+                <div class="category-label" data-category="misc">Misc</div>
+            </div>
+        </section>
+
+        <section class="tool-grid" id="toolContainer">
+            <!-- Dynamically populated by main.js -->
+        </section>
+
+        <section class="seo-content tool-workspace" style="margin-bottom: 50px;">
+            <h2>Your Ultimate Multi-Tool Powerhouse</h2>
+            <p>Welcome to <strong>MultiTools Hub</strong>, where performance meets privacy. Our platform hosts a
+                carefully curated selection of over 100 professional online tools covering everything from image editing
+                and SEO to mathematical calculations and security hashing.</p>
+            <h3>Built for Modern Browsers</h3>
+            <p>We leverage modern JavaScript and CSS to provide a lightning-fast experience. Unlike other tool hubs, we
+                use no server-side processing for tool logic, ensuring your private data never leaves your device.</p>
+        </section>
+    </main>
+
+    <footer
+        style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
+        <div class="container">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div>
+                    <h3 style="margin-bottom: 20px;">MultiTools Hub</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">The premier multi-tool destination for
+                        professionals. Fast, free, and secure utilities for developers, writers, and designers.</p>
+                </div>
+                <div>
+                    <h4>Navigation</h4>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li><a href="about.html" style="color: var(--text-muted);">About Us</a></li>
+                        <li><a href="contact.html" style="color: var(--text-muted);">Contact Us</a></li>
+                        <li><a href="sitemap.html" style="color: var(--text-muted);">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Legal Compliance</h4>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li><a href="terms.html" style="color: var(--text-muted);">Terms of Service</a></li>
+                        <li><a href="privacy.html" style="color: var(--text-muted);">Privacy Policy</a></li>
+                        <li><a href="disclaimer.html" style="color: var(--text-muted);">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: var(--text-muted); font-size: 0.9rem;">
+                &copy; 2026 MultiTools Hub. Powered by Client-Side Innovation.
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
