@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="title">Tool</title>
+
+<!-- Adsense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxx"
+crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<style>
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+.ad-box{
+margin:20px 0;
+text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="tool-name">Tool</h1>
+
+<!-- Top Ad -->
+<div class="ad-box">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-xxxxxxxx"
+data-ad-slot="111111111"
+data-ad-format="auto"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div id="tool-content"></div>
+
+<!-- Bottom Ad -->
+<div class="ad-box">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-xxxxxxxx"
+data-ad-slot="222222222"
+data-ad-format="auto"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const tool = params.get('tool');
+
+document.getElementById("tool-name").innerText = tool;
+
+document.getElementById("tool-content").innerHTML = `
+<textarea placeholder="Enter text"></textarea>
+<br><br>
+<button>Generate</button>
+`;
+
+</script>
+
+</body>
+</html>
