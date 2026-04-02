@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/ads.css">
 </head>
 <body data-theme="dark">
 
@@ -32,8 +33,13 @@
             <a href="../../index.html">Home</a> / Misc / <span>Text To Speech</span>
         </div>
 
+        <!-- Ad Slot: Top -->
+        <div class="adsense-slot ads-top" id="ad-top">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Top Advertisement Slot</div>
+        </div>
+
         <section class="tool-workspace" style="margin-top: 30px; position: relative; overflow: hidden;">
-            <div class="tool-header-visual" style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at center, hsla(var(--p-hue), 90%, 65%, 0.08), transparent 70%); z-index: 0Pointer-events: none;"></div>
+            <div class="tool-header-visual" style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at center, hsla(var(--p-hue), 90%, 65%, 0.08), transparent 70%); z-index: 0; pointer-events: none;"></div>
             
             <div style="position: relative; z-index: 1;">
                 <h1 style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Text To Speech</h1>
@@ -69,6 +75,11 @@
             </div>
         </section>
 
+        <!-- Ad Slot: Middle -->
+        <div class="adsense-slot ads-middle" id="ad-mid">
+            <div style="color:var(--text-muted); font-size:0.7rem;">In-Content Advertisement Slot</div>
+        </div>
+
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
             <h2>How to use the Text To Speech Tool</h2>
             <p>Our <strong>Text To Speech</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
@@ -76,6 +87,11 @@
             <h3>Secure & High-Speed Processing</h3>
             <p>We've engineered this Text To Speech tool using current web standards to ensure high reliability. It's fully responsive, meaning you can use it on mobile devices, tablets, and desktops alike.</p>
         </section>
+
+        <!-- Ad Slot: Bottom -->
+        <div class="adsense-slot ads-bottom" id="ad-bottom">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Footer Advertisement Slot</div>
+        </div>
     </main>
 
     <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
@@ -85,6 +101,7 @@
     </footer>
 
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/ads.js"></script>
     <script>
         // Syncing theme state
         if (localStorage.getItem('theme') === 'light') {
