@@ -200,7 +200,7 @@ function initToolGrid() {
     Object.entries(TOOLS_DATA).forEach(([cat, tools]) => {
         tools.forEach(([id, name, desc]) => {
             const card = document.createElement('a');
-            const isRoot = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
+            const isRoot = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || !window.location.pathname.includes('/tools/');
             const prefix = isRoot ? 'tools/' : '../../tools/';
             card.href = `${prefix}${cat}/${id}.html`;
             card.className = 'tool-card fade-in';
@@ -232,8 +232,11 @@ function initSearch() {
 }
 
 function initCategoryFilter() {
-    document.querySelectorAll('.category-label').forEach(btn => btn.addEventListener('click', () => {
-        document.querySelectorAll('.category-label').forEach(b => b.classList.remove('active'));
+    const filters = document.querySelectorAll('.category-tabs .category-label');
+    if (!filters.length) return;
+    
+    filters.forEach(btn => btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const cat = btn.getAttribute('data-category');
         document.querySelectorAll('.tool-card').forEach(c => {
