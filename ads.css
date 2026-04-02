@@ -1,0 +1,49 @@
+/* General styling for AdSense slots */
+.adsense-slot {
+    margin: 30px auto;
+    text-align: center;
+    max-width: 100%;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--border);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.adsense-slot::before {
+    content: "Advertisement";
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Specific Positions */
+.ads-top {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.ads-middle {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.ads-bottom {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .adsense-slot {
+        margin: 20px auto;
+        min-height: 50px;
+    }
+}
