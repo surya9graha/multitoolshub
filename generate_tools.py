@@ -69,6 +69,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <!-- Styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/ads.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1356057643477835"
+     crossorigin="anonymous"></script>
 </head>
 <body data-theme="dark">
 

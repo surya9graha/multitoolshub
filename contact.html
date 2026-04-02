@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream
     <title>About Us | MultiTools Hub - The Story Behind Our Tools</title>
     <meta name="description" content="Discover the mission of MultiTools Hub, a platform providing 100+ free online professional utilities for developers, designers, and web enthusiasts.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+=======
+    <title>Contact Us | MultiTools Hub - Support & Feedback</title>
+    <meta name="description"
+        content="Get in touch with MultiTools Hub for support, feedback, or collaborations. We're here to help you make the most of our 100+ professional tools.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+>>>>>>> Stashed changes
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ads.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1356057643477835"
+     crossorigin="anonymous"></script>
+    <style>
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
+        .contact-info-card { background: rgba(var(--p-hue), 90%, 65%, 0.05); padding: 40px; border-radius: 30px; border: 1px solid var(--border); }
+        .info-item { margin-bottom: 30px; display: flex; align-items: center; gap: 20px; }
+        .info-item i { font-size: 1.5rem; color: var(--primary); background: var(--bg-card); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .info-item h4 { color: var(--text-main); margin-bottom: 5px; }
+        .info-item p { color: var(--text-muted); font-size: 0.95rem; }
+        
+        .contact-form .input-group { margin-bottom: 25px; }
+        .contact-form label { display: block; margin-bottom: 10px; color: var(--text-main); font-weight: 600; }
+        .contact-form input, .contact-form textarea { width: 100% !important; border-radius: 15px !important; }
+        .contact-form textarea { min-height: 150px; }
+        .submit-btn { border: none; padding: 18px 45px; border-radius: 50px; width: 100%; cursor: pointer; font-size: 1.1rem; }
+
+        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+    </style>
 </head>
+<<<<<<< Updated upstream
 <body>
 
     <header>
@@ -75,10 +112,99 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 MultiTools Hub. All rights reserved.</p>
+=======
+
+<body data-theme="dark">
+
+    <header>
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">MultiTools Hub</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+            </ul>
+            <button class="theme-btn" id="themeSwitch" title="Toggle Dark/Light Mode">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb" style="margin-top: 50px;">
+            <a href="index.html">Home</a> / <span>Contact Us</span>
+        </div>
+
+        <section class="tool-workspace" style="margin-top: 30px;">
+            <h1 style="font-size: 3.5rem; margin-bottom: 30px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Get in Touch</h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 50px;">Questions, feedback, or a tool request? We'd love to hear from you. Our team typically responds within 24–48 hours.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>support@multitoolshub.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Global HQ</h4>
+                            <p>Silicon Valley Gateway, Digital District</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Operating Hours</h4>
+                            <p>Mon – Fri: 09:00 – 18:00 UTC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>How Can We Help?</label>
+                            <textarea class="form-control" placeholder="Tell us more about your request..." required></textarea>
+                        </div>
+                        <button type="submit" class="category-label active submit-btn" style="border:none">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Slot: Bottom -->
+        <div class="adsense-slot ads-bottom" id="ad-bottom">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Advertisement Slot</div>
+        </div>
+    </main>
+
+    <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
+        <div class="container">
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                &copy; 2026 MultiTools Hub. Precision Engineering for Digital Creators.
+>>>>>>> Stashed changes
             </div>
         </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
+<<<<<<< Updated upstream
+=======
+    <script src="assets/js/ads.js"></script>
+>>>>>>> Stashed changes
 </body>
+
 </html>

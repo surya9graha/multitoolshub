@@ -1,94 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | MultiTools Hub - The Story Behind Our Tools</title>
-    <meta name="description" content="Discover the mission of MultiTools Hub, a platform providing 100+ free online professional utilities for developers, designers, and web enthusiasts.">
+    <meta name="description"
+        content="Discover the mission of MultiTools Hub, a platform providing 100+ free online professional utilities for developers, designers, and web enthusiasts.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icon Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ads.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1356057643477835"
+     crossorigin="anonymous"></script>
+    <style>
+        .legal-content h2 { margin-top: 40px; margin-bottom: 20px; color: var(--primary); }
+        .legal-content h3 { margin-top: 30px; margin-bottom: 15px; color: var(--secondary); }
+        .legal-content p { margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem; }
+        .legal-content ul { margin-bottom: 20px; padding-left: 20px; color: var(--text-muted); }
+        .legal-content li { margin-bottom: 10px; }
+    </style>
 </head>
-<body>
+
+<body data-theme="dark">
 
     <header>
-        <div class="container nav">
+        <div class="container nav-inner">
             <a href="index.html" class="logo">MultiTools Hub</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="tools/image/image-resizer.html">Featured</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider round"></div>
-                </label>
-            </div>
+            <button class="theme-btn" id="themeSwitch" title="Toggle Dark/Light Mode">
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
     </header>
 
     <main class="container">
-        <div class="breadcrumb">
-            <a href="index.html">Home</a> / About Us
+        <!-- Ad Slot: Top -->
+        <div class="adsense-slot ads-top" id="ad-top">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Top Advertisement Slot</div>
         </div>
 
-        <section class="seo-content" style="max-width: 900px; margin: 3rem auto;">
-            <h1>About MultiTools Hub</h1>
-            <p>Welcome to <strong>MultiTools Hub</strong>, a project born out of the necessity for high-quality, free, and lightweight web utilities. Our platform is more than just a collection of tools; it’s a productivity engine designed for everyone—ranging from seasoned software developers to creative graphic designers and digital marketing professionals.</p>
+        <div class="breadcrumb" style="margin-top: 50px;">
+            <a href="index.html">Home</a> / <span>About Us</span>
+        </div>
+
+        <section class="tool-workspace legal-content" style="margin-top: 30px;">
+            <h1 style="font-size: 3.5rem; margin-bottom: 30px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">About MultiTools Hub</h1>
             
-            <p>Our journey began with a simple observation: most online tool platforms are either too cluttered with intrusive ads, require expensive subscriptions, or are painfully slow to load. We decided to bridge that gap by building a platform using only vanilla web technologies (HTML, CSS, and JavaScript), ensuring that our tools are not only fast but also highly accessible on any device, anywhere in the world.</p>
+            <p>Welcome to <strong>MultiTools Hub</strong>, a professional destination for engineers, developers, content creators, and digital enthusiasts. Our platform is more than just a collection of scripts; it is a productivity ecosystem designed to simplify complex digital tasks.</p>
 
-            <h3>Our Mission and Vision</h3>
-            <p>At MultiTools Hub, our mission is to provide <strong>100% free accessibility</strong> to essential digital tools without the need for registration, account sign-ups, or hidden fees. We believe that professional-grade productivity should be at the fingertips of everyone, regardless of their technical background or location.</p>
-            
-            <p>We envision a world where anyone can process an image, format complex JSON data, or generate secure passwords within seconds. By providing a clean, ad-friendly, and modern interface, we focus on the user experience first while maintaining the reliability that professionals demand.</p>
+            <h2>Our Mission</h2>
+            <p>Our mission is to democratize high-quality, professional-grade digital tools. We believe that everyone should have access to powerful utilities like <strong>Image Resizers</strong>, <strong>JSON Formatters</strong>, and <strong>SEO Analyzers</strong> without the barrier of expensive subscriptions or complex setups. At MultiTools Hub, we provide over 100+ tools—completely free and accessible globally.</p>
 
-            <h3>Why Choose MultiTools Hub?</h3>
-            <p>One of the core strengths of our platform is its <strong>client-side execution</strong>. Unlike many other services that upload your data to a remote server for processing, the majority of our tools operate directly within your browser. This means that your sensitive data—whether it's a piece of source code, a personal image, or a text document—never leaves your local machine. This guarantees a level of privacy and security that is often overlooked in the modern web landscape.</p>
+            <h2>Privacy-First Philosophy</h2>
+            <p>In an era where personal data is often exploited, MultiTools Hub stands apart. Our tools are engineered to run <strong>client-side</strong>. This means when you process an image or format sensitive code, the data never leaves your browser. We don't upload your sensitive files to any server. Your privacy is not just a policy for us; it's a technical design requirement.</p>
 
-            <p>Furthermore, our platform is designed with <strong>SEO and responsiveness</strong> at its heart. We understand that time is money, and waiting for a page to load can be frustrating. That's why we've avoided heavy frameworks and libraries, opting instead for a streamlined architecture that delivers near-instantaneous performance.</p>
-
-            <h3>The Tools We Provide</h3>
-            <p>With a growing library of 100+ tools, we cover a wide array of categories:</p>
+            <h2>Why Choose MultiTools Hub?</h2>
+            <p>We've focused on three core pillars to define our user experience:</p>
             <ul>
-                <li><strong>Image Processing:</strong> Resize, compress, crop, and convert images between popular formats like PNG, JPG, and WebP.</li>
-                <li><strong>Web Development:</strong> JSON formatting, HTML/CSS minification, and code beautifiers to keep your projects clean.</li>
-                <li><strong>Text Utilities:</strong> Advanced word counters, character checkers, case converters, and Lorem Ipsum generators for content writing.</li>
-                <li><strong>Security:</strong> Secure random password generators and QR code creation to keep your digital identity safe.</li>
-                <li><strong>SEO and Marketing:</strong> Meta tag generators and analysis tools to help your website rank better on search engines.</li>
+                <li><strong>Speed:</strong> Built with vanilla HTML, CSS, and optimized JavaScript for near-instantaneous load times.</li>
+                <li><strong>Simplicity:</strong> A clean, modern UI (inspired by glassmorphism and dark mode) that removes clutter and focuses on functionality.</li>
+                <li><strong>Precision:</strong> Each tool is rigorously tested to ensure mathematical accuracy and standard-compliant results.</li>
             </ul>
 
-            <p>We are constantly updating and expanding our repertoire based on user feedback. Our goal is to stay ahead of the curve and continue providing the tools that make your digital life easier.</p>
+            <h2>The Team Behind the Tools</h2>
+            <p>MultiTools Hub is maintained by a small team of dedicated developers and designers who are passionate about the open web. We are constantly expanding our library based on user feedback and emerging digital trends. Our goal is to stay ahead of the curve and provide the tools you need before you even know you need them.</p>
 
-            <h3>Join Our Community</h3>
-            <p>We invite you to explore our tools and see how they can improve your daily workflow. If you have any suggestions for new tools or if you’ve encountered any issues, we’d love to hear from you. Your feedback is what drives the growth of MultiTools Hub.</p>
-
-            <p>Thank you for choosing MultiTools Hub. Let’s build something amazing together!</p>
+            <h2>Join Our Journey</h2>
+            <p>Whether you're here to minify your CSS or generate a secure password, we're glad to have you in our community. If you have suggestions or just want to say hi, feel free to <a href="contact.html">reach out to us</a>. Let’s build a faster, more efficient digital world together!</p>
         </section>
+
+        <!-- Ad Slot: Middle -->
+        <div class="adsense-slot ads-middle" id="ad-mid">
+            <div style="color:var(--text-muted); font-size:0.7rem;">In-Content Advertisement Slot</div>
+        </div>
+
+        <!-- Ad Slot: Bottom -->
+        <div class="adsense-slot ads-bottom" id="ad-bottom">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Footer Advertisement Slot</div>
+        </div>
     </main>
 
-    <footer>
+    <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>About Us</h4>
-                    <p style="color: #94a3b8; font-size: 0.9rem;">MultiTools Hub is a professional collection of web utilities designed to help creators and developers work faster and better.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html" class="active">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 MultiTools Hub. All rights reserved.</p>
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                &copy; 2026 MultiTools Hub. Precision Engineering for Digital Creators.
             </div>
         </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/ads.js"></script>
 </body>
+
 </html>
