@@ -5,10 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - MultiTools Hub</title>
-    <link rel="stylesheet" href="style.css"> <!-- আপনার CSS ফাইল -->
+    <link rel="stylesheet" href="style.css"> <!-- আপনার CSS ফাইলের লিঙ্ক -->
+    <style>
+        /* Simple Contact Page CSS (Optional) */
+        main {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact input, .contact textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .contact button {
+            padding: 12px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar copy করা হলো -->
+    <!-- Navbar -->
     <header>
         <div class="container nav">
             <a href="index.html" class="logo">MultiTools Hub</a>
@@ -16,7 +57,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="tools/image/image-resizer.html">Featured</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
@@ -27,11 +68,24 @@
         </div>
     </header>
 
-    <!-- Contact content -->
+    <!-- Contact Section -->
     <main>
         <section class="contact">
             <h1>Contact Us</h1>
-            <p>Email: support.sbapps@gmail.com</p>
+            <p style="text-align:center;">You can contact us using the form below or our Email।</p>
+
+            <!-- Contact Form -->
+            <form action="https://formspree.io/f/yourformid" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <p style="margin-top: 30px; text-align:center;">
+                Email: <a href="mailto:support.sbapps@gmail.com">support.sbapps@gmail.com</a> <br>
+              
+            </p>
         </section>
     </main>
 </body>
