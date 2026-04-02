@@ -4,11 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
-    <title>About Us | MultiTools Hub - The Story Behind Our Tools</title>
-    <meta name="description" content="Discover the mission of MultiTools Hub, a platform providing 100+ free online professional utilities for developers, designers, and web enthusiasts.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-=======
     <title>Contact Us | MultiTools Hub - Support & Feedback</title>
     <meta name="description"
         content="Get in touch with MultiTools Hub for support, feedback, or collaborations. We're here to help you make the most of our 100+ professional tools.">
@@ -21,98 +16,154 @@
     <!-- Icon Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
->>>>>>> Stashed changes
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/ads.css">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1356057643477835"
      crossorigin="anonymous"></script>
     <style>
-        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
-        .contact-info-card { background: rgba(var(--p-hue), 90%, 65%, 0.05); padding: 40px; border-radius: 30px; border: 1px solid var(--border); }
-        .info-item { margin-bottom: 30px; display: flex; align-items: center; gap: 20px; }
-        .info-item i { font-size: 1.5rem; color: var(--primary); background: var(--bg-card); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        .info-item h4 { color: var(--text-main); margin-bottom: 5px; }
-        .info-item p { color: var(--text-muted); font-size: 0.95rem; }
-        
-        .contact-form .input-group { margin-bottom: 25px; }
-        .contact-form label { display: block; margin-bottom: 10px; color: var(--text-main); font-weight: 600; }
-        .contact-form input, .contact-form textarea { width: 100% !important; border-radius: 15px !important; }
-        .contact-form textarea { min-height: 150px; }
-        .submit-btn { border: none; padding: 18px 45px; border-radius: 50px; width: 100%; cursor: pointer; font-size: 1.1rem; }
+        .contact-wrapper {
+            position: relative;
+            padding: 80px 0;
+            overflow: hidden;
+        }
 
-        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+        .contact-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+
+        .contact-side-info {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 60px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .contact-side-info::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .contact-side-info h2 { font-size: 2.8rem; margin-bottom: 20px; color: white; }
+        .contact-side-info p { opacity: 0.9; font-size: 1.1rem; line-height: 1.8; margin-bottom: 40px; }
+
+        .info-pill {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .info-pill i {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: var(--primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .info-pill div h4 { font-size: 1rem; margin-bottom: 2px; }
+        .info-pill div p { margin: 0; font-size: 0.9rem; opacity: 1; }
+
+        .contact-form-side { padding: 60px; }
+        .contact-form-side h3 { font-size: 2rem; margin-bottom: 40px; color: var(--text-main); }
+        
+        .input-floating { position: relative; margin-bottom: 35px; }
+        .input-floating label { 
+            position: absolute; 
+            left: 20px; 
+            top: 20px; 
+            color: var(--text-muted); 
+            transition: 0.3s; 
+            pointer-events: none;
+            font-weight: 500;
+        }
+
+        .input-floating input, .input-floating textarea {
+            width: 100%;
+            background: rgba(var(--p-hue), 20%, 30%, 0.1);
+            border: 2px solid var(--border);
+            padding: 20px;
+            border-radius: 20px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .input-floating input:focus ~ label,
+        .input-floating input:not(:placeholder-shown) ~ label,
+        .input-floating textarea:focus ~ label,
+        .input-floating textarea:not(:placeholder-shown) ~ label {
+            top: -12px;
+            left: 15px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: var(--bg-card);
+            padding: 0 10px;
+        }
+
+        .input-floating input:focus, .input-floating textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px hsla(var(--p-hue), 90%, 65%, 0.1);
+        }
+
+        .premium-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 22px 50px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 15px 35px hsla(var(--p-hue), 90%, 65%, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px hsla(var(--p-hue), 90%, 65%, 0.45);
+        }
+
+        @media (max-width: 992px) {
+            .contact-card { grid-template-columns: 1fr; }
+            .contact-side-info { padding: 40px; }
+            .contact-form-side { padding: 40px; }
+            .contact-side-info h2 { font-size: 2.2rem; }
+        }
     </style>
 </head>
-<<<<<<< Updated upstream
-<body>
-
-    <header>
-        <div class="container nav">
-            <a href="index.html" class="logo">MultiTools Hub</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="tools/image/image-resizer.html">Featured</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider round"></div>
-                </label>
-            </div>
-        </div>
-    </header>
-<main>
-        <section class="contact">
-            <h1>Contact Us</h1>
-            <p style="text-align:center;">You can contact us using the form below or our Email।</p>
-
-            <!-- Contact Form -->
-            <form action="https://formspree.io/f/yourformid" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-
-            <p style="margin-top: 30px; text-align:center;">
-                Email: <a href="mailto:support.sbapps@gmail.com">support.sbapps@gmail.com</a> <br>
-              
-            </p>
-        </section>
-    </main>
-
-    <main class="container">
-        <div class="breadcrumb">
-            <a href="index.html">Home</a> / About Us
-        </div>
-
-        <section class="seo-content" style="max-width: 900px; margin: 3rem auto;">
-            
-           
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>About Us</h4>
-                    <p style="color: #94a3b8; font-size: 0.9rem;">MultiTools Hub is a professional collection of web utilities designed to help creators and developers work faster and better.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html" class="active">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 MultiTools Hub. All rights reserved.</p>
-=======
 
 <body data-theme="dark">
 
@@ -136,57 +187,75 @@
             <a href="index.html">Home</a> / <span>Contact Us</span>
         </div>
 
-        <section class="tool-workspace" style="margin-top: 30px;">
-            <h1 style="font-size: 3.5rem; margin-bottom: 30px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Get in Touch</h1>
-            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 50px;">Questions, feedback, or a tool request? We'd love to hear from you. Our team typically responds within 24–48 hours.</p>
+        <section class="contact-wrapper">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h1 style="font-size: 4rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Let's Connect</h1>
+                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Have a question about our tools or a suggestion for a new feature? We're all ears.</p>
+            </div>
 
-            <div class="contact-grid">
-                <div class="contact-info-card">
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email Us</h4>
-                            <p>support@multitoolshub.com</p>
+            <div class="contact-card">
+                <div class="contact-side-info">
+                    <div>
+                        <h2>Contact Information</h2>
+                        <p>Fill out the form and our team will get back to you within 24 hours. We're here to help.</p>
+                        
+                        <div class="info-pill">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>support@multitoolshub.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-pill">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>International Support</h4>
+                                <p>+1 (800) MULTI-HUB</p>
+                            </div>
+                        </div>
+
+                        <div class="info-pill">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Global Presence</h4>
+                                <p>Silicon Valley, CA, USA</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Global HQ</h4>
-                            <p>Silicon Valley Gateway, Digital District</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Operating Hours</h4>
-                            <p>Mon – Fri: 09:00 – 18:00 UTC</p>
-                        </div>
+
+                    <div style="display: flex; gap: 20px; margin-top: 40px;">
+                        <a href="#" style="color:white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color:white; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+                        <a href="#" style="color:white; font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
 
-                <div class="contact-form">
+                <div class="contact-form-side">
+                    <h3>Send us a Message</h3>
                     <form id="contactForm">
-                        <div class="input-group">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        <div class="input-floating">
+                            <input type="text" id="name" placeholder=" " required>
+                            <label for="name">Your Full Name</label>
                         </div>
-                        <div class="input-group">
-                            <label>Email Address</label>
-                            <input type="email" class="form-control" placeholder="you@example.com" required>
+                        <div class="input-floating">
+                            <input type="email" id="email" placeholder=" " required>
+                            <label for="email">Email Address</label>
                         </div>
-                        <div class="input-group">
-                            <label>How Can We Help?</label>
-                            <textarea class="form-control" placeholder="Tell us more about your request..." required></textarea>
+                        <div class="input-floating">
+                            <textarea id="message" style="height: 180px;" placeholder=" " required></textarea>
+                            <label for="message">How can we help you?</label>
                         </div>
-                        <button type="submit" class="category-label active submit-btn" style="border:none">Send Message</button>
+                        <button type="submit" class="premium-btn">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
                 </div>
             </div>
         </section>
 
         <!-- Ad Slot: Bottom -->
-        <div class="adsense-slot ads-bottom" id="ad-bottom">
+        <div class="adsense-slot ads-bottom" id="ad-bottom" style="margin-top: 60px;">
             <div style="color:var(--text-muted); font-size:0.7rem;">Advertisement Slot</div>
         </div>
     </main>
@@ -195,16 +264,34 @@
         <div class="container">
             <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
                 &copy; 2026 MultiTools Hub. Precision Engineering for Digital Creators.
->>>>>>> Stashed changes
             </div>
         </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
-<<<<<<< Updated upstream
-=======
     <script src="assets/js/ads.js"></script>
->>>>>>> Stashed changes
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalContent = btn.innerHTML;
+            
+            btn.style.pointerEvents = 'none';
+            btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Message Sent! <i class="fas fa-check"></i>';
+                btn.style.background = 'linear-gradient(135deg, #22c55e, #10b981)';
+                this.reset();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.background = '';
+                    btn.style.pointerEvents = 'all';
+                }, 3000);
+            }, 1500);
+        });
+    </script>
 </body>
 
 </html>
