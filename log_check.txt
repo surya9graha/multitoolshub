@@ -1,0 +1,29 @@
+commit 82c8b5f64a461c1b9e43d857278d4e40d5c5984d
+Author: SURAJIT <surajit@example.com>
+Date:   Mon Apr 6 03:13:47 2026 -0700
+
+    SEO: Added robots.txt and updated index.html with meta tags
+
+commit 70510623dca68aa2fc7c50cc36384d3449915e42
+Author: SURAJIT <surajit@example.com>
+Date:   Thu Apr 2 13:59:27 2026 -0700
+
+    Complete redesign of the Contact Us page for a more premium and beautiful look
+
+commit 59ac430067ce92d9d6b937ef7576e82e0e3da03d
+Author: SURAJIT <surajit@example.com>
+Date:   Thu Apr 2 13:17:10 2026 -0700
+
+    Fix CSS compatibility warnings in legal pages and finalize legal content
+
+commit 504e6ff5d6dd947b6970f503f574638fdf9ef5b1
+Author: SURAJIT <surajit@example.com>
+Date:   Thu Apr 2 13:15:52 2026 -0700
+
+    Enhance legal pages (Privacy, About, Contact, Disclaimer, Terms) for AdSense approval with professional design
+
+commit 09c0505abc8edf0f151209d276ed6c4be415f8cc
+Author: Surajit Bhaduri <38960056+surya9graha@users.noreply.github.com>
+Date:   Thu Apr 2 11:45:10 2026 -0700
+
+    Integrated Google AdSense script across all tools and pages

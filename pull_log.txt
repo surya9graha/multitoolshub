@@ -1,0 +1,24 @@
+From https://github.com/surya9graha/multitoolshub
+ * branch            main       -> FETCH_HEAD
+Auto-merging about.html
+CONFLICT (content): Merge conflict in about.html
+Auto-merging contact.html
+CONFLICT (content): Merge conflict in contact.html
+Auto-merging disclaimer.html
+CONFLICT (content): Merge conflict in disclaimer.html
+Auto-merging index.html
+Auto-merging multitool/index.html
+Auto-merging privacy.html
+CONFLICT (content): Merge conflict in privacy.html
+Auto-merging terms.html
+CONFLICT (content): Merge conflict in terms.html
+Rebasing (1/6)
+dropping 3e93bfdeb01fc12db9ac9e9bef01c26f30a283ed Fixed missing tools, broken paths, and updated sitemap -- patch contents already upstream
+Rebasing (2/6)
+error: could not apply 09c0505... Integrated Google AdSense script across all tools and pages
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply 09c0505... Integrated Google AdSense script across all tools and pages

@@ -1,0 +1,32 @@
+interactive rebase in progress; onto 01ef04d
+Last commands done (5 commands done):
+   pick 59ac430 Fix CSS compatibility warnings in legal pages and finalize legal content
+   pick 7051062 Complete redesign of the Contact Us page for a more premium and beautiful look
+  (see more in file .git/rebase-merge/done)
+Next command to do (1 remaining command):
+   pick 82c8b5f SEO: Added robots.txt and updated index.html with meta tags
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'main' on '01ef04d'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+	both modified:   contact.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	log_check.txt
+	pull_log.txt
+	remote_log.txt
+	skip_log.txt
+	skip_log_2.txt
+	skip_log_3.txt
+	status_check.txt
+	status_check_v2.txt
+	status_log.txt
+	status_log_v3.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,0 +1,141 @@
+interactive rebase in progress; onto 01ef04d
+Last commands done (2 commands done):
+   pick 3e93bfd Fixed missing tools, broken paths, and updated sitemap
+   pick 09c0505 Integrated Google AdSense script across all tools and pages
+Next commands to do (4 remaining commands):
+   pick 504e6ff Enhance legal pages (Privacy, About, Contact, Disclaimer, Terms) for AdSense approval with professional design
+   pick 59ac430 Fix CSS compatibility warnings in legal pages and finalize legal content
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'main' on '01ef04d'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   multitool/index.html
+	modified:   tools/css/color-palette.html
+	modified:   tools/css/css-button.html
+	modified:   tools/css/css-gradient.html
+	modified:   tools/css/css-shadow.html
+	modified:   tools/css/flexbox-generator.html
+	modified:   tools/css/gradient-generator.html
+	modified:   tools/css/grid-layout.html
+	modified:   tools/css/hex-to-rgb.html
+	modified:   tools/css/rgb-to-hex.html
+	modified:   tools/dev/base64-decoder.html
+	modified:   tools/dev/base64-encoder.html
+	modified:   tools/dev/css-minifier.html
+	modified:   tools/dev/html-minifier.html
+	modified:   tools/dev/html-to-text.html
+	modified:   tools/dev/js-minifier.html
+	modified:   tools/dev/json-formatter.html
+	modified:   tools/dev/json-validator.html
+	modified:   tools/dev/regex-tester.html
+	modified:   tools/dev/text-to-html.html
+	modified:   tools/dev/url-decoder.html
+	modified:   tools/dev/url-encoder.html
+	modified:   tools/image/blur-image.html
+	modified:   tools/image/image-compressor.html
+	modified:   tools/image/image-cropper.html
+	modified:   tools/image/image-flipper.html
+	modified:   tools/image/image-resizer.html
+	modified:   tools/image/image-rotator.html
+	modified:   tools/image/image-watermark.html
+	modified:   tools/image/jpg-to-png.html
+	modified:   tools/image/meme-generator.html
+	modified:   tools/image/png-to-jpg.html
+	modified:   tools/image/remove-background.html
+	modified:   tools/image/sharpen-image.html
+	modified:   tools/image/thumbnail-preview.html
+	modified:   tools/image/webp-to-jpg.html
+	modified:   tools/math/age-calc.html
+	modified:   tools/math/binary-converter.html
+	modified:   tools/math/bmi-calc.html
+	modified:   tools/math/discount-calc.html
+	modified:   tools/math/fraction-calc.html
+	modified:   tools/math/gst-calc.html
+	modified:   tools/math/hex-converter.html
+	modified:   tools/math/length-converter.html
+	modified:   tools/math/math-solver.html
+	modified:   tools/math/octal-converter.html
+	modified:   tools/math/percentage-calc.html
+	modified:   tools/math/random-number.html
+	modified:   tools/math/roman-numeral.html
+	modified:   tools/math/temp-converter.html
+	modified:   tools/math/weight-converter.html
+	modified:   tools/misc/aspect-ratio.html
+	modified:   tools/misc/byte-converter.html
+	modified:   tools/misc/color-picker.html
+	modified:   tools/misc/drawing-board.html
+	modified:   tools/misc/morse-code.html
+	modified:   tools/misc/nato-alphabet.html
+	modified:   tools/misc/online-notepad.html
+	modified:   tools/misc/screen-resolution.html
+	modified:   tools/misc/speech-to-text.html
+	modified:   tools/misc/text-to-speech.html
+	modified:   tools/security/bcrypt-hash.html
+	modified:   tools/security/credit-card-validator.html
+	modified:   tools/security/ip-lookup.html
+	modified:   tools/security/md5-generator.html
+	modified:   tools/security/password-generator.html
+	modified:   tools/security/password-strength.html
+	modified:   tools/security/qr-generator.html
+	modified:   tools/security/sha256-generator.html
+	modified:   tools/security/user-agent.html
+	modified:   tools/security/uuid-generator.html
+	modified:   tools/seo/keyword-density.html
+	modified:   tools/seo/meta-tag-analyzer.html
+	modified:   tools/seo/meta-tag-generator.html
+	modified:   tools/seo/og-generator.html
+	modified:   tools/seo/robots-generator.html
+	modified:   tools/seo/sitemap-generator.html
+	modified:   tools/text/case-converter.html
+	modified:   tools/text/char-counter.html
+	modified:   tools/text/fancy-text.html
+	modified:   tools/text/lorem-ipsum.html
+	modified:   tools/text/paragraph-counter.html
+	modified:   tools/text/random-name.html
+	modified:   tools/text/sentence-counter.html
+	modified:   tools/text/slug-generator.html
+	modified:   tools/text/text-diff.html
+	modified:   tools/text/text-reverser.html
+	modified:   tools/text/title-case.html
+	modified:   tools/text/username-generator.html
+	modified:   tools/text/word-counter.html
+	modified:   tools/time/countdown-timer.html
+	modified:   tools/time/date-formatter.html
+	modified:   tools/time/days-between.html
+	modified:   tools/time/leap-year.html
+	modified:   tools/time/stopwatch.html
+	modified:   tools/time/timestamp-converter.html
+	modified:   tools/time/timezone-converter.html
+	modified:   tools/time/world-clock.html
+	modified:   tools/web/broken-link.html
+	modified:   tools/web/dns-lookup.html
+	modified:   tools/web/favicon-generator.html
+	modified:   tools/web/favicon-grabber.html
+	modified:   tools/web/html-preview.html
+	modified:   tools/web/markdown-converter.html
+	modified:   tools/web/page-speed.html
+	modified:   tools/web/redirect-checker.html
+	modified:   tools/web/source-viewer.html
+	modified:   tools/web/url-shortener.html
+	modified:   tools/web/website-status.html
+	modified:   tools/web/whois.html
+	modified:   tools/web/yt-downloader.html
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+	both modified:   about.html
+	both modified:   contact.html
+	both modified:   disclaimer.html
+	both modified:   privacy.html
+	both modified:   terms.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	remote_log.txt
+	status_log.txt
+

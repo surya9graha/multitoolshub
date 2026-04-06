@@ -1,0 +1,18 @@
+Auto-merging about.html
+CONFLICT (content): Merge conflict in about.html
+Auto-merging contact.html
+CONFLICT (content): Merge conflict in contact.html
+Auto-merging disclaimer.html
+CONFLICT (content): Merge conflict in disclaimer.html
+Auto-merging privacy.html
+CONFLICT (content): Merge conflict in privacy.html
+Auto-merging terms.html
+CONFLICT (content): Merge conflict in terms.html
+Rebasing (3/6)
+error: could not apply 504e6ff... Enhance legal pages (Privacy, About, Contact, Disclaimer, Terms) for AdSense approval with professional design
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply 504e6ff... Enhance legal pages (Privacy, About, Contact, Disclaimer, Terms) for AdSense approval with professional design

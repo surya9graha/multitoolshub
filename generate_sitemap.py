@@ -1,6 +1,6 @@
 import os
 
-BASE_URL = "https://multitoolshub.com/"
+BASE_URL = "https://www.multitoolshub.co.in/"
 TOOLS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
 
 sitemap_entries = [

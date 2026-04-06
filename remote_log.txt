@@ -1,0 +1,8 @@
+* remote origin
+  Fetch URL: https://github.com/surya9graha/multitoolshub.git
+  Push  URL: https://github.com/surya9graha/multitoolshub.git
+  HEAD branch: main
+  Remote branch:
+    main tracked
+  Local ref configured for 'git push':
+    main pushes to main (local out of date)
