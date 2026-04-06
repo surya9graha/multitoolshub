@@ -1,0 +1,10 @@
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   index.html
+	modified:   robots.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	log.txt
+
