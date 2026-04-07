@@ -259,14 +259,44 @@ async function handleWordToPdf() {
 }
 
 async function handlePdfToExcel() {
+    await loadScript(PDF_LIBS.pdfJS);
     await loadScript(PDF_LIBS.xlsx);
-    const data = [["Extracted Data", "Date"], ["MultiTools Hub Export", new Date().toLocaleDateString()]];
-    const ws = XLSX.utils.aoa_to_sheet(data);
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+    
+    let excelData = [];
+    
+    for (let i = 1; i <= Math.min(pdf.numPages, 5); i++) { // Limit to 5 pages for speed
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        
+        // Simple heuristic to group text items by Y-coordinate (rows)
+        let rows = {};
+        textContent.items.forEach(item => {
+            let y = Math.round(item.transform[5]);
+            if (!rows[y]) rows[y] = [];
+            rows[y].push(item);
+        });
+        
+        // Sort rows by Y (top to bottom) and items within rows by X
+        const sortedY = Object.keys(rows).sort((a, b) => b - a);
+        sortedY.forEach(y => {
+            const rowItems = rows[y].sort((a, b) => a.transform[4] - b.transform[4]);
+            excelData.push(rowItems.map(item => item.str));
+        });
+        
+        excelData.push(["--- End of Page " + i + " ---"]);
+    }
+
+    const ws = XLSX.utils.aoa_to_sheet(excelData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.utils.book_append_sheet(wb, ws, "PDF Data");
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    showDownload(new Blob([wbout], { type: 'application/octet-stream' }), 'data.xlsx');
+    showDownload(new Blob([wbout], { type: 'application/octet-stream' }), 'extracted_data.xlsx');
 }
+
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
