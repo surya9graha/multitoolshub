@@ -6,10 +6,16 @@
 const PDF_LIBS = {
     pdfLib: "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js",
     pdfJS: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
+    pdfJSWorker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js",
     docx: "https://unpkg.com/docx@8.1.0/build/index.js",
     mammoth: "https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js",
     xlsx: "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
 };
+
+const getPdfjsLib = () => window['pdfjsLib'] || window['pdfjs-dist/build/pdf'];
+const getXLSX = () => window['XLSX'];
+const getPDFLib = () => window['PDFLib'];
+
 
 let PDF_CURRENT_FILES = [];
 
@@ -259,43 +265,58 @@ async function handleWordToPdf() {
 }
 
 async function handlePdfToExcel() {
-    await loadScript(PDF_LIBS.pdfJS);
-    await loadScript(PDF_LIBS.xlsx);
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    try {
+        await loadScript(PDF_LIBS.pdfJS);
+        await loadScript(PDF_LIBS.xlsx);
+        
+        const pdfjs = getPdfjsLib();
+        const XLSX_LIB = getXLSX();
+        
+        if (!pdfjs || !XLSX_LIB) {
+            throw new Error("Required libraries (PDF.js or SheetJS) failed to initialize. Please check your internet connection.");
+        }
 
-    const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
-    
-    let excelData = [];
-    
-    for (let i = 1; i <= Math.min(pdf.numPages, 5); i++) { // Limit to 5 pages for speed
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
+        pdfjs.GlobalWorkerOptions.workerSrc = PDF_LIBS.pdfJSWorker;
+
+        const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
+        const loadingTask = pdfjs.getDocument({ data: bytes });
+        const pdf = await loadingTask.promise;
         
-        // Simple heuristic to group text items by Y-coordinate (rows)
-        let rows = {};
-        textContent.items.forEach(item => {
-            let y = Math.round(item.transform[5]);
-            if (!rows[y]) rows[y] = [];
-            rows[y].push(item);
-        });
+        let excelData = [];
         
-        // Sort rows by Y (top to bottom) and items within rows by X
-        const sortedY = Object.keys(rows).sort((a, b) => b - a);
-        sortedY.forEach(y => {
-            const rowItems = rows[y].sort((a, b) => a.transform[4] - b.transform[4]);
-            excelData.push(rowItems.map(item => item.str));
-        });
-        
-        excelData.push(["--- End of Page " + i + " ---"]);
+        for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
+            updateStatus(`Extracting Page ${i}...`, true);
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            
+            let rows = {};
+            textContent.items.forEach(item => {
+                let y = Math.round(item.transform[5]);
+                if (!rows[y]) rows[y] = [];
+                rows[y].push(item);
+            });
+            
+            const sortedY = Object.keys(rows).sort((a, b) => b - a);
+            sortedY.forEach(y => {
+                const rowItems = rows[y].sort((a, b) => a.transform[4] - b.transform[4]);
+                excelData.push(rowItems.map(item => item.str));
+            });
+            
+            if (pdf.numPages > 1) excelData.push(["--- Page " + i + " Separator ---"]);
+        }
+
+        const ws = XLSX_LIB.utils.aoa_to_sheet(excelData);
+        const wb = XLSX_LIB.utils.book_new();
+        XLSX_LIB.utils.book_append_sheet(wb, ws, "PDF Data");
+        const wbout = XLSX_LIB.write(wb, { bookType: 'xlsx', type: 'array' });
+        showDownload(new Blob([wbout], { type: 'application/octet-stream' }), 'converted-data.xlsx');
+    } catch (err) {
+        console.error("PDF to Excel Error:", err);
+        updateStatus(`Error: ${err.message}`, false);
+        alert(`Conversion Error: ${err.message}`);
     }
-
-    const ws = XLSX.utils.aoa_to_sheet(excelData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "PDF Data");
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    showDownload(new Blob([wbout], { type: 'application/octet-stream' }), 'extracted_data.xlsx');
 }
+
 
 
 function loadScript(src) {
