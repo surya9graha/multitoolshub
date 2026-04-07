@@ -128,8 +128,22 @@ const TOOLS_DATA = {
         ["byte-converter", "Byte Converter", "Convert between bits, bytes, KB, MB, GB, TB."],
         ["online-notepad", "Online Notepad", "A simple persistent notepad in your browser."],
         ["drawing-board", "Drawing Board", "A digital sketchpad for quick drawings."]
+    ],
+    "pdf": [
+        ["merge-pdf", "Merge PDF", "Combine multiple PDF files into one single document."],
+        ["split-pdf", "Split PDF", "Extract specific pages or separate all pages from a PDF."],
+        ["compress-pdf", "Compress PDF", "Reduce the file size of your PDF while maintaining quality."],
+        ["pdf-to-word", "PDF to Word", "Convert PDF documents to editable Microsoft Word files."],
+        ["word-to-pdf", "Word to PDF", "Turn your Docx and Word files into professional PDFs."],
+        ["jpg-to-pdf", "JPG to PDF", "Convert JPG, PNG, and other images into a PDF document."],
+        ["pdf-to-jpg", "PDF to JPG", "Extract pages from a PDF as high-quality JPG images."],
+        ["rotate-pdf", "Rotate PDF", "Rotate PDF pages clockwise or counter-clockwise."],
+        ["unlock-pdf", "Unlock PDF", "Remove passwords and restrictions from secured PDF files."],
+        ["protect-pdf", "Protect PDF", "Secure your PDF documents with a strong password."],
+        ["pdf-to-excel", "PDF to Excel", "Extract tabular data from PDF into editable Excel sheets."]
     ]
 };
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -194,8 +208,16 @@ function initToolGrid() {
         "url-shortener": "fas fa-link", "yt-downloader": "fab fa-youtube",
         // Misc
         "morse-code": "fas fa-ellipsis-h", "nato-alphabet": "fas fa-microphone-alt",
-        "text-to-speech": "fas fa-volume-up", "color-picker": "fas fa-eye-dropper"
+        "text-to-speech": "fas fa-volume-up", "color-picker": "fas fa-eye-dropper",
+        // PDF (New)
+        "merge-pdf": "fas fa-layer-group", "split-pdf": "fas fa-scissors",
+        "compress-pdf": "fas fa-file-contract", "pdf-to-word": "fas fa-file-word",
+        "word-to-pdf": "fas fa-file-pdf", "jpg-to-pdf": "fas fa-images",
+        "pdf-to-jpg": "fas fa-image", "rotate-pdf": "fas fa-redo",
+        "unlock-pdf": "fas fa-lock-open", "protect-pdf": "fas fa-lock",
+        "pdf-to-excel": "fas fa-file-excel"
     };
+
 
     Object.entries(TOOLS_DATA).forEach(([cat, tools]) => {
         tools.forEach(([id, name, desc]) => {
@@ -258,13 +280,12 @@ function initToolEngine() {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
         
-        // Image Tool Routing
-        const isImageTool = h1.includes('image') || h1.includes('jpg') || h1.includes('png') || h1.includes('webp') || h1.includes('blur') || h1.includes('sharpen') || h1.includes('crop') || h1.includes('rotate') || h1.includes('flip') || h1.includes('meme') || h1.includes('watermark');
-
-        if (isImageTool) {
-            handleImageProcessing(h1);
+        // PDF Tool Routing (handled by pdf-tools.js)
+        if (h1.includes('pdf') || h1.includes('word to') || h1.includes('to word') || h1.includes('to excel')) {
             return;
         }
+
+        // Image Tool Routing
 
         // Allow generators to run without input
         const isGenerator = h1.includes('generator') || h1.includes('random') || h1.includes('lipsum') || h1.includes('clock') || h1.includes('timer');

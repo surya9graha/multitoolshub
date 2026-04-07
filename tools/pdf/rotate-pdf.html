@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotate PDF | MultiTools Hub - Rotate PDF Pages Online</title>
+    <meta name="description" content="Free and professional Rotate PDF tool on MultiTools Hub. Fix oriented PDF documents by rotating pages clockwise or counter-clockwise securely and for free.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/ads.css">
+</head>
+<body data-theme="dark">
+
+    <header>
+        <div class="container nav-inner">
+            <a href="../../index.html" class="logo">MultiTools Hub</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Home</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb" style="margin-top: 50px;">
+            <a href="../../index.html">Home</a> / PDF / <span>Rotate PDF</span>
+        </div>
+
+        <section class="tool-workspace" style="margin-top: 30px;">
+                <h1 style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Rotate PDF</h1>
+                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 40px;">Rotate PDF pages to your desired orientation. Fast, secure, and processing 100% in your browser for maximum privacy.</p>
+                
+                <div class="input-group">
+                    <label>Select PDF to Rotate</label>
+                    <div id="dropZone" style="border: 2px dashed var(--border); padding: 50px; border-radius: 25px; text-align: center; cursor: pointer; background: rgba(var(--p-hue), 100%, 100%, 0.01);">
+                        <i class="fas fa-redo" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                        <p>Drag & Drop PDF or Click to Select</p>
+                        <input type="file" id="fileInput" accept="application/pdf" style="display: none;">
+                    </div>
+                    <div id="filePreviewContainer" style="display:none; margin-top: 30px;"></div>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
+                    <button id="processBtn" class="category-label active" style="border: none; padding: 20px 50px; font-size: 1.1rem; font-weight: 800;">
+                        <i class="fas fa-magic"></i> SECURE PROCESS
+                    </button>
+                    <button id="downloadBtn" class="category-label" style="display:none; border: none; padding: 18px 35px; background: linear-gradient(135deg, #22c55e, #10b981); color: white;">Download Rotated PDF</button>
+                </div>
+
+                <div class="result-container" style="background: rgba(var(--p-hue), 100%, 100%, 0.02); border-radius: 30px; border: 1px solid var(--border); padding: 40px;">
+                    <div id="toolOutput" class="form-control" style="min-height: 100px; white-space: pre-wrap; font-family: 'JetBrains Mono', monospace;">
+                        Upload your PDF document to begin...
+                    </div>
+                    <div id="imageResultContainer" style="display:none; margin-top: 30px;"></div>
+                </div>
+        </section>
+    </main>
+
+    <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 MultiTools Hub. Precision Engineering for Digital Creators.</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/pdf-tools.js"></script>
+</body>
+</html>
