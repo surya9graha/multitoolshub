@@ -22,7 +22,29 @@ let PDF_CURRENT_FILES = [];
 document.addEventListener('DOMContentLoaded', () => {
     initPdfDragAndDrop();
     initPdfProcessor();
+    initCompressionSlider();
 });
+
+function initCompressionSlider() {
+    const slider = document.getElementById('compressionLevel');
+    const levelValue = document.getElementById('levelValue');
+    const est = document.getElementById('estimatedReduction');
+    
+    if (!slider) return;
+
+    const levels = {
+        '1': { name: 'Low', desc: 'No quality loss, minor size reduction' },
+        '2': { name: 'Medium', desc: 'Slight quality loss, good for documents' },
+        '3': { name: 'High', desc: 'Visible quality loss, best for sharing' },
+        '4': { name: 'Extreme', desc: 'Low resolution, smallest possible size' }
+    };
+
+    slider.oninput = function() {
+        const val = levels[this.value];
+        levelValue.innerText = val.name;
+        est.innerText = val.desc;
+    };
+}
 
 function initPdfDragAndDrop() {
     const dropZone = document.getElementById('dropZone');
@@ -203,10 +225,90 @@ async function handleUnlockPDF() {
 }
 
 async function handleCompressPDF() {
-    const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
-    const pdf = await PDFLib.PDFDocument.load(bytes);
-    const pdfBytes = await pdf.save({ useObjectStreams: true });
-    showDownload(new Blob([pdfBytes], { type: 'application/pdf' }), 'compressed.pdf');
+    const slider = document.getElementById('compressionLevel');
+    const level = slider ? parseInt(slider.value) : 2;
+    const file = PDF_CURRENT_FILES[0];
+    const originalSize = file.size;
+
+    updateStatus(`Analyzing document for level ${level}...`, true);
+
+    try {
+        if (level === 1) {
+            // Low compression: Just use object streams
+            const bytes = await file.arrayBuffer();
+            const pdf = await PDFLib.PDFDocument.load(bytes);
+            const pdfBytes = await pdf.save({ useObjectStreams: true });
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            logCompressionResult(originalSize, blob.size);
+            showDownload(blob, 'compressed-low.pdf');
+        } else {
+            // Medium/High/Extreme: Rasterize pages
+            await loadScript(PDF_LIBS.pdfJS);
+            const pdfjs = getPdfjsLib();
+            pdfjs.GlobalWorkerOptions.workerSrc = PDF_LIBS.pdfJSWorker;
+
+            const bytes = await file.arrayBuffer();
+            const pdf = await pdfjs.getDocument({ data: bytes }).promise;
+            const pdfDoc = await PDFLib.PDFDocument.create();
+
+            // Quality settings based on level
+            const settings = {
+                '2': { scale: 1.5, quality: 0.7 },  // Medium
+                '3': { scale: 1.0, quality: 0.5 },  // High
+                '4': { scale: 0.8, quality: 0.3 }   // Extreme
+            };
+            const config = settings[level];
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                updateStatus(`Processing Page ${i} / ${pdf.numPages}...`, true);
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: config.scale });
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                await page.render({ canvasContext: ctx, viewport }).promise;
+                
+                // Better way to get bytes from canvas
+                const imgBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', config.quality));
+                const imgBytes = await imgBlob.arrayBuffer();
+                
+                const embeddedImg = await pdfDoc.embedJpg(imgBytes);
+                const pdfPage = pdfDoc.addPage([embeddedImg.width, embeddedImg.height]);
+                pdfPage.drawImage(embeddedImg, {
+                    x: 0,
+                    y: 0,
+                    width: embeddedImg.width,
+                    height: embeddedImg.height
+                });
+            }
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            logCompressionResult(originalSize, blob.size);
+            showDownload(blob, `compressed-${level}.pdf`);
+        }
+    } catch (error) {
+        console.error(error);
+        updateStatus(`Compression failed: ${error.message}`, false);
+    }
+}
+
+function logCompressionResult(oldSize, newSize) {
+    const reduction = ((oldSize - newSize) / oldSize * 100).toFixed(1);
+    const output = document.getElementById('toolOutput');
+    if (!output) return;
+
+    if (newSize >= oldSize && reduction <= 0) {
+        output.innerText = `Note: Your file is already highly optimized. The "compressed" version is about the same size (${(newSize/1024/1024).toFixed(2)}MB). Try a higher compression level for more reduction.`;
+        output.style.color = 'var(--text-muted)';
+    } else {
+        const msg = `Done! Size reduced from ${(oldSize/1024/1024).toFixed(2)}MB to ${(newSize/1024/1024).toFixed(2)}MB (${reduction}% smaller).`;
+        output.innerText = msg;
+        output.style.color = '#22c55e';
+    }
 }
 
 async function handleJpgToPdf() {
