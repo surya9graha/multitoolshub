@@ -289,20 +289,47 @@ async function handlePdfToExcel() {
             const page = await pdf.getPage(i);
             const textContent = await page.getTextContent();
             
-            let rows = {};
+            // Improved grouping with Y-tolerance
+            const TOLERANCE = 5; 
+            let rowObjects = [];
+            
             textContent.items.forEach(item => {
-                let y = Math.round(item.transform[5]);
-                if (!rows[y]) rows[y] = [];
-                rows[y].push(item);
+                let y = item.transform[5];
+                let row = rowObjects.find(r => Math.abs(r.y - y) <= TOLERANCE);
+                if (row) {
+                    row.items.push(item);
+                } else {
+                    rowObjects.push({ y: y, items: [item] });
+                }
             });
             
-            const sortedY = Object.keys(rows).sort((a, b) => b - a);
-            sortedY.forEach(y => {
-                const rowItems = rows[y].sort((a, b) => a.transform[4] - b.transform[4]);
-                excelData.push(rowItems.map(item => item.str));
+            // Sort rows by Y (top to bottom)
+            rowObjects.sort((a, b) => b.y - a.y);
+            
+            rowObjects.forEach(row => {
+                // Sort items in row by X (left to right)
+                row.items.sort((a, b) => a.transform[4] - b.transform[4]);
+                
+                // Heuristic to detect columns based on X distance
+                let currentRow = [];
+                let lastX = -1;
+                let lastWidth = 0;
+                
+                row.items.forEach(item => {
+                    let x = item.transform[4];
+                    // If gap is significant (> 15px), move to next column
+                    if (lastX !== -1 && (x - (lastX + lastWidth)) > 15) {
+                        currentRow.push(""); // empty cell as gap
+                    }
+                    currentRow.push(item.str);
+                    lastX = x;
+                    lastWidth = item.width || (item.str.length * 5); // Fallback width estimation
+                });
+                
+                excelData.push(currentRow);
             });
             
-            if (pdf.numPages > 1) excelData.push(["--- Page " + i + " Separator ---"]);
+            if (pdf.numPages > 1 && i < pdf.numPages) excelData.push(["--- End of Page " + i + " ---"]);
         }
 
         const ws = XLSX_LIB.utils.aoa_to_sheet(excelData);
