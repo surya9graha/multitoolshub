@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JPG to PDF | MultiTools Hub - Convert Images to PDF Online</title>
-    <meta name="description" content="Free and professional JPG to PDF converter on MultiTools Hub. Turn your images into high-quality PDF documents instantly and securely.">
+    <meta name="description" content="Free and professional JPG to PDF converter on MultiTools Hub. Turn your images into high-quality PDF documents instantly, securely, and for free.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <!-- Icon Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/ads.css">
 </head>
@@ -28,35 +33,90 @@
             <a href="../../index.html">Home</a> / PDF / <span>JPG to PDF</span>
         </div>
 
-        <section class="tool-workspace" style="margin-top: 30px;">
+        <!-- Ad Slot: Top -->
+        <div class="adsense-slot ads-top" id="ad-top">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Top Advertisement Slot</div>
+        </div>
+
+        <section class="tool-workspace" style="margin-top: 30px; position: relative; overflow: hidden;">
+            <div class="tool-header-visual" style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at center, hsla(var(--p-hue), 90%, 65%, 0.08), transparent 70%); z-index: 0; pointer-events: none;"></div>
+            
+            <div style="position: relative; z-index: 1;">
                 <h1 style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-main), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">JPG to PDF</h1>
-                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 40px;">Convert JPG, PNG, and other images into a professional PDF document. Fast, secure, and processing 100% in your browser.</p>
+                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin-bottom: 40px;">Convert JPG, PNG, and other images into professional PDF documents. Fast and secure browser processing.</p>
                 
-                <div class="input-group">
-                    <label>Upload Images (JPG/PNG)</label>
-                    <div id="dropZone" style="border: 2px dashed var(--border); padding: 50px; border-radius: 25px; text-align: center; cursor: pointer; background: rgba(var(--p-hue), 100%, 100%, 0.01);">
-                        <i class="fas fa-images" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px;"></i>
-                        <p>Drag & Drop Images or Click to Select</p>
-                        <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                <div id="tool-container">
+                    <div class="input-group">
+                        <label>Upload Images (JPG/PNG)</label>
+                        <div id="dropZone" style="border: 2px dashed var(--border); padding: 50px; border-radius: 25px; text-align: center; cursor: pointer; background: rgba(var(--p-hue), 100%, 100%, 0.01);">
+                            <i class="fas fa-images" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                            <h3 style="margin-bottom:10px;">Drag & Drop Images Here</h3>
+                            <p style="color:var(--text-muted);">or click to select multiple files from your device</p>
+                            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                        </div>
+                        <div id="filePreviewContainer" style="display:none; margin-top: 30px; background: rgba(var(--p-hue), 100%, 100%, 0.03); border-radius: 20px; padding: 25px; border: 1px solid var(--border);">
+                        </div>
                     </div>
-                    <div id="filePreviewContainer" style="display:none; margin-top: 30px;">
-                    </div>
-                </div>
 
-                <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
-                    <button id="processBtn" class="category-label active" style="border: none; padding: 20px 50px; font-size: 1.1rem; font-weight: 800;">
-                        <i class="fas fa-magic"></i> SECURE PROCESS
-                    </button>
-                    <button id="downloadBtn" class="category-label" style="display:none; border: none; padding: 18px 35px; background: linear-gradient(135deg, #22c55e, #10b981); color: white;">Download PDF</button>
-                </div>
-
-                <div class="result-container" style="background: rgba(var(--p-hue), 100%, 100%, 0.02); border-radius: 30px; border: 1px solid var(--border); padding: 40px;">
-                    <div id="toolOutput" class="form-control" style="min-height: 100px; white-space: pre-wrap; font-family: 'JetBrains Mono', monospace;">
-                        Upload your images to begin...
+                    <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
+                        <button id="processBtn" class="category-label active" style="border: none; padding: 20px 50px; font-size: 1.1rem; font-weight: 800; cursor: pointer; box-shadow: 0 15px 40px hsla(var(--p-hue), 90%, 65%, 0.3); display: flex; align-items: center; gap: 12px; transition: 0.3s;">
+                            <i class="fas fa-magic"></i> SECURE PROCESS
+                        </button>
+                        <button id="downloadBtn" class="category-label" style="display:none; border: none; padding: 18px 35px; background: linear-gradient(135deg, #22c55e, #10b981); color: white;">
+                            <i class="fas fa-download"></i> Download Result
+                        </button>
+                        <button onclick="window.location.reload()" class="category-label" style="border: none; padding: 18px 35px; background: var(--bg-card); color: var(--text-main);">
+                            <i class="fas fa-trash-alt"></i> Clear All
+                        </button>
                     </div>
-                    <div id="imageResultContainer" style="display:none; margin-top: 30px;"></div>
+
+                    <div class="result-container" style="background: rgba(var(--p-hue), 100%, 100%, 0.02); border-radius: 30px; border: 1px solid var(--border); padding: 40px; min-height: 200px; position: relative; backdrop-filter: blur(15px);">
+                        <label style="display:block; margin-bottom: 20px; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 3px;">Processing Logs & Results</label>
+                        
+                        <div id="toolOutput" class="form-control" style="min-height: 100px; white-space: pre-wrap; background: transparent; border: none; padding: 0; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; line-height: 1.8;">
+                            Upload your images to begin conversion...
+                        </div>
+                        
+                        <div id="imageResultContainer" style="display:none; margin-top: 30px;">
+                        </div>
+                    </div>
                 </div>
+            </div>
         </section>
+
+        <!-- Ad Slot: Middle -->
+        <div class="adsense-slot ads-middle" id="ad-mid">
+            <div style="color:var(--text-muted); font-size:0.7rem;">In-Content Advertisement Slot</div>
+        </div>
+
+        <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none; padding: 0;">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:40px;">
+                <div class="info-pill" style="padding: 30px; background: rgba(var(--p-hue), 100%, 100%, 0.02); border: 1px solid var(--border); border-radius: 20px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-file-image"></i> Batch Image Processing</h3>
+                    <p>Combine multiple JPG or PNG images into a single sorted PDF file for better document organization.</p>
+                </div>
+                <div class="info-pill" style="padding: 30px; background: rgba(var(--p-hue), 100%, 100%, 0.02); border: 1px solid var(--border); border-radius: 20px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-lock"></i> Zero Data Leakage</h3>
+                    <p>Your private photos never leave your machine. The PDF is generated locally inside your web browser.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px;">
+                <h2>How to Convert Images to PDF</h2>
+                <p>Follow these quick steps to create a PDF from your images:</p>
+                <ol style="color: var(--text-muted); line-height: 2; margin-left: 20px; margin-top: 20px;">
+                    <li><strong>Upload Images:</strong> Select one or more images you want to transform into a PDF.</li>
+                    <li><strong>Wait for Layout:</strong> The tool will automatically arrange images in the document flow.</li>
+                    <li><strong>Click Process:</strong> Use the "SECURE PROCESS" button to start the PDF generation.</li>
+                    <li><strong>Download Result:</strong> Save your newly created PDF file immediately.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Ad Slot: Bottom -->
+        <div class="adsense-slot ads-bottom" id="ad-bottom">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Footer Advertisement Slot</div>
+        </div>
     </main>
 
     <footer style="margin-top: 100px; background: var(--bg-card); border-top: 1px solid var(--border); padding: 60px 0;">
