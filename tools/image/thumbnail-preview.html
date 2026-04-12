@@ -53,16 +53,29 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Upload Your Image</label>
+    <label>Upload Image to Preview</label>
     <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
+        <i class="fas fa-tv" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
         <input type="file" id="fileInput" accept="image/*" style="display: none;">
     </div>
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
-        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">YouTube (120x68)</p>
+                <img id="thumbYT" style="width: 120px; height: 68px; object-fit: cover; border-radius: 5px; border: 1px solid var(--border);">
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Avatar (64x64)</p>
+                <img id="thumbAvatar" style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border);">
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Social (150x150)</p>
+                <img id="thumbSocial" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border);">
+            </div>
+        </div>
+        <img id="filePreview" style="display:none;">
     </div>
-    <!-- Add hidden text input for compatibility with logic check -->
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
@@ -95,7 +108,21 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>How to use the Thumbnail Preview Tool</h2>
+            
+        <h2>Check Your First Impression with Thumbnail Preview</h2>
+        <p>In the digital world, people *do* judge a book by its cover—and on the web, that cover is your thumbnail. Our <strong>Thumbnail Preview</strong> tool is an essential diagnostic utility for YouTubers, bloggers, and social media managers. It allows you to see exactly how your image will look when shrunk down to the tiny dimensions used by search engines, suggested video feeds, and social timelines. Ensure your text remains readable, your subject remains clear, and your colors remain vibrant even at a fraction of their original size.</p>
+        
+        <h3>Optimizing for the "Click" Factor</h3>
+        <p>A thumbnail can look great at full resolution but become a muddy mess when scaled down. This leads to lower click-through rates (CTR) and poor performance. Our previewer simulates various common platform constraints, helping you identify problems before you hit publish. If your "big announcement" text becomes a blur at 120 pixels, you know you need to increase the font size or contrast. It's about data-driven design—taking the guesswork out of your visual strategy and ensuring every post has the best possible chance of success.</p>
+        
+        <h3>Instant, Secure Previews in Your Browser</h3>
+        <p>Why upload your draft assets to a site just to see how they look? Our Thumbnail Previewer uses your local browser engine to handle all the scaling and rendering. This is the ultimate in privacy and speed. There's no data transmission to worry about, and no waiting for a server to process a preview. It's a "live" feel that lets you tweak your designs in your main editor and quickly refresh our tool to see the updated results. It's professional-grade asset testing for the modern, high-speed content creator.</p>
+        
+        <h3>Comprehensive Support for All Creators</h3>
+        <p>Whether you're building a massive YouTube channel or just want your blog posts to look better on Google search results, thumbnail optimization is key. Our tool supports JPG, PNG, and WebP, and provides previews for a wide range of standard aspect ratios. It's free, requires no account, and is built into the same premium, ad-friendly UI that powers our entire 100+ tool suite. Don't leave your first impression to chance—check it with MultiTools Hub and optimize for the clicks you deserve.</p>
+    
+            
+            <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Thumbnail Preview</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
             
             <h3>Secure & High-Speed Processing</h3>

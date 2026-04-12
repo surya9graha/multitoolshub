@@ -320,8 +320,14 @@ function initImageTools() {
             CURRENT_FILE = file;
             const reader = new FileReader();
             reader.onload = (e) => {
-                preview.src = e.target.result;
-                previewContainer.style.display = 'block';
+                if (preview) preview.src = e.target.result;
+                if (previewContainer) previewContainer.style.display = 'block';
+                
+                // Special for Thumbnail Preview
+                ['thumbYT', 'thumbAvatar', 'thumbSocial'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.src = e.target.result;
+                });
             };
             reader.readAsDataURL(file);
         }
@@ -342,42 +348,97 @@ function handleImageProcessing(tool) {
             let height = img.height;
             let format = 'image/png';
             let quality = 0.9;
+            let skipDraw = false;
 
-            // Handle specific tool logic
+            // Handle specific tool logic with USER INPUTS
             if (tool.includes('resizer')) {
-                width = width * 0.8; // Example: Resize to 80%
-                height = height * 0.8;
+                const targetW = parseInt(document.getElementById('targetWidth')?.value);
+                const targetH = parseInt(document.getElementById('targetHeight')?.value);
+                const keepAspect = document.getElementById('maintainAspect')?.checked;
+
+                if (targetW && targetH) {
+                    width = targetW;
+                    height = targetH;
+                } else if (targetW) {
+                    if (keepAspect) height = (targetW / img.width) * img.height;
+                    width = targetW;
+                } else if (targetH) {
+                    if (keepAspect) width = (targetH / img.height) * img.width;
+                    height = targetH;
+                }
             } else if (tool.includes('compressor')) {
-                quality = 0.5;
+                const qValue = parseInt(document.getElementById('compQuality')?.value) || 80;
+                quality = qValue / 100;
                 format = 'image/jpeg';
+            } else if (tool.includes('cropper')) {
+                // Default to 1:1 Square Crop From Center
+                const size = Math.min(img.width, img.height);
+                const sourceX = (img.width - size) / 2;
+                const sourceY = (img.height - size) / 2;
+                width = size;
+                height = size;
+                
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, sourceX, sourceY, size, size, 0, 0, size, size);
+                skipDraw = true;
             } else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
                 format = 'image/jpeg';
-            } else if (tool.includes('flipper')) {
-                // Horizontal flip handled in draw
             }
 
-            canvas.width = width;
-            canvas.height = height;
+            if (!skipDraw) {
+                canvas.width = width;
+                canvas.height = height;
 
-            // Apply Filters
-            if (tool.includes('blur')) ctx.filter = 'blur(5px)';
-            if (tool.includes('sharpen')) ctx.filter = 'contrast(1.5) brightness(1.1)';
-            if (tool.includes('grayscale')) ctx.filter = 'grayscale(100%)';
+                // Apply Filters
+                if (tool.includes('blur')) ctx.filter = 'blur(10px)';
+                if (tool.includes('sharpen')) ctx.filter = 'contrast(1.5) brightness(1.1) saturate(1.2)';
+                if (tool.includes('grayscale')) ctx.filter = 'grayscale(100%)';
 
-            // Transformations
-            if (tool.includes('flipper')) {
-                ctx.translate(width, 0);
-                ctx.scale(-1, 1);
+                // Transformations
+                if (tool.includes('flipper')) {
+                    ctx.translate(width, 0);
+                    ctx.scale(-1, 1);
+                }
+                if (tool.includes('rotator')) {
+                    canvas.width = height;
+                    canvas.height = width;
+                    ctx.translate(canvas.width / 2, canvas.height / 2);
+                    ctx.rotate(90 * Math.PI / 180);
+                    ctx.drawImage(img, -width / 2, -height / 2, width, height);
+                } else {
+                    ctx.drawImage(img, 0, 0, width, height);
+                }
+
+                // Overlays
+                if (tool.includes('watermark')) {
+                    const text = document.getElementById('watermarkText')?.value || "© MultiTools Hub";
+                    ctx.font = `${width * 0.05}px Arial`;
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                    ctx.textAlign = "right";
+                    ctx.fillText(text, width - 20, height - 20);
+                }
+
+                if (tool.includes('meme')) {
+                    const top = document.getElementById('memeTopText')?.value || "";
+                    const bottom = document.getElementById('memeBottomText')?.value || "";
+                    ctx.font = `bold ${width * 0.08}px Impact, Arial`;
+                    ctx.fillStyle = "white";
+                    ctx.strokeStyle = "black";
+                    ctx.lineWidth = width * 0.005;
+                    ctx.textAlign = "center";
+                    
+                    if (top) {
+                        ctx.fillText(top.toUpperCase(), width/2, height * 0.15);
+                        ctx.strokeText(top.toUpperCase(), width/2, height * 0.15);
+                    }
+                    if (bottom) {
+                        ctx.fillText(bottom.toUpperCase(), width/2, height * 0.9);
+                        ctx.strokeText(bottom.toUpperCase(), width/2, height * 0.9);
+                    }
+                }
             }
-            if (tool.includes('rotator')) {
-                canvas.width = height;
-                canvas.height = width;
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                ctx.rotate(90 * Math.PI / 180);
-                ctx.drawImage(img, -width / 2, -height / 2, width, height);
-            } else {
-                ctx.drawImage(img, 0, 0, width, height);
-            }
+
             
             const dataUrl = canvas.toDataURL(format, quality);
             const resultImg = document.getElementById('imageOutput');

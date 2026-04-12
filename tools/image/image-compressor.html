@@ -53,16 +53,23 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Upload Your Image</label>
+    <label>Upload Image to Compress</label>
     <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
+        <i class="fas fa-file-archive" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
         <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="margin-top: 30px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <label>Compression Quality</label>
+            <span id="qualityVal">80%</span>
+        </div>
+        <input type="range" id="compQuality" min="1" max="100" value="80" style="width: 100%; height: 6px; background: var(--border); border-radius: 5px; appearance: none; cursor: pointer;" oninput="document.getElementById('qualityVal').innerText = this.value + '%'">
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Lower quality results in smaller file sizes.</p>
     </div>
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
         <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
     </div>
-    <!-- Add hidden text input for compatibility with logic check -->
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
@@ -95,7 +102,21 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>How to use the Image Compressor Tool</h2>
+            
+        <h2>Optimizing Your Images for Ultimate Web Performance</h2>
+        <p>Our <strong>Image Compressor</strong> is a state-of-the-art utility developed specifically for web professionals who refuse to compromise between file size and visual quality. In an era where mobile browsing dominates, having a lightweight website is essential. Images typically account for over 60% of a webpage's total weight. By using our compressor, you can drastically reduce this overhead, leading to near-instantaneous load times and a significant boost in your SEO performance. This tool gives you full control over the compression intensity, allowing you to fine-tune your assets for any use case.</p>
+        
+        <h3>The Science of Modern Image Compression</h3>
+        <p>We utilize advanced lossy and lossless algorithms to strip away redundant data. Every image contains hidden information called metadata (like camera settings, GPS location, and timestamps) that adds bulk without affecting the visual output. Our tool intelligently removes this noise. Furthermore, our pixel-optimization algorithm identifies patterns and simplifies color data in ways that are imperceptible to the human eye but highly effective at reducing file sizes. You can achieve up to 90% reduction in KB/MB while keeping your images looking sharp and professional on high-resolution Retina displays.</p>
+        
+        <h3>Balance Quality and Size with Precision</h3>
+        <p>Unlike basic compressors that offer a simple "high/low" choice, our tool provides a granular quality slider. This allows you to visually inspect the trade-off in real-time. For a hero banner where every pixel counts, you might choose a 90% quality setting. For a small thumbnail or an archived photo, 60% might be more than enough to save massive amounts of storage space. This flexibility makes our tool indispensable for photographers managing large portfolios and e-commerce managers who need to optimize thousands of product photos quickly and efficiently.</p>
+        
+        <h3>A Privacy-First Workflow for the Modern Web</h3>
+        <p>Data security is a major concern in the digital age. Most online "cloud" compressors process your files on their own infrastructure, creating a privacy risk. MultiTools Hub takes a different approach. Every byte of compression happens locally in your browser. We never transmit your images over the internet. This design not only provides 100% security but also maximizes speed by avoiding upload and download wait times. Our tool is free, fast, and secure—giving you the professional results you need with the privacy you deserve.</p>
+    
+            
+            <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Image Compressor</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
             
             <h3>Secure & High-Speed Processing</h3>

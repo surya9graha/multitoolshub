@@ -53,16 +53,19 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Upload Your Image</label>
+    <label>Upload Image to Watermark</label>
     <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
+        <i class="fas fa-copyright" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
         <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="margin-top: 30px;">
+        <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Watermark Text</label>
+        <input type="text" id="watermarkText" class="form-control" placeholder="© 2026 MultiTools Hub" style="padding: 15px;">
     </div>
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
         <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
     </div>
-    <!-- Add hidden text input for compatibility with logic check -->
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
@@ -95,7 +98,21 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>How to use the Image Watermark Tool</h2>
+            
+        <h2>Claim Your Creative Ownership with Easy Watermarking</h2>
+        <p>Your work is your most valuable asset. Our <strong>Image Watermark</strong> tool is designed to help photographers, designers, and business owners protect their intellectual property with ease. By overlaying a logo or text onto your images, you create a permanent mark of ownership that makes unauthorized use much more difficult. Whether you need a subtle signature in the corner or a bold brand across the center, our tool provides the controls you need to secure your digital creations before they hit the open web.</p>
+        
+        <h3>Why Watermarking is Essential in the AI Era</h3>
+        <p>With the rise of image scraping and AI training, protecting your visual style and content has never been more important. A watermark doesn't just prevent theft; it also acts as a powerful passive marketing tool. Every time your image is shared on social media or featured on a blog, your brand name or website URL goes with it. Our tool allows you to customize the opacity, size, and position of your watermark, ensuring it provides protection without destroying the visual appeal of the underlying image. It's professional security for the modern creative economy.</p>
+        
+        <h3>Totally Private, Client-Side Watermarking</h3>
+        <p>Security tools shouldn't create new security risks. That's why our watermarking utility runs entirely in your local browser environment. We believe that your proprietary designs and private photos should never be uploaded to a third-party server. By processing the watermark on your own machine, we guarantee 100% privacy. This local execution also means the process is incredibly fast—there's no waiting for uploads to finish. You can watermark multiple files in minutes and download them immediately, ready for the world to see.</p>
+        
+        <h3>Simplified Protection for Professionals</h3>
+        <p>We've stripped away the complexity of traditional design software to give you a focused, high-speed watermarking experience. You don't need a degree in graphic design to protect your work. Simply upload your main photo, enter your text or upload your logo, and move it into place. It's the perfect solution for real estate agents, e-commerce sellers, and hobbyist creators who need professional results without the high cost and steep learning curve of "industry standard" apps. Secure your vision today with MultiTools Hub.</p>
+    
+            
+            <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Image Watermark</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
             
             <h3>Secure & High-Speed Processing</h3>

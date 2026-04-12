@@ -1,4 +1,5 @@
 import os
+from image_content import IMAGE_SEO_DATA
 
 # Base directory for the tools
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
@@ -136,7 +137,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>How to use the {title} Tool</h2>
+            {seo_content}
+            
+            <h2>Technical Details & Privacy</h2>
             <p>Our <strong>{title}</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
             
             <h3>Secure & High-Speed Processing</h3>
@@ -212,7 +215,128 @@ INPUT_FILE = """
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
         <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
     </div>
-    <!-- Add hidden text input for compatibility with logic check -->
+    <!-- Hidden text input for compatibility -->
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_MEME_GENERATOR = """
+<div class="input-group">
+    <label>Upload Base Image</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-laugh" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="margin-top: 30px; display: grid; gap: 20px;">
+        <input type="text" id="memeTopText" class="form-control" placeholder="Top Text (Optional)" style="padding: 15px; text-transform: uppercase;">
+        <input type="text" id="memeBottomText" class="form-control" placeholder="Bottom Text (Optional)" style="padding: 15px; text-transform: uppercase;">
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_IMAGE_WATERMARK = """
+<div class="input-group">
+    <label>Upload Image to Watermark</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-copyright" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="margin-top: 30px;">
+        <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Watermark Text</label>
+        <input type="text" id="watermarkText" class="form-control" placeholder="© 2026 MultiTools Hub" style="padding: 15px;">
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_THUMBNAIL_PREVIEW = """
+<div class="input-group">
+    <label>Upload Image to Preview</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-tv" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">YouTube (120x68)</p>
+                <img id="thumbYT" style="width: 120px; height: 68px; object-fit: cover; border-radius: 5px; border: 1px solid var(--border);">
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Avatar (64x64)</p>
+                <img id="thumbAvatar" style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border);">
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Social (150x150)</p>
+                <img id="thumbSocial" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border);">
+            </div>
+        </div>
+        <img id="filePreview" style="display:none;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_IMAGE_RESIZER = """
+<div class="input-group">
+    <label>Upload Image to Resize</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-expand-arrows-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+        <div>
+            <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Target Width (px)</label>
+            <input type="number" id="targetWidth" class="form-control" placeholder="Original Width" style="padding: 15px;">
+        </div>
+        <div>
+            <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Target Height (px)</label>
+            <input type="number" id="targetHeight" class="form-control" placeholder="Original Height" style="padding: 15px;">
+        </div>
+    </div>
+    <div style="margin-top: 20px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="maintainAspect" checked style="width: 20px; height: 20px;">
+            Maintain Aspect Ratio
+        </label>
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_IMAGE_COMPRESSOR = """
+<div class="input-group">
+    <label>Upload Image to Compress</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-file-archive" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="margin-top: 30px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <label>Compression Quality</label>
+            <span id="qualityVal">80%</span>
+        </div>
+        <input type="range" id="compQuality" min="1" max="100" value="80" style="width: 100%; height: 6px; background: var(--border); border-radius: 5px; appearance: none; cursor: pointer;" oninput="document.getElementById('qualityVal').innerText = this.value + '%'">
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Lower quality results in smaller file sizes.</p>
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    </div>
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 """
@@ -297,11 +421,27 @@ for category, tools in tools_data.items():
         file_name = f"{tool_name}.html"
         file_path = os.path.join(category_path, file_name)
         
+        # Decide specific input for image tools
+        current_input = dynamic_input
+        if tool_name == "image-resizer":
+            current_input = INPUT_IMAGE_RESIZER
+        elif tool_name == "image-compressor":
+            current_input = INPUT_IMAGE_COMPRESSOR
+        elif tool_name == "meme-generator":
+            current_input = INPUT_MEME_GENERATOR
+        elif tool_name == "image-watermark":
+            current_input = INPUT_IMAGE_WATERMARK
+        elif tool_name == "thumbnail-preview":
+            current_input = INPUT_THUMBNAIL_PREVIEW
+            
+        seo_content = IMAGE_SEO_DATA.get(tool_name, f"<h2>Maximize Results with our {title}</h2><p>Experience the power of professional digital tools right in your browser.</p>")
+        
         content = HTML_TEMPLATE.format(
             title=title,
             category_name=category.capitalize(),
             tool_name=tool_name,
-            dynamic_input=dynamic_input
+            dynamic_input=current_input,
+            seo_content=seo_content
         )
         
         with open(file_path, "w", encoding="utf-8") as f:

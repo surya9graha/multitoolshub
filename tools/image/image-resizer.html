@@ -53,16 +53,31 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Upload Your Image</label>
+    <label>Upload Image to Resize</label>
     <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
+        <i class="fas fa-expand-arrows-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Click or Drag Image</p>
         <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+        <div>
+            <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Target Width (px)</label>
+            <input type="number" id="targetWidth" class="form-control" placeholder="Original Width" style="padding: 15px;">
+        </div>
+        <div>
+            <label style="font-size: 0.9rem; margin-bottom: 10px; display: block;">Target Height (px)</label>
+            <input type="number" id="targetHeight" class="form-control" placeholder="Original Height" style="padding: 15px;">
+        </div>
+    </div>
+    <div style="margin-top: 20px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="maintainAspect" checked style="width: 20px; height: 20px;">
+            Maintain Aspect Ratio
+        </label>
     </div>
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
         <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
     </div>
-    <!-- Add hidden text input for compatibility with logic check -->
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
@@ -95,7 +110,21 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>How to use the Image Resizer Tool</h2>
+            
+        <h2>Professional Image Resizing for Every Digital Platform</h2>
+        <p>In today's fast-paced digital world, the importance of correct image dimensions cannot be overstated. Whether you are a social media influencer, a web developer, or a casual user, our <strong>Image Resizer</strong> is designed to provide you with a high-precision, lightning-fast solution for all your scaling needs. This tool is built on modern browser technologies, ensuring that your images are resized with the highest possible fidelity without ever leaving your device. Privacy and performance are our two biggest priorities, which is why we've eliminated the need for server-side uploads entirely.</p>
+        
+        <h3>Why Image Dimensions Matter for SEO and UX</h3>
+        <p>Search engines like Google place a heavy emphasis on page load speed as a ranking factor. Large, unoptimized images are often the primary cause of slow websites. If your image is 4000x4000 pixels but only displayed at 400x400, your visitors are wasting bandwidth and time downloading data they don't see. Our tool allows you to specify exact pixel dimensions for width and height, or maintain the aspect ratio to prevent distortion. By serving properly sized images, you significantly improve your site's Cumulative Layout Shift (CLS) and Core Web Vitals, leading to better search rankings and a much smoother user experience.</p>
+        
+        <h3>Advanced Scaling with Zero Data Risk</h3>
+        <p>Many online resizers require you to upload your files to their servers, where they could potentially be stored or misused. Our Image Resizer operates 100% client-side. We leverage the power of your browser's hardware acceleration to process images locally. This means we never see your photos, and they never leave your machine. Whether you're resizing sensitive documents, private family photos, or proprietary design assets, you can do so with complete peace of mind. Simply enter your desired dimensions, click process, and download your perfectly scaled image in milliseconds.</p>
+        
+        <h3>Perfect for Social Media and Web Design</h3>
+        <p>Each platform has its own set of rules. Instagram portraits need to be 1080x1350, YouTube thumbnails require 1280x720, and LinkedIn banners are ideally 1584x396. Memorizing these can be difficult, but our tool makes the adjustment process effortless. Beyond just social media, web designers can use our resizer to generate multiple versions of an asset for responsive 'srcset' implementations, ensuring that mobile users don't download desktop-sized files. Streamline your workflow and achieve professional results without the need for complex software like Photoshop.</p>
+    
+            
+            <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Image Resizer</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
             
             <h3>Secure & High-Speed Processing</h3>
