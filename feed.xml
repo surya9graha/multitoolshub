@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>MultiTools Hub Blog</title>
+  <link>https://multitoolshub.co.in/blog/index.html</link>
+  <description>Latest insights and guides on online tools, SEO, productivity, and developer utilities from MultiTools Hub.</description>
+  <language>en-us</language>
+  <lastBuildDate>Sun, 12 Apr 2026 10:21:00 +0000</lastBuildDate>
+  <atom:link href="https://multitoolshub.co.in/feed.xml" rel="self" type="application/rss+xml" />
+  
+  <item>
+    <title>Best Free Online Tools in 2026: The Ultimate List</title>
+    <link>https://multitoolshub.co.in/blog/best-free-online-tools-2026.html</link>
+    <guid>https://multitoolshub.co.in/blog/best-free-online-tools-2026.html</guid>
+    <pubDate>Sun, 12 Apr 2026 09:00:00 +0000</pubDate>
+    <description>Discover the most powerful free tools that are shaping the digital landscape in 2026. From AI assistants to advanced code editors.</description>
+  </item>
+
+  <item>
+    <title>Top Image Tools for Everyday Use: Edit Like a Pro</title>
+    <link>https://multitoolshub.co.in/blog/top-image-tools-everyday-use.html</link>
+    <guid>https://multitoolshub.co.in/blog/top-image-tools-everyday-use.html</guid>
+    <pubDate>Fri, 10 Apr 2026 09:00:00 +0000</pubDate>
+    <description>Transform your photos and graphics with these essential online image tools. No expensive software required.</description>
+  </item>
+
+  <item>
+    <title>Best SEO Tools for Beginners: Boost Your Rankings</title>
+    <link>https://multitoolshub.co.in/blog/best-seo-tools-beginners.html</link>
+    <guid>https://multitoolshub.co.in/blog/best-seo-tools-beginners.html</guid>
+    <pubDate>Wed, 08 Apr 2026 09:00:00 +0000</pubDate>
+    <description>New to SEO? These beginner-friendly tools will help you optimize your website and climb the search engine results.</description>
+  </item>
+
+  <item>
+    <title>Free Productivity Tools Online: Get More Done</title>
+    <link>https://multitoolshub.co.in/blog/free-productivity-tools-online.html</link>
+    <guid>https://multitoolshub.co.in/blog/free-productivity-tools-online.html</guid>
+    <pubDate>Sun, 05 Apr 2026 09:00:00 +0000</pubDate>
+    <description>Streamline your workflow and reclaim your time with these incredible free productivity boosters.</description>
+  </item>
+
+  <item>
+    <title>Must Have Developer Tools for Every Modern Coder</title>
+    <link>https://multitoolshub.co.in/blog/must-have-developer-tools.html</link>
+    <guid>https://multitoolshub.co.in/blog/must-have-developer-tools.html</guid>
+    <pubDate>Thu, 02 Apr 2026 09:00:00 +0000</pubDate>
+    <description>Enhance your coding efficiency with these essential tools for modern web and software development.</description>
+  </item>
+
+</channel>
+</rss>
