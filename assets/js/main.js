@@ -12,6 +12,7 @@ const TOOLS_DATA = {
         ["sharpen-image", "Sharpen Image", "Make your blurry images clearer."],
         ["image-watermark", "Image Watermark", "Add text or image watermarks to your photos."],
         ["remove-background", "Remove Background", "Remove image backgrounds using AI."],
+        ["grayscale-image", "Grayscale Image", "Convert your color photos to black and white."],
         ["meme-generator", "Meme Generator", "Create custom memes with your own images."],
         ["thumbnail-preview", "Thumbnail Preview", "Preview how your images look as thumbnails."]
     ],
@@ -182,6 +183,7 @@ function initToolGrid() {
         "image-resizer": "fas fa-expand-arrows-alt", "image-compressor": "fas fa-file-archive",
         "jpg-to-png": "fas fa-exchange-alt", "png-to-jpg": "fas fa-file-image",
         "webp-to-jpg": "fas fa-sync", "image-cropper": "fas fa-crop",
+        "grayscale-image": "fas fa-adjust",
         // CSS
         "gradient-generator": "fas fa-palette", "color-palette": "fas fa-swatchbook",
         "hex-to-rgb": "fas fa-fill-drip", "rgb-to-hex": "fas fa-tint",
@@ -285,17 +287,17 @@ function initToolEngine() {
             return;
         }
 
-        // Image Tool Routing
+        const isImageTool = h1.includes('resizer') || h1.includes('compressor') || h1.includes('cropper') || 
+                           h1.includes('rotator') || h1.includes('flipper') || h1.includes('blur') || 
+                           h1.includes('sharpen') || h1.includes('watermark') || h1.includes('meme') ||
+                           h1.includes('to jpg') || h1.includes('to png') || h1.includes('remove background') ||
+                           h1.includes('grayscale');
 
-        // Allow generators to run without input
-        const isGenerator = h1.includes('generator') || h1.includes('random') || h1.includes('lipsum') || h1.includes('clock') || h1.includes('timer');
-
-        if (!input && !CURRENT_FILE && !isGenerator) {
-            alert('Please provide input or upload a file!');
-            return;
+        if (isImageTool) {
+            handleImageProcessing(h1);
+        } else {
+            runCoreLogic(h1, input, output);
         }
-
-        runCoreLogic(h1, input, output);
     });
 }
 
@@ -382,8 +384,47 @@ function handleImageProcessing(tool) {
                 canvas.height = height;
                 ctx.drawImage(img, sourceX, sourceY, size, size, 0, 0, size, size);
                 skipDraw = true;
+            } else if (tool.includes('remove background')) {
+                const outputText = document.getElementById('toolOutput');
+                const removeFn = window.imglyRemoveBackground || (window.imgly && window.imgly.removeBackground);
+
+                if (typeof removeFn !== 'function') {
+                    alert('Background removal engine is still loading or could not be reached. Please check your internet connection and refresh the page.');
+                    return;
+                }
+                
+                if (outputText) {
+                    outputText.innerText = "AI Processing: Removing background... (First run takes 30-60s to download models)";
+                    outputText.style.color = "var(--primary)";
+                }
+                
+                removeFn(CURRENT_FILE).then((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const resultImg = document.getElementById('imageOutput');
+                    const resContainer = document.getElementById('imageResultContainer');
+                    const downloadBtn = document.getElementById('downloadBtn');
+
+                    if (resultImg) resultImg.src = url;
+                    if (resContainer) resContainer.style.display = 'block';
+                    if (outputText) outputText.innerText = "Background Removed Successfully! Clean subject cutout generated.";
+                    
+                    if (downloadBtn) {
+                        downloadBtn.style.display = 'inline-block';
+                        downloadBtn.onclick = () => {
+                            const link = document.createElement('a');
+                            link.download = `removed-bg-${Date.now()}.png`;
+                            link.href = url;
+                            link.click();
+                        };
+                    }
+                }).catch(err => {
+                    if (outputText) outputText.innerText = "Error: " + err.message;
+                });
+                return; // Async
             } else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
                 format = 'image/jpeg';
+            } else if (tool.includes('jpg to png')) {
+                format = 'image/png';
             }
 
             if (!skipDraw) {
