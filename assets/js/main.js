@@ -414,39 +414,68 @@ function handleImageProcessing(tool) {
                 skipDraw = true;
             } else if (tool.includes('remove background')) {
                 const outputText = document.getElementById('toolOutput');
-                const removeFn = window.imglyRemoveBackground || (window.imgly && window.imgly.removeBackground);
+                
+                // Comprehensive detection of the imgly background removal library
+                const removeFn = window.imglyRemoveBackground || 
+                                 (window.imgly && window.imgly.removeBackground) ||
+                                 (typeof imglyRemoveBackground !== 'undefined' ? imglyRemoveBackground : null);
 
-                if (typeof removeFn !== 'function') {
-                    alert('Background removal engine is still loading or could not be reached. Please check your internet connection.');
+                if (!removeFn || typeof removeFn !== 'function') {
+                    console.error("Background Removal Library not found. Globals:", {
+                        imglyRemoveBackground: typeof imglyRemoveBackground,
+                        imgly: typeof imgly
+                    });
+                    alert('Background removal engine is still loading or failed to load. Please refresh the page or check your connection.');
                     return;
                 }
                 
-                toggleLoader(true, "AI Removing Background... (First run takes 30-60s)");
+                toggleLoader(true, "AI Removing Background... (First run takes 30-60s to download models)");
                 
-                removeFn(CURRENT_FILE).then((blob) => {
+                // Detailed configuration for the library to ensure WASM files are found
+                const config = {
+                    publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/',
+                    progress: (item, index, total) => {
+                        const progressText = `AI Downloading Model: ${item} (${index}/${total})`;
+                        const loadingText = document.getElementById('loading-text');
+                        if (loadingText) loadingText.innerText = progressText;
+                    }
+                };
+
+                removeFn(CURRENT_FILE, config).then((blob) => {
                     const url = URL.createObjectURL(blob);
                     const resultImg = document.getElementById('imageOutput');
                     const resContainer = document.getElementById('imageResultContainer');
                     const downloadBtn = document.getElementById('downloadBtn');
 
-                    if (resultImg) resultImg.src = url;
+                    if (resultImg) {
+                        resultImg.src = url;
+                        resultImg.onload = () => toggleLoader(false);
+                    } else {
+                        toggleLoader(false);
+                    }
+                    
                     if (resContainer) resContainer.style.display = 'block';
-                    if (outputText) outputText.innerText = "Background Removed Successfully!";
+                    if (outputText) {
+                        outputText.innerText = "Background Removed Successfully! You can now preview and download your transparent PNG.";
+                        outputText.style.color = "var(--primary)";
+                    }
                     
                     if (downloadBtn) {
                         downloadBtn.style.display = 'inline-block';
                         downloadBtn.onclick = () => {
                             const link = document.createElement('a');
-                            link.download = `removed-bg-${Date.now()}.png`;
+                            link.download = `multitoolshub-removed-bg-${Date.now()}.png`;
                             link.href = url;
                             link.click();
                         };
                     }
-                    toggleLoader(false);
                 }).catch(err => {
-                    console.error(err);
-                    alert("Failed to remove background. Please try again with a simpler image.");
-                    if (outputText) outputText.innerText = "Error: " + err.message;
+                    console.error("Background Removal Error:", err);
+                    alert("Failed to remove background. Error: " + err.message + "\n\nTip: Ensure you have a stable internet connection for the first run.");
+                    if (outputText) {
+                        outputText.innerText = "Error: " + err.message + ". Please try again with a cleaner image.";
+                        outputText.style.color = "red";
+                    }
                     toggleLoader(false);
                 });
                 return; 
