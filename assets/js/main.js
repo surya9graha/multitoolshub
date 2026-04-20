@@ -319,8 +319,17 @@ function initImageTools() {
         if (files && files[0]) {
             const file = files[0];
             if (!file.type.startsWith('image/')) { alert('Please upload an image file!'); return; }
+            
+            // Performance: File Size Limit (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size exceeds 5MB limit. Please upload a smaller image for better performance.');
+                return;
+            }
+
             CURRENT_FILE = file;
             const reader = new FileReader();
+            
+            // Show local preview immediately
             reader.onload = (e) => {
                 if (preview) preview.src = e.target.result;
                 if (previewContainer) previewContainer.style.display = 'block';
@@ -334,6 +343,25 @@ function initImageTools() {
             reader.readAsDataURL(file);
         }
     }
+}
+
+// Global UI Helper for Performance & Feedback
+function toggleLoader(show, text = "Processing...") {
+    let loader = document.getElementById('global-loader');
+    if (!loader) {
+        loader = document.createElement('div');
+        loader.id = 'global-loader';
+        loader.className = 'loader-container';
+        loader.innerHTML = '<div class="spinner"></div><p id="loading-text">Processing...</p>';
+        const workspace = document.querySelector('.tool-workspace');
+        if (workspace) {
+            workspace.style.position = 'relative';
+            workspace.appendChild(loader);
+        }
+    }
+    const textEl = loader.querySelector('#loading-text');
+    if (textEl) textEl.innerText = text;
+    loader.style.display = show ? 'flex' : 'none';
 }
 
 function handleImageProcessing(tool) {
@@ -389,14 +417,11 @@ function handleImageProcessing(tool) {
                 const removeFn = window.imglyRemoveBackground || (window.imgly && window.imgly.removeBackground);
 
                 if (typeof removeFn !== 'function') {
-                    alert('Background removal engine is still loading or could not be reached. Please check your internet connection and refresh the page.');
+                    alert('Background removal engine is still loading or could not be reached. Please check your internet connection.');
                     return;
                 }
                 
-                if (outputText) {
-                    outputText.innerText = "AI Processing: Removing background... (First run takes 30-60s to download models)";
-                    outputText.style.color = "var(--primary)";
-                }
+                toggleLoader(true, "AI Removing Background... (First run takes 30-60s)");
                 
                 removeFn(CURRENT_FILE).then((blob) => {
                     const url = URL.createObjectURL(blob);
@@ -406,7 +431,7 @@ function handleImageProcessing(tool) {
 
                     if (resultImg) resultImg.src = url;
                     if (resContainer) resContainer.style.display = 'block';
-                    if (outputText) outputText.innerText = "Background Removed Successfully! Clean subject cutout generated.";
+                    if (outputText) outputText.innerText = "Background Removed Successfully!";
                     
                     if (downloadBtn) {
                         downloadBtn.style.display = 'inline-block';
@@ -417,15 +442,21 @@ function handleImageProcessing(tool) {
                             link.click();
                         };
                     }
+                    toggleLoader(false);
                 }).catch(err => {
+                    console.error(err);
+                    alert("Failed to remove background. Please try again with a simpler image.");
                     if (outputText) outputText.innerText = "Error: " + err.message;
+                    toggleLoader(false);
                 });
-                return; // Async
+                return; 
             } else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
                 format = 'image/jpeg';
             } else if (tool.includes('jpg to png')) {
                 format = 'image/png';
             }
+
+            toggleLoader(true, "Processing Image...");
 
             if (!skipDraw) {
                 canvas.width = width;
@@ -502,6 +533,7 @@ function handleImageProcessing(tool) {
                     link.click();
                 };
             }
+            toggleLoader(false);
         };
         img.src = e.target.result;
     };

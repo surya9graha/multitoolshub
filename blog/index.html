@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://www.multitoolshub.co.in/blog/index.html">
     <meta property="og:title" content="Blog | MultiTools Hub - Online Tool Insights & Guides">
     <meta property="og:description" content="Stay updated with the latest trends in online tools, SEO, productivity, and developer utilities.">
-    <meta property="og:image" content="https://www.multitoolshub.co.in/assets/img/blog/best-free-tools-2026.png">
+    <meta property="og:image" content="https://www.multitoolshub.co.in/assets/img/blog/top-ai-tools-2025.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,97 +24,25 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/ads.css">
     <style>
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .blog-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .blog-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .blog-card:hover .blog-image img {
-            transform: scale(1.1);
-        }
-
-        .blog-content {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .blog-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .blog-content h2 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            line-height: 1.3;
-        }
-
-        .blog-excerpt {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            font-weight: 700;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .read-more i {
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-
-        .blog-card:hover .read-more i {
-            transform: translateX(5px);
-        }
-
-        @media (max-width: 768px) {
-            .blog-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .category-tabs { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 40px 0; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
+        .blog-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, border-color 0.3s ease; text-decoration: none; color: inherit; }
+        .blog-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .blog-image { width: 100%; height: 220px; overflow: hidden; }
+        .blog-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .blog-card:hover .blog-image img { transform: scale(1.1); }
+        .blog-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .blog-category { font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: var(--primary); margin-bottom: 10px; letter-spacing: 1px; }
+        .blog-date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
+        .blog-content h2 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); line-height: 1.3; }
+        .blog-excerpt { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+        .read-more { display: inline-flex; align-items: center; color: var(--primary); font-weight: 700; gap: 8px; font-size: 0.9rem; }
+        .read-more i { font-size: 0.8rem; transition: transform 0.3s ease; }
+        .blog-card:hover .read-more i { transform: translateX(5px); }
+        .featured-post { margin-bottom: 60px; background: linear-gradient(135deg, var(--bg-card), rgba(var(--p-hue), 90%, 65%, 0.05)); border: 1px solid var(--border); border-radius: 40px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; text-decoration: none; color: inherit; transition: transform 0.3s ease; }
+        .featured-post:hover { transform: translateY(-5px); border-color: var(--primary); }
+        @media (max-width: 992px) { .featured-post { grid-template-columns: 1fr; } .featured-post .blog-image { height: 300px; } }
+        @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 
@@ -135,73 +63,93 @@
     </header>
 
     <main class="container">
-        <section class="hero-section" style="padding: 40px 0;">
+        <section class="hero-section" style="padding: 60px 0;">
             <h1>Our <span>Insights</span> & Guides</h1>
-            <p>Explore our latest articles on SEO, productivity, development, and the best online tools to supercharge your workflow.</p>
+            <p>Expert articles on SEO, AI, productivity, and tools to help you succeed in the digital landscape.</p>
         </section>
 
-        <div class="blog-grid">
-            <!-- Article 1 -->
-            <a href="best-free-online-tools-2026.html" class="blog-card">
-                <div class="blog-image">
-                    <img src="../assets/img/blog/best-free-tools-2026.png" alt="Best Free Online Tools 2026">
-                </div>
+        <!-- Featured Post -->
+        <a href="top-ai-tools-2025.html" class="featured-post">
+            <div class="blog-image" style="height: 100%;">
+                <img src="../assets/img/blog/top-ai-tools-2025.png" alt="Top AI Tools 2025">
+            </div>
+            <div class="blog-content" style="padding: 50px;">
+                <div class="blog-category">Featured Post • Technology</div>
+                <h2 style="font-size: 2.5rem;">Top 10 AI Tools You Should Use in 2025</h2>
+                <p class="blog-excerpt" style="font-size: 1.1rem;">Discover how artificial intelligence is reshaping the future of work and creativity. We've handpicked the absolute best AI utilities to supercharge your workflow this year.</p>
+                <div class="read-more">Read Full Guide <i class="fas fa-arrow-right"></i></div>
+            </div>
+        </a>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <div class="category-label active" data-category="all">All Insights</div>
+            <div class="category-label" data-category="tools">Tools</div>
+            <div class="category-label" data-category="tech">Technology</div>
+            <div class="category-label" data-category="design">Design</div>
+            <div class="category-label" data-category="edu">Education</div>
+            <div class="category-label" data-category="productivity">Productivity</div>
+        </div>
+
+        <div class="blog-grid" id="blogGrid">
+            <!-- New Posts -->
+            <a href="remove-background-online-guide.html" class="blog-card" data-category="design">
+                <div class="blog-image"><img src="../assets/img/blog/remove-background-online-guide.png" alt="Remove Background Guide"></div>
                 <div class="blog-content">
-                    <div class="blog-date">April 12, 2026</div>
+                    <div class="blog-category">Design & Guide</div>
+                    <h2>How to Remove Background from Image Online: 2026 Guide</h2>
+                    <p class="blog-excerpt">Learn the professional way to create transparent PNGs using AI-powered browser tools.</p>
+                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="free-tools-students-2025.html" class="blog-card" data-category="edu">
+                <div class="blog-image"><img src="../assets/img/blog/free-tools-students-2025.png" alt="Tools for Students"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Education</div>
+                    <h2>Best Free Online Tools for Students in 2025</h2>
+                    <p class="blog-excerpt">Improve your academic performance with these essential study and calculation aids.</p>
+                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="free-image-editing-2025.html" class="blog-card" data-category="design">
+                <div class="blog-image"><img src="../assets/img/blog/free-image-editing-2025.png" alt="Image Editing Tools"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Design</div>
+                    <h2>Free Image Editing Tools Online - No Subscription Needed</h2>
+                    <p class="blog-excerpt">Professional results without the expensive software. Master your visuals today.</p>
+                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="best-pdf-tools-free.html" class="blog-card" data-category="tools">
+                <div class="blog-image"><img src="../assets/img/blog/best-pdf-tools-free.png" alt="PDF Tools Free"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Tools</div>
+                    <h2>Best Online PDF Tools for Free: Ultimate Guide</h2>
+                    <p class="blog-excerpt">Manage your documentation securely. Merge, split, and compress like a pro.</p>
+                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="best-productivity-tools-2025.html" class="blog-card" data-category="productivity">
+                <div class="blog-image"><img src="../assets/img/blog/best-productivity-tools-2025.png" alt="Productivity Tools"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Productivity</div>
+                    <h2>Best Productivity Tools for Daily Use in 2025</h2>
+                    <p class="blog-excerpt">Master your schedule and reclaim your day with these incredibly useful utilities.</p>
+                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <!-- Existing Posts Icons (Manual Update) -->
+            <a href="best-free-online-tools-2026.html" class="blog-card" data-category="tools">
+                <div class="blog-image"><img src="../assets/img/blog/best-free-tools-2026.png" alt="Free Tools 2026"></div>
+                <div class="blog-content">
+                    <div class="blog-category">Tools</div>
                     <h2>Best Free Online Tools in 2026: The Ultimate List</h2>
-                    <p class="blog-excerpt">Discover the most powerful free tools that are shaping the digital landscape in 2026. From AI assistants to advanced code editors.</p>
-                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <!-- Article 2 -->
-            <a href="top-image-tools-everyday-use.html" class="blog-card">
-                <div class="blog-image">
-                    <img src="../assets/img/blog/top-image-tools.png" alt="Top Image Tools">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-date">April 10, 2026</div>
-                    <h2>Top Image Tools for Everyday Use: Edit Like a Pro</h2>
-                    <p class="blog-excerpt">Transform your photos and graphics with these essential online image tools. No expensive software required.</p>
-                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <!-- Article 3 -->
-            <a href="best-seo-tools-beginners.html" class="blog-card">
-                <div class="blog-image">
-                    <img src="../assets/img/blog/best-seo-tools.png" alt="Best SEO Tools for Beginners">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-date">April 08, 2026</div>
-                    <h2>Best SEO Tools for Beginners: Boost Your Rankings</h2>
-                    <p class="blog-excerpt">New to SEO? These beginner-friendly tools will help you optimize your website and climb the search engine results.</p>
-                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <!-- Article 4 -->
-            <a href="free-productivity-tools-online.html" class="blog-card">
-                <div class="blog-image">
-                    <img src="../assets/img/blog/productivity-tools.png" alt="Free Productivity Tools">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-date">April 05, 2026</div>
-                    <h2>Free Productivity Tools Online: Get More Done</h2>
-                    <p class="blog-excerpt">Streamline your workflow and reclaim your time with these incredible free productivity boosters.</p>
-                    <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <!-- Article 5 -->
-            <a href="must-have-developer-tools.html" class="blog-card">
-                <div class="blog-image">
-                    <img src="../assets/img/blog/developer-tools.png" alt="Must Have Developer Tools">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-date">April 02, 2026</div>
-                    <h2>Must Have Developer Tools for Every Modern Coder</h2>
-                    <p class="blog-excerpt">Enhance your coding efficiency with these essential tools for modern web and software development.</p>
+                    <p class="blog-excerpt">Discover the most powerful free tools that are shaping the digital landscape.</p>
                     <div class="read-more">Read More <i class="fas fa-arrow-right"></i></div>
                 </div>
             </a>
@@ -242,6 +190,23 @@
     </footer>
 
     <script src="../assets/js/main.js"></script>
+    <script>
+        // Blog Filter Logic
+        document.querySelectorAll('.category-label').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-label').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.getAttribute('data-category');
+                document.querySelectorAll('.blog-card').forEach(card => {
+                    if(cat === 'all' || card.getAttribute('data-category') === cat) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
