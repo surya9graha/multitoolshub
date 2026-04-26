@@ -141,11 +141,11 @@ body {
 .swipe-rail::-webkit-scrollbar { display: none; }
 
 .rail-card {
-   flex: 0 0 300px;
+   flex: 0 0 260px;
    background: var(--bg-card);
    border: 1px solid var(--border);
    border-radius: 30px;
-   padding: 30px;
+   padding: 25px;
    text-decoration: none;
    color: inherit;
    scroll-snap-align: start;
@@ -171,9 +171,16 @@ body {
     align-items: center;
 }
 
+.rail-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .rail-arrow {
-    width: 45px;
-    height: 45px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -183,17 +190,24 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 20;
+    box-shadow: var(--shadow);
 }
+
+.rail-arrow.prev { left: -20px; }
+.rail-arrow.next { right: -20px; }
 
 .rail-arrow:hover {
     background: var(--primary);
     border-color: var(--primary);
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-50%);
 }
 
-.see-all-link { color: var(--primary); text-decoration: none; font-weight: 700; margin-right: 20px; }
+/* Adjust hover transform because of absolute positioning translateY */
+.rail-arrow { top: 50%; transform: translateY(-50%); }
+
+.see-all-link { color: var(--primary); text-decoration: none; font-weight: 700; margin-right: 0; }
 
 /* Improved Rail Card for Blogs */
 .blog-rail-card {
@@ -203,7 +217,7 @@ body {
 
 .rail-card-img {
     width: 100%;
-    height: 160px;
+    height: 120px;
     overflow: hidden;
     border-radius: 25px 25px 0 0;
 }
@@ -324,9 +338,9 @@ body {
     .nav-links { display: none; }
     .hero-section h1 { font-size: 2.5rem; }
     .category-card { flex: 1 1 calc(50% - 20px); }
-    .rail-card { flex: 0 0 280px; padding: 20px; }
+    .rail-card { flex: 0 0 220px; padding: 15px; }
     .rail-header h2 { font-size: 1.5rem; }
-    .rail-arrow { width: 35px; height: 35px; font-size: 0.8rem; }
+    .rail-arrow { display: none; } /* Hide arrows on mobile, swipe is enough */
 }
 
 .btn-primary {

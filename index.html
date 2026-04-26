@@ -62,22 +62,22 @@
         <section class="content-rail-container" id="popular-tools">
             <div class="rail-header">
                 <h2>Popular Tools</h2>
-                <div class="rail-nav">
-                    <a href="#full-tools" class="see-all-link">View All <i class="fas fa-arrow-right"></i></a>
-                    <button class="rail-arrow" onclick="scrollRail('popularToolsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
-                    <button class="rail-arrow" onclick="scrollRail('popularToolsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
-                </div>
+                <a href="#full-tools" class="see-all-link">View All <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="swipe-rail" id="popularToolsRail">
-                <!-- Static Fallback for better UX while loading -->
-                <div class="rail-card">
-                    <div class="tool-visual" style="background: hsla(240, 90%, 65%, 0.1); height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-magic" style="font-size: 2.5rem; color: var(--primary);"></i>
+            <div class="rail-wrapper">
+                <button class="rail-arrow prev" onclick="scrollRail('popularToolsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                <div class="swipe-rail" id="popularToolsRail">
+                    <!-- Static Fallback for better UX while loading -->
+                    <div class="rail-card">
+                        <div class="tool-visual" style="background: hsla(240, 90%, 65%, 0.1); height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-magic" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        </div>
+                        <h3>Background Remover</h3>
+                        <p>Remove image backgrounds using AI instantly.</p>
+                        <div class="btn-small">Use Tool</div>
                     </div>
-                    <h3>Background Remover</h3>
-                    <p>Remove image backgrounds using AI instantly.</p>
-                    <div class="btn-small">Use Tool</div>
                 </div>
+                <button class="rail-arrow next" onclick="scrollRail('popularToolsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
 
@@ -85,14 +85,14 @@
         <section class="content-rail-container">
             <div class="rail-header">
                 <h2>Latest Blogs & Guides</h2>
-                <div class="rail-nav">
-                    <a href="blog/index.html" class="see-all-link">See All Blogs <i class="fas fa-arrow-right"></i></a>
-                    <button class="rail-arrow" onclick="scrollRail('latestBlogsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
-                    <button class="rail-arrow" onclick="scrollRail('latestBlogsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
-                </div>
+                <a href="blog/index.html" class="see-all-link">See All Blogs <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="swipe-rail" id="latestBlogsRail">
-                <!-- Populated by JS -->
+            <div class="rail-wrapper">
+                <button class="rail-arrow prev" onclick="scrollRail('latestBlogsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                <div class="swipe-rail" id="latestBlogsRail">
+                    <!-- Populated by JS -->
+                </div>
+                <button class="rail-arrow next" onclick="scrollRail('latestBlogsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
 
@@ -133,12 +133,12 @@
         <section class="content-rail-container">
             <div class="rail-header">
                 <h2>Trending Tutorials</h2>
-                <div class="rail-nav">
-                    <button class="rail-arrow" onclick="scrollRail('trendingGuidesRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
-                    <button class="rail-arrow" onclick="scrollRail('trendingGuidesRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
-                </div>
             </div>
-            <div class="swipe-rail" id="trendingGuidesRail"></div>
+            <div class="rail-wrapper">
+                <button class="rail-arrow prev" onclick="scrollRail('trendingGuidesRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                <div class="swipe-rail" id="trendingGuidesRail"></div>
+                <button class="rail-arrow next" onclick="scrollRail('trendingGuidesRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </section>
 
         <!-- Section 6: Full Tools Grid -->
