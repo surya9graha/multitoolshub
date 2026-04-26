@@ -394,4 +394,9 @@ header {
    .nav-links {
       display: none;
    }
+
+   .tool-workspace {
+      padding: 30px 20px;
+      border-radius: 25px;
+   }
 }
