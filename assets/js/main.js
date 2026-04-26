@@ -426,8 +426,8 @@ function handleImageProcessing(tool) {
                     return;
                 }
 
-                // Use Local AI by default if no API key logic is triggered
-                startLocalBackgroundRemoval(outputText);
+                // Use MediaPipe as local fallback
+                startMediaPipeBackgroundRemoval(outputText);
                 return; 
             }
  else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
@@ -887,7 +887,8 @@ function renderProcessedImage(blob, format, outputText) {
 
 async function handleRemoveBgAPI(key, output) {
     if (!CURRENT_FILE) return;
-    toggleLoader(true, "Contacting High-Precision API...");
+    showStatus("Contacting remove.bg API...", "info");
+    toggleLoader(true, "Cloud Processing...");
     
     const formData = new FormData();
     formData.append('image_file', CURRENT_FILE);
@@ -902,59 +903,163 @@ async function handleRemoveBgAPI(key, output) {
 
         if (response.ok) {
             const blob = await response.blob();
+            showStatus("API Success: Background Removed!", "success");
             renderProcessedImage(blob, "png", output);
         } else {
             const err = await response.json();
-            const errMsg = err.errors?.[0]?.title || "API Limit or Connection Issue";
-            throw new Error(errMsg);
+            throw new Error(err.errors?.[0]?.title || "API Limit reached");
         }
     } catch (e) {
-        console.warn("API Failed, falling back to Local AI:", e.message);
-        const loadingText = document.getElementById('loading-text');
-        if (loadingText) loadingText.innerText = "API Limit Reached. Starting Local AI Engine...";
-        
-        // Brief delay before starting local AI
-        setTimeout(() => {
-            startLocalBackgroundRemoval(output);
-        }, 1500);
+        console.warn("API Failed, falling back to MediaPipe:", e.message);
+        showStatus("API Failed: " + e.message + ". Switching to Backup AI...", "warning");
+        setTimeout(() => startMediaPipeBackgroundRemoval(output), 1500);
     }
 }
-function startLocalBackgroundRemoval(outputText) {
-    const removeFn = window.imglyRemoveBackground || 
-                     (window.imgly && window.imgly.removeBackground) ||
-                     (typeof imglyRemoveBackground !== 'undefined' ? imglyRemoveBackground : null);
 
-    if (!removeFn || typeof removeFn !== 'function') {
-        const fallbackLib = document.createElement('script');
-        fallbackLib.src = 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/index.js';
-        document.head.appendChild(fallbackLib);
+async function startMediaPipeBackgroundRemoval(output) {
+    if (!CURRENT_FILE) return;
+    toggleLoader(true, "Initializing Backup AI (MediaPipe)...");
+
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        img.onload = async () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
+            }});
+
+            selfieSegmentation.setOptions({ modelSelection: 1 });
+
+            selfieSegmentation.onResults((results) => {
+                ctx.save();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
+                
+                // Draw the subject through the mask
+                ctx.globalCompositeOperation = 'source-in';
+                ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+                canvas.toBlob((blob) => {
+                    showStatus("Local AI Success! You can now manually fine-tune with the brush.", "success");
+                    initManualErase(blob, img.src);
+                    toggleLoader(false);
+                }, 'image/png');
+            });
+
+            await selfieSegmentation.send({image: img});
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(CURRENT_FILE);
+}
+
+let EDIT_CTX = null;
+let IS_ERASING = false;
+let LAST_X = 0;
+let LAST_Y = 0;
+
+function initManualErase(blob, originalSrc) {
+    const canvas = document.getElementById('editCanvas');
+    const workArea = document.getElementById('workArea');
+    const controls = document.getElementById('editorControls');
+    const imgBefore = document.getElementById('imageBefore');
+    const output = document.getElementById('imageOutput');
+    const resContainer = document.getElementById('imageResultContainer');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    if (!canvas || !workArea) return;
+
+    controls.style.display = 'flex';
+    workArea.style.display = 'block';
+    if (resContainer) resContainer.style.display = 'none';
+    
+    imgBefore.src = originalSrc;
+    EDIT_CTX = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        EDIT_CTX.drawImage(img, 0, 0);
         
-        alert('Background removal engine is initializing. Please wait 5 seconds and try clicking Process again.');
-        return;
-    }
-    
-    toggleLoader(true, "AI Removing Background... (Initial run downloads models)");
-    
-    const config = {
-        publicPath: 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/',
-        fetchArgs: { mode: 'cors' },
-        progress: (item, index, total) => {
-            const progressPercent = Math.round((index / total) * 100);
-            const loadingText = document.getElementById('loading-text');
-            if (loadingText) loadingText.innerText = `AI Progress: ${progressPercent}% (${item})`;
+        // Sync download button with current canvas state
+        if (downloadBtn) {
+            downloadBtn.style.display = 'inline-block';
+            downloadBtn.onclick = () => {
+                const link = document.createElement('a');
+                link.download = `multitoolshub-final-${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
         }
     };
+    img.src = URL.createObjectURL(blob);
 
-    removeFn(CURRENT_FILE, config).then((blob) => {
-        renderProcessedImage(blob, "png", outputText);
-    }).catch(err => {
-        console.error("Local AI Error:", err);
-        let errorMsg = "Local removal failed. ";
-        if (err.message.includes('WASM')) errorMsg += "WASM not supported.";
-        else errorMsg += err.message;
+    // Canvas Events
+    canvas.onmousedown = (e) => {
+        IS_ERASING = true;
+        [LAST_X, LAST_Y] = getMousePos(canvas, e);
+    };
+    canvas.onmousemove = (e) => {
+        if (!IS_ERASING) return;
+        const [x, y] = getMousePos(canvas, e);
+        const radius = document.getElementById('brushSize').value || 30;
         
-        alert(errorMsg);
-        if (outputText) outputText.innerText = errorMsg;
-        toggleLoader(false);
-    });
+        EDIT_CTX.globalCompositeOperation = 'destination-out';
+        EDIT_CTX.beginPath();
+        EDIT_CTX.arc(x, y, radius / 2, 0, Math.PI * 2);
+        EDIT_CTX.fill();
+        
+        [LAST_X, LAST_Y] = [x, y];
+    };
+    window.onmouseup = () => IS_ERASING = false;
 }
+
+function getMousePos(canvas, evt) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return [
+        (evt.clientX - rect.left) * scaleX,
+        (evt.clientY - rect.top) * scaleY
+    ];
+}
+
+function showStatus(msg, type) {
+    const el = document.getElementById('statusMessage');
+    if (!el) return;
+    el.style.display = 'block';
+    el.innerText = msg;
+    el.style.background = type === 'success' ? 'rgba(76, 175, 80, 0.1)' : type === 'warning' ? 'rgba(255, 152, 0, 0.1)' : 'rgba(33, 150, 243, 0.1)';
+    el.style.color = type === 'success' ? '#4caf50' : type === 'warning' ? '#ff9800' : '#2196f3';
+    el.style.border = `1px solid ${el.style.color}`;
+}
+
+window.togglePreviewMode = function() {
+    const canvas = document.getElementById('editCanvas');
+    const imgBefore = document.getElementById('imageBefore');
+    if (imgBefore.style.display === 'none') {
+        imgBefore.style.display = 'block';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.opacity = '0.5';
+    } else {
+        imgBefore.style.display = 'none';
+        canvas.style.position = 'static';
+        canvas.style.opacity = '1';
+    }
+};
+
+document.getElementById('eraseToggle')?.addEventListener('click', function() {
+    this.classList.toggle('active');
+    const isActive = this.classList.contains('active');
+    this.innerHTML = isActive ? '<i class="fas fa-paint-brush"></i> Brush Active' : '<i class="fas fa-eraser"></i> Erase Mode';
+    this.style.background = isActive ? 'var(--primary)' : 'rgba(255,255,255,0.05)';
+});
