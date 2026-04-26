@@ -1110,3 +1110,15 @@ async function startMediaPipeBackgroundRemoval(output) {
 function showStatus(msg, type) {
     console.log(`[${type.toUpperCase()}] ${msg}`);
 }
+// Global Scroll Function for Rails
+function scrollRail(railId, direction) {
+    const rail = document.getElementById(railId);
+    if (!rail) return;
+    
+    const scrollAmount = rail.clientWidth * 0.8; // Scroll 80% of visible width
+    if (direction === 'left') {
+        rail.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        rail.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}

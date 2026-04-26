@@ -164,7 +164,82 @@ body {
 
 .rail-header h2 { font-family: 'Outfit', sans-serif; font-size: 2rem; }
 
-.see-all-link { color: var(--primary); text-decoration: none; font-weight: 700; }
+.rail-nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.rail-arrow {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.rail-arrow:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.see-all-link { color: var(--primary); text-decoration: none; font-weight: 700; margin-right: 20px; }
+
+/* Improved Rail Card for Blogs */
+.blog-rail-card {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.rail-card-img {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 25px 25px 0 0;
+}
+
+.rail-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rail-card-content {
+    padding: 20px;
+}
+
+.rail-card-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.rail-card-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.rail-card-content p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 /* Category Grid - FIXED FOR ROBUSTNESS */
 .category-grid {
@@ -247,7 +322,9 @@ body {
     .nav-links { display: none; }
     .hero-section h1 { font-size: 2.5rem; }
     .category-card { flex: 1 1 calc(50% - 20px); }
-    .rail-card { flex: 0 0 260px; }
+    .rail-card { flex: 0 0 280px; padding: 20px; }
+    .rail-header h2 { font-size: 1.5rem; }
+    .rail-arrow { width: 35px; height: 35px; font-size: 0.8rem; }
 }
 
 .btn-primary {

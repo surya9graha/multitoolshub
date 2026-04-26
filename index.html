@@ -62,7 +62,11 @@
         <section class="content-rail-container" id="popular-tools">
             <div class="rail-header">
                 <h2>Popular Tools</h2>
-                <a href="#full-tools" class="see-all-link">View All <i class="fas fa-arrow-right"></i></a>
+                <div class="rail-nav">
+                    <a href="#full-tools" class="see-all-link">View All <i class="fas fa-arrow-right"></i></a>
+                    <button class="rail-arrow" onclick="scrollRail('popularToolsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="rail-arrow" onclick="scrollRail('popularToolsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
             <div class="swipe-rail" id="popularToolsRail">
                 <!-- Static Fallback for better UX while loading -->
@@ -81,7 +85,11 @@
         <section class="content-rail-container">
             <div class="rail-header">
                 <h2>Latest Blogs & Guides</h2>
-                <a href="blog/index.html" class="see-all-link">See All Blogs <i class="fas fa-arrow-right"></i></a>
+                <div class="rail-nav">
+                    <a href="blog/index.html" class="see-all-link">See All Blogs <i class="fas fa-arrow-right"></i></a>
+                    <button class="rail-arrow" onclick="scrollRail('latestBlogsRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="rail-arrow" onclick="scrollRail('latestBlogsRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
             <div class="swipe-rail" id="latestBlogsRail">
                 <!-- Populated by JS -->
@@ -125,6 +133,10 @@
         <section class="content-rail-container">
             <div class="rail-header">
                 <h2>Trending Tutorials</h2>
+                <div class="rail-nav">
+                    <button class="rail-arrow" onclick="scrollRail('trendingGuidesRail', 'left')" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="rail-arrow" onclick="scrollRail('trendingGuidesRail', 'right')" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
             <div class="swipe-rail" id="trendingGuidesRail"></div>
         </section>
