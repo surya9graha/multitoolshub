@@ -414,77 +414,64 @@ function handleImageProcessing(tool) {
                 skipDraw = true;
             } else if (tool.includes('remove background')) {
                 const outputText = document.getElementById('toolOutput');
+                const apiKey = document.getElementById('removeBgApiKey')?.value;
                 
-                // Comprehensive detection of the imgly background removal library
+                // Fallback to remove.bg API if key is provided
+                if (apiKey && apiKey.trim().length > 10) {
+                    handleRemoveBgAPI(apiKey, outputText);
+                    return;
+                }
+
+                // AI Detection
                 const removeFn = window.imglyRemoveBackground || 
                                  (window.imgly && window.imgly.removeBackground) ||
                                  (typeof imglyRemoveBackground !== 'undefined' ? imglyRemoveBackground : null);
 
                 if (!removeFn || typeof removeFn !== 'function') {
-                    console.error("Background Removal Library not found. Globals:", {
-                        imglyRemoveBackground: typeof imglyRemoveBackground,
-                        imgly: typeof imgly
-                    });
-                    alert('Background removal engine is still loading or failed to load. Please refresh the page or check your connection.');
+                    const fallbackLib = document.createElement('script');
+                    fallbackLib.src = 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/index.js';
+                    document.head.appendChild(fallbackLib);
+                    
+                    alert('Background removal engine is initializing. Please wait 5 seconds and try clicking Process again.');
+                    console.warn("Library not found. Attempting to load from unpkg fallback.");
                     return;
                 }
                 
-                toggleLoader(true, "AI Removing Background... (First run takes 30-60s to download models)");
+                toggleLoader(true, "AI Removing Background... (First run downloads ~40MB models)");
                 
-                // Detailed configuration for the library to ensure WASM files are found
                 const config = {
-                    publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/',
+                    publicPath: 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/',
+                    fetchArgs: { mode: 'cors' },
                     progress: (item, index, total) => {
                         const progressPercent = Math.round((index / total) * 100);
-                        const progressText = `AI Downloading Model: ${progressPercent}% (${item})`;
                         const loadingText = document.getElementById('loading-text');
-                        if (loadingText) loadingText.innerText = progressText;
+                        if (loadingText) loadingText.innerText = `AI Charging: ${progressPercent}% (${item})`;
                     }
                 };
 
                 removeFn(CURRENT_FILE, config).then((blob) => {
-                    const url = URL.createObjectURL(blob);
-                    const resultImg = document.getElementById('imageOutput');
-                    const resContainer = document.getElementById('imageResultContainer');
-                    const downloadBtn = document.getElementById('downloadBtn');
-
-                    if (resultImg) {
-                        resultImg.src = url;
-                        resultImg.onload = () => {
-                            toggleLoader(false);
-                            if (resContainer) resContainer.style.display = 'block';
-                            if (outputText) {
-                                outputText.innerText = "Background Removed Successfully! You can now preview and download your transparent PNG.";
-                                outputText.style.color = "var(--primary)";
-                                outputText.style.display = 'block';
-                            }
-                        };
+                    renderProcessedImage(blob, "png", outputText);
+                }).catch(err => {
+                    console.error("AI Removal Error:", err);
+                    let errorMsg = "Failed to remove background. ";
+                    if (err.message.includes('WASM') || err.message.includes('WebGPU')) {
+                        errorMsg += "Your browser doesn't support the required AI acceleration (WASM/WebGPU). Try Chrome or Edge.";
+                    } else if (err.message.includes('fetch')) {
+                        errorMsg += "Network error downloading AI models. Please check your connection.";
                     } else {
-                        toggleLoader(false);
+                        errorMsg += "Error: " + err.message;
                     }
                     
-                    if (downloadBtn) {
-                        downloadBtn.style.display = 'inline-block';
-                        downloadBtn.onclick = () => {
-                            const link = document.createElement('a');
-                            link.download = `multitoolshub-removed-bg-${Date.now()}.png`;
-                            link.href = url;
-                            link.click();
-                        };
-                    }
-                }).catch(err => {
-                    console.error("Background Removal Error:", err);
-                    const errorMsg = "Failed to remove background. Please try again with a different image or check your connection.";
-                    alert(errorMsg + " (Error: " + err.message + ")");
+                    alert(errorMsg);
                     if (outputText) {
                         outputText.innerText = errorMsg;
                         outputText.style.color = "#ff4d4d";
-                        outputText.style.display = 'block';
                     }
                     toggleLoader(false);
                 });
                 return; 
-            } else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
+            }
+ else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
                 format = 'image/jpeg';
             } else if (tool.includes('jpg to png')) {
                 format = 'image/png';
@@ -906,4 +893,65 @@ window.copyToClipboard = function(id) {
         navigator.clipboard.writeText(txt).then(() => alert("Copied to clipboard!"));
     }
 };
+
+function renderProcessedImage(blob, format, outputText) {
+    const url = URL.createObjectURL(blob);
+    const resultImg = document.getElementById('imageOutput');
+    const resContainer = document.getElementById('imageResultContainer');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    if (resultImg) {
+        resultImg.src = url;
+        resultImg.onload = () => {
+            toggleLoader(false);
+            if (resContainer) resContainer.style.display = 'block';
+            if (outputText) {
+                outputText.innerText = "Processing Complete! Your transparent background image is ready.";
+                outputText.style.color = "var(--primary)";
+                outputText.style.display = 'block';
+            }
+        };
+    } else {
+        toggleLoader(false);
+    }
+    
+    if (downloadBtn) {
+        downloadBtn.style.display = 'inline-block';
+        downloadBtn.onclick = () => {
+            const link = document.createElement('a');
+            link.download = `multitoolshub-${Date.now()}.${format}`;
+            link.href = url;
+            link.click();
+        };
+    }
+}
+
+async function handleRemoveBgAPI(key, output) {
+    if (!CURRENT_FILE) return;
+    toggleLoader(true, "Contacting remove.bg API...");
+    
+    const formData = new FormData();
+    formData.append('image_file', CURRENT_FILE);
+    formData.append('size', 'auto');
+
+    try {
+        const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+            method: 'POST',
+            headers: { 'X-Api-Key': key },
+            body: formData
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            renderProcessedImage(blob, "png", output);
+        } else {
+            const err = await response.json();
+            throw new Error(err.errors[0].title || "API Error");
+        }
+    } catch (e) {
+        alert("Remove.bg API Error: " + e.message);
+        if (output) output.innerText = "API Error: " + e.message;
+        toggleLoader(false);
+    }
+}
 

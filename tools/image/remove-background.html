@@ -53,15 +53,29 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Upload Your Image</label>
-    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+    <label>Upload Your Image (JPG, PNG, WEBP • Max 5MB)</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: all 0.3s ease;">
         <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
-        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        <p style="font-weight: 600;">Drag & Drop or Click to Upload Image</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Supported: .jpg, .png, .webp (max 5MB)</p>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" style="display: none;">
     </div>
+    
     <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
-        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border); box-shadow: var(--shadow);">
     </div>
+
+    <!-- API Key Fallback (Optional) -->
+    <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 15px;">
+        <label style="font-size: 0.8rem; opacity: 0.7;"><i class="fas fa-key"></i> Optional: remove.bg API Key (Better for hair/complex edges)</label>
+        <input type="password" id="removeBgApiKey" placeholder="Enter API Key if Browser AI fails..." style="width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--text-main); padding: 10px 0; outline: none; font-size: 0.9rem;">
+    </div>
+
+    <!-- Diagnostic Info (Hidden) -->
+    <div id="diagnosticLog" style="display:none; margin-top: 20px; font-family: monospace; font-size: 0.7rem; color: #ffca28; padding: 10px; border: 1px solid #ffca28; border-radius: 10px;">
+        Diagnostic Mode: Detecting WebGPU/WASM...
+    </div>
+
     <!-- Hidden text input for compatibility -->
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
