@@ -545,7 +545,7 @@ function handleImageProcessing(tool) {
                     width = targetW;
                 } else if (targetH) {
                     if (keepAspect) width = (targetH / img.height) * img.width;
-                    height = targetH;
+                    width = targetH;
                 }
             } else if (tool.includes('compressor')) {
                 const qValue = parseInt(document.getElementById('compQuality')?.value) || 80;
@@ -994,8 +994,6 @@ function runCoreLogic(tool, input, output) {
 }
 
 
-
-
 window.copyToClipboard = function(id) {
     const el = document.getElementById(id);
     const txt = el ? (el.value || el.innerText) : "";
@@ -1088,19 +1086,13 @@ async function startMediaPipeBackgroundRemoval(output) {
             selfieSegmentation.setOptions({ modelSelection: 1 });
 
             selfieSegmentation.onResults((results) => {
-                ctx.save();
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
-                
-                // Draw the subject through the mask
                 ctx.globalCompositeOperation = 'source-in';
                 ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-
+                
                 canvas.toBlob((blob) => {
-                    showStatus("Local AI Success! You can now manually fine-tune with the brush.", "success");
-                    initManualErase(blob, img.src);
-                    toggleLoader(false);
+                    renderProcessedImage(blob, "png", output);
                 }, 'image/png');
             });
 
@@ -1111,106 +1103,6 @@ async function startMediaPipeBackgroundRemoval(output) {
     reader.readAsDataURL(CURRENT_FILE);
 }
 
-let EDIT_CTX = null;
-let IS_ERASING = false;
-let LAST_X = 0;
-let LAST_Y = 0;
-
-function initManualErase(blob, originalSrc) {
-    const canvas = document.getElementById('editCanvas');
-    const workArea = document.getElementById('workArea');
-    const controls = document.getElementById('editorControls');
-    const imgBefore = document.getElementById('imageBefore');
-    const output = document.getElementById('imageOutput');
-    const resContainer = document.getElementById('imageResultContainer');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    if (!canvas || !workArea) return;
-
-    controls.style.display = 'flex';
-    workArea.style.display = 'block';
-    if (resContainer) resContainer.style.display = 'none';
-    
-    imgBefore.src = originalSrc;
-    EDIT_CTX = canvas.getContext('2d');
-    const img = new Image();
-    img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        EDIT_CTX.drawImage(img, 0, 0);
-        
-        // Sync download button with current canvas state
-        if (downloadBtn) {
-            downloadBtn.style.display = 'inline-block';
-            downloadBtn.onclick = () => {
-                const link = document.createElement('a');
-                link.download = `multitoolshub-final-${Date.now()}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            };
-        }
-    };
-    img.src = URL.createObjectURL(blob);
-
-    // Canvas Events
-    canvas.onmousedown = (e) => {
-        IS_ERASING = true;
-        [LAST_X, LAST_Y] = getMousePos(canvas, e);
-    };
-    canvas.onmousemove = (e) => {
-        if (!IS_ERASING) return;
-        const [x, y] = getMousePos(canvas, e);
-        const radius = document.getElementById('brushSize').value || 30;
-        
-        EDIT_CTX.globalCompositeOperation = 'destination-out';
-        EDIT_CTX.beginPath();
-        EDIT_CTX.arc(x, y, radius / 2, 0, Math.PI * 2);
-        EDIT_CTX.fill();
-        
-        [LAST_X, LAST_Y] = [x, y];
-    };
-    window.onmouseup = () => IS_ERASING = false;
-}
-
-function getMousePos(canvas, evt) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    return [
-        (evt.clientX - rect.left) * scaleX,
-        (evt.clientY - rect.top) * scaleY
-    ];
-}
-
 function showStatus(msg, type) {
-    const el = document.getElementById('statusMessage');
-    if (!el) return;
-    el.style.display = 'block';
-    el.innerText = msg;
-    el.style.background = type === 'success' ? 'rgba(76, 175, 80, 0.1)' : type === 'warning' ? 'rgba(255, 152, 0, 0.1)' : 'rgba(33, 150, 243, 0.1)';
-    el.style.color = type === 'success' ? '#4caf50' : type === 'warning' ? '#ff9800' : '#2196f3';
-    el.style.border = `1px solid ${el.style.color}`;
+    console.log(`[${type.toUpperCase()}] ${msg}`);
 }
-
-window.togglePreviewMode = function() {
-    const canvas = document.getElementById('editCanvas');
-    const imgBefore = document.getElementById('imageBefore');
-    if (imgBefore.style.display === 'none') {
-        imgBefore.style.display = 'block';
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.opacity = '0.5';
-    } else {
-        imgBefore.style.display = 'none';
-        canvas.style.position = 'static';
-        canvas.style.opacity = '1';
-    }
-};
-
-document.getElementById('eraseToggle')?.addEventListener('click', function() {
-    this.classList.toggle('active');
-    const isActive = this.classList.contains('active');
-    this.innerHTML = isActive ? '<i class="fas fa-paint-brush"></i> Brush Active' : '<i class="fas fa-eraser"></i> Erase Mode';
-    this.style.background = isActive ? 'var(--primary)' : 'rgba(255,255,255,0.05)';
-});
