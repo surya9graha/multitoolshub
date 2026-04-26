@@ -417,7 +417,7 @@ function handleImageProcessing(tool) {
                 let apiKey = document.getElementById('removeBgApiKey')?.value;
                 
                 // Use the provided default key if none entered by the user
-                const DEFAULT_KEY = "sk_pr_default_f5e95a0dc195bc9a6062dac11c6c8e18309b1694";
+                const DEFAULT_KEY = "na25qhAMojbheofRFMapnLBD";
                 if (!apiKey || apiKey.trim().length < 5) apiKey = DEFAULT_KEY;
 
                 // Fallback to remove.bg API
