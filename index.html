@@ -15,9 +15,9 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiTools Hub | 100+ Professional Online Tools</title>
+    <title>MultiTools Hub | Free Online Tools for Image, AI, PDF & Productivity</title>
     <meta name="description"
-        content="Free, fast, and SEO-optimized collection of 100+ professional tools. Modern UI with dark mode, glassmorphism, and instant search.">
+        content="Access 100+ free online tools for image editing, PDF, AI writing, SEO, and productivity. Fast, secure, and mobile-friendly with Hotstar-style content rails.">
     <link rel="canonical" href="https://www.multitoolshub.co.in/index.html">
     
     <!-- Open Graph / Facebook -->
@@ -39,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap"
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,41 +60,8 @@
         }
 
         @keyframes moveGradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .category-label.active {
-            box-shadow: 0 0 20px rgba(51, 51, 255, 0.4);
-            border-color: #3333ff;
-            background: var(--primary);
-            color: white;
-        }
-
-        .tool-card:hover i {
-            animation: pulseIcon 1.5s infinite;
-        }
-
-        @keyframes pulseIcon {
-            0% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 0 rgba(51, 51, 255, 0));
-            }
-
-            50% {
-                transform: scale(1.1);
-                filter: drop-shadow(0 0 15px rgba(51, 51, 255, 0.5));
-            }
-
-            100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 0 rgba(51, 51, 255, 0));
-            }
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
     </style>
 </head>
@@ -118,25 +85,114 @@
     </header>
 
     <main class="container">
-        <!-- Ad Slot: Top -->
-        <div class="adsense-slot ads-top" id="ad-top">
-            <div style="color:var(--text-muted); font-size:0.7rem;">Top Advertisement Slot</div>
-        </div>
-
-        <section class="hero-section">
-            <h1>Expert Tools for <span>Digital Creators</span></h1>
-            <p>A massive collection of over 100 functional tools built for performance, privacy, and speed. All tools
-                run 100% client-side in your browser.</p>
+        <!-- Section 1: Hero Section -->
+        <section class="hero-section fade-in">
+            <h1>Free Online Tools for <span>Image, AI, PDF & Productivity</span></h1>
+            <p>Professional, fast, and secure client-side utilities built for digital creators. No signup, no fees, just performance.</p>
 
             <div class="search-wrapper">
                 <i class="fas fa-search"></i>
                 <input type="text" id="toolSearch"
-                    placeholder="Search for tools (e.g. JSON Formatter, Image Resizer)...">
+                    placeholder="Search for tools (e.g. Background Remover, PDF Merge)...">
             </div>
 
-            <div class="category-tabs">
+            <div class="hero-btns">
+                <a href="#popular-tools" class="btn-primary">Explore Tools</a>
+                <a href="blog/index.html" class="btn-secondary">Latest Blogs</a>
+            </div>
+        </section>
+
+        <!-- Ad Slot 1: After Hero -->
+        <div class="adsense-slot" id="ad-hero">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Advertisement</div>
+            <!-- AdSense Code Here -->
+        </div>
+
+        <!-- Section 2: Popular Tools Swipe Rail -->
+        <section class="content-rail-container" id="popular-tools">
+            <div class="rail-header">
+                <h2>Popular Tools</h2>
+                <a href="#full-tools" class="see-all-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="swipe-rail" id="popularToolsRail">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Section 3: Latest Blogs Swipe Rail -->
+        <section class="content-rail-container">
+            <div class="rail-header">
+                <h2>Latest Blogs & Guides</h2>
+                <a href="blog/index.html" class="see-all-link">See All Blogs <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="swipe-rail" id="latestBlogsRail">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Ad Slot 2: Between Blogs and Categories -->
+        <div class="adsense-slot" id="ad-mid">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Advertisement</div>
+        </div>
+
+        <!-- Section 4: Featured Categories -->
+        <section class="content-rail-container">
+            <div class="rail-header">
+                <h2>Explore Categories</h2>
+            </div>
+            <div class="category-grid">
+                <a href="#full-tools" class="category-card" onclick="filterCategory('ai')">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Tools</h3>
+                </a>
+                <a href="#full-tools" class="category-card" onclick="filterCategory('image')">
+                    <i class="fas fa-image"></i>
+                    <h3>Image Tools</h3>
+                </a>
+                <a href="#full-tools" class="category-card" onclick="filterCategory('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>PDF Tools</h3>
+                </a>
+                <a href="#full-tools" class="category-card" onclick="filterCategory('seo')">
+                    <i class="fas fa-search-dollar"></i>
+                    <h3>SEO Tools</h3>
+                </a>
+                <a href="#full-tools" class="category-card" onclick="filterCategory('productivity')">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Productivity</h3>
+                </a>
+                <a href="#full-tools" class="category-card" onclick="filterCategory('dev')">
+                    <i class="fas fa-code"></i>
+                    <h3>Developer</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 5: Trending Guides Swipe Rail -->
+        <section class="content-rail-container">
+            <div class="rail-header">
+                <h2>Trending Tutorials</h2>
+            </div>
+            <div class="swipe-rail" id="trendingGuidesRail">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Ad Slot 3: Between Trending and Tools Grid -->
+        <div class="adsense-slot" id="ad-bottom">
+            <div style="color:var(--text-muted); font-size:0.7rem;">Advertisement</div>
+        </div>
+
+        <!-- Section 6: Full Tools Grid -->
+        <section id="full-tools" style="padding-top: 80px;">
+            <div class="rail-header">
+                <h2>All Professional Tools</h2>
+            </div>
+            <div class="category-tabs" id="categoryTabs">
                 <div class="category-label active" data-category="all">All Tools</div>
                 <div class="category-label" data-category="image">Image</div>
+                <div class="category-label" data-category="ai">AI Tools</div>
+                <div class="category-label" data-category="pdf">PDF Tools</div>
                 <div class="category-label" data-category="text">Text</div>
                 <div class="category-label" data-category="dev">Developer</div>
                 <div class="category-label" data-category="css">CSS</div>
@@ -144,21 +200,39 @@
                 <div class="category-label" data-category="security">Security</div>
                 <div class="category-label" data-category="seo">SEO</div>
                 <div class="category-label" data-category="web">Web</div>
-                <div class="category-label" data-category="pdf">PDF Tools</div>
                 <div class="category-label" data-category="time">Time</div>
                 <div class="category-label" data-category="misc">Misc</div>
             </div>
+            <div class="tool-grid" id="toolContainer">
+                <!-- Dynamically populated by main.js -->
+            </div>
         </section>
 
-        <section class="tool-grid" id="toolContainer">
-            <!-- Dynamically populated by main.js -->
+        <!-- Section 7: Why Choose Us -->
+        <section class="trust-section">
+            <div class="trust-card">
+                <i class="fas fa-gift"></i>
+                <h4>100% Free Tools</h4>
+                <p>No subscriptions, no hidden costs. All tools are free to use forever.</p>
+            </div>
+            <div class="trust-card">
+                <i class="fas fa-user-shield"></i>
+                <h4>No Signup Required</h4>
+                <p>Respecting your privacy. No registration or personal data needed.</p>
+            </div>
+            <div class="trust-card">
+                <i class="fas fa-bolt"></i>
+                <h4>Fast Processing</h4>
+                <p>Lightning fast client-side execution. Your data never leaves your device.</p>
+            </div>
+            <div class="trust-card">
+                <i class="fas fa-lock"></i>
+                <h4>Secure & Private</h4>
+                <p>Industry standard security protocols to ensure your data stays safe.</p>
+            </div>
         </section>
 
-        <!-- Ad Slot: Middle -->
-        <div class="adsense-slot ads-middle" id="ad-mid">
-            <div style="color:var(--text-muted); font-size:0.7rem;">In-Content Advertisement Slot</div>
-        </div>
-
+        <!-- SEO Content -->
         <section class="seo-content tool-workspace" style="margin-bottom: 50px;">
             <h2>Your Ultimate Multi-Tool Powerhouse</h2>
             <p>Welcome to <strong>MultiTools Hub</strong>, where performance meets privacy. Our platform hosts a
@@ -168,11 +242,6 @@
             <p>We leverage modern JavaScript and CSS to provide a lightning-fast experience. Unlike other tool hubs, we
                 use no server-side processing for tool logic, ensuring your private data never leaves your device.</p>
         </section>
-
-        <!-- Ad Slot: Bottom -->
-        <div class="adsense-slot ads-bottom" id="ad-bottom">
-            <div style="color:var(--text-muted); font-size:0.7rem;">Footer Advertisement Slot</div>
-        </div>
     </main>
 
     <footer
@@ -213,6 +282,16 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/ads.js"></script>
+    <script>
+        function filterCategory(cat) {
+            const tabs = document.querySelectorAll('.category-label');
+            tabs.forEach(t => {
+                if(t.getAttribute('data-category') === cat) {
+                    t.click();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -153,6 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategoryFilter();
     initToolEngine();
     initImageTools();
+    
+    // New Initializations for Redesigned Homepage
+    initPopularToolsRail();
+    initLatestBlogsRail();
+    initTrendingGuidesRail();
 });
 
 function initTheme() {
@@ -183,7 +188,7 @@ function initToolGrid() {
         "image-resizer": "fas fa-expand-arrows-alt", "image-compressor": "fas fa-file-archive",
         "jpg-to-png": "fas fa-exchange-alt", "png-to-jpg": "fas fa-file-image",
         "webp-to-jpg": "fas fa-sync", "image-cropper": "fas fa-crop",
-        "grayscale-image": "fas fa-adjust",
+        "grayscale-image": "fas fa-adjust", "remove-background": "fas fa-magic",
         // CSS
         "gradient-generator": "fas fa-palette", "color-palette": "fas fa-swatchbook",
         "hex-to-rgb": "fas fa-fill-drip", "rgb-to-hex": "fas fa-tint",
@@ -201,7 +206,9 @@ function initToolGrid() {
         "credit-card-validator": "fas fa-credit-card", "password-strength": "fas fa-shield-virus",
         // SEO
         "meta-tag-generator": "fas fa-tags", "og-generator": "fas fa-share-alt",
-        "robots-generator": "fas fa-robot", "keyword-density": "fas fa-font",
+        "robots-generator": "fas fa-robot", "keyword-density": "fas fa-search-dollar",
+        // Text
+        "word-counter": "fas fa-file-alt",
         // Time
         "timestamp-converter": "fas fa-history", "countdown-timer": "fas fa-hourglass-half",
         "stopwatch": "fas fa-stopwatch", "world-clock": "fas fa-clock",
@@ -241,6 +248,150 @@ function initToolGrid() {
             `;
             container.appendChild(card);
         });
+    });
+}
+
+function initPopularToolsRail() {
+    const rail = document.getElementById('popularToolsRail');
+    if (!rail) return;
+    
+    const popularTools = [
+        ["image", "remove-background", "Background Remover", "Remove image backgrounds using AI.", "fas fa-magic"],
+        ["image", "image-compressor", "Image Compressor", "Reduce image file size while keeping quality.", "fas fa-file-archive"],
+        ["pdf", "merge-pdf", "PDF Merge", "Combine multiple PDF files into one.", "fas fa-layer-group"],
+        ["text", "word-counter", "Word Counter", "Count words and characters instantly.", "fas fa-file-alt"],
+        ["security", "qr-generator", "QR Generator", "Create custom QR codes instantly.", "fas fa-qrcode"],
+        ["seo", "keyword-density", "Keyword Tool", "Analyze keyword frequency in your content.", "fas fa-search-dollar"]
+    ];
+
+    popularTools.forEach(([cat, id, name, desc, icon]) => {
+        const card = document.createElement('a');
+        card.href = `tools/${cat}/${id}.html`;
+        card.className = 'rail-card';
+        card.innerHTML = `
+            <div class="tool-visual" style="background: hsla(var(--p-hue), 90%, 65%, 0.1); height: 100px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="${icon}" style="font-size: 2.5rem; color: var(--primary);"></i>
+            </div>
+            <h3>${name}</h3>
+            <p>${desc}</p>
+            <div class="btn-small">Use Tool</div>
+        `;
+        rail.appendChild(card);
+    });
+}
+
+function initLatestBlogsRail() {
+    const rail = document.getElementById('latestBlogsRail');
+    if (!rail) return;
+
+    const blogs = [
+        {
+            title: "Mastering SGE SEO 2026: Ultimate Strategy",
+            excerpt: "Learn how to optimize for Google's AI search experience and dominate the new digital landscape.",
+            img: "assets/img/blog/mastering-sge-seo-2026.png",
+            url: "blog/mastering-sge-seo-2026.html",
+            tag: "SEO & AI"
+        },
+        {
+            title: "Best AI Video Tools for Creators in 2026",
+            excerpt: "Create viral content in minutes. Review the top AI tools for text-to-video and avatars.",
+            img: "assets/img/blog/best-ai-writing-tools-2026.png",
+            url: "blog/best-ai-video-tools-2026.html",
+            tag: "Video • AI"
+        },
+        {
+            title: "International Tax Planning for Nomads 2026",
+            excerpt: "Explore legal ways to optimize your global footprint and keep more of what you earn.",
+            img: "assets/img/blog/nomad-health-insurance-2026.png",
+            url: "blog/nomad-tax-planning-2026.html",
+            tag: "Tax • Finance"
+        },
+        {
+            title: "High-Performance Cloud Computing in 2026",
+            excerpt: "AWS vs. Azure vs. Google Cloud. Choose the right provider for your small business.",
+            img: "assets/img/blog/best-cloud-storage-2026.png",
+            url: "blog/cloud-computing-2026.html",
+            tag: "Cloud • Tech"
+        },
+        {
+            title: "AI-Driven Sales Automation for 2026",
+            excerpt: "Close more deals using AI for lead gen, outreach, and CRM mastery.",
+            img: "assets/img/blog/best-ai-crm-tools-2026.png",
+            url: "blog/sales-automation-2026.html",
+            tag: "Sales • AI"
+        },
+        {
+            title: "Future of Professional Photography in 2026",
+            excerpt: "Explore how AI is transforming photography, from computational imaging to new models.",
+            img: "assets/img/blog/start-freelancing-2026.png",
+            url: "blog/photography-future-2026.html",
+            tag: "Photography"
+        }
+    ];
+
+    blogs.forEach(blog => {
+        const card = document.createElement('a');
+        card.href = blog.url;
+        card.className = 'rail-card blog-rail-card';
+        card.innerHTML = `
+            <div class="rail-card-img">
+                <img src="${blog.img}" alt="${blog.title}" loading="lazy">
+            </div>
+            <div class="rail-card-content">
+                <div class="rail-card-tag">${blog.tag}</div>
+                <h3>${blog.title}</h3>
+                <p>${blog.excerpt}</p>
+                <div class="btn-small">Read More</div>
+            </div>
+        `;
+        rail.appendChild(card);
+    });
+}
+
+function initTrendingGuidesRail() {
+    const rail = document.getElementById('trendingGuidesRail');
+    if (!rail) return;
+
+    const guides = [
+        {
+            title: "How to Start Freelancing in 2026",
+            excerpt: "Step-by-step roadmap to launching a successful freelance career.",
+            img: "assets/img/blog/start-freelancing-2026.png",
+            url: "blog/how-to-start-freelancing-2026.html",
+            tag: "Freelancing"
+        },
+        {
+            title: "Best Business Credit Cards for Startups",
+            excerpt: "Maximize rewards and cash flow with the right business card in 2026.",
+            img: "assets/img/blog/best-business-credit-cards-2026.png",
+            url: "blog/best-business-credit-cards-2026.html",
+            tag: "Finance"
+        },
+        {
+            title: "E-commerce SEO Guide 2026: Rank #1",
+            excerpt: "Dominate search results with AI optimization and high-converting pages.",
+            img: "assets/img/blog/ecommerce-seo-2026.png",
+            url: "blog/ecommerce-seo-2026.html",
+            tag: "E-commerce"
+        }
+    ];
+
+    guides.forEach(guide => {
+        const card = document.createElement('a');
+        card.href = guide.url;
+        card.className = 'rail-card blog-rail-card';
+        card.innerHTML = `
+            <div class="rail-card-img">
+                <img src="${guide.img}" alt="${guide.title}" loading="lazy">
+            </div>
+            <div class="rail-card-content">
+                <div class="rail-card-tag">${guide.tag}</div>
+                <h3>${guide.title}</h3>
+                <p>${guide.excerpt}</p>
+                <div class="btn-small">Learn Now</div>
+            </div>
+        `;
+        rail.appendChild(card);
     });
 }
 

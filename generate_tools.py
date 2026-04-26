@@ -86,6 +86,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 <li><a href="../../contact.html">Contact</a></li>
                 <li><a href="../../sitemap.html">Sitemap</a></li>
             </ul>
+            <button class="theme-btn" id="themeSwitch" title="Toggle Dark/Light Mode">
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
     </header>
 
