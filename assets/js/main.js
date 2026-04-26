@@ -433,9 +433,10 @@ function handleImageProcessing(tool) {
                 
                 // Detailed configuration for the library to ensure WASM files are found
                 const config = {
-                    publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/',
+                    publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/',
                     progress: (item, index, total) => {
-                        const progressText = `AI Downloading Model: ${item} (${index}/${total})`;
+                        const progressPercent = Math.round((index / total) * 100);
+                        const progressText = `AI Downloading Model: ${progressPercent}% (${item})`;
                         const loadingText = document.getElementById('loading-text');
                         if (loadingText) loadingText.innerText = progressText;
                     }
@@ -449,15 +450,17 @@ function handleImageProcessing(tool) {
 
                     if (resultImg) {
                         resultImg.src = url;
-                        resultImg.onload = () => toggleLoader(false);
+                        resultImg.onload = () => {
+                            toggleLoader(false);
+                            if (resContainer) resContainer.style.display = 'block';
+                            if (outputText) {
+                                outputText.innerText = "Background Removed Successfully! You can now preview and download your transparent PNG.";
+                                outputText.style.color = "var(--primary)";
+                                outputText.style.display = 'block';
+                            }
+                        };
                     } else {
                         toggleLoader(false);
-                    }
-                    
-                    if (resContainer) resContainer.style.display = 'block';
-                    if (outputText) {
-                        outputText.innerText = "Background Removed Successfully! You can now preview and download your transparent PNG.";
-                        outputText.style.color = "var(--primary)";
                     }
                     
                     if (downloadBtn) {
@@ -471,10 +474,12 @@ function handleImageProcessing(tool) {
                     }
                 }).catch(err => {
                     console.error("Background Removal Error:", err);
-                    alert("Failed to remove background. Error: " + err.message + "\n\nTip: Ensure you have a stable internet connection for the first run.");
+                    const errorMsg = "Failed to remove background. Please try again with a different image or check your connection.";
+                    alert(errorMsg + " (Error: " + err.message + ")");
                     if (outputText) {
-                        outputText.innerText = "Error: " + err.message + ". Please try again with a cleaner image.";
-                        outputText.style.color = "red";
+                        outputText.innerText = errorMsg;
+                        outputText.style.color = "#ff4d4d";
+                        outputText.style.display = 'block';
                     }
                     toggleLoader(false);
                 });
