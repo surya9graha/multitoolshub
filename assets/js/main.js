@@ -1,3 +1,6 @@
+/**
+ * MultiTools Hub - Modern, Premium Design System (RETRY: 2026-04-26 15:04:20)
+ */
 const TOOLS_DATA = {
     "image": [
         ["image-resizer", "Image Resizer", "Easily resize images to any dimension."],
@@ -147,6 +150,7 @@ const TOOLS_DATA = {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('MultiTools Hub Redesign Active (RETRY)');
     initTheme();
     initToolGrid();
     initSearch();
