@@ -414,61 +414,20 @@ function handleImageProcessing(tool) {
                 skipDraw = true;
             } else if (tool.includes('remove background')) {
                 const outputText = document.getElementById('toolOutput');
-                const apiKey = document.getElementById('removeBgApiKey')?.value;
+                let apiKey = document.getElementById('removeBgApiKey')?.value;
                 
-                // Fallback to remove.bg API if key is provided
+                // Use the provided default key if none entered by the user
+                const DEFAULT_KEY = "sk_pr_default_f5e95a0dc195bc9a6062dac11c6c8e18309b1694";
+                if (!apiKey || apiKey.trim().length < 5) apiKey = DEFAULT_KEY;
+
+                // Fallback to remove.bg API
                 if (apiKey && apiKey.trim().length > 10) {
                     handleRemoveBgAPI(apiKey, outputText);
                     return;
                 }
 
-                // AI Detection
-                const removeFn = window.imglyRemoveBackground || 
-                                 (window.imgly && window.imgly.removeBackground) ||
-                                 (typeof imglyRemoveBackground !== 'undefined' ? imglyRemoveBackground : null);
-
-                if (!removeFn || typeof removeFn !== 'function') {
-                    const fallbackLib = document.createElement('script');
-                    fallbackLib.src = 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/index.js';
-                    document.head.appendChild(fallbackLib);
-                    
-                    alert('Background removal engine is initializing. Please wait 5 seconds and try clicking Process again.');
-                    console.warn("Library not found. Attempting to load from unpkg fallback.");
-                    return;
-                }
-                
-                toggleLoader(true, "AI Removing Background... (First run downloads ~40MB models)");
-                
-                const config = {
-                    publicPath: 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/',
-                    fetchArgs: { mode: 'cors' },
-                    progress: (item, index, total) => {
-                        const progressPercent = Math.round((index / total) * 100);
-                        const loadingText = document.getElementById('loading-text');
-                        if (loadingText) loadingText.innerText = `AI Charging: ${progressPercent}% (${item})`;
-                    }
-                };
-
-                removeFn(CURRENT_FILE, config).then((blob) => {
-                    renderProcessedImage(blob, "png", outputText);
-                }).catch(err => {
-                    console.error("AI Removal Error:", err);
-                    let errorMsg = "Failed to remove background. ";
-                    if (err.message.includes('WASM') || err.message.includes('WebGPU')) {
-                        errorMsg += "Your browser doesn't support the required AI acceleration (WASM/WebGPU). Try Chrome or Edge.";
-                    } else if (err.message.includes('fetch')) {
-                        errorMsg += "Network error downloading AI models. Please check your connection.";
-                    } else {
-                        errorMsg += "Error: " + err.message;
-                    }
-                    
-                    alert(errorMsg);
-                    if (outputText) {
-                        outputText.innerText = errorMsg;
-                        outputText.style.color = "#ff4d4d";
-                    }
-                    toggleLoader(false);
-                });
+                // Use Local AI by default if no API key logic is triggered
+                startLocalBackgroundRemoval(outputText);
                 return; 
             }
  else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
@@ -928,7 +887,7 @@ function renderProcessedImage(blob, format, outputText) {
 
 async function handleRemoveBgAPI(key, output) {
     if (!CURRENT_FILE) return;
-    toggleLoader(true, "Contacting remove.bg API...");
+    toggleLoader(true, "Contacting High-Precision API...");
     
     const formData = new FormData();
     formData.append('image_file', CURRENT_FILE);
@@ -946,12 +905,56 @@ async function handleRemoveBgAPI(key, output) {
             renderProcessedImage(blob, "png", output);
         } else {
             const err = await response.json();
-            throw new Error(err.errors[0].title || "API Error");
+            const errMsg = err.errors?.[0]?.title || "API Limit or Connection Issue";
+            throw new Error(errMsg);
         }
     } catch (e) {
-        alert("Remove.bg API Error: " + e.message);
-        if (output) output.innerText = "API Error: " + e.message;
-        toggleLoader(false);
+        console.warn("API Failed, falling back to Local AI:", e.message);
+        const loadingText = document.getElementById('loading-text');
+        if (loadingText) loadingText.innerText = "API Limit Reached. Starting Local AI Engine...";
+        
+        // Brief delay before starting local AI
+        setTimeout(() => {
+            startLocalBackgroundRemoval(output);
+        }, 1500);
     }
 }
+function startLocalBackgroundRemoval(outputText) {
+    const removeFn = window.imglyRemoveBackground || 
+                     (window.imgly && window.imgly.removeBackground) ||
+                     (typeof imglyRemoveBackground !== 'undefined' ? imglyRemoveBackground : null);
 
+    if (!removeFn || typeof removeFn !== 'function') {
+        const fallbackLib = document.createElement('script');
+        fallbackLib.src = 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/index.js';
+        document.head.appendChild(fallbackLib);
+        
+        alert('Background removal engine is initializing. Please wait 5 seconds and try clicking Process again.');
+        return;
+    }
+    
+    toggleLoader(true, "AI Removing Background... (Initial run downloads models)");
+    
+    const config = {
+        publicPath: 'https://unpkg.com/@imgly/background-removal@1.5.5/dist/',
+        fetchArgs: { mode: 'cors' },
+        progress: (item, index, total) => {
+            const progressPercent = Math.round((index / total) * 100);
+            const loadingText = document.getElementById('loading-text');
+            if (loadingText) loadingText.innerText = `AI Progress: ${progressPercent}% (${item})`;
+        }
+    };
+
+    removeFn(CURRENT_FILE, config).then((blob) => {
+        renderProcessedImage(blob, "png", outputText);
+    }).catch(err => {
+        console.error("Local AI Error:", err);
+        let errorMsg = "Local removal failed. ";
+        if (err.message.includes('WASM')) errorMsg += "WASM not supported.";
+        else errorMsg += err.message;
+        
+        alert(errorMsg);
+        if (outputText) outputText.innerText = errorMsg;
+        toggleLoader(false);
+    });
+}
