@@ -740,8 +740,37 @@ function runCoreLogic(tool, input, output) {
 
     else if (tool.includes('md5 generator')) {
         result = "MD5 Hash: " + (Math.random().toString(16).substring(2, 32) + Math.random().toString(16).substring(2, 32)).substring(0, 32) + "\n(Note: Using simulated hash for demo. Production requires CryptoJS library)";
-    } else if (tool.includes('sha256 generator')) {
-        result = "SHA256 Hash: " + (Math.random().toString(16).substring(2, 64) + Math.random().toString(16).substring(2, 64)).substring(0, 64);
+    } else if (tool.includes('qr generator')) {
+        const qrTarget = document.getElementById('qrCodeTarget');
+        const resContainer = document.getElementById('imageResultContainer');
+        const downloadBtn = document.getElementById('downloadBtn');
+        if (qrTarget && input) {
+            qrTarget.innerHTML = '';
+            new QRCode(qrTarget, {
+                text: input,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            if (resContainer) resContainer.style.display = 'block';
+            if (downloadBtn) {
+                downloadBtn.style.display = 'inline-block';
+                downloadBtn.onclick = () => {
+                    const canvas = qrTarget.querySelector('canvas');
+                    if (canvas) {
+                        const link = document.createElement('a');
+                        link.download = `qrcode-${Date.now()}.png`;
+                        link.href = canvas.toDataURL("image/png");
+                        link.click();
+                    }
+                };
+            }
+            result = "QR Code Generated Successfully!";
+        } else {
+            result = "Please enter data to generate a QR Code.";
+        }
     } else if (tool.includes('credit card validator')) {
         let sum = 0, b = false;
         const digits = input.replace(/\D/g, '');
