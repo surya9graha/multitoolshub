@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const apiKey = "AIzaSyBFEK2Mo0np-4x0h86OIyfb7hspXZbMP0k";
             const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
             
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
