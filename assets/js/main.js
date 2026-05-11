@@ -2,6 +2,9 @@
  * MultiTools Hub - Modern, Premium Design System (RETRY: 2026-04-26 15:04:20)
  */
 const TOOLS_DATA = {
+    "ai": [
+        ["content-writer", "AI Content Writer", "Generate high-quality articles, blogs, titles, and rewritten content instantly using AI."]
+    ],
     "image": [
         ["image-resizer", "Image Resizer", "Easily resize images to any dimension."],
         ["image-compressor", "Image Compressor", "Reduce image file size while keeping quality."],
@@ -188,6 +191,8 @@ function initToolGrid() {
     
     // Icon Mapping for ALL tools
     const toolIcons = {
+        // AI
+        "content-writer": "fas fa-pen-nib",
         // Image
         "image-resizer": "fas fa-expand-arrows-alt", "image-compressor": "fas fa-file-archive",
         "jpg-to-png": "fas fa-exchange-alt", "png-to-jpg": "fas fa-file-image",
