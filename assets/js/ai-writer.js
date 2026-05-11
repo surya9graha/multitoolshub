@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Generate Button Click
-    generateBtn.addEventListener('click', () => {
+    generateBtn.addEventListener('click', async () => {
         const topic = inputTopic.value.trim();
         if (!topic) {
             alert('Please enter a topic or prompt first!');
@@ -38,20 +38,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalText = generateBtn.innerHTML;
         generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
         generateBtn.disabled = true;
-        outputBox.value = "AI is thinking...\nAnalyzing prompt...\nStructuring content...";
+        outputBox.value = "AI is thinking...\nConnecting to Gemini API...\nStructuring content...";
         updateStats();
 
-        // Simulate API call delay (2.5 seconds)
-        setTimeout(() => {
-            // Generate simulated response
-            const simulatedResponse = generateSimulatedContent(topic, type, tone, length, lang);
-            outputBox.value = simulatedResponse;
-            updateStats();
+        try {
+            const apiKey = "AIzaSyBFEK2Mo0np-4x0h86OIyfb7hspXZbMP0k";
+            const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
+            
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                })
+            });
 
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error?.message || "Failed to connect to API.");
+            }
+
+            const data = await response.json();
+            if (data.candidates && data.candidates.length > 0) {
+                const text = data.candidates[0].content.parts[0].text;
+                outputBox.value = text.trim();
+            } else {
+                throw new Error("No content generated. Please try a different prompt.");
+            }
+            updateStats();
+        } catch (error) {
+            outputBox.value = "Error generating content: " + error.message;
+            updateStats();
+        } finally {
             // Reset button
             generateBtn.innerHTML = originalText;
             generateBtn.disabled = false;
-        }, 2500);
+        }
     });
 });
 
