@@ -2,8 +2,10 @@
 .adsense-slot {
     margin: 30px auto;
     text-align: center;
+    width: 100%;
     max-width: 100%;
-    min-height: 90px;
+    min-width: 300px;
+    min-height: 250px; /* Increased to prevent CLS */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,6 +14,16 @@
     border-radius: 15px;
     position: relative;
     overflow: hidden;
+}
+
+/* Safe wrapper to prevent ad layout shifts */
+.ads-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 300px;
+    overflow: hidden;
+    min-height: 250px;
+    display: block;
 }
 
 .adsense-slot::before {
@@ -44,6 +56,10 @@
 @media (max-width: 768px) {
     .adsense-slot {
         margin: 20px auto;
-        min-height: 50px;
+        min-height: 250px;
+    }
+    
+    .ads-container {
+        min-height: 250px;
     }
 }
