@@ -42,31 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStats();
 
         try {
-            const apiKey = "AIzaSyD4DNak0O_jtf1cqy2dzVyn7kJp8y7eujc";
-            const GEMINI_MODEL = "gemini-3.1-flash-lite";
             const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
             
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+            // Call secure backend Firebase Cloud Function
+            const response = await fetch('https://us-central1-multitoolshub-b7b08.cloudfunctions.net/generateText', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{ text: prompt }]
-                    }]
-                })
+                body: JSON.stringify({ prompt })
             });
 
             if (!response.ok) {
                 const errData = await response.json();
-                throw new Error(errData.error?.message || "Failed to connect to API.");
+                throw new Error(errData.error || "Failed to connect to backend server.");
             }
 
             const data = await response.json();
-            if (data.candidates && data.candidates.length > 0) {
-                const text = data.candidates[0].content.parts[0].text;
-                outputBox.value = text.trim();
+            if (data.result) {
+                outputBox.value = data.result.trim();
             } else {
                 throw new Error("No content generated. Please try a different prompt.");
             }

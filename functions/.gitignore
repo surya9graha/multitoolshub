@@ -1,0 +1,7 @@
+node_modules/
+*.local
+.env
+.env.local
+secrets.json
+google-services.json
+serviceAccountKey.json

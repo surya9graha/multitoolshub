@@ -576,18 +576,13 @@ function handleImageProcessing(tool) {
                 const outputText = document.getElementById('toolOutput');
                 let apiKey = document.getElementById('removeBgApiKey')?.value;
                 
-                // Use the provided default key if none entered by the user
-                const DEFAULT_KEY = "na25qhAMojbheofRFMapnLBD";
-                if (!apiKey || apiKey.trim().length < 5) apiKey = DEFAULT_KEY;
-
-                // Fallback to remove.bg API
+                // If user entered their own API key, call remove.bg directly.
+                // Otherwise, use our secure Firebase Cloud Function backend.
                 if (apiKey && apiKey.trim().length > 10) {
                     handleRemoveBgAPI(apiKey, outputText);
-                    return;
+                } else {
+                    handleRemoveBgBackend(outputText);
                 }
-
-                // Use MediaPipe as local fallback
-                startMediaPipeBackgroundRemoval(outputText);
                 return; 
             }
  else if (tool.includes('png to jpg') || tool.includes('webp to jpg')) {
@@ -1101,6 +1096,56 @@ async function handleRemoveBgAPI(key, output) {
         showStatus("API Failed: " + e.message + ". Switching to Backup AI...", "warning");
         setTimeout(() => startMediaPipeBackgroundRemoval(output), 1500);
     }
+}
+
+async function handleRemoveBgBackend(output) {
+    if (!CURRENT_FILE) return;
+    showStatus("Contacting Secure Backend AI...", "info");
+    toggleLoader(true, "Cloud Processing...");
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+        try {
+            const base64Data = reader.result.split(',')[1];
+            const response = await fetch('https://us-central1-multitoolshub-b7b08.cloudfunctions.net/removeBackground', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image: base64Data,
+                    size: 'auto'
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.image) {
+                    const base64Content = data.image.split(',')[1];
+                    const byteCharacters = atob(base64Content);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], { type: 'image/png' });
+                    
+                    showStatus("API Success: Background Removed!", "success");
+                    renderProcessedImage(blob, "png", output);
+                } else {
+                    throw new Error("Invalid response format from backend.");
+                }
+            } else {
+                const err = await response.json();
+                throw new Error(err.error || "Backend processing failed");
+            }
+        } catch (e) {
+            console.warn("Backend API Failed, falling back to MediaPipe:", e.message);
+            showStatus("API Failed: " + e.message + ". Switching to Backup AI...", "warning");
+            setTimeout(() => startMediaPipeBackgroundRemoval(output), 1500);
+        }
+    };
+    reader.readAsDataURL(CURRENT_FILE);
 }
 
 async function startMediaPipeBackgroundRemoval(output) {
