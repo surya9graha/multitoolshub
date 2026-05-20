@@ -1098,6 +1098,14 @@ async function handleRemoveBgAPI(key, output) {
     }
 }
 
+const getBackendUrl = (functionName) => {
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+    if (isLocal) {
+        return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
+    }
+    return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
+};
+
 async function handleRemoveBgBackend(output) {
     if (!CURRENT_FILE) return;
     showStatus("Contacting Secure Backend AI...", "info");
@@ -1107,7 +1115,7 @@ async function handleRemoveBgBackend(output) {
     reader.onload = async () => {
         try {
             const base64Data = reader.result.split(',')[1];
-            const response = await fetch('https://us-central1-multitoolshub-b7b08.cloudfunctions.net/removeBackground', {
+            const response = await fetch(getBackendUrl('removeBackground'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

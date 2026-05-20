@@ -1,5 +1,13 @@
 // AI Writer JS Module for MultiToolsHub
 
+const getBackendUrl = (functionName) => {
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+    if (isLocal) {
+        return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
+    }
+    return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputTopic = document.getElementById('aiTopic');
     const outputBox = document.getElementById('aiOutput');
@@ -45,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
             
             // Call secure backend Firebase Cloud Function
-            const response = await fetch('https://us-central1-multitoolshub-b7b08.cloudfunctions.net/generateText', {
+            const response = await fetch(getBackendUrl('generateText'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
