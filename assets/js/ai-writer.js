@@ -1,11 +1,18 @@
 // AI Writer JS Module for MultiToolsHub
 
-const getBackendUrl = (functionName) => {
+const getBackendUrl = async (functionName) => {
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
-    if (isLocal) {
-        return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
+    if (!isLocal) {
+        return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
     }
-    return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
+    // Dynamically check which project is running on the local emulator
+    try {
+        const testRes = await fetch(`http://127.0.0.1:5001/multitoolshubweb/us-central1/${functionName}`, { method: 'OPTIONS' });
+        if (testRes.status !== 404) {
+            return `http://127.0.0.1:5001/multitoolshubweb/us-central1/${functionName}`;
+        }
+    } catch (_) {}
+    return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
             
             // Call secure backend Firebase Cloud Function
-            const response = await fetch(getBackendUrl('generateText'), {
+            const response = await fetch(await getBackendUrl('generateText'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

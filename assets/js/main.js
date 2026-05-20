@@ -1098,12 +1098,19 @@ async function handleRemoveBgAPI(key, output) {
     }
 }
 
-const getBackendUrl = (functionName) => {
+const getBackendUrl = async (functionName) => {
     const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
-    if (isLocal) {
-        return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
+    if (!isLocal) {
+        return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
     }
-    return `https://us-central1-multitoolshub-b7b08.cloudfunctions.net/${functionName}`;
+    // Dynamically check which project is running on the local emulator
+    try {
+        const testRes = await fetch(`http://127.0.0.1:5001/multitoolshubweb/us-central1/${functionName}`, { method: 'OPTIONS' });
+        if (testRes.status !== 404) {
+            return `http://127.0.0.1:5001/multitoolshubweb/us-central1/${functionName}`;
+        }
+    } catch (_) {}
+    return `http://127.0.0.1:5001/multitoolshub-b7b08/us-central1/${functionName}`;
 };
 
 async function handleRemoveBgBackend(output) {
@@ -1115,7 +1122,7 @@ async function handleRemoveBgBackend(output) {
     reader.onload = async () => {
         try {
             const base64Data = reader.result.split(',')[1];
-            const response = await fetch(getBackendUrl('removeBackground'), {
+            const response = await fetch(await getBackendUrl('removeBackground'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
