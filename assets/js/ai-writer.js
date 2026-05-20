@@ -81,7 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             updateStats();
         } catch (error) {
-            outputBox.value = "Error generating content: " + error.message;
+            let msg = error.message;
+            if (msg === "Failed to fetch" || msg.includes("NetworkError")) {
+                const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+                if (isLocal) {
+                    msg = "Failed to connect to local backend. Please ensure:\n1. Your Firebase Emulator is running (Run: cmd /c npx firebase emulators:start --only functions)\n2. You are using a local web server (like VS Code Live Server) rather than double-clicking the file (file:///) to avoid browser CORS blocks.";
+                } else {
+                    msg = "Failed to connect to backend. Please check your internet connection or if Cloud Functions are deployed.";
+                }
+            }
+            outputBox.value = "Error: " + msg;
             updateStats();
         } finally {
             // Reset button
