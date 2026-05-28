@@ -1,9 +1,9 @@
 {
   "hosting": {
     "public": "public",
+    "appAssociation": "NONE",
     "ignore": [
       "firebase.json",
-      "**/.*",
       "**/node_modules/**"
     ]
   },
