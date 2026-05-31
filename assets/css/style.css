@@ -376,17 +376,96 @@ body {
     margin: 40px 0;
 }
 
-/* App Promotion Banner */
+/* App Promotion Banner & Slider */
 .app-promo-banner {
     background: #ffffff;
     border-radius: 24px;
-    padding: 25px 35px;
+    padding: 25px 35px 45px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e0e0;
     overflow: hidden;
     position: relative;
     margin-top: 30px;
     margin-bottom: 20px;
+}
+
+.app-promo-slides {
+    position: relative;
+    width: 100%;
+}
+
+.app-promo-slide {
+    display: none;
+    width: 100%;
+}
+
+.app-promo-slide.active {
+    display: block;
+    animation: promoFade 0.6s ease-in-out forwards;
+}
+
+@keyframes promoFade {
+    from {
+        opacity: 0;
+        transform: translateY(5px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.app-promo-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.app-promo-arrow {
+    background: rgba(0, 0, 0, 0.04);
+    border: none;
+    color: #4b5563;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.app-promo-arrow:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #111827;
+    transform: scale(1.1);
+}
+
+.app-promo-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.app-promo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.app-promo-dot.active {
+    background: #16a34a;
+    transform: scale(1.25);
 }
 
 .app-promo-inner {

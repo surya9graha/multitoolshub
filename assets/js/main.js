@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPopularToolsRail();
     initLatestBlogsRail();
     initTrendingGuidesRail();
+    initAppSlider();
 });
 
 function initTheme() {
@@ -1215,4 +1216,96 @@ function scrollRail(railId, direction) {
     } else {
         rail.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+}
+
+// Initialize App Promotion Slider
+function initAppSlider() {
+    const sliderContainer = document.querySelector('.app-promo-banner');
+    if (!sliderContainer) return;
+
+    const slides = sliderContainer.querySelectorAll('.app-promo-slide');
+    const dots = sliderContainer.querySelectorAll('.app-promo-dot');
+    const prevBtn = sliderContainer.querySelector('.app-promo-arrow.prev');
+    const nextBtn = sliderContainer.querySelector('.app-promo-arrow.next');
+
+    if (slides.length <= 1) return;
+
+    let currentIndex = 0;
+    let slideInterval = null;
+    const intervalTime = 5000; // 5 seconds auto-scroll
+
+    function showSlide(index) {
+        if (index >= slides.length) currentIndex = 0;
+        else if (index < 0) currentIndex = slides.length - 1;
+        else currentIndex = index;
+
+        slides.forEach((slide, idx) => {
+            if (idx === currentIndex) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) {
+                dot.classList.add('active');
+                if (currentIndex === 0) {
+                    dot.style.backgroundColor = '#16a34a';
+                } else if (currentIndex === 1) {
+                    dot.style.backgroundColor = '#0284c7';
+                }
+            } else {
+                dot.classList.remove('active');
+                dot.style.backgroundColor = '';
+            }
+        });
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function startAutoSlide() {
+        stopAutoSlide();
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    function stopAutoSlide() {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            startAutoSlide();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            startAutoSlide();
+        });
+    }
+
+    dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+            showSlide(idx);
+            startAutoSlide();
+        });
+    });
+
+    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+    sliderContainer.addEventListener('mouseleave', startAutoSlide);
+
+    // Initial setup
+    showSlide(0);
+    startAutoSlide();
 }
