@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MultiToolsHub AI</title>
+</head>
+<body>
+
+  <h2>🔥 AI Tool</h2>
+
+  <textarea id="prompt" placeholder="Write something..."></textarea>
+  <br><br>
+
+  <button onclick="askAI()">Generate</button>
+
+  <p id="output"></p>
+
+  <script>
+    async function askAI() {
+      const prompt = document.getElementById("prompt").value;
+
+      const res = await fetch("/generateText", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("output").innerText = data.text || data.error;
+    }
+  </script>
+
+</body>
+</html>

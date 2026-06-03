@@ -71,3 +71,7 @@ serviceAccountKey.json
 
 # dataconnect generated files
 .dataconnect
+
+# Python build artifacts
+__pycache__/
+*.pyc

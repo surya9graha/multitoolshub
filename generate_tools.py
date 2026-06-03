@@ -1,5 +1,5 @@
 import os
-from image_content import IMAGE_SEO_DATA
+from seo_content_db import get_seo_content
 
 # Base directory for the tools
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
@@ -446,7 +446,7 @@ for category, tools in tools_data.items():
         elif tool_name == "thumbnail-preview":
             current_input = INPUT_THUMBNAIL_PREVIEW
             
-        seo_content = IMAGE_SEO_DATA.get(tool_name, f"<h2>Maximize Results with our {title}</h2><p>Experience the power of professional digital tools right in your browser.</p>")
+        seo_content = get_seo_content(category, tool_name, title)
         
         content = HTML_TEMPLATE.format(
             title=title,

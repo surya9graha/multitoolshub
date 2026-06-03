@@ -4,7 +4,7 @@
  */
 
 // YOUR ADSENSE CLIENT ID (e.g. "ca-pub-XXXXXXXXXXXXXXXX")
-const ADSENSE_CLIENT_ID = "ca-pub-0000000000000000"; // REPLACE WITH YOUR REAL ID
+const ADSENSE_CLIENT_ID = "ca-pub-1356057643477835"; // REPLACE WITH YOUR REAL ID
 
 // AD SCRIPT URL (Don't change usually)
 const ADSENSE_SCRIPT_URL = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";

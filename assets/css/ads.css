@@ -1,19 +1,16 @@
 /* General styling for AdSense slots */
 .adsense-slot {
-    margin: 30px auto;
+    margin: 0 auto;
     text-align: center;
     width: 100%;
     max-width: 100%;
     min-width: 300px;
-    min-height: 250px; /* Increased to prevent CLS */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px dashed var(--border);
-    border-radius: 15px;
+    min-height: 0;
+    display: block;
     position: relative;
     overflow: hidden;
+    background: transparent;
+    border: none;
 }
 
 /* Safe wrapper to prevent ad layout shifts */
@@ -22,11 +19,16 @@
     max-width: 100%;
     min-width: 300px;
     overflow: hidden;
-    min-height: 250px;
+    min-height: 0;
     display: block;
 }
 
 .adsense-slot::before {
+    content: "";
+}
+
+.adsense-slot:has(iframe)::before,
+.adsense-slot:has(ins[data-ad-status="filled"])::before {
     content: "Advertisement";
     position: absolute;
     top: 5px;
@@ -56,10 +58,10 @@
 @media (max-width: 768px) {
     .adsense-slot {
         margin: 20px auto;
-        min-height: 250px;
+        min-height: 0;
     }
     
     .ads-container {
-        min-height: 250px;
+        min-height: 0;
     }
 }

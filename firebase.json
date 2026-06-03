@@ -1,10 +1,18 @@
 {
   "hosting": {
-    "public": "public",
+    "public": ".",
     "appAssociation": "NONE",
     "ignore": [
       "firebase.json",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      ".git",
+      ".github",
+      "functions/**",
+      "__pycache__/**",
+      "*.py",
+      "*.md",
+      "package.json",
+      "package-lock.json"
     ]
   },
   "functions": [
