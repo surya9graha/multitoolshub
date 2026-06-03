@@ -13,6 +13,98 @@
       "*.md",
       "package.json",
       "package-lock.json"
+    ],
+    "redirects": [
+      {
+        "source": "/blog/best-online-pdf-tools-free.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-online-pdf-tools-free",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-pdf-tools-free.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-pdf-tools-free",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-productivity-tools-2025.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-productivity-tools-2025",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-productivity-tools-daily-use.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/best-productivity-tools-daily-use",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-image-editing-2025.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-image-editing-2025",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-image-editing-tools-online.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-image-editing-tools-online",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-tools-students-2025.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/free-tools-students-2025",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/how-to-remove-background-online.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/how-to-remove-background-online",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/top-ai-tools-2025.html",
+        "destination": "/blog/index.html",
+        "type": 301
+      },
+      {
+        "source": "/blog/top-ai-tools-2025",
+        "destination": "/blog/index.html",
+        "type": 301
+      }
     ]
   },
   "functions": [

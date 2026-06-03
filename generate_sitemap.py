@@ -18,6 +18,10 @@ for folder in ["tools", "blog"]:
     for root, dirs, files in os.walk(dir_path):
         for file in files:
             if file.endswith(".html"):
+                # Skip thin blog posts to avoid Google AdSense thin content policy flags
+                THIN_POSTS = ['best-online-pdf-tools-free.html', 'best-pdf-tools-free.html', 'best-productivity-tools-2025.html', 'best-productivity-tools-daily-use.html', 'free-image-editing-2025.html', 'free-image-editing-tools-online.html', 'free-tools-students-2025.html', 'how-to-remove-background-online.html', 'top-ai-tools-2025.html']
+                if file in THIN_POSTS:
+                    continue
                 # Get path relative to the script directory
                 rel_path = os.path.relpath(os.path.join(root, file), os.path.dirname(os.path.abspath(__file__)))
                 url = f"{BASE_URL}{rel_path.replace(os.sep, '/')}"
