@@ -2,6 +2,17 @@
   "hosting": {
     "public": ".",
     "appAssociation": "NONE",
+    "headers": [
+      {
+        "source": "/.well-known/assetlinks.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/node_modules/**",

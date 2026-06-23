@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.surajit.multitoolshub",
+      "sha256_cert_fingerprints": [
+        "7D:7B:DC:95:62:4D:15:63:A2:CC:8F:F7:FD:94:8B:55:D1:32:A0:C6:F3:8B:32:8F:6E:D0:3F:A4:BA:7C:12:3C"
+      ]
+    }
+  }
+]
