@@ -1,0 +1,1 @@
+# Disable Jekyll build to ensure .well-known folder is served by GitHub Pages

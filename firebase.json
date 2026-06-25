@@ -23,7 +23,8 @@
       "*.py",
       "*.md",
       "package.json",
-      "package-lock.json"
+      "package-lock.json",
+      "!**/.well-known/**"
     ],
     "redirects": [
       {
