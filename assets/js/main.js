@@ -1254,6 +1254,10 @@ function initAppSlider() {
                     dot.style.backgroundColor = '#16a34a';
                 } else if (currentIndex === 1) {
                     dot.style.backgroundColor = '#0284c7';
+                } else if (currentIndex === 2) {
+                    dot.style.backgroundColor = '#8b5cf6';
+                } else if (currentIndex === 3) {
+                    dot.style.backgroundColor = '#6366f1';
                 }
             } else {
                 dot.classList.remove('active');
