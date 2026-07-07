@@ -689,6 +689,8 @@ for category, tools in tools_data.items():
             current_input = INPUT_COLOR_PICKER
         elif tool_name == "drawing-board":
             current_input = INPUT_DRAWING_BOARD
+        elif tool_name == "favicon-generator":
+            current_input = INPUT_FILE
             
         seo_content = get_seo_content(category, tool_name, title)
         

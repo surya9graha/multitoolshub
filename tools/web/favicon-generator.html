@@ -65,9 +65,17 @@
                 <div id="tool-container">
                     
 <div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+    <label>Upload Your Image</label>
+    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
+        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <p>Drag & Drop or Click to Upload Image</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
+        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    </div>
+    <!-- Hidden text input for compatibility -->
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     

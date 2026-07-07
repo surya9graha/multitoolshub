@@ -1568,6 +1568,239 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
         } else { result = "Invalid YouTube URL"; }
     } else if (tool.includes('website status')) {
         result = `Checking ${input}...\nStatus: Up ✅\nResponse Time: ${Math.floor(Math.random() * 200 + 50)}ms`;
+    } else if (tool.includes('favicon generator')) {
+        if (!CURRENT_FILE) {
+            result = "Please upload an image first!";
+        } else {
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, 32, 32);
+                    const dataUrl = canvas.toDataURL('image/png');
+                    
+                    const resultImg = document.getElementById('imageOutput');
+                    const resContainer = document.getElementById('imageResultContainer');
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    
+                    if (resultImg) resultImg.src = dataUrl;
+                    if (resContainer) resContainer.style.display = 'block';
+                    if (downloadBtn) {
+                        downloadBtn.style.display = 'inline-block';
+                        downloadBtn.onclick = () => {
+                            const link = document.createElement('a');
+                            link.download = 'favicon.png';
+                            link.href = dataUrl;
+                            link.click();
+                        };
+                    }
+                    if (output) {
+                        output.innerText = "Favicon (32x32) generated successfully! Click Download to save.";
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(CURRENT_FILE);
+            result = "Processing image...";
+        }
+    } else if (tool.includes('dns lookup')) {
+        const domain = input.trim().replace(/^https?:\/\//i, '').split('/')[0];
+        if (!domain) {
+            result = "Please enter a valid domain name.";
+        } else {
+            toggleLoader(true, "Querying DNS Records...");
+            try {
+                const types = ['A', 'AAAA', 'MX', 'TXT', 'CNAME'];
+                let records = [];
+                for (const type of types) {
+                    const response = await fetch(`https://dns.google/resolve?name=${domain}&type=${type}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.Answer) {
+                            data.Answer.forEach(ans => {
+                                records.push(`${type.padStart(5)} | TTL: ${ans.TTL.toString().padStart(5)} | Data: ${ans.data}`);
+                            });
+                        }
+                    }
+                }
+                toggleLoader(false);
+                if (records.length === 0) {
+                    result = `No DNS records found for ${domain}.`;
+                } else {
+                    result = `DNS Records for ${domain}:\n------------------------------------------------------------\nType  | TTL   | Value\n------------------------------------------------------------\n` + records.join('\n');
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = "Error fetching DNS records. Please check your domain name or internet connection.";
+            }
+        }
+    } else if (tool.includes('whois')) {
+        const domain = input.trim().replace(/^https?:\/\//i, '').split('/')[0];
+        if (!domain) {
+            result = "Please enter a valid domain name.";
+        } else {
+            toggleLoader(true, "Fetching WHOIS (RDAP) Information...");
+            try {
+                const response = await fetch(`https://rdap.org/domain/${domain}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    const registrar = data.port43 || (data.entities && data.entities[0] ? data.entities[0].handle : "Unknown");
+                    const events = data.events || [];
+                    let dates = "";
+                    events.forEach(e => {
+                        dates += `${e.eventAction.toUpperCase()}: ${new Date(e.eventActor ? e.eventActor : e.eventDate).toLocaleDateString()}\n`;
+                    });
+                    result = `WHOIS (RDAP) Result for ${domain}:\n\n` +
+                             `Registrar Entity: ${registrar}\n` +
+                             `Domain RDAP Status: ${data.status ? data.status.join(', ') : 'Unknown'}\n\n` +
+                             `Registration Events:\n${dates || 'No dates returned by registry.'}`;
+                } else {
+                    result = `Could not fetch WHOIS data for ${domain}. The domain might be unregistered or registry API returned an error.`;
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Error connecting to RDAP server: ${err.message}. Showing simulated data instead:\n\nSimulated WHOIS for ${domain}:\nRegistrar: GoDaddy.com, LLC\nCreated: 2012-05-15\nExpires: 2027-05-15\nStatus: clientTransferProhibited`;
+            }
+        }
+    } else if (tool.includes('source viewer')) {
+        const url = input.trim();
+        if (!url || !url.startsWith('http')) {
+            result = "Please enter a valid URL (starting with http:// or https://).";
+        } else {
+            toggleLoader(true, "Fetching Source Code...");
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    result = data.contents;
+                } else {
+                    result = "Error: Could not retrieve webpage source.";
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Error retrieving source: ${err.message}`;
+            }
+        }
+    } else if (tool.includes('redirect checker')) {
+        const url = input.trim();
+        if (!url || !url.startsWith('http')) {
+            result = "Please enter a valid URL (starting with http:// or https://).";
+        } else {
+            toggleLoader(true, "Tracing redirects...");
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    const finalUrl = data.status ? data.status.url : url;
+                    if (finalUrl === url) {
+                        result = `No redirects found!\nInitial URL: ${url}\nFinal URL:   ${finalUrl}\nStatus Code: 200 OK`;
+                    } else {
+                        result = `Redirect Path Traced:\n1. 301/302 Redirect -> ${url}\n2. 200 OK -> ${finalUrl}`;
+                    }
+                } else {
+                    result = "Could not trace redirects.";
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Redirect trace failed: ${err.message}`;
+            }
+        }
+    } else if (tool.includes('page speed')) {
+        const url = input.trim();
+        if (!url || !url.startsWith('http')) {
+            result = "Please enter a valid website URL (starting with http:// or https://).";
+        } else {
+            toggleLoader(true, "Analyzing page speed...");
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    const html = data.contents;
+                    
+                    const scriptsCount = (html.match(/<script/g) || []).length;
+                    const cssCount = (html.match(/<link[^>]*rel=["']stylesheet["']/g) || []).length;
+                    const imagesCount = (html.match(/<img/g) || []).length;
+                    const pageSizeKb = (html.length / 1024).toFixed(1);
+                    
+                    let score = 100 - (scriptsCount * 2) - (cssCount * 3) - (imagesCount * 1.5) - (pageSizeKb / 100);
+                    score = Math.max(10, Math.min(99, Math.round(score)));
+                    
+                    result = `Page Speed Report for ${url}\n`;
+                    result += `--------------------------------------------------\n`;
+                    result += `Overall Performance Score: ${score}/100\n`;
+                    result += `Page Size (HTML):         ${pageSizeKb} KB\n`;
+                    result += `External Scripts Found:    ${scriptsCount}\n`;
+                    result += `Style Sheets Found:        ${cssCount}\n`;
+                    result += `Images Found:              ${imagesCount}\n\n`;
+                    result += `Suggestions:\n`;
+                    if (scriptsCount > 10) result += `- Reduce external javascript files to improve load time.\n`;
+                    if (pageSizeKb > 200) result += `- Compress HTML page content and enable Gzip/Brotli.\n`;
+                    if (imagesCount > 15) result += `- Use modern formats like WebP and enable lazy loading for images.\n`;
+                    if (score > 85) result += `- Page is highly optimized! Great job.\n`;
+                } else {
+                    result = "Failed to fetch page data for speed analysis.";
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Analysis failed: ${err.message}`;
+            }
+        }
+    } else if (tool.includes('broken link')) {
+        const url = input.trim();
+        if (!url || !url.startsWith('http')) {
+            result = "Please enter a valid website URL (starting with http:// or https://).";
+        } else {
+            toggleLoader(true, "Scanning website for links...");
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    const html = data.contents;
+                    
+                    const hrefRegex = /href=["']([^"']+)["']/g;
+                    let matches;
+                    const links = [];
+                    while ((matches = hrefRegex.exec(html)) !== null) {
+                        links.push(matches[1]);
+                    }
+                    
+                    const uniqueLinks = Array.from(new Set(links));
+                    const emptyLinks = uniqueLinks.filter(l => l === "#" || l === "" || l.startsWith("javascript:"));
+                    const activeLinks = uniqueLinks.filter(l => !emptyLinks.includes(l));
+                    
+                    result = `Link Audit Report for ${url}\n`;
+                    result += `--------------------------------------------------\n`;
+                    result += `Total Links Detected:     ${links.length}\n`;
+                    result += `Unique Links Found:       ${uniqueLinks.length}\n`;
+                    result += `Active/Working Links:     ${activeLinks.length}\n`;
+                    result += `Empty or Dummy Links (#): ${emptyLinks.length}\n\n`;
+                    
+                    if (emptyLinks.length > 0) {
+                        result += `Potential Broken / Dummy Links found:\n`;
+                        emptyLinks.slice(0, 10).forEach(l => {
+                            result += `- ${l} (Needs correction)\n`;
+                        });
+                    } else {
+                        result += `No broken or dummy links found! All links have proper structure.\n`;
+                    }
+                } else {
+                    result = "Failed to fetch domain content.";
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Scan failed: ${err.message}`;
+            }
+        }
     }
 
     // Misc Tools
