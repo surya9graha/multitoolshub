@@ -1505,6 +1505,28 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('timezone converter')) {
         const now = new Date();
         result = `From Local: ${now.toLocaleTimeString()}\nTo Tokyo: ${now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo'})}\nTo New York: ${now.toLocaleTimeString('en-US', {timeZone:'America/New_York'})}\nTo London: ${now.toLocaleTimeString('en-GB', {timeZone:'Europe/London'})}`;
+    } else if (tool.includes('date formatter')) {
+        const d = input.trim() ? new Date(isNaN(input.trim()) ? input.trim() : parseInt(input.trim())) : new Date();
+        if (isNaN(d.getTime())) {
+            result = "Invalid Date format.";
+        } else {
+            result = `Date Formats:
+------------------------------------------
+ISO String:         ${d.toISOString()}
+UTC String:         ${d.toUTCString()}
+Local String:       ${d.toString()}
+Date Only:          ${d.toDateString()}
+Time Only:          ${d.toTimeString()}
+Locale Date:        ${d.toLocaleDateString()}
+Locale Time:        ${d.toLocaleTimeString()}
+Unix Timestamp (s): ${Math.floor(d.getTime() / 1000)}
+Unix Timestamp (ms):${d.getTime()}
+------------------------------------------
+Custom Formats:
+YYYY-MM-DD:         ${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}
+DD/MM/YYYY:         ${d.getDate().toString().padStart(2, '0')}/${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getFullYear()}
+MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate().toString().padStart(2, '0')}/${d.getFullYear()}`;
+        }
     }
 
     // Web Tools
