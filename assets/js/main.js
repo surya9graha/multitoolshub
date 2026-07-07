@@ -1198,6 +1198,80 @@ function runCoreLogic(tool, input, output) {
     } else if (tool.includes('weight converter')) {
         const val = parseFloat(input) || 0;
         result = `${val} kg = ${(val * 2.20462).toFixed(2)} lbs\n${val} kg = ${(val * 1000).toFixed(0)} g\n${val} kg = ${(val * 35.274).toFixed(2)} oz`;
+    } else if (tool.includes('hex converter')) {
+        const cleanInput = input.trim().replace(/^0x|^#/i, '');
+        if (/^[0-9a-fA-F]+$/.test(cleanInput)) {
+            const dec = parseInt(cleanInput, 16);
+            result = `Hexadecimal: ${cleanInput.toUpperCase()}\nDecimal: ${dec}\nBinary: ${dec.toString(2)}\nOctal: ${dec.toString(8)}`;
+        } else {
+            const dec = parseInt(input.trim());
+            if (!isNaN(dec)) {
+                result = `Decimal: ${dec}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}\nOctal: ${dec.toString(8)}`;
+            } else {
+                result = "Please enter a valid Hexadecimal string (e.g., 1A) or a Decimal number (e.g., 26).";
+            }
+        }
+    } else if (tool.includes('octal converter')) {
+        const cleanInput = input.trim();
+        if (/^[0-7]+$/.test(cleanInput)) {
+            const dec = parseInt(cleanInput, 8);
+            result = `Octal: ${cleanInput}\nDecimal: ${dec}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}`;
+        } else {
+            const dec = parseInt(cleanInput);
+            if (!isNaN(dec)) {
+                result = `Decimal: ${dec}\nOctal: ${dec.toString(8)}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}`;
+            } else {
+                result = "Please enter a valid Octal string (digits 0-7) or a Decimal number.";
+            }
+        }
+    } else if (tool.includes('fraction calc')) {
+        const match = input.match(/^\s*(\d+)\/(\d+)\s*([\+\-\*\/])\s*(\d+)\/(\d+)\s*$/);
+        if (match) {
+            const n1 = parseInt(match[1]), d1 = parseInt(match[2]);
+            const op = match[3];
+            const n2 = parseInt(match[4]), d2 = parseInt(match[5]);
+            
+            const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
+            const simplifyFraction = (num, denom) => {
+                const common = gcd(num, denom);
+                return {
+                    num: num / common,
+                    denom: denom / common
+                };
+            };
+            
+            if (d1 === 0 || d2 === 0) {
+                result = "Denominator cannot be zero.";
+            } else {
+                let resNum, resDen;
+                if (op === '+') {
+                    resNum = n1 * d2 + n2 * d1;
+                    resDen = d1 * d2;
+                } else if (op === '-') {
+                    resNum = n1 * d2 - n2 * d1;
+                    resDen = d1 * d2;
+                } else if (op === '*') {
+                    resNum = n1 * n2;
+                    resDen = d1 * d2;
+                } else if (op === '/') {
+                    resNum = n1 * d2;
+                    resDen = d1 * n2;
+                }
+                
+                if (resDen === 0) {
+                    result = "Error: Division by zero fraction.";
+                } else {
+                    const simplified = simplifyFraction(resNum, resDen);
+                    const decVal = (simplified.num / simplified.denom).toFixed(4);
+                    result = `Input: ${n1}/${d1} ${op} ${n2}/${d2}\n\n`;
+                    result += `Result (Raw): ${resNum}/${resDen}\n`;
+                    result += `Result (Simplified): ${simplified.num}/${simplified.denom}\n`;
+                    result += `Result (Decimal): ${decVal}`;
+                }
+            }
+        } else {
+            result = "Please enter calculation in format: [fraction] [operator] [fraction]\nExample: 1/2 + 3/4\nSupported operators: +, -, *, /";
+        }
     }
 
     // Time Tools
