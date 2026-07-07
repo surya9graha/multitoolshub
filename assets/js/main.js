@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategoryFilter();
     initToolEngine();
     initImageTools();
+    initCSSListeners();
     
     // New Initializations for Redesigned Homepage
     initPopularToolsRail();
@@ -429,6 +430,150 @@ function initCategoryFilter() {
             c.style.display = match ? 'block' : 'none';
         });
     }));
+function initCSSListeners() {
+    // CSS Button Listeners
+    const btnText = document.getElementById('btnText');
+    const btnBg = document.getElementById('btnBgColor');
+    const btnTextCol = document.getElementById('btnTextColor');
+    const btnHoverBg = document.getElementById('btnHoverBgColor');
+    const btnPadY = document.getElementById('btnPadY');
+    const btnPadX = document.getElementById('btnPadX');
+    const btnRadius = document.getElementById('btnRadius');
+    const btnFontSize = document.getElementById('btnFontSize');
+    const btnShadow = document.getElementById('btnShadow');
+
+    if (btnPadY) {
+        const update = () => {
+            document.getElementById('valPadY').innerText = btnPadY.value;
+            document.getElementById('valPadX').innerText = btnPadX.value;
+            document.getElementById('valRadius').innerText = btnRadius.value;
+            document.getElementById('valFontSize').innerText = btnFontSize.value;
+            document.getElementById('valShadow').innerText = btnShadow.value;
+        };
+        [btnPadY, btnPadX, btnRadius, btnFontSize, btnShadow].forEach(el => el.addEventListener('input', update));
+    }
+
+    // Flexbox Generator Listeners
+    const flexItemCount = document.getElementById('flexItemCount');
+    if (flexItemCount) {
+        flexItemCount.addEventListener('input', () => {
+            document.getElementById('valItems').innerText = flexItemCount.value;
+        });
+    }
+
+    // Grid Layout Listeners
+    const gridCols = document.getElementById('gridCols');
+    const gridRows = document.getElementById('gridRows');
+    const gridColGap = document.getElementById('gridColGap');
+    const gridRowGap = document.getElementById('gridRowGap');
+    if (gridCols) {
+        const updateGrid = () => {
+            document.getElementById('valGridCols').innerText = gridCols.value;
+            document.getElementById('valGridRows').innerText = gridRows.value;
+            document.getElementById('valColGap').innerText = gridColGap.value;
+            document.getElementById('valRowGap').innerText = gridRowGap.value;
+        };
+        [gridCols, gridRows, gridColGap, gridRowGap].forEach(el => el.addEventListener('input', updateGrid));
+    }
+
+    // Password Generator Listeners
+    const passLength = document.getElementById('passLength');
+    if (passLength) {
+        passLength.addEventListener('input', () => {
+            document.getElementById('valPassLength').innerText = passLength.value;
+        });
+    }
+
+    // UUID Generator Listeners
+    const uuidCount = document.getElementById('uuidCount');
+    if (uuidCount) {
+        uuidCount.addEventListener('input', () => {
+            document.getElementById('valUuidCount').innerText = uuidCount.value;
+        });
+    }
+
+    // Drawing Board Listeners and Initialization
+    const paintCanvas = document.getElementById('paintCanvas');
+    if (paintCanvas) {
+        initDrawingBoard(paintCanvas);
+    }
+}
+
+function initDrawingBoard(canvas) {
+    const ctx = canvas.getContext('2d');
+    const colorInput = document.getElementById('drawColor');
+    const sizeInput = document.getElementById('drawSize');
+    const sizeVal = document.getElementById('drawSizeVal');
+    const eraserBtn = document.getElementById('drawEraser');
+    const clearBtn = document.getElementById('drawClear');
+
+    let painting = false;
+    let erasing = false;
+
+    if (sizeInput && sizeVal) {
+        sizeInput.addEventListener('input', () => {
+            sizeVal.innerText = sizeInput.value;
+        });
+    }
+
+    if (eraserBtn) {
+        eraserBtn.addEventListener('click', () => {
+            erasing = !erasing;
+            eraserBtn.classList.toggle('active', erasing);
+            eraserBtn.innerText = erasing ? "Brush Mode" : "Eraser";
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    }
+
+    function startPosition(e) {
+        painting = true;
+        draw(e);
+    }
+
+    function finishedPosition() {
+        painting = false;
+        ctx.beginPath();
+    }
+
+    function getMousePos(canvasDom, clientX, clientY) {
+        const rect = canvasDom.getBoundingClientRect();
+        const scaleX = canvasDom.width / rect.width;
+        const scaleY = canvasDom.height / rect.height;
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY
+        };
+    }
+
+    function draw(e) {
+        if (!painting) return;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const pos = getMousePos(canvas, clientX, clientY);
+
+        ctx.lineWidth = sizeInput ? sizeInput.value : 5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = erasing ? '#ffffff' : (colorInput ? colorInput.value : '#6366f1');
+
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+    }
+
+    canvas.addEventListener('mousedown', startPosition);
+    canvas.addEventListener('mouseup', finishedPosition);
+    canvas.addEventListener('mousemove', draw);
+
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startPosition(e); });
+    canvas.addEventListener('touchend', finishedPosition);
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
 }
 
 let CURRENT_FILE = null;
@@ -845,6 +990,148 @@ function runCoreLogic(tool, input, output) {
         result = `Palette based on ${input || '#6366f1'}:\n1. ${input || '#6366f1'}\n2. #a855f7\n3. #ec4899\n4. #06b6d4`;
     } else if (tool.includes('css shadow')) {
         result = `box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);`;
+    } else if (tool.includes('css button')) {
+        const text = document.getElementById('btnText')?.value || "Click Me";
+        const bg = document.getElementById('btnBgColor')?.value || "#6366f1";
+        const color = document.getElementById('btnTextColor')?.value || "#ffffff";
+        const hoverBg = document.getElementById('btnHoverBgColor')?.value || "#4f46e5";
+        const padY = document.getElementById('btnPadY')?.value || "12";
+        const padX = document.getElementById('btnPadX')?.value || "28";
+        const radius = document.getElementById('btnRadius')?.value || "10";
+        const size = document.getElementById('btnFontSize')?.value || "16";
+        const shadow = document.getElementById('btnShadow')?.value || "10";
+
+        const cssClass = `.custom-btn {
+  background-color: ${bg};
+  color: ${color};
+  padding: ${padY}px ${padX}px;
+  border: none;
+  border-radius: ${radius}px;
+  font-size: ${size}px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 ${shadow}px ${shadow * 2.5}px -${shadow * 0.5}px ${bg}80;
+}
+
+.custom-btn:hover {
+  background-color: ${hoverBg};
+  transform: translateY(-2px);
+}`;
+        result = cssClass;
+
+        const previewContainer = document.getElementById('imageResultContainer');
+        if (previewContainer) {
+            previewContainer.innerHTML = `
+                <div style="padding: 40px; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.2); border-radius: 20px;">
+                    <style>
+                        #btnPreview {
+                            background-color: ${bg};
+                            color: ${color};
+                            padding: ${padY}px ${padX}px;
+                            border: none;
+                            border-radius: ${radius}px;
+                            font-size: ${size}px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 ${shadow}px ${shadow * 2.5}px -${shadow * 0.5}px ${bg}80;
+                        }
+                        #btnPreview:hover {
+                            background-color: ${hoverBg};
+                            transform: translateY(-2px);
+                        }
+                    </style>
+                    <button id="btnPreview">${text}</button>
+                </div>
+            `;
+            previewContainer.style.display = 'block';
+        }
+    } else if (tool.includes('flexbox generator')) {
+        const dir = document.getElementById('flexDir')?.value || "row";
+        const justify = document.getElementById('flexJustify')?.value || "center";
+        const align = document.getElementById('flexAlign')?.value || "center";
+        const wrap = document.getElementById('flexWrap')?.value || "nowrap";
+        const count = parseInt(document.getElementById('flexItemCount')?.value || "3");
+
+        const cssCode = `.flex-container {
+  display: flex;
+  flex-direction: ${dir};
+  justify-content: ${justify};
+  align-items: ${align};
+  flex-wrap: ${wrap};
+  gap: 15px;
+  background: #111827;
+  padding: 20px;
+  border-radius: 15px;
+  min-height: 250px;
+}
+
+.flex-item {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}`;
+        result = cssCode;
+
+        const previewContainer = document.getElementById('imageResultContainer');
+        if (previewContainer) {
+            let itemsHTML = '';
+            for (let i = 1; i <= count; i++) {
+                itemsHTML += `<div class="flex-item" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 20px 30px; border-radius: 10px; font-weight: bold; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-family: sans-serif;">Item ${i}</div>`;
+            }
+            previewContainer.innerHTML = `
+                <div style="background: #111827; border: 1px solid var(--border); border-radius: 20px; padding: 20px; min-height: 250px; display: flex; flex-direction: ${dir}; justify-content: ${justify}; align-items: ${align}; flex-wrap: ${wrap}; gap: 15px;">
+                    ${itemsHTML}
+                </div>
+            `;
+            previewContainer.style.display = 'block';
+        }
+    } else if (tool.includes('grid layout')) {
+        const cols = parseInt(document.getElementById('gridCols')?.value || "3");
+        const rows = parseInt(document.getElementById('gridRows')?.value || "2");
+        const colGap = parseInt(document.getElementById('gridColGap')?.value || "15");
+        const rowGap = parseInt(document.getElementById('gridRowGap')?.value || "15");
+
+        const cssCode = `.grid-container {
+  display: grid;
+  grid-template-columns: repeat(${cols}, 1fr);
+  grid-template-rows: repeat(${rows}, 1fr);
+  grid-gap: ${rowGap}px ${colGap}px;
+  background: #111827;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.grid-item {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}`;
+        result = cssCode;
+
+        const previewContainer = document.getElementById('imageResultContainer');
+        if (previewContainer) {
+            let itemsHTML = '';
+            const totalItems = cols * rows;
+            for (let i = 1; i <= totalItems; i++) {
+                itemsHTML += `<div class="grid-item" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 25px; border-radius: 10px; font-weight: bold; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-family: sans-serif;">Item ${i}</div>`;
+            }
+            previewContainer.innerHTML = `
+                <div style="background: #111827; border: 1px solid var(--border); border-radius: 20px; padding: 20px; display: grid; grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr); grid-gap: ${rowGap}px ${colGap}px;">
+                    ${itemsHTML}
+                </div>
+            `;
+            previewContainer.style.display = 'block';
+        }
     }
 
     // Math Tools

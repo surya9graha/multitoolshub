@@ -64,13 +64,50 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Button Text</label>
+        <input type="text" id="btnText" class="form-control" value="Click Me" style="padding: 15px;">
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label>Bg Color</label>
+            <input type="color" id="btnBgColor" value="#6366f1" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+        <div>
+            <label>Text Color</label>
+            <input type="color" id="btnTextColor" value="#ffffff" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+        <div>
+            <label>Hover Bg Color</label>
+            <input type="color" id="btnHoverBgColor" value="#4f46e5" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Padding Y (px): <span id="valPadY">12</span></label>
+            <input type="range" id="btnPadY" min="0" max="40" value="12" style="width: 100%;">
+        </div>
+        <div>
+            <label>Padding X (px): <span id="valPadX">28</span></label>
+            <input type="range" id="btnPadX" min="0" max="80" value="28" style="width: 100%;">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Border Radius (px): <span id="valRadius">10</span></label>
+            <input type="range" id="btnRadius" min="0" max="50" value="10" style="width: 100%;">
+        </div>
+        <div>
+            <label>Font Size (px): <span id="valFontSize">16</span></label>
+            <input type="range" id="btnFontSize" min="8" max="40" value="16" style="width: 100%;">
+        </div>
+    </div>
+    <div>
+        <label>Shadow Blur (px): <span id="valShadow">10</span></label>
+        <input type="range" id="btnShadow" min="0" max="30" value="10" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     

@@ -404,6 +404,234 @@ INPUT_WEB = """
 </div>
 """
 
+INPUT_CSS_BUTTON = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Button Text</label>
+        <input type="text" id="btnText" class="form-control" value="Click Me" style="padding: 15px;">
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label>Bg Color</label>
+            <input type="color" id="btnBgColor" value="#6366f1" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+        <div>
+            <label>Text Color</label>
+            <input type="color" id="btnTextColor" value="#ffffff" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+        <div>
+            <label>Hover Bg Color</label>
+            <input type="color" id="btnHoverBgColor" value="#4f46e5" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer;">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Padding Y (px): <span id="valPadY">12</span></label>
+            <input type="range" id="btnPadY" min="0" max="40" value="12" style="width: 100%;">
+        </div>
+        <div>
+            <label>Padding X (px): <span id="valPadX">28</span></label>
+            <input type="range" id="btnPadX" min="0" max="80" value="28" style="width: 100%;">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Border Radius (px): <span id="valRadius">10</span></label>
+            <input type="range" id="btnRadius" min="0" max="50" value="10" style="width: 100%;">
+        </div>
+        <div>
+            <label>Font Size (px): <span id="valFontSize">16</span></label>
+            <input type="range" id="btnFontSize" min="8" max="40" value="16" style="width: 100%;">
+        </div>
+    </div>
+    <div>
+        <label>Shadow Blur (px): <span id="valShadow">10</span></label>
+        <input type="range" id="btnShadow" min="0" max="30" value="10" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_FLEXBOX_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label>Flex Direction</label>
+            <select id="flexDir" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="row">row</option>
+                <option value="row-reverse">row-reverse</option>
+                <option value="column">column</option>
+                <option value="column-reverse">column-reverse</option>
+            </select>
+        </div>
+        <div>
+            <label>Justify Content</label>
+            <select id="flexJustify" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="flex-start">flex-start</option>
+                <option value="flex-end">flex-end</option>
+                <option value="center" selected>center</option>
+                <option value="space-between">space-between</option>
+                <option value="space-around">space-around</option>
+                <option value="space-evenly">space-evenly</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label>Align Items</label>
+            <select id="flexAlign" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="flex-start">flex-start</option>
+                <option value="flex-end">flex-end</option>
+                <option value="center" selected>center</option>
+                <option value="stretch">stretch</option>
+                <option value="baseline">baseline</option>
+            </select>
+        </div>
+        <div>
+            <label>Flex Wrap</label>
+            <select id="flexWrap" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="nowrap">nowrap</option>
+                <option value="wrap">wrap</option>
+                <option value="wrap-reverse">wrap-reverse</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label>Number of Items: <span id="valItems">3</span></label>
+        <input type="range" id="flexItemCount" min="1" max="10" value="3" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_GRID_LAYOUT = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Grid Columns: <span id="valGridCols">3</span></label>
+            <input type="range" id="gridCols" min="1" max="6" value="3" style="width: 100%;">
+        </div>
+        <div>
+            <label>Grid Rows: <span id="valGridRows">2</span></label>
+            <input type="range" id="gridRows" min="1" max="6" value="2" style="width: 100%;">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Column Gap (px): <span id="valColGap">15</span></label>
+            <input type="range" id="gridColGap" min="0" max="40" value="15" style="width: 100%;">
+        </div>
+        <div>
+            <label>Row Gap (px): <span id="valRowGap">15</span></label>
+            <input type="range" id="gridRowGap" min="0" max="40" value="15" style="width: 100%;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_PASSWORD_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Password Length: <span id="valPassLength">16</span></label>
+        <input type="range" id="passLength" min="6" max="64" value="16" style="width: 100%;">
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="passUpper" checked style="width: 20px; height: 20px;">
+            Uppercase Letters (A-Z)
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="passLower" checked style="width: 20px; height: 20px;">
+            Lowercase Letters (a-z)
+        </label>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="passNumbers" checked style="width: 20px; height: 20px;">
+            Numbers (0-9)
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="passSymbols" checked style="width: 20px; height: 20px;">
+            Symbols (!@#$%)
+        </label>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_UUID_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Number of UUIDs to Generate: <span id="valUuidCount">5</span></label>
+        <input type="range" id="uuidCount" min="1" max="50" value="5" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_ASPECT_RATIO = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Width</label>
+            <input type="number" id="aspectWidth" class="form-control" value="1920" style="padding: 15px;">
+        </div>
+        <div>
+            <label>Height</label>
+            <input type="number" id="aspectHeight" class="form-control" value="1080" style="padding: 15px;">
+        </div>
+    </div>
+    <div>
+        <label>Calculate For (New Width or New Height)</label>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <label>New Width (to find Height)</label>
+                <input type="number" id="newWidth" class="form-control" placeholder="e.g. 1280" style="padding: 15px;">
+            </div>
+            <div>
+                <label>New Height (to find Width)</label>
+                <input type="number" id="newHeight" class="form-control" placeholder="e.g. 720" style="padding: 15px;">
+            </div>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_COLOR_PICKER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Choose Color</label>
+        <input type="color" id="pickerColor" value="#6366f1" style="width: 120px; height: 120px; border: none; border-radius: 20px; cursor: pointer; display: block; margin: 0 auto; background: transparent;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_DRAWING_BOARD = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 20px; border: 1px solid var(--border);">
+        <div>
+            <label style="font-size: 0.8rem; margin-bottom: 5px; display: block;">Brush Color</label>
+            <input type="color" id="drawColor" value="#6366f1" style="width: 40px; height: 40px; border: none; border-radius: 5px; cursor: pointer; background: transparent;">
+        </div>
+        <div>
+            <label style="font-size: 0.8rem; margin-bottom: 5px; display: block;">Brush Size: <span id="drawSizeVal">5</span>px</label>
+            <input type="range" id="drawSize" min="1" max="50" value="5" style="width: 120px;">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button id="drawEraser" class="category-label" style="border: none; padding: 10px 20px;">Eraser</button>
+            <button id="drawClear" class="category-label" style="border: none; padding: 10px 20px;">Clear Canvas</button>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        <canvas id="paintCanvas" width="600" height="400" style="border: 1px solid var(--border); border-radius: 20px; background: #ffffff; cursor: crosshair; max-width: 100%; display: block; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"></canvas>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 # Generate the files
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
@@ -433,7 +661,7 @@ for category, tools in tools_data.items():
         file_name = f"{tool_name}.html"
         file_path = os.path.join(category_path, file_name)
         
-        # Decide specific input for image tools
+        # Decide specific input for tools
         current_input = dynamic_input
         if tool_name == "image-resizer":
             current_input = INPUT_IMAGE_RESIZER
@@ -445,6 +673,22 @@ for category, tools in tools_data.items():
             current_input = INPUT_IMAGE_WATERMARK
         elif tool_name == "thumbnail-preview":
             current_input = INPUT_THUMBNAIL_PREVIEW
+        elif tool_name == "css-button":
+            current_input = INPUT_CSS_BUTTON
+        elif tool_name == "flexbox-generator":
+            current_input = INPUT_FLEXBOX_GENERATOR
+        elif tool_name == "grid-layout":
+            current_input = INPUT_GRID_LAYOUT
+        elif tool_name == "password-generator":
+            current_input = INPUT_PASSWORD_GENERATOR
+        elif tool_name == "uuid-generator":
+            current_input = INPUT_UUID_GENERATOR
+        elif tool_name == "aspect-ratio":
+            current_input = INPUT_ASPECT_RATIO
+        elif tool_name == "color-picker":
+            current_input = INPUT_COLOR_PICKER
+        elif tool_name == "drawing-board":
+            current_input = INPUT_DRAWING_BOARD
             
         seo_content = get_seo_content(category, tool_name, title)
         

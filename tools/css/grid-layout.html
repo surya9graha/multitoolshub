@@ -64,13 +64,28 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Grid Columns: <span id="valGridCols">3</span></label>
+            <input type="range" id="gridCols" min="1" max="6" value="3" style="width: 100%;">
+        </div>
+        <div>
+            <label>Grid Rows: <span id="valGridRows">2</span></label>
+            <input type="range" id="gridRows" min="1" max="6" value="2" style="width: 100%;">
+        </div>
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label>Column Gap (px): <span id="valColGap">15</span></label>
+            <input type="range" id="gridColGap" min="0" max="40" value="15" style="width: 100%;">
+        </div>
+        <div>
+            <label>Row Gap (px): <span id="valRowGap">15</span></label>
+            <input type="range" id="gridRowGap" min="0" max="40" value="15" style="width: 100%;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     

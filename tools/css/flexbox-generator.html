@@ -64,13 +64,54 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label>Flex Direction</label>
+            <select id="flexDir" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="row">row</option>
+                <option value="row-reverse">row-reverse</option>
+                <option value="column">column</option>
+                <option value="column-reverse">column-reverse</option>
+            </select>
+        </div>
+        <div>
+            <label>Justify Content</label>
+            <select id="flexJustify" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="flex-start">flex-start</option>
+                <option value="flex-end">flex-end</option>
+                <option value="center" selected>center</option>
+                <option value="space-between">space-between</option>
+                <option value="space-around">space-around</option>
+                <option value="space-evenly">space-evenly</option>
+            </select>
+        </div>
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label>Align Items</label>
+            <select id="flexAlign" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="flex-start">flex-start</option>
+                <option value="flex-end">flex-end</option>
+                <option value="center" selected>center</option>
+                <option value="stretch">stretch</option>
+                <option value="baseline">baseline</option>
+            </select>
+        </div>
+        <div>
+            <label>Flex Wrap</label>
+            <select id="flexWrap" class="form-control" style="padding: 10px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); width: 100%;">
+                <option value="nowrap">nowrap</option>
+                <option value="wrap">wrap</option>
+                <option value="wrap-reverse">wrap-reverse</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label>Number of Items: <span id="valItems">3</span></label>
+        <input type="range" id="flexItemCount" min="1" max="10" value="3" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     
