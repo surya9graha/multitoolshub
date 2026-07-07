@@ -154,19 +154,28 @@ const TOOLS_DATA = {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('MultiTools Hub Redesign Active (RETRY)');
-    initTheme();
-    initToolGrid();
-    initSearch();
-    initCategoryFilter();
-    initToolEngine();
-    initImageTools();
-    initCSSListeners();
+    
+    const safeInit = (name, fn) => {
+        try {
+            fn();
+        } catch (e) {
+            console.warn(`Failed to initialize ${name}:`, e);
+        }
+    };
+
+    safeInit('Theme', initTheme);
+    safeInit('ToolGrid', initToolGrid);
+    safeInit('Search', initSearch);
+    safeInit('CategoryFilter', initCategoryFilter);
+    safeInit('ToolEngine', initToolEngine);
+    safeInit('ImageTools', initImageTools);
+    safeInit('CSSListeners', initCSSListeners);
     
     // New Initializations for Redesigned Homepage
-    initPopularToolsRail();
-    initLatestBlogsRail();
-    initTrendingGuidesRail();
-    initAppSlider();
+    safeInit('PopularToolsRail', initPopularToolsRail);
+    safeInit('LatestBlogsRail', initLatestBlogsRail);
+    safeInit('TrendingGuidesRail', initTrendingGuidesRail);
+    safeInit('AppSlider', initAppSlider);
 });
 
 function initTheme() {
@@ -500,7 +509,7 @@ function initCSSListeners() {
 
     // Online Notepad loader
     const notepadInput = document.getElementById('toolInput');
-    const pageH1 = document.querySelector('h1')?.innerText.toLowerCase() || "";
+    const pageH1 = document.querySelector('h1')?.innerText?.toLowerCase() || "";
     if (pageH1.includes('online notepad') && notepadInput) {
         notepadInput.value = localStorage.getItem('online_notepad_content') || "";
     }
@@ -589,7 +598,7 @@ let TIMER_INTERVAL = null;
 function initToolEngine() {
     const pBtn = document.getElementById('processBtn');
     if (!pBtn) return;
-    const h1 = document.querySelector('h1').innerText.toLowerCase();
+    const h1 = document.querySelector('h1')?.innerText?.toLowerCase() || "";
     
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
