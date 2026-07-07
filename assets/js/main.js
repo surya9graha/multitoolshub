@@ -497,6 +497,13 @@ function initCSSListeners() {
     if (paintCanvas) {
         initDrawingBoard(paintCanvas);
     }
+
+    // Online Notepad loader
+    const notepadInput = document.getElementById('toolInput');
+    const pageH1 = document.querySelector('h1')?.innerText.toLowerCase() || "";
+    if (pageH1.includes('online notepad') && notepadInput) {
+        notepadInput.value = localStorage.getItem('online_notepad_content') || "";
+    }
 }
 
 function initDrawingBoard(canvas) {
@@ -1817,6 +1824,143 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
     } else if (tool.includes('byte converter')) {
         const bytes = parseFloat(input) || 0;
         result = `${bytes} B\n${(bytes/1024).toFixed(2)} KB\n${(bytes/1048576).toFixed(2)} MB\n${(bytes/1073741824).toFixed(2)} GB`;
+    } else if (tool.includes('speech to text')) {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        toggleLoader(true, "Listening... Speak now!");
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const speechResult = event.results[0][0].transcript;
+            toggleLoader(false);
+            if (output) {
+                output.innerText = `Transcribed Text:\n\n${speechResult}`;
+            }
+        };
+
+        recognition.onspeechend = () => {
+            recognition.stop();
+        };
+
+        recognition.onerror = (event) => {
+            toggleLoader(false);
+            if (output) {
+                output.innerText = `Error occurred in recognition: ${event.error}`;
+            }
+        };
+        result = "Voice recognition started. Please speak into your microphone...";
+    } else if (tool.includes('color picker')) {
+        const colorVal = document.getElementById('pickerColor')?.value || "#6366f1";
+        const hex = colorVal.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        
+        let rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
+        let max = Math.max(rNorm, gNorm, bNorm), min = Math.min(rNorm, gNorm, bNorm);
+        let h, s, l = (max + min) / 2;
+        if (max === min) {
+            h = s = 0;
+        } else {
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case rNorm: h = (gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0); break;
+                case gNorm: h = (bNorm - rNorm) / d + 2; break;
+                case bNorm: h = (rNorm - gNorm) / d + 4; break;
+            }
+            h /= 6;
+        }
+        h = Math.round(h * 360);
+        s = Math.round(s * 100);
+        l = Math.round(l * 100);
+
+        result = `Selected Color: ${colorVal.toUpperCase()}\n`;
+        result += `--------------------------------------\n`;
+        result += `HEX: ${colorVal.toUpperCase()}\n`;
+        result += `RGB: rgb(${r}, ${g}, ${b})\n`;
+        result += `HSL: hsl(${h}, ${s}%, ${l}%)\n`;
+        result += `--------------------------------------\n`;
+        
+        const resContainer = document.getElementById('imageResultContainer');
+        if (resContainer) {
+            resContainer.innerHTML = `<div style="height: 120px; border-radius: 20px; background: ${colorVal}; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid var(--border);"></div>`;
+            resContainer.style.display = 'block';
+        }
+    } else if (tool.includes('screen resolution')) {
+        const w = window.screen.width;
+        const h = window.screen.height;
+        const availW = window.screen.availWidth;
+        const availH = window.screen.availHeight;
+        const pixelRatio = window.devicePixelRatio || 1;
+        const colorDepth = window.screen.colorDepth;
+        
+        result = `Your Device Screen Information:\n`;
+        result += `------------------------------------------\n`;
+        result += `Screen Resolution:  ${w} x ${h} pixels\n`;
+        result += `Available Space:    ${availW} x ${availH} pixels\n`;
+        result += `Device Pixel Ratio: ${pixelRatio}x\n`;
+        result += `Color Depth:        ${colorDepth}-bit\n`;
+        result += `Viewport Size:      ${window.innerWidth} x ${window.innerHeight} pixels`;
+    } else if (tool.includes('aspect ratio')) {
+        const w = parseFloat(document.getElementById('aspectWidth')?.value || "1920");
+        const h = parseFloat(document.getElementById('aspectHeight')?.value || "1080");
+        const newW = parseFloat(document.getElementById('newWidth')?.value);
+        const newH = parseFloat(document.getElementById('newHeight')?.value);
+
+        const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
+        const divisor = gcd(w, h);
+        const ratioW = w / divisor;
+        const ratioH = h / divisor;
+
+        result = `Original Aspect Ratio: ${ratioW}:${ratioH} (${(w/h).toFixed(2)})\n`;
+        result += `------------------------------------------\n`;
+
+        if (newW && !isNaN(newW)) {
+            const calculatedH = Math.round((newW / w) * h);
+            result += `Calculated Dimension: ${newW} x ${calculatedH} (Height found from New Width)`;
+        } else if (newH && !isNaN(newH)) {
+            const calculatedW = Math.round((newH / h) * w);
+            result += `Calculated Dimension: ${calculatedW} x ${newH} (Width found from New Height)`;
+        } else {
+            result += `Enter a "New Width" or "New Height" in the fields to calculate scaled dimensions.`;
+        }
+    } else if (tool.includes('online notepad')) {
+        localStorage.setItem('online_notepad_content', input);
+        result = `Draft saved successfully inside local storage! (${new Date().toLocaleTimeString()})\n\nContent:\n${input || '(Empty)'}`;
+        
+        const downloadBtn = document.getElementById('downloadBtn');
+        if (downloadBtn) {
+            downloadBtn.style.display = 'inline-block';
+            downloadBtn.onclick = () => {
+                const blob = new Blob([input], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.download = `notepad-${Date.now()}.txt`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+            };
+        }
+    } else if (tool.includes('drawing board')) {
+        const canvas = document.getElementById('paintCanvas');
+        if (canvas) {
+            const dataUrl = canvas.toDataURL('image/png');
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) {
+                downloadBtn.style.display = 'inline-block';
+                downloadBtn.onclick = () => {
+                    const link = document.createElement('a');
+                    link.download = `drawing-${Date.now()}.png`;
+                    link.href = dataUrl;
+                    link.click();
+                };
+            }
+            result = "Drawing captured successfully! Click 'Download Result' to save your artwork as PNG.";
+        } else {
+            result = "Drawing canvas not found.";
+        }
     }
 
     // Default Fallback

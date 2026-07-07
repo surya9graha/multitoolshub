@@ -64,10 +64,12 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label>Number of UUIDs to Generate: <span id="valUuidCount">5</span></label>
+        <input type="range" id="uuidCount" min="1" max="50" value="5" style="width: 100%;">
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     
