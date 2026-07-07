@@ -439,6 +439,8 @@ function initCategoryFilter() {
             c.style.display = match ? 'block' : 'none';
         });
     }));
+}
+
 function initCSSListeners() {
     // CSS Button Listeners
     const btnText = document.getElementById('btnText');
