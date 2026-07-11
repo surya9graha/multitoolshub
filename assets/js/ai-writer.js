@@ -21,8 +21,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const wordCountEl = document.getElementById('wordCount');
     const charCountEl = document.getElementById('charCount');
     const generateBtn = document.getElementById('btnGenerate');
+    const apiKeyInput = document.getElementById('geminiApiKey');
+    const toggleApiKeyBtn = document.getElementById('toggleApiKey');
 
     if (!inputTopic || !outputBox || !generateBtn) return;
+
+    // Load API Key from localStorage
+    if (apiKeyInput) {
+        apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
+        apiKeyInput.addEventListener('input', () => {
+            localStorage.setItem('gemini_api_key', apiKeyInput.value.trim());
+        });
+    }
+
+    // Toggle API Key visibility
+    if (toggleApiKeyBtn && apiKeyInput) {
+        toggleApiKeyBtn.addEventListener('click', () => {
+            const isPassword = apiKeyInput.type === 'password';
+            apiKeyInput.type = isPassword ? 'text' : 'password';
+            toggleApiKeyBtn.innerHTML = isPassword ? '<i class="far fa-eye-slash"></i>' : '<i class="far fa-eye"></i>';
+        });
+    }
 
     // Live Word/Char Count
     outputBox.addEventListener('input', updateStats);
@@ -59,38 +78,73 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const prompt = `Act as an expert AI Content Writer. Create a ${length} length ${type} about "${topic}". The tone of the content should be ${tone}. Write the entire output in the ${lang} language. Ensure the content is high quality, well-structured, and professional. Format it cleanly without excessive markdown.`;
             
-            // Call secure backend Firebase Cloud Function
-            const response = await fetch(await getBackendUrl('generateText'), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ prompt })
-            });
+            let generatedText = "";
+            const localApiKey = localStorage.getItem('gemini_api_key');
 
-            if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error || "Failed to connect to backend server.");
+            if (localApiKey) {
+                // Call Gemini API directly from client side
+                outputBox.value = "AI is thinking...\nConnecting to Gemini API via Custom Key...\nStructuring content...";
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${localApiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: prompt }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error?.message || "Failed to generate content with custom API key.");
+                }
+
+                const data = await response.json();
+                generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } else {
+                // Call secure backend Firebase Cloud Function
+                outputBox.value = "AI is thinking...\nConnecting to backend Cloud Function...\nStructuring content...";
+                const response = await fetch(await getBackendUrl('generateText'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || "Failed to connect to backend server.");
+                }
+
+                const data = await response.json();
+                generatedText = data.result;
             }
 
-            const data = await response.json();
-            if (data.result) {
-                outputBox.value = data.result.trim();
+            if (generatedText) {
+                outputBox.value = generatedText.trim();
             } else {
                 throw new Error("No content generated. Please try a different prompt.");
             }
             updateStats();
         } catch (error) {
             let msg = error.message;
+            const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
+            
+            // Run simulated content fallback
+            const simulated = generateSimulatedContent(topic, type, tone, length, lang);
+            
             if (msg === "Failed to fetch" || msg.includes("NetworkError")) {
-                const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname) || window.location.protocol === 'file:';
                 if (isLocal) {
-                    msg = "Failed to connect to local backend. Please ensure:\n1. Your Firebase Emulator is running (Run: cmd /c npx firebase emulators:start --only functions)\n2. You are using a local web server (like VS Code Live Server) rather than double-clicking the file (file:///) to avoid browser CORS blocks.";
+                    outputBox.value = `[NOTICE: Local Firebase emulator is not running. Showing simulated preview output below]\n\n${simulated}`;
                 } else {
-                    msg = "Failed to connect to backend. Please check your internet connection or if Cloud Functions are deployed.";
+                    outputBox.value = `[NOTICE: Cloud Functions backend is not deployed/configured. Showing simulated preview output below. (Tip: Paste your own Gemini API key under the 'Custom API Key' panel to generate real live content directly!)]\n\n${simulated}`;
                 }
+            } else {
+                outputBox.value = `[NOTICE: API returned error (${msg}). Showing simulated preview output below. (Tip: Please double-check your custom API Key or internet connection.)]\n\n${simulated}`;
             }
-            outputBox.value = "Error: " + msg;
             updateStats();
         } finally {
             // Reset button

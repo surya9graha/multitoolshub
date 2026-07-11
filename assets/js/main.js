@@ -2216,6 +2216,8 @@ function initAppSlider() {
                     dot.style.backgroundColor = '#8b5cf6';
                 } else if (currentIndex === 3) {
                     dot.style.backgroundColor = '#6366f1';
+                } else if (currentIndex === 4) {
+                    dot.style.backgroundColor = '#ea580c';
                 }
             } else {
                 dot.classList.remove('active');

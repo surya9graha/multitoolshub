@@ -449,6 +449,26 @@
                     </div>
                 </div>
 
+                <!-- API Key Settings (Optional client-side fallback) -->
+                <div class="form-group" style="margin-top: -10px; margin-bottom: 20px;">
+                    <details style="background: var(--ai-surface); border: 1px solid var(--ai-border); border-radius: 12px; padding: 12px 15px; border-left: 4px solid var(--ai-primary);">
+                        <summary style="font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--ai-text-muted); display: flex; align-items: center; gap: 8px; list-style: none; user-select: none;">
+                            <i class="fas fa-key"></i> Custom API Key (Optional client-side fallback)
+                        </summary>
+                        <div style="margin-top: 10px;">
+                            <p style="font-size: 0.8rem; color: var(--ai-text-muted); margin-bottom: 8px; line-height: 1.4;">
+                                If the default backend is unavailable (e.g. Cloud Functions are not deployed), you can paste your own Gemini API key below. It is stored securely only on your local browser.
+                            </p>
+                            <div style="position: relative; display: flex; align-items: center;">
+                                <input type="password" id="geminiApiKey" class="form-control" style="font-size: 0.85rem; padding: 10px 12px; padding-right: 40px;" placeholder="AIzaSy...">
+                                <button type="button" id="toggleApiKey" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: var(--ai-text-muted); font-size: 0.9rem;">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
                 <div class="grid-2">
                     <div class="form-group">
                         <label for="aiType">Content Type</label>
