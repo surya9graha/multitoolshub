@@ -6,6 +6,7 @@ for all tool categories and tools.
 """
 
 from image_content import IMAGE_SEO_DATA
+from tool_seo_data import TOOL_SEO_DATA
 
 # Category introductions and descriptions
 CATEGORY_INFO = {
@@ -224,7 +225,15 @@ def get_seo_content(category, tool_id, title):
             "faqs": [("Is it secure?", "Yes, all data is processed locally.")]
         })
         
-        use_case_list = "".join([f"<li>{uc}</li>" for uc in cat_data["use_cases"]])
+        # Override with tool-specific descriptions if available
+        if tool_id in TOOL_SEO_DATA:
+            intro_text = TOOL_SEO_DATA[tool_id]["intro"]
+            use_cases_list = TOOL_SEO_DATA[tool_id]["use_cases"]
+        else:
+            intro_text = cat_data["intro"]
+            use_cases_list = cat_data["use_cases"]
+
+        use_case_list = "".join([f"<li>{uc}</li>" for uc in use_cases_list])
         
         faq_list = "".join([
             f"<div class='faq-item' style='margin-bottom: 25px;'>"
@@ -237,7 +246,7 @@ def get_seo_content(category, tool_id, title):
         # Programmatically assemble a rich document to ensure 300+ words
         custom_content = f"""
         <h2>Comprehensive Guide to using {title} Online</h2>
-        <p>Our <strong>{title}</strong> is a dedicated utility nested within our {category.upper()} suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. {cat_data["intro"]}</p>
+        <p>Our <strong>{title}</strong> is a dedicated utility nested within our {category.upper()} suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. {intro_text}</p>
         
         <h3>Key Applications and Use Cases</h3>
         <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>

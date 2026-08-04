@@ -320,11 +320,11 @@ function initLatestBlogsRail() {
             tag: "Video • AI"
         },
         {
-            title: "International Tax Planning for Nomads 2026",
-            excerpt: "Explore legal ways to optimize your global footprint and keep more of what you earn.",
-            img: "assets/img/blog/nomad-health-insurance-2026.png",
-            url: "blog/nomad-tax-planning-2026.html",
-            tag: "Tax • Finance"
+            title: "Ultimate Guide to PDF Tools in 2026",
+            excerpt: "Master your PDF workflow. Convert, compress, merge, split, and secure documents easily.",
+            img: "assets/img/blog/ultimate-guide-pdf-tools.png",
+            url: "blog/ultimate-guide-pdf-tools.html",
+            tag: "Tools • PDF"
         },
         {
             title: "High-Performance Cloud Computing in 2026",
@@ -334,11 +334,11 @@ function initLatestBlogsRail() {
             tag: "Cloud • Tech"
         },
         {
-            title: "AI-Driven Sales Automation for 2026",
-            excerpt: "Close more deals using AI for lead gen, outreach, and CRM mastery.",
-            img: "assets/img/blog/best-ai-crm-tools-2026.png",
-            url: "blog/sales-automation-2026.html",
-            tag: "Sales • AI"
+            title: "Complete Guide to Document Scanning",
+            excerpt: "Learn how to scan documents using your mobile phone like a pro with perfect lighting.",
+            img: "assets/img/blog/document-scanning-mobile.png",
+            url: "blog/document-scanning-mobile-phone.html",
+            tag: "Tech • Guide"
         },
         {
             title: "Future of Professional Photography in 2026",
@@ -374,18 +374,18 @@ function initTrendingGuidesRail() {
 
     const guides = [
         {
-            title: "How to Start Freelancing in 2026",
-            excerpt: "Step-by-step roadmap to launching a successful freelance career.",
-            img: "assets/img/blog/start-freelancing-2026.png",
-            url: "blog/how-to-start-freelancing-2026.html",
-            tag: "Freelancing"
+            title: "How to Build a Paperless Office in 2026",
+            excerpt: "Tired of paper clutter? Build a fully paperless digital office with this guide.",
+            img: "assets/img/blog/paperless-office-guide.png",
+            url: "blog/paperless-digital-office-guide.html",
+            tag: "Productivity"
         },
         {
-            title: "Best Business Credit Cards for Startups",
-            excerpt: "Maximize rewards and cash flow with the right business card in 2026.",
-            img: "assets/img/blog/best-business-credit-cards-2026.png",
-            url: "blog/best-business-credit-cards-2026.html",
-            tag: "Finance"
+            title: "PNG to JPG Optimization Guide 2026",
+            excerpt: "Optimize images to save storage and improve website loading times dramatically.",
+            img: "assets/img/blog/top-image-tools.png",
+            url: "blog/png-to-jpg-optimization-guide.html",
+            tag: "Image Tools"
         },
         {
             title: "E-commerce SEO Guide 2026: Rank #1",
