@@ -43,7 +43,7 @@ tools_data = {
         "leap-year", "timezone-converter", "date-formatter"
     ],
     "web": [
-        "html-preview", "markdown-converter", "url-shortener", "yt-downloader", "favicon-generator",
+        "html-preview", "markdown-converter", "url-shortener", "yt-thumbnail-downloader", "favicon-generator",
         "website-status", "page-speed", "broken-link", "dns-lookup", "whois",
         "source-viewer", "redirect-checker", "favicon-grabber"
     ],
@@ -632,6 +632,47 @@ INPUT_DRAWING_BOARD = """
 </div>
 """
 
+INPUT_TEXT_DIFF = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div>
+            <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Original Text</label>
+            <textarea id="textDiffOriginal" class="form-control" style="height: 200px;" placeholder="Paste the original text here..."></textarea>
+        </div>
+        <div>
+            <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Modified Text</label>
+            <textarea id="textDiffModified" class="form-control" style="height: 200px;" placeholder="Paste the modified text here..."></textarea>
+        </div>
+    </div>
+    <!-- Hidden input for compatibility -->
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_REGEX_TESTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 15px;">
+        <div>
+            <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Regular Expression Pattern</label>
+            <input type="text" id="regexPattern" class="form-control" placeholder="e.g. [a-zA-Z]+" style="padding: 15px; font-family: monospace;">
+        </div>
+        <div>
+            <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Flags</label>
+            <div style="display: flex; gap: 10px; align-items: center; height: 50px; background: rgba(255,255,255,0.02); padding: 0 15px; border-radius: 15px; border: 1px solid var(--border);">
+                <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.85rem;"><input type="checkbox" id="flagGlobal" checked>g</label>
+                <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.85rem;"><input type="checkbox" id="flagIgnoreCase" checked>i</label>
+                <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.85rem;"><input type="checkbox" id="flagMultiline">m</label>
+            </div>
+        </div>
+    </div>
+    <div>
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Text to Test</label>
+        <textarea id="regexTestText" class="form-control" style="height: 180px;" placeholder="Type or paste the text content you want to match against..."></textarea>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 # Generate the files
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
@@ -691,6 +732,10 @@ for category, tools in tools_data.items():
             current_input = INPUT_DRAWING_BOARD
         elif tool_name == "favicon-generator":
             current_input = INPUT_FILE
+        elif tool_name == "text-diff":
+            current_input = INPUT_TEXT_DIFF
+        elif tool_name == "regex-tester":
+            current_input = INPUT_REGEX_TESTER
             
         seo_content = get_seo_content(category, tool_name, title)
         

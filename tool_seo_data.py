@@ -573,7 +573,7 @@ TOOL_SEO_DATA = {
             "Tracking promotional link structures.",
         ]
     },
-    "yt-downloader": {
+    "yt-thumbnail-downloader": {
         "intro": "Inspect YouTube video specifications and download cover thumbnails. Preview layout graphics locally.",
         "use_cases": [
             "Downloading video preview graphics for content grids.",

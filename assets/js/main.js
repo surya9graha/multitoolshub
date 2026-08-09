@@ -113,7 +113,7 @@ const TOOLS_DATA = {
         ["html-preview", "HTML Preview", "Live preview your HTML and CSS code snippets."],
         ["markdown-converter", "Markdown Converter", "Convert Markdown text into styled HTML."],
         ["url-shortener", "URL Shortener", "Shorten long URLs for easier sharing."],
-        ["yt-downloader", "YT Downloader", "Preview YouTube video metadata and thumbnails."],
+        ["yt-thumbnail-downloader", "YouTube Thumbnail Downloader", "Preview and download YouTube video thumbnails and cover graphics."],
         ["favicon-generator", "Favicon Generator", "Create multi-size favicons from images."],
         ["website-status", "Website Status", "Check if a website is up or down."],
         ["page-speed", "Page Speed", "Test and analyze website loading performance."],
@@ -234,7 +234,7 @@ function initToolGrid() {
         "stopwatch": "fas fa-stopwatch", "world-clock": "fas fa-clock",
         // Web
         "html-preview": "fas fa-eye", "markdown-converter": "fab fa-markdown",
-        "url-shortener": "fas fa-link", "yt-downloader": "fab fa-youtube",
+        "url-shortener": "fas fa-link", "yt-thumbnail-downloader": "fab fa-youtube",
         // Misc
         "morse-code": "fas fa-ellipsis-h", "nato-alphabet": "fas fa-microphone-alt",
         "text-to-speech": "fas fa-volume-up", "color-picker": "fas fa-eye-dropper",
@@ -862,7 +862,101 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('js minifier')) {
         result = input.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
     } else if (tool.includes('regex tester')) {
-        result = "Regex testing requires complex UI but a sample test:\n" + (input.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi) ? "Found Emails!" : "No typical emails found.");
+        const pattern = document.getElementById('regexPattern')?.value || "";
+        const testText = document.getElementById('regexTestText')?.value || "";
+        const flagG = document.getElementById('flagGlobal')?.checked ? 'g' : '';
+        const flagI = document.getElementById('flagIgnoreCase')?.checked ? 'i' : '';
+        const flagM = document.getElementById('flagMultiline')?.checked ? 'm' : '';
+        const flags = flagG + flagI + flagM;
+        const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        
+        if (!pattern) {
+            result = "Please enter a regular expression pattern to test.";
+        } else if (!testText) {
+            result = "Please enter text to test against.";
+        } else {
+            try {
+                const regex = new RegExp(pattern, flags);
+                const matches = [];
+                let match;
+                
+                if (flags.includes('g')) {
+                    let iterations = 0;
+                    while ((match = regex.exec(testText)) !== null) {
+                        iterations++;
+                        if (iterations > 1000) {
+                            matches.push({ text: "... (limited to first 1000 matches)", index: -1 });
+                            break;
+                        }
+                        matches.push({
+                            text: match[0],
+                            index: match.index,
+                            groups: match.slice(1)
+                        });
+                    }
+                } else {
+                    match = regex.exec(testText);
+                    if (match) {
+                        matches.push({
+                            text: match[0],
+                            index: match.index,
+                            groups: match.slice(1)
+                        });
+                    }
+                }
+                
+                if (matches.length > 0) {
+                    result = `Found ${matches.length} match(es):\n\n`;
+                    matches.forEach((m, idx) => {
+                        result += `Match ${idx + 1}: "${m.text}" (Index: ${m.index})\n`;
+                        if (m.groups && m.groups.length > 0) {
+                            m.groups.forEach((g, gIdx) => {
+                                result += `  - Group ${gIdx + 1}: "${g || ''}"\n`;
+                            });
+                        }
+                        result += `\n`;
+                    });
+                    
+                    let highlighted = "";
+                    let lastIdx = 0;
+                    const validMatches = matches.filter(m => m.index !== -1).sort((a, b) => a.index - b.index);
+                    const nonOverlapping = [];
+                    let currentEnd = 0;
+                    for (const m of validMatches) {
+                        if (m.index >= currentEnd) {
+                            nonOverlapping.push(m);
+                            currentEnd = m.index + m.text.length;
+                        }
+                    }
+                    
+                    nonOverlapping.forEach(m => {
+                        highlighted += escapeHTML(testText.substring(lastIdx, m.index));
+                        highlighted += `<mark style="background-color: hsla(var(--p-hue), 90%, 65%, 0.35); color: var(--text-main); border-radius: 4px; padding: 2px; border: 1px solid var(--primary);">${escapeHTML(m.text)}</mark>`;
+                        lastIdx = m.index + m.text.length;
+                    });
+                    highlighted += escapeHTML(testText.substring(lastIdx));
+                    
+                    const resContainer = document.getElementById('imageResultContainer');
+                    if (resContainer) {
+                        resContainer.innerHTML = `
+                            <div style="text-align: left; margin-top: 15px;">
+                                <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Highlighted Matches</label>
+                                <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 15px; padding: 20px; font-family: monospace; white-space: pre-wrap; line-height: 1.6; max-height: 300px; overflow-y: auto;">${highlighted}</div>
+                            </div>
+                        `;
+                        resContainer.style.display = 'block';
+                    }
+                } else {
+                    result = "No matches found.";
+                    const resContainer = document.getElementById('imageResultContainer');
+                    if (resContainer) resContainer.style.display = 'none';
+                }
+            } catch (err) {
+                result = `Regex Error: ${err.message}`;
+                const resContainer = document.getElementById('imageResultContainer');
+                if (resContainer) resContainer.style.display = 'none';
+            }
+        }
     } else if (tool.includes('html to text')) {
         const div = document.createElement('div'); div.innerHTML = input; result = div.textContent || div.innerText || "";
     } else if (tool.includes('text to html')) {
@@ -899,7 +993,69 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('fancy text')) {
         result = "Ⓕⓐⓝⓒⓨ Ⓣⓔⓧⓣ: " + input.split('').join(' ');
     } else if (tool.includes('text diff')) {
-        result = "Text diffing logic here (placeholder). Compare A and B.";
+        const originalText = document.getElementById('textDiffOriginal')?.value || "";
+        const modifiedText = document.getElementById('textDiffModified')?.value || "";
+        const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        
+        if (!originalText && !modifiedText) {
+            result = "Please enter some text in both fields to compare.";
+        } else {
+            const originalLines = originalText.split('\n');
+            const modifiedLines = modifiedText.split('\n');
+            
+            let diffHTML = '<div style="font-family: monospace; line-height: 1.5; font-size: 0.95rem; text-align: left; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 15px; border: 1px solid var(--border); overflow-x: auto;">';
+            let i = 0, j = 0;
+            let changesFound = false;
+            
+            while (i < originalLines.length || j < modifiedLines.length) {
+                const lineOrig = originalLines[i];
+                const lineMod = modifiedLines[j];
+                
+                if (lineOrig === lineMod) {
+                    diffHTML += `<div style="color: var(--text-muted); padding: 2px 5px;">  ${escapeHTML(lineOrig || '')}</div>`;
+                    i++;
+                    j++;
+                } else {
+                    changesFound = true;
+                    let lookAheadJ = j;
+                    let foundMatch = false;
+                    while (lookAheadJ < modifiedLines.length) {
+                        if (modifiedLines[lookAheadJ] === lineOrig) {
+                            foundMatch = true;
+                            break;
+                        }
+                        lookAheadJ++;
+                    }
+                    
+                    if (foundMatch && lookAheadJ > j) {
+                        for (let k = j; k < lookAheadJ; k++) {
+                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 5px; font-weight: 600;">+ ${escapeHTML(modifiedLines[k])}</div>`;
+                        }
+                        j = lookAheadJ;
+                    } else {
+                        if (lineOrig !== undefined) {
+                            diffHTML += `<div style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 2px 5px; text-decoration: line-through;">- ${escapeHTML(lineOrig)}</div>`;
+                            i++;
+                        }
+                        if (lineMod !== undefined && !foundMatch) {
+                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 5px; font-weight: 600;">+ ${escapeHTML(lineMod)}</div>`;
+                            j++;
+                        }
+                    }
+                }
+            }
+            diffHTML += '</div>';
+            
+            const resContainer = document.getElementById('imageResultContainer');
+            if (resContainer) {
+                resContainer.innerHTML = diffHTML;
+                resContainer.style.display = 'block';
+            }
+            
+            result = changesFound 
+                ? "Differences detected! View the detailed color-coded visual diff below." 
+                : "No differences found! The two texts are identical.";
+        }
     }
 
     else if (tool.includes('password generator')) {
@@ -1139,7 +1295,34 @@ async function runCoreLogic(tool, input, output) {
         else if (score > 40) strength = "Medium";
         result = `Strength Score: ${score}/100\nAssessment: ${strength}`;
     } else if (tool.includes('ip lookup')) {
-        result = `IP Address: ${input || '127.0.0.1'}\nLocation: Simulated Data\nISP: Local ISP\nCountry: India (Simulated)`;
+        const ip = input.trim();
+        toggleLoader(true, "Looking up IP address information...");
+        try {
+            const queryUrl = ip ? `https://ipapi.co/${ip}/json/` : `https://ipapi.co/json/`;
+            const response = await fetch(queryUrl);
+            toggleLoader(false);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.error) {
+                    result = `IP Lookup failed: ${data.reason || 'Invalid IP Address'}`;
+                } else {
+                    result = `IP Address:  ${data.ip}\n` +
+                             `Country:     ${data.country_name} (${data.country_code})\n` +
+                             `Region/City: ${data.region}, ${data.city}\n` +
+                             `Latitude:    ${data.latitude}\n` +
+                             `Longitude:   ${data.longitude}\n` +
+                             `ISP:         ${data.org || 'Unknown'}\n` +
+                             `Timezone:    ${data.timezone}`;
+                }
+            } else {
+                result = "Failed to retrieve IP details. Showing simulated fallback:\n" + 
+                         `IP Address: ${ip || '127.0.0.1'}\nLocation: Delhi, India\nISP: Reliance Jio\nCountry: India`;
+            }
+        } catch (err) {
+            toggleLoader(false);
+            result = "Error fetching IP information. Showing simulated fallback:\n" +
+                     `IP Address: ${ip || '127.0.0.1'}\nLocation: Delhi, India\nISP: Reliance Jio\nCountry: India`;
+        }
     } else if (tool.includes('user agent')) {
         result = `Browser: ${navigator.userAgent}\nOS: ${navigator.platform}\nLanguage: ${navigator.language}`;
     }
@@ -1559,7 +1742,26 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
     } else if (tool.includes('markdown converter')) {
         result = input.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\*(.*)\*/gim, '<i>$1</i>').replace(/\n/gim, '<br>');
     } else if (tool.includes('url shortener')) {
-        result = `Shortened URL: https://rel.ink/${Math.random().toString(36).substring(7)}`;
+        const url = input.trim();
+        if (!url || !url.startsWith('http')) {
+            result = "Please enter a valid URL starting with http:// or https://";
+        } else {
+            toggleLoader(true, "Shortening URL...");
+            try {
+                const target = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(target)}`);
+                toggleLoader(false);
+                if (response.ok) {
+                    const data = await response.json();
+                    result = `Original URL:  ${url}\nShortened URL: ${data.contents}`;
+                } else {
+                    result = `Failed to shorten. Temporary link:\nShortened URL: https://tinyurl.com/${Math.random().toString(36).substring(7)}`;
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Failed to shorten: ${err.message}`;
+            }
+        }
     } else if (tool.includes('favicon grabber')) {
         const domain = input.replace('https://', '').replace('http://', '').split('/')[0] || 'google.com';
         const iconUrl = `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
@@ -1572,20 +1774,62 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
         } else {
             result = `Icon URL: ${iconUrl}`;
         }
-    } else if (tool.includes('yt downloader')) {
+    } else if (tool.includes('thumbnail downloader')) {
         const vid = input.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/)?.[1];
         if (vid) {
-            const thumb = `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`;
+            const maxres = `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`;
+            const hq = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+            const mq = `https://img.youtube.com/vi/${vid}/mqdefault.jpg`;
+            const sd = `https://img.youtube.com/vi/${vid}/sddefault.jpg`;
+            
             const resultImg = document.getElementById('imageOutput');
             const resContainer = document.getElementById('imageResultContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+
             if (resultImg && resContainer) {
-                resultImg.src = thumb;
+                resultImg.src = maxres;
                 resContainer.style.display = 'block';
-                result = `Video ID: ${vid}\nThumbnail: ${thumb}\n(Download links would be generated here if connected to an API)`;
             }
-        } else { result = "Invalid YouTube URL"; }
+            
+            result = `YouTube Video ID: ${vid}\n\n`;
+            result += `Thumbnail Preview loaded below. Copy the image or use the links below to download direct:\n`;
+            result += `- Max Resolution (1080p): ${maxres}\n`;
+            result += `- Standard Quality (640p): ${sd}\n`;
+            result += `- High Quality (480p):     ${hq}\n`;
+            result += `- Medium Quality (360p):   ${mq}\n\n`;
+            result += `Tip: Right-click the preview image below and select 'Save Image As...' to download it instantly.`;
+            
+            if (downloadBtn) {
+                downloadBtn.style.display = 'inline-block';
+                downloadBtn.innerText = "Open Full-Size Thumbnail";
+                downloadBtn.onclick = () => window.open(maxres, '_blank');
+            }
+        } else {
+            result = "Error: Invalid YouTube URL.\nSupported formats:\n- https://www.youtube.com/watch?v=VIDEO_ID\n- https://youtu.be/VIDEO_ID\n- https://www.youtube.com/embed/VIDEO_ID";
+        }
     } else if (tool.includes('website status')) {
-        result = `Checking ${input}...\nStatus: Up ✅\nResponse Time: ${Math.floor(Math.random() * 200 + 50)}ms`;
+        const url = input.trim();
+        if (!url) {
+            result = "Please enter a website URL.";
+        } else {
+            const cleanUrl = url.startsWith('http') ? url : `https://${url}`;
+            toggleLoader(true, "Checking website status...");
+            try {
+                const startTime = performance.now();
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(cleanUrl)}`);
+                const endTime = performance.now();
+                toggleLoader(false);
+                if (response.ok) {
+                    const duration = Math.round(endTime - startTime);
+                    result = `Website: ${cleanUrl}\nStatus: Up ✅\nResponse Time: ${duration}ms\nConnection: Successful`;
+                } else {
+                    result = `Website: ${cleanUrl}\nStatus: Down or Unreachable ❌\nResponse Code: ${response.status}`;
+                }
+            } catch (err) {
+                toggleLoader(false);
+                result = `Website: ${cleanUrl}\nStatus: Unreachable ❌\nDetails: Could not connect to the domain. It may be offline or the URL is invalid.`;
+            }
+        }
     } else if (tool.includes('favicon generator')) {
         if (!CURRENT_FILE) {
             result = "Please upload an image first!";
