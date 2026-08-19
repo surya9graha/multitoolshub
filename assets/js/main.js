@@ -114,6 +114,7 @@ const TOOLS_DATA = {
         ["markdown-converter", "Markdown Converter", "Convert Markdown text into styled HTML."],
         ["url-shortener", "URL Shortener", "Shorten long URLs for easier sharing."],
         ["yt-thumbnail-downloader", "YouTube Thumbnail Downloader", "Preview and download YouTube video thumbnails and cover graphics."],
+        ["youtube-video-downloader", "YouTube Video Downloader", "Preview, extract details, and download YouTube videos online in multiple formats."],
         ["favicon-generator", "Favicon Generator", "Create multi-size favicons from images."],
         ["website-status", "Website Status", "Check if a website is up or down."],
         ["page-speed", "Page Speed", "Test and analyze website loading performance."],
@@ -1806,6 +1807,55 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
             }
         } else {
             result = "Error: Invalid YouTube URL.\nSupported formats:\n- https://www.youtube.com/watch?v=VIDEO_ID\n- https://youtu.be/VIDEO_ID\n- https://www.youtube.com/embed/VIDEO_ID";
+        }
+    } else if (tool.includes('youtube video downloader')) {
+        const urlInput = document.getElementById('youtubeUrl')?.value || input;
+        const vid = urlInput.match(/(?:v=|\/|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/)?.[1];
+        if (vid) {
+            const maxres = `https://img.youtube.com/vi/${vid}/maxresdefault.jpg`;
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resContainer = document.getElementById('imageResultContainer');
+
+            if (resContainer) {
+                resContainer.innerHTML = `
+                    <div style="margin-top: 20px; text-align: center;">
+                        <h4 style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px;">Video Preview</h4>
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 25px;">
+                            <iframe src="https://www.youtube.com/embed/${vid}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                        </div>
+                        
+                        <h4 style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px;">Direct Download Options</h4>
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 25px;">
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Use the secure tool widget below to generate direct high-speed download links for Video (MP4) or Audio (MP3):</p>
+                            <div style="overflow: hidden; border-radius: 10px; border: 1px solid var(--border); min-height: 180px;">
+                                <iframe src="https://p.savenow.to/api/button/?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + vid)}&color=6366f1" style="width: 100%; min-height: 200px; border: none; background: transparent;" scrolling="no"></iframe>
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--primary); margin-bottom: 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px;">Alternative High-Speed Mirrors</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px;">
+                            <a href="https://www.youtubepp.com/watch?v=${vid}" target="_blank" class="category-label" style="text-decoration: none; padding: 12px 25px; border-radius: 10px; background: #ff007f; color: #fff; font-weight: bold; border: none;">Mirror 1 (Y2Mate)</a>
+                            <a href="https://savefrom.net/?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + vid)}" target="_blank" class="category-label" style="text-decoration: none; padding: 12px 25px; border-radius: 10px; background: #00bfff; color: #fff; font-weight: bold; border: none;">Mirror 2 (SaveFrom)</a>
+                            <a href="${maxres}" target="_blank" class="category-label" style="text-decoration: none; padding: 12px 25px; border-radius: 10px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main);">Download Cover HD</a>
+                        </div>
+                    </div>
+                `;
+                resContainer.style.display = 'block';
+            }
+
+            result = `YouTube Video ID: ${vid}\n\n`;
+            result += `Extraction Successful! The downloader widget, dynamic video player, and mirror servers have been loaded successfully below.\n\n`;
+            result += `Instructions:\n`;
+            result += `1. Scroll down to the 'Direct Download Options' widget.\n`;
+            result += `2. Select the video quality (MP4) or audio format (MP3) you prefer.\n`;
+            result += `3. Click the download button inside the widget to save the file instantly.\n`;
+            result += `4. Alternatively, use Mirror 1 or Mirror 2 for external high-speed downloads.`;
+
+            if (downloadBtn) {
+                downloadBtn.style.display = 'none';
+            }
+        } else {
+            result = "Error: Invalid YouTube URL.\nSupported formats:\n- https://www.youtube.com/watch?v=VIDEO_ID\n- https://youtu.be/VIDEO_ID\n- https://www.youtube.com/shorts/VIDEO_ID\n- https://www.youtube.com/embed/VIDEO_ID";
         }
     } else if (tool.includes('website status')) {
         const url = input.trim();

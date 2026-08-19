@@ -43,7 +43,7 @@ tools_data = {
         "leap-year", "timezone-converter", "date-formatter"
     ],
     "web": [
-        "html-preview", "markdown-converter", "url-shortener", "yt-thumbnail-downloader", "favicon-generator",
+        "html-preview", "markdown-converter", "url-shortener", "yt-thumbnail-downloader", "youtube-video-downloader", "favicon-generator",
         "website-status", "page-speed", "broken-link", "dns-lookup", "whois",
         "source-viewer", "redirect-checker", "favicon-grabber"
     ],
@@ -404,6 +404,15 @@ INPUT_WEB = """
 </div>
 """
 
+INPUT_YOUTUBE_DOWNLOADER = """
+<div class="input-group">
+    <label>Enter YouTube Video URL</label>
+    <input type="text" id="youtubeUrl" class="form-control" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%;">
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Paste the link of the YouTube video you wish to download (supports Shorts, standard, and mobile share links).</p>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 INPUT_CSS_BUTTON = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div>
@@ -736,6 +745,8 @@ for category, tools in tools_data.items():
             current_input = INPUT_TEXT_DIFF
         elif tool_name == "regex-tester":
             current_input = INPUT_REGEX_TESTER
+        elif tool_name == "youtube-video-downloader":
+            current_input = INPUT_YOUTUBE_DOWNLOADER
             
         seo_content = get_seo_content(category, tool_name, title)
         
