@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bmi Calc | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Bmi Calc on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>BMI Calculator - Check Body Mass Index Online</title>
+    <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Supports metric & imperial units. Get health category guidelines and weight ranges.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,46 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="bmiSystem">Select Unit System</label>
+        <select id="bmiSystem" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="metric">Metric System (kg, cm)</option>
+            <option value="imperial">Imperial System (lbs, inches)</option>
+        </select>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label id="bmiWeightLabel" for="bmiWeight">Weight</label>
+            <input type="number" id="bmiWeight" class="form-control" placeholder="e.g. 70" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label id="bmiHeightLabel" for="bmiHeight">Height</label>
+            <input type="number" id="bmiHeight" class="form-control" placeholder="e.g. 175" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    document.getElementById('bmiSystem')?.addEventListener('change', (e) => {
+        const system = e.target.value;
+        const wLabel = document.getElementById('bmiWeightLabel');
+        const hLabel = document.getElementById('bmiHeightLabel');
+        const wInput = document.getElementById('bmiWeight');
+        const hInput = document.getElementById('bmiHeight');
+        if (system === 'metric') {
+            if (wLabel) wLabel.innerText = 'Weight (kg)';
+            if (hLabel) hLabel.innerText = 'Height (cm)';
+            if (wInput) wInput.placeholder = 'e.g. 70';
+            if (hInput) hInput.placeholder = 'e.g. 175';
+        } else {
+            if (wLabel) wLabel.innerText = 'Weight (lbs)';
+            if (hLabel) hLabel.innerText = 'Height (inches)';
+            if (wInput) wInput.placeholder = 'e.g. 154';
+            if (hInput) hInput.placeholder = 'e.g. 69';
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

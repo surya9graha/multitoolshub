@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calc | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Age Calc on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Age Calculator - Calculate Exact Age Online</title>
+    <meta name="description" content="Calculate your exact age in years, months, days, and hours from your date of birth. Compare dates and track leap years instantly.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,27 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="birthDate">Date of Birth</label>
+            <input type="date" id="birthDate" class="form-control" style="padding: 15px; min-height: 54px; height: auto;" required>
+        </div>
+        <div>
+            <label for="ageAtDate">Age at the Date of</label>
+            <input type="date" id="ageAtDate" class="form-control" style="padding: 15px; min-height: 54px; height: auto;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    // Default the 'Age at' date to today's date in local timezone
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        const ageAtInput = document.getElementById('ageAtDate');
+        if (ageAtInput) ageAtInput.value = today;
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

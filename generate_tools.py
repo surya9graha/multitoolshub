@@ -1,5 +1,5 @@
 import os
-from seo_content_db import get_seo_content
+from seo_content_db import get_seo_content, TOOL_META_DATA
 
 # Base directory for the tools
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
@@ -68,8 +68,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional {title} on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>{meta_title}</title>
+    <meta name="description" content="{meta_description}">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -682,6 +682,186 @@ INPUT_REGEX_TESTER = """
 </div>
 """
 
+INPUT_PERCENTAGE_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="percentageMode">Select Calculation Type</label>
+        <select id="percentageMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="of">What is X% of Y?</option>
+            <option value="is_percent">X is what percent of Y?</option>
+            <option value="change">What is the percentage increase/decrease from X to Y?</option>
+        </select>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label id="labelVal1" for="percentageVal1">Value X</label>
+            <input type="number" id="percentageVal1" class="form-control" placeholder="e.g. 20" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label id="labelVal2" for="percentageVal2">Value Y</label>
+            <input type="number" id="percentageVal2" class="form-control" placeholder="e.g. 500" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    // Dynamically update input labels when selection changes
+    document.getElementById('percentageMode')?.addEventListener('change', (e) => {
+        const mode = e.target.value;
+        const lbl1 = document.getElementById('labelVal1');
+        const lbl2 = document.getElementById('labelVal2');
+        if (mode === 'of') {
+            if(lbl1) lbl1.innerText = 'Percentage (X)';
+            if(lbl2) lbl2.innerText = 'Total Amount (Y)';
+        } else if (mode === 'is_percent') {
+            if(lbl1) lbl1.innerText = 'Part (X)';
+            if(lbl2) lbl2.innerText = 'Whole (Y)';
+        } else if (mode === 'change') {
+            if(lbl1) lbl1.innerText = 'Initial Value (X)';
+            if(lbl2) lbl2.innerText = 'Final Value (Y)';
+        }
+    });
+</script>
+"""
+
+INPUT_AGE_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="birthDate">Date of Birth</label>
+            <input type="date" id="birthDate" class="form-control" style="padding: 15px; min-height: 54px; height: auto;" required>
+        </div>
+        <div>
+            <label for="ageAtDate">Age at the Date of</label>
+            <input type="date" id="ageAtDate" class="form-control" style="padding: 15px; min-height: 54px; height: auto;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    // Default the 'Age at' date to today's date in local timezone
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        const ageAtInput = document.getElementById('ageAtDate');
+        if (ageAtInput) ageAtInput.value = today;
+    });
+</script>
+"""
+
+INPUT_BMI_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="bmiSystem">Select Unit System</label>
+        <select id="bmiSystem" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="metric">Metric System (kg, cm)</option>
+            <option value="imperial">Imperial System (lbs, inches)</option>
+        </select>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label id="bmiWeightLabel" for="bmiWeight">Weight</label>
+            <input type="number" id="bmiWeight" class="form-control" placeholder="e.g. 70" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label id="bmiHeightLabel" for="bmiHeight">Height</label>
+            <input type="number" id="bmiHeight" class="form-control" placeholder="e.g. 175" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    document.getElementById('bmiSystem')?.addEventListener('change', (e) => {
+        const system = e.target.value;
+        const wLabel = document.getElementById('bmiWeightLabel');
+        const hLabel = document.getElementById('bmiHeightLabel');
+        const wInput = document.getElementById('bmiWeight');
+        const hInput = document.getElementById('bmiHeight');
+        if (system === 'metric') {
+            if (wLabel) wLabel.innerText = 'Weight (kg)';
+            if (hLabel) hLabel.innerText = 'Height (cm)';
+            if (wInput) wInput.placeholder = 'e.g. 70';
+            if (hInput) hInput.placeholder = 'e.g. 175';
+        } else {
+            if (wLabel) wLabel.innerText = 'Weight (lbs)';
+            if (hLabel) hLabel.innerText = 'Height (inches)';
+            if (wInput) wInput.placeholder = 'e.g. 154';
+            if (hInput) hInput.placeholder = 'e.g. 69';
+        }
+    });
+</script>
+"""
+
+INPUT_GST_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="gstAmount">Original Amount ($)</label>
+            <input type="number" id="gstAmount" class="form-control" placeholder="e.g. 1000" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label for="gstRate">GST Rate (%)</label>
+            <select id="gstRate" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18" selected>18%</option>
+                <option value="28">28%</option>
+                <option value="custom">Custom GST Rate</option>
+            </select>
+        </div>
+    </div>
+    <div id="customGstContainer" style="display: none;">
+        <label for="customGstRate">Custom GST Rate (%)</label>
+        <input type="number" id="customGstRate" class="form-control" placeholder="e.g. 15" style="padding: 15px;" step="any">
+    </div>
+    <div>
+        <label>Calculation Type</label>
+        <div style="display: flex; gap: 20px; align-items: center; margin-top: 5px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="gstType" value="exclusive" checked style="width: 20px; height: 20px;"> GST Exclusive
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="gstType" value="inclusive" style="width: 20px; height: 20px;"> GST Inclusive
+            </label>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    document.getElementById('gstRate')?.addEventListener('change', (e) => {
+        const container = document.getElementById('customGstContainer');
+        if (container) {
+            container.style.display = e.target.value === 'custom' ? 'block' : 'none';
+        }
+    });
+</script>
+"""
+
+INPUT_DISCOUNT_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="discPrice">Original Price ($)</label>
+            <input type="number" id="discPrice" class="form-control" placeholder="e.g. 100" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label for="discPercent">Discount (%)</label>
+            <input type="number" id="discPercent" class="form-control" placeholder="e.g. 20" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="discAdditional">Additional Discount (%, Optional)</label>
+            <input type="number" id="discAdditional" class="form-control" placeholder="e.g. 5" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label for="discTax">Sales Tax (%, Optional)</label>
+            <input type="number" id="discTax" class="form-control" placeholder="e.g. 8" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 # Generate the files
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
@@ -747,11 +927,27 @@ for category, tools in tools_data.items():
             current_input = INPUT_REGEX_TESTER
         elif tool_name == "youtube-video-downloader":
             current_input = INPUT_YOUTUBE_DOWNLOADER
+        elif tool_name == "percentage-calc":
+            current_input = INPUT_PERCENTAGE_CALC
+        elif tool_name == "age-calc":
+            current_input = INPUT_AGE_CALC
+        elif tool_name == "bmi-calc":
+            current_input = INPUT_BMI_CALC
+        elif tool_name == "gst-calc":
+            current_input = INPUT_GST_CALC
+        elif tool_name == "discount-calc":
+            current_input = INPUT_DISCOUNT_CALC
             
         seo_content = get_seo_content(category, tool_name, title)
         
+        meta = TOOL_META_DATA.get(tool_name, {})
+        meta_title = meta.get("title", f"{title} | MultiTools Hub - Professional Online Tool")
+        meta_description = meta.get("description", f"Free and professional {title} on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.")
+        
         content = HTML_TEMPLATE.format(
             title=title,
+            meta_title=meta_title,
+            meta_description=meta_description,
             category_name=category.capitalize(),
             tool_name=tool_name,
             dynamic_input=current_input,

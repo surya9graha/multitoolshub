@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gst Calc | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Gst Calc on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>GST Calculator - Calculate GST Tax Online</title>
+    <meta name="description" content="Calculate Goods and Services Tax (GST) easily. Supports inclusive/exclusive tax calculations and custom tax percentages.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,48 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="gstAmount">Original Amount ($)</label>
+            <input type="number" id="gstAmount" class="form-control" placeholder="e.g. 1000" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label for="gstRate">GST Rate (%)</label>
+            <select id="gstRate" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18" selected>18%</option>
+                <option value="28">28%</option>
+                <option value="custom">Custom GST Rate</option>
+            </select>
+        </div>
+    </div>
+    <div id="customGstContainer" style="display: none;">
+        <label for="customGstRate">Custom GST Rate (%)</label>
+        <input type="number" id="customGstRate" class="form-control" placeholder="e.g. 15" style="padding: 15px;" step="any">
+    </div>
+    <div>
+        <label>Calculation Type</label>
+        <div style="display: flex; gap: 20px; align-items: center; margin-top: 5px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="gstType" value="exclusive" checked style="width: 20px; height: 20px;"> GST Exclusive
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="gstType" value="inclusive" style="width: 20px; height: 20px;"> GST Inclusive
+            </label>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    document.getElementById('gstRate')?.addEventListener('change', (e) => {
+        const container = document.getElementById('customGstContainer');
+        if (container) {
+            container.style.display = e.target.value === 'custom' ? 'block' : 'none';
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

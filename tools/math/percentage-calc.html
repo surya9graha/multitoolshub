@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Percentage Calc | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Percentage Calc on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Percentage Calculator - Free Online Percentage Finder</title>
+    <meta name="description" content="Calculate percentages, percentage change, and percentage increase or decrease online. Quick, accurate, and completely private browser-based tool.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,45 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="percentageMode">Select Calculation Type</label>
+        <select id="percentageMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="of">What is X% of Y?</option>
+            <option value="is_percent">X is what percent of Y?</option>
+            <option value="change">What is the percentage increase/decrease from X to Y?</option>
+        </select>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label id="labelVal1" for="percentageVal1">Value X</label>
+            <input type="number" id="percentageVal1" class="form-control" placeholder="e.g. 20" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label id="labelVal2" for="percentageVal2">Value Y</label>
+            <input type="number" id="percentageVal2" class="form-control" placeholder="e.g. 500" style="padding: 15px;" step="any">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    // Dynamically update input labels when selection changes
+    document.getElementById('percentageMode')?.addEventListener('change', (e) => {
+        const mode = e.target.value;
+        const lbl1 = document.getElementById('labelVal1');
+        const lbl2 = document.getElementById('labelVal2');
+        if (mode === 'of') {
+            if(lbl1) lbl1.innerText = 'Percentage (X)';
+            if(lbl2) lbl2.innerText = 'Total Amount (Y)';
+        } else if (mode === 'is_percent') {
+            if(lbl1) lbl1.innerText = 'Part (X)';
+            if(lbl2) lbl2.innerText = 'Whole (Y)';
+        } else if (mode === 'change') {
+            if(lbl1) lbl1.innerText = 'Initial Value (X)';
+            if(lbl2) lbl2.innerText = 'Final Value (Y)';
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

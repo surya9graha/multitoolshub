@@ -315,6 +315,32 @@ TOOL_SPECIFIC_SEO = {
     """
 }
 
+
+# Batch 1: Custom SEO Titles and Meta Descriptions
+TOOL_META_DATA = {
+    "percentage-calc": {
+        "title": "Percentage Calculator - Free Online Percentage Finder",
+        "description": "Calculate percentages, percentage change, and percentage increase or decrease online. Quick, accurate, and completely private browser-based tool."
+    },
+    "age-calc": {
+        "title": "Age Calculator - Calculate Exact Age Online",
+        "description": "Calculate your exact age in years, months, days, and hours from your date of birth. Compare dates and track leap years instantly."
+    },
+    "bmi-calc": {
+        "title": "BMI Calculator - Check Body Mass Index Online",
+        "description": "Calculate your Body Mass Index (BMI) instantly. Supports metric & imperial units. Get health category guidelines and weight ranges."
+    },
+    "gst-calc": {
+        "title": "GST Calculator - Calculate GST Tax Online",
+        "description": "Calculate Goods and Services Tax (GST) easily. Supports inclusive/exclusive tax calculations and custom tax percentages."
+    },
+    "discount-calc": {
+        "title": "Discount Calculator - Calculate Sale Price & Savings",
+        "description": "Determine final sale price, total savings, and additional discounts with our easy-to-use calculator. Perfect for smart shopping."
+    }
+}
+
+
 def get_seo_content(category, tool_id, title):
     """
     Returns structured, rich HTML content for a specific tool.

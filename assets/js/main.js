@@ -1533,40 +1533,306 @@ async function runCoreLogic(tool, input, output) {
         if (isNaN(num)) result = "Please enter a valid number";
         else result = `Binary: ${num.toString(2)}\nHex: ${num.toString(16).toUpperCase()}\nOctal: ${num.toString(8)}\nDecimal: ${num}`;
     } else if (tool.includes('percentage calc')) {
-        const nums = input.match(/[\d.]+/g);
-        if (nums && nums.length >= 2) {
-            const p = parseFloat(nums[0]), total = parseFloat(nums[1]);
-            result = `${p}% of ${total} is ${(p/100 * total).toFixed(2)}`;
-        } else { result = "Format: [percentage] [total] (e.g. 20 500)"; }
+        const val1El = document.getElementById('percentageVal1');
+        const val2El = document.getElementById('percentageVal2');
+        const modeEl = document.getElementById('percentageMode');
+        
+        if (val1El && val2El && modeEl) {
+            const v1 = parseFloat(val1El.value);
+            const v2 = parseFloat(val2El.value);
+            const mode = modeEl.value;
+            
+            if (isNaN(v1) || isNaN(v2)) {
+                result = "Validation Error: Please enter valid numbers in both input fields.";
+            } else {
+                if (mode === "of") {
+                    const res = (v1 / 100) * v2;
+                    result = `Calculation: What is ${v1}% of ${v2}?\n\n` +
+                             `• Formula: (Percentage / 100) * Total Amount\n` +
+                             `• Equation: (${v1} / 100) * ${v2} = ${res.toFixed(4)}\n\n` +
+                             `✅ Result: ${res.toFixed(2)}`;
+                } else if (mode === "is_percent") {
+                    if (v2 === 0) {
+                        result = "Math Error: Total Amount (Y) cannot be zero when finding percentage.";
+                    } else {
+                        const res = (v1 / v2) * 100;
+                        result = `Calculation: ${v1} is what percent of ${v2}?\n\n` +
+                                 `• Formula: (Part / Whole) * 100\n` +
+                                 `• Equation: (${v1} / ${v2}) * 100 = ${res.toFixed(4)}%\n\n` +
+                                 `✅ Result: ${res.toFixed(2)}%`;
+                    }
+                } else if (mode === "change") {
+                    if (v1 === 0) {
+                        result = "Math Error: Initial value cannot be zero when calculating percentage change.";
+                    } else {
+                        const change = v2 - v1;
+                        const res = (change / Math.abs(v1)) * 100;
+                        const direction = change >= 0 ? "Increase" : "Decrease";
+                        result = `Calculation: Percentage change from ${v1} to ${v2}\n\n` +
+                                 `• Formula: ((Final Value - Initial Value) / |Initial Value|) * 100\n` +
+                                 `• Net Difference: ${change.toFixed(2)} (${direction})\n` +
+                                 `• Equation: (${change.toFixed(2)} / ${Math.abs(v1)}) * 100 = ${res.toFixed(4)}%\n\n` +
+                                 `✅ Result: ${Math.abs(res).toFixed(2)}% ${direction}`;
+                    }
+                }
+            }
+        } else {
+            const nums = input.match(/[\d.]+/g);
+            if (nums && nums.length >= 2) {
+                const p = parseFloat(nums[0]), total = parseFloat(nums[1]);
+                result = `${p}% of ${total} is ${(p/100 * total).toFixed(2)}`;
+            } else { result = "Format: [percentage] [total] (e.g. 20 500)"; }
+        }
     } else if (tool.includes('gst calc')) {
-        const val = parseFloat(input) || 0;
-        const gst = (val * 0.18).toFixed(2);
-        result = `Original: ${val}\nGST (18%): ${gst}\nTotal: ${(val + parseFloat(gst)).toFixed(2)}`;
+        const gstAmountEl = document.getElementById('gstAmount');
+        const gstRateEl = document.getElementById('gstRate');
+        const customGstRateEl = document.getElementById('customGstRate');
+        const gstTypeEl = document.querySelector('input[name="gstType"]:checked');
+        
+        if (gstAmountEl && gstRateEl) {
+            const amount = parseFloat(gstAmountEl.value);
+            let rate = gstRateEl.value === 'custom' ? parseFloat(customGstRateEl?.value) : parseFloat(gstRateEl.value);
+            const type = gstTypeEl?.value || 'exclusive';
+            
+            if (isNaN(amount) || amount < 0) {
+                result = "Validation Error: Please enter a valid positive number for the amount.";
+            } else if (isNaN(rate) || rate < 0) {
+                result = "Validation Error: Please enter a valid positive rate percentage.";
+            } else {
+                let gstAmt, netAmt, totalAmt;
+                if (type === 'exclusive') {
+                    gstAmt = amount * (rate / 100);
+                    netAmt = amount;
+                    totalAmt = amount + gstAmt;
+                    result = `Calculation Type: GST Exclusive (Add tax to original amount)\n\n` +
+                             `• Net Amount: $${netAmt.toFixed(2)}\n` +
+                             `• GST Rate: ${rate}%\n` +
+                             `• GST Tax Amount: $${gstAmt.toFixed(2)}\n` +
+                             `  - CGST (Central Tax 50%): $${(gstAmt / 2).toFixed(2)}\n` +
+                             `  - SGST (State Tax 50%): $${(gstAmt / 2).toFixed(2)}\n\n` +
+                             `✅ Total Gross Price (Net + GST): $${totalAmt.toFixed(2)}`;
+                } else {
+                    gstAmt = amount - (amount * (100 / (100 + rate)));
+                    netAmt = amount - gstAmt;
+                    totalAmt = amount;
+                    result = `Calculation Type: GST Inclusive (Tax already in total amount)\n\n` +
+                             `• Total Gross Price (Inclusive): $${totalAmt.toFixed(2)}\n` +
+                             `• GST Rate: ${rate}%\n` +
+                             `• GST Tax Amount: $${gstAmt.toFixed(2)}\n` +
+                             `  - CGST (Central Tax 50%): $${(gstAmt / 2).toFixed(2)}\n` +
+                             `  - SGST (State Tax 50%): $${(gstAmt / 2).toFixed(2)}\n\n` +
+                             `✅ Net Value (Before Tax): $${netAmt.toFixed(2)}`;
+                }
+            }
+        } else {
+            const val = parseFloat(input) || 0;
+            const gst = (val * 0.18).toFixed(2);
+            result = `Original: ${val}\nGST (18%): ${gst}\nTotal: ${(val + parseFloat(gst)).toFixed(2)}`;
+        }
     } else if (tool.includes('discount calc')) {
-        const nums = input.match(/[\d.]+/g);
-        if (nums && nums.length >= 2) {
-            const price = parseFloat(nums[0]), disc = parseFloat(nums[1]);
-            const saved = (price * disc / 100).toFixed(2);
-            result = `Original Price: ${price}\nDiscount: ${disc}%\nYou Save: ${saved}\nFinal Price: ${(price - saved).toFixed(2)}`;
-        } else { result = "Format: [price] [discount%] (e.g. 1200 15)"; }
+        const discPriceEl = document.getElementById('discPrice');
+        const discPercentEl = document.getElementById('discPercent');
+        const discAdditionalEl = document.getElementById('discAdditional');
+        const discTaxEl = document.getElementById('discTax');
+        
+        if (discPriceEl && discPercentEl) {
+            const originalPrice = parseFloat(discPriceEl.value);
+            const discountPercent = parseFloat(discPercentEl.value);
+            const additionalDiscount = parseFloat(discAdditionalEl?.value || 0) || 0;
+            const taxPercent = parseFloat(discTaxEl?.value || 0) || 0;
+            
+            if (isNaN(originalPrice) || originalPrice < 0) {
+                result = "Validation Error: Please enter a valid positive original price.";
+            } else if (isNaN(discountPercent) || discountPercent < 0 || discountPercent > 100) {
+                result = "Validation Error: Please enter a valid discount percentage between 0 and 100.";
+            } else if (additionalDiscount < 0 || additionalDiscount > 100) {
+                result = "Validation Error: Additional discount must be between 0 and 100.";
+            } else if (taxPercent < 0) {
+                result = "Validation Error: Sales tax percentage cannot be negative.";
+            } else {
+                const savings1 = originalPrice * (discountPercent / 100);
+                let currentPrice = originalPrice - savings1;
+                
+                const savings2 = currentPrice * (additionalDiscount / 100);
+                currentPrice = currentPrice - savings2;
+                
+                const totalSavings = savings1 + savings2;
+                
+                const taxAmount = currentPrice * (taxPercent / 100);
+                const finalPrice = currentPrice + taxAmount;
+                
+                result = `Discount Calculation Breakdown:\n\n` +
+                         `• Original Price: $${originalPrice.toFixed(2)}\n` +
+                         `• Primary Discount: ${discountPercent}% (-$${savings1.toFixed(2)})\n`;
+                if (additionalDiscount > 0) {
+                    result += `• Stacked Addl. Discount: ${additionalDiscount}% (-$${savings2.toFixed(2)})\n`;
+                }
+                result += `• Price After Discount(s): $${currentPrice.toFixed(2)}\n` +
+                          `• Total Amount Saved: $${totalSavings.toFixed(2)}\n`;
+                if (taxPercent > 0) {
+                    result += `• Sales Tax: ${taxPercent}% (+$${taxAmount.toFixed(2)})\n`;
+                }
+                result += `\n✅ Final Sale Price: $${finalPrice.toFixed(2)}`;
+            }
+        } else {
+            const nums = input.match(/[\d.]+/g);
+            if (nums && nums.length >= 2) {
+                const price = parseFloat(nums[0]), disc = parseFloat(nums[1]);
+                const saved = (price * disc / 100).toFixed(2);
+                result = `Original Price: ${price}\nDiscount: ${disc}%\nYou Save: ${saved}\nFinal Price: ${(price - saved).toFixed(2)}`;
+            } else { result = "Format: [price] [discount%] (e.g. 1200 15)"; }
+        }
     } else if (tool.includes('bmi calc')) {
-        const nums = input.match(/[\d.]+/g);
-        if (nums && nums.length >= 2) {
-            const weight = parseFloat(nums[0]), height = parseFloat(nums[1]) / 100; // cm to m
-            const bmi = (weight / (height * height)).toFixed(1);
-            let cat = "Normal";
-            if (bmi < 18.5) cat = "Underweight";
-            else if (bmi > 25 && bmi < 29.9) cat = "Overweight";
-            else if (bmi >= 30) cat = "Obese";
-            result = `BMI Score: ${bmi}\nCategory: ${cat}`;
-        } else { result = "Format: [weight in kg] [height in cm] (e.g. 70 175)"; }
+        const bmiSystemEl = document.getElementById('bmiSystem');
+        const bmiWeightEl = document.getElementById('bmiWeight');
+        const bmiHeightEl = document.getElementById('bmiHeight');
+        
+        if (bmiSystemEl && bmiWeightEl && bmiHeightEl) {
+            const system = bmiSystemEl.value;
+            const weight = parseFloat(bmiWeightEl.value);
+            const height = parseFloat(bmiHeightEl.value);
+            
+            if (isNaN(weight) || weight <= 0) {
+                result = "Validation Error: Please enter a valid weight value greater than zero.";
+            } else if (isNaN(height) || height <= 0) {
+                result = "Validation Error: Please enter a valid height value greater than zero.";
+            } else {
+                let bmi = 0;
+                let healthyMin = 0;
+                let healthyMax = 0;
+                let wUnit = "kg", hUnit = "cm";
+                
+                if (system === 'metric') {
+                    const heightM = height / 100;
+                    bmi = weight / (heightM * heightM);
+                    healthyMin = 18.5 * (heightM * heightM);
+                    healthyMax = 24.9 * (heightM * heightM);
+                } else {
+                    wUnit = "lbs";
+                    hUnit = "inches";
+                    bmi = (weight / (height * height)) * 703;
+                    healthyMin = (18.5 * (height * height)) / 703;
+                    healthyMax = (24.9 * (height * height)) / 703;
+                }
+                
+                let category = "";
+                let healthTips = "";
+                if (bmi < 18.5) {
+                    category = "Underweight ⚠️";
+                    healthTips = "It may be beneficial to consult a doctor or nutritionist about achieving a healthy weight, focusing on nutrient-rich foods and strength building.";
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    category = "Normal Weight (Healthy) ✅";
+                    healthTips = "Great job! Keep maintaining your weight through balanced nutrition and regular physical activity.";
+                } else if (bmi >= 25 && bmi < 30) {
+                    category = "Overweight ⚠️";
+                    healthTips = "Consider incorporating more physical activity and focusing on portion sizes to return to the healthy weight range.";
+                } else {
+                    category = "Obese 🚨";
+                    healthTips = "Consult with a healthcare professional to establish a safe, structured weight management program prioritizing cardiovascular health.";
+                }
+                
+                result = `BMI Calculator Results:\n\n` +
+                         `• Weight: ${weight} ${wUnit}\n` +
+                         `• Height: ${height} ${hUnit}\n` +
+                         `• BMI Score: ${bmi.toFixed(2)}\n` +
+                         `• Health Category: ${category}\n\n` +
+                         `• Healthy Weight Range for Your Height:\n` +
+                         `  ${healthyMin.toFixed(1)} ${wUnit} - ${healthyMax.toFixed(1)} ${wUnit}\n\n` +
+                         `💡 Wellness Advice: ${healthTips}`;
+            }
+        } else {
+            const nums = input.match(/[\d.]+/g);
+            if (nums && nums.length >= 2) {
+                const weight = parseFloat(nums[0]), height = parseFloat(nums[1]) / 100;
+                const bmi = (weight / (height * height)).toFixed(1);
+                let cat = "Normal";
+                if (bmi < 18.5) cat = "Underweight";
+                else if (bmi > 25 && bmi < 29.9) cat = "Overweight";
+                else if (bmi >= 30) cat = "Obese";
+                result = `BMI Score: ${bmi}\nCategory: ${cat}`;
+            } else { result = "Format: [weight in kg] [height in cm] (e.g. 70 175)"; }
+        }
     } else if (tool.includes('age calc')) {
-        const birth = new Date(input);
-        if (isNaN(birth)) result = "Invalid Date (use YYYY-MM-DD)";
-        else {
-            const diff = Date.now() - birth.getTime();
-            const age = new Date(diff).getUTCFullYear() - 1970;
-            result = `Your current age is: ${age} years`;
+        const birthDateEl = document.getElementById('birthDate');
+        const ageAtDateEl = document.getElementById('ageAtDate');
+        
+        if (birthDateEl && ageAtDateEl) {
+            const birthDateStr = birthDateEl.value;
+            const ageAtDateStr = ageAtDateEl.value;
+            
+            if (!birthDateStr) {
+                result = "Validation Error: Please select your Date of Birth.";
+            } else {
+                const birth = new Date(birthDateStr);
+                const ageAt = ageAtDateStr ? new Date(ageAtDateStr) : new Date();
+                
+                birth.setHours(0,0,0,0);
+                ageAt.setHours(0,0,0,0);
+                
+                if (isNaN(birth.getTime())) {
+                    result = "Validation Error: Invalid birth date format.";
+                } else if (isNaN(ageAt.getTime())) {
+                    result = "Validation Error: Invalid target date format.";
+                } else if (ageAt < birth) {
+                    result = "Validation Error: Target date cannot be earlier than your date of birth.";
+                } else {
+                    let years = ageAt.getFullYear() - birth.getFullYear();
+                    let months = ageAt.getMonth() - birth.getMonth();
+                    let days = ageAt.getDate() - birth.getDate();
+                    
+                    if (days < 0) {
+                        months--;
+                        const prevMonth = new Date(ageAt.getFullYear(), ageAt.getMonth(), 0);
+                        days += prevMonth.getDate();
+                    }
+                    
+                    if (months < 0) {
+                        years--;
+                        months += 12;
+                    }
+                    
+                    const totalDays = Math.floor((ageAt.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
+                    const totalWeeks = Math.floor(totalDays / 7);
+                    const remDays = totalDays % 7;
+                    
+                    const totalMonths = (years * 12) + months;
+                    const totalHours = totalDays * 24;
+                    const totalMinutes = totalHours * 60;
+                    
+                    const countLeapYears = (start, end) => {
+                        let count = 0;
+                        for (let y = start.getFullYear(); y <= end.getFullYear(); y++) {
+                            if ((y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0)) {
+                                const leapDay = new Date(y, 1, 29);
+                                if (leapDay >= start && leapDay <= end) {
+                                    count++;
+                                }
+                            }
+                        }
+                        return count;
+                    };
+                    
+                    result = `Age Calculation Details:\n\n` +
+                             `• Date of Birth: ${birth.toDateString()}\n` +
+                             `• Age-at Date: ${ageAt.toDateString()}\n\n` +
+                             `✅ Age: ${years} Years, ${months} Months, and ${days} Days\n\n` +
+                             `📊 Equivalent In Alternative Time Units:\n` +
+                             `  • In Months: ${totalMonths} Months, ${days} Days\n` +
+                             `  • In Weeks & Days: ${totalWeeks} Weeks, ${remDays} Days\n` +
+                             `  • In Total Days: ${totalDays.toLocaleString()} Days\n` +
+                             `  • In Hours: ~${totalHours.toLocaleString()} Hours\n` +
+                             `  • In Minutes: ~${totalMinutes.toLocaleString()} Minutes\n\n` +
+                             `📅 Leap Years Passed: ${countLeapYears(birth, ageAt)} leap year(s)`;
+                }
+            }
+        } else {
+            const birth = new Date(input);
+            if (isNaN(birth)) result = "Invalid Date (use YYYY-MM-DD)";
+            else {
+                const diff = Date.now() - birth.getTime();
+                const age = new Date(diff).getUTCFullYear() - 1970;
+                result = `Your current age is: ${age} years`;
+            }
         }
     } else if (tool.includes('temp converter')) {
         const val = parseFloat(input) || 0;
