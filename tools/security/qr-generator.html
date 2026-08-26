@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qr Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Qr Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>QR Code Generator - Free Custom QR Code Creator</title>
+    <meta name="description" content="Generate custom QR codes from text, links, or numbers. Choose sizes, dark/light colors, and error correction levels. Secure local creation.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,44 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Text or URL to Encode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Enter text or URL to generate QR code..." style="height: 80px;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="qrSize">QR Code Size (px)</label>
+            <select id="qrSize" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="150">150 x 150</option>
+                <option value="200" selected>200 x 200</option>
+                <option value="250">250 x 250</option>
+                <option value="300">300 x 300</option>
+                <option value="400">400 x 400</option>
+            </select>
+        </div>
+        <div>
+            <label for="qrECC">Error Correction Level</label>
+            <select id="qrECC" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="L">Low (7% recovery)</option>
+                <option value="M">Medium (15% recovery)</option>
+                <option value="Q">Quartile (25% recovery)</option>
+                <option value="H" selected>High (30% recovery)</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="qrColorDark">Foreground Color (Dark)</label>
+            <input type="color" id="qrColorDark" value="#000000" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer; background: transparent;">
+        </div>
+        <div>
+            <label for="qrColorLight">Background Color (Light)</label>
+            <input type="color" id="qrColorLight" value="#ffffff" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer; background: transparent;">
+        </div>
+    </div>
+    <!-- Hidden container for library visual target -->
+    <div id="qrCodeTarget" style="display:none;"></div>
 </div>
 
                     

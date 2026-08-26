@@ -155,15 +155,227 @@ CATEGORY_INFO = {
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
     "json-formatter": """
-        <h2>Professional JSON Formatting and Syntax Optimization</h2>
-        <p>In modern web architectures, JavaScript Object Notation (JSON) is the universal format for API data transmission, configuration files, and state synchronization. However, raw JSON responses from API gateways are typically minified, strip out whitespace, and are difficult for developers to inspect. Our <strong>JSON Formatter</strong> provides a professional, instant resolution. It parses your nested JSON data and formats it with customizable tab indentation, making complex arrays and key-value pairs easy to read.</p>
+        <h2>Introduction to JSON Formatting and API Data Validation</h2>
+        <p>JavaScript Object Notation (JSON) has become the standard data interchange format for web APIs, microservices, and software configurations. Because web applications squeeze whitespaces and line breaks from payloads to optimize network bandwidth, raw JSON data is often returned as a single, unreadable line of text. Our online <strong>JSON Formatter</strong> addresses this by parsing raw payloads and formatting them with customizable tab indentation.</p>
         
-        <h3>Local Syntax Validation & Visual Nesting</h3>
-        <p>A single missing comma, unmatched bracket, or unescaped quote can break an entire configuration file or API request. Beyond beautifying text, our formatter runs a robust syntax parser in the background. If your JSON structure is malformed, our validator isolates the parsing error, pointing you directly to the offending line number. By visualizing nested hierarchies, you can map parent-child objects quickly and audit data configurations before deployment.</p>
-        
-        <h3>Zero Server Exposure for Sensitive API Keys</h3>
-        <p>Many online formatters upload your inputs to external logs, posing a severe security risk if your payload contains private API keys, database user records, or customer transactions. MultiTools Hub is engineered on a strict <strong>client-side architecture</strong>. The formatting scripts process the pasted text entirely within your local browser memory. No data is sent to a server. This design guarantees compliance with corporate privacy standards and GDPR policies, allowing you to format production configs securely.</p>
-    """,
+        <p>A single syntax error, such as a missing comma, unescaped double quote, or mismatched bracket, can break a configuration file or halt an API integration. Our formatter parses your JSON code client-side, validating its structure and highlighting syntax errors with line and column diagnostics.</p>
+
+        <h3>Why Client-Side Parsing is Essential for Data Privacy</h3>
+        <p>Many online JSON formatters upload your inputs to external logs, posing a security risk if your payloads contain private API tokens, database keys, or customer profiles. MultiTools Hub is built on a strict privacy-first architecture. All text transformations and JSON validations are processed locally in your browser's RAM, keeping your sensitive code secure and compliant with GDPR policies.</p>
+
+        <h3>Real-Life Use Cases for JSON Formatting</h3>
+        <ul>
+            <li><strong>API Debugging:</strong> Formatting unreadable minified API responses to inspect keys and array structures.</li>
+            <li><strong>Config Management:</strong> Organizing configuration files (like package.json, tsconfig.json, or settings.json) for readability.</li>
+            <li><strong>Syntax Troubleshooting:</strong> Locating missing commas, unquoted keys, or mismatched brackets in complex nested objects.</li>
+            <li><strong>Data Compression:</strong> Minifying large, formatted JSON payloads to optimize storage and transmission bandwidth.</li>
+        </ul>
+
+        <h2>Understanding the Logic of JSON Parsing and Diagnostics</h2>
+        <p>The JSON Formatter operates in two modes: Beautification and Minification. The tool parses inputs using native JavaScript parsing engines (<code>JSON.parse</code>) to ensure standards compliance:</p>
+
+        <h3>1. JSON Beautification (Formatting with Indentation)</h3>
+        <p>This mode parses the JSON string into a structured object, and then serializes it back into a string with customizable indentation formatting (2 spaces, 4 spaces, 8 spaces, or tabs). The formula is:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            FormattedString = JSON.stringify(JSON.parse(RawString), null, IndentLevel)
+        </div>
+
+        <h3>2. JSON Minification (Data Compression)</h3>
+        <p>This mode compresses the JSON data by stripping out all redundant whitespaces, line breaks, and indentation parameters, creating a compact string optimized for transmission:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            MinifiedString = JSON.stringify(JSON.parse(RawString))
+        </div>
+
+        <h3>3. Syntax Error Diagnostics</h3>
+        <p>If the input JSON is malformed, <code>JSON.parse</code> throws an error detailing the position of the syntax break. Our script parses this position and determines the exact line and column numbers of the error, helping you locate syntax issues quickly.</p>
+
+        <h2>Step-by-Step Guide: How to Format JSON</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Your JSON Code</strong> — Paste your raw or minified JSON text into the input field.</li>
+            <li><strong>Step 2: Choose Spacing Indentation</strong> — Select your preferred spacing (2 spaces, 4 spaces, 8 spaces, or tab character) from the drop-down menu.</li>
+            <li><strong>Step 3: Process the Code</strong> — Click "Process JSON Formatter". The formatted, beautified code will display in the output window. Check the "Minify Output instead of Beautify" box if you want to compress the data.</li>
+            <li><strong>Step 4: Copy to Clipboard</strong> — Click "Copy Output" to copy the output JSON.</li>
+        </ol>
+
+        <h2>Core Benefits of this JSON Formatter</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All formatting and validation occur locally. No data is sent to external servers, protecting your configurations.</li>
+            <li><strong>Line and Column Diagnostics:</strong> Identifies syntax errors and points you to the exact line and column where they occurred.</li>
+            <li><strong>Custom Spacing and Minification:</strong> Customize indentation levels or minify JSON payloads to optimize transmission bandwidth.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: JSON (JavaScript Object Notation) is a lightweight, text-based data interchange format that is easy for humans to read and write and easy for machines to parse and generate.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does my JSON fail to parse?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Common syntax issues include using single quotes instead of double quotes, trailing commas after the final object property, or missing brackets.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is it safe to format JSON containing private API keys?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All formatting and validation are processed client-side in your browser's local RAM. Your payloads are never sent to external servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between beautifying and minifying JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Beautifying adds indentation and line breaks to improve readability. Minifying strips out whitespaces and line breaks to optimize file size for transmission.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I format JSON files offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded in your browser, the script runs locally, allowing offline use.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are comments allowed in JSON files?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard JSON specifications do not support comments. Including comments (such as // or /* */) will trigger a parsing error.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does the tool determine the line number of a syntax error?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The parser catches the error character position, counts the number of line break symbols up to that position, and calculates the column offset.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use tabs instead of spaces for indentation?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, selecting "Tab Character" in the Spacing menu formats code using native tab formatting.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>This tool validates standard JSON syntax. Payloads that include custom extensions (like JSON5 or comments) may fail validation. Ensure your JSON adheres to RFC 8259 guidelines for standard integrations.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are working with data strings, use our <a href="../dev/base64-encoder.html">Base64 Encoder</a> or explore our <a href="../dev/regex-tester.html">Regex Tester</a> to validate match patterns.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JSON Formatter",
+            "item": "https://multitoolshub.co.in/tools/dev/json-formatter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "JSON Formatter",
+          "url": "https://multitoolshub.co.in/tools/dev/json-formatter.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is JSON?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "JSON (JavaScript Object Notation) is a lightweight, text-based data interchange format that is easy for humans to read and write and easy for machines to parse."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why does my JSON fail to parse?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Common syntax issues include using single quotes instead of double quotes, trailing commas, or missing brackets."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to format JSON containing private API keys?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, all formatting and validation are processed client-side in your browser's local RAM, and no data is sent to external servers."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between beautifying and minifying JSON?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Beautifying adds indentation and line breaks to improve readability. Minifying strips out whitespaces and line breaks to optimize file size."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I format JSON files offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded in your browser, the script runs locally, allowing offline use."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are comments allowed in JSON files?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Standard JSON specifications do not support comments. Including comments will trigger a parsing error."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the tool determine the line number of a syntax error?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The parser catches the error character position, counts the number of line break symbols up to that position, and calculates the column offset."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use tabs instead of spaces for indentation?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, selecting 'Tab Character' in the Spacing menu formats code using native tab formatting."
+              }
+            }
+          ]
+        }
+        </script>
+""",
     "word-counter": """
         <h2>Analyze Text Length, Word Metrics, and Reading Time Instantly</h2>
         <p>Writing for the web requires strict adherence to length constraints. Whether you are drafting a meta description (160 characters), a social media post, or a long-form article, keeping track of your metrics is essential. Our <strong>Word Counter</strong> is a fast, client-side utility that analyzes your drafts and outputs real-time counts for words, characters, sentences, and paragraphs, helping you optimize content for any platform.</p>
@@ -175,15 +387,224 @@ TOOL_SPECIFIC_SEO = {
         <p>Writing sensitive business proposals, patent descriptions, or private letters requires a secure workspace. Our Word Counter runs entirely in your local RAM. We never transmit your text over the web, meaning your words stay private. There are no size restrictions or account requirements, making it the most convenient and secure counter on the web.</p>
     """,
     "password-generator": """
-        <h2>Generate Cryptographically Strong Passwords Instantly</h2>
-        <p>With cyber attacks and dictionary databases expanding daily, using simple passwords like 'password123' or repeating keys across websites is a security risk. Our <strong>Password Generator</strong> is a professional utility that constructs strong, random strings of characters that are virtually impossible to brute-force. Choose your length, toggle uppercase letters, numbers, and special symbols, and secure your digital identity.</p>
+        <h2>Introduction to Strong Passwords and Cryptographic Security</h2>
+        <p>In our connected ecosystem, protecting your personal accounts, cloud portals, and server assets starts with a strong password. Automated scripts and database dictionary attacks test millions of common terms every second. Using names, birthdates, or repeating standard keyboard runs (like 'qwerty') makes accounts vulnerable. Our online <strong>Password Generator</strong> addresses this by building strong, random character strings locally in your browser tab.</p>
         
-        <h3>How Secure Random Numbers Work Client-Side</h3>
-        <p>Most basic online password generators use predictable math functions (`Math.random`) to select characters, which can sometimes be reverse-engineered by advanced algorithms. Our generator utilizes the cryptographically secure pseudorandom number generator (CSPRNG) API built into modern web browsers (`window.crypto`). This yields true randomness, ensuring that each password is safe for financial portals, email accounts, and database configurations.</p>
-        
-        <h3>Privacy-First Credential Creation</h3>
-        <p>We do not collect, log, or store the passwords you generate. Because all code runs client-side, the generated credentials exist only on your screen and in your clipboard. Once you close the tab, all traces are deleted. Generate passwords with confidence, copy them with a single click, and protect your digital assets safely.</p>
-    """,
+        <p>A secure password must have two characteristics: length and character variety. By combining uppercase letters, lowercase letters, numbers, and special symbols, you create a complex key that is highly resistant to brute-force calculators. Our tool allows you to customize these requirements, generating secure keys for e-commerce, banking, and system configurations.</p>
+
+        <h3>Why Standard Math Functions are Unsafe for Security</h3>
+        <p>Many basic online generators utilize standard scripting functions like JavaScript's <code>Math.random()</code>. While suitable for simple animations or games, these algorithms are pseudorandom number generators (PRNGs) that use predictable seed values. If an attacker knows the seed, they can recreate the generated passwords. Our generator utilizes the cryptographically secure pseudorandom number generator (CSPRNG) API built into modern web browsers (<code>window.crypto</code>), providing true randomness that is safe for professional configurations.</p>
+
+        <h3>Real-Life Use Cases for Cryptographic Keys</h3>
+        <ul>
+            <li><strong>Database Setup:</strong> Generating random administration credentials for MySQL, PostgreSQL, or MongoDB deployments.</li>
+            <li><strong>API Access:</strong> Creating secure API authentication tokens and webhook credentials.</li>
+            <li><strong>WiFi Encryption:</strong> Establishing complex WPA2/WPA3 keys for home and office networks.</li>
+            <li><strong>Credential Audits:</strong> Helping IT teams reset default manufacturer passwords across network routers and devices.</li>
+        </ul>
+
+        <h2>Understanding the Logic of Password Generation</h2>
+        <p>The security level of a password is determined by its mathematical entropy, which is calculated based on length and character pool size:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            Entropy (bits) = Length * log2(Character Pool Size)
+        </div>
+        <p>Adding character sets increases the pool size (uppercase adds 26, lowercase adds 26, numbers add 10, symbols add 29), raising the entropy score. The calculator displays this score in real-time, helping you evaluate password strength before copying.</p>
+
+        <h2>Step-by-Step Guide: How to Generate Passwords</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Set Password Length</strong> — Drag the slider to choose your password length (we recommend a minimum of 12–16 characters for standard security).</li>
+            <li><strong>Step 2: Choose Character Sets</strong> — Check the boxes for the character sets you want to include (Uppercase, Lowercase, Numbers, and Symbols).</li>
+            <li><strong>Step 3: Process the Generation</strong> — Click "Process Password Generator". The secure password and its strength metrics will display instantly.</li>
+            <li><strong>Step 4: Copy to Clipboard</strong> — Click "Copy Output" to copy the generated password.</li>
+        </ol>
+
+        <h2>Practical Examples of Password Strength</h2>
+        <p>Here are examples of how length and character pool choice affect security:</p>
+        <ul>
+            <li><strong>8 Characters (Lowercase only):</strong> Pool size 26, Entropy ~37 bits (Weak, vulnerable to rapid cracking).</li>
+            <li><strong>12 Characters (Alphanumeric):</strong> Pool size 62, Entropy ~71 bits (Medium, suitable for general accounts).</li>
+            <li><strong>16 Characters (All Sets):</strong> Pool size 91, Entropy ~104 bits (Very Strong, suitable for high-security databases and administrative accounts).</li>
+        </ul>
+
+        <h2>Core Benefits of this Password Generator</h2>
+        <ul>
+            <li><strong>CSPRNG Randomness:</strong> Powered by <code>window.crypto</code> for cryptographic security.</li>
+            <li><strong>100% Client-Side Privacy:</strong> Your password is generated locally. No data is sent to a server, keeping your credentials secure.</li>
+            <li><strong>Real-Time Entropy Metrics:</strong> Displays the entropy score and security level, helping you create optimal passwords.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a cryptographically secure random number generator?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A CSPRNG is an algorithm designed for security, producing unpredictable values that cannot be reverse-engineered by analyzing past output.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does length affect password security?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Length increases password complexity exponentially. Adding one character to a password increases the number of calculations required to crack it by a factor equal to the pool size.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is it safe to use online password generators?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It is safe if the generator runs entirely client-side. Our tool processes the generation in your browser's local memory and does not upload your passwords to any server.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is password entropy?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Password entropy measures a password's resistance to brute-force cracking, expressed in bits. Higher entropy indicates a more secure password.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Should I reuse the same password across multiple sites?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. If one site is breached, attackers will attempt to use those credentials on other platforms. Use unique passwords for every account.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are the best practices for storing passwords?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: We recommend using a dedicated password manager to store your credentials securely under a strong master password.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why should I include symbols in my passwords?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Symbols expand the character pool size, making the password more complex and resistant to dictionary attacks.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I generate passwords offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Once the page is loaded, the generation scripts run locally, allowing you to generate passwords without internet access.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>While our tool generates cryptographically secure passwords, security also depends on how you store them and host-site security. We recommend using unique passwords for every site, storing them in a secure password manager, and enabling two-factor authentication (2FA) where available.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are auditing system security, verify your passwords' complexity with our <a href="../security/password-strength.html">Password Strength Analyzer</a>, or generate unique identifiers using our <a href="../security/uuid-generator.html">UUID Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Security",
+            "item": "https://multitoolshub.co.in/tools/security/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Password Generator",
+            "item": "https://multitoolshub.co.in/tools/security/password-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Password Generator",
+          "url": "https://multitoolshub.co.in/tools/security/password-generator.html",
+          "applicationCategory": "SecurityApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a cryptographically secure random number generator?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A CSPRNG is an algorithm designed for security, producing unpredictable values that cannot be reverse-engineered by analyzing past output."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does length affect password security?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Length increases password complexity exponentially, raising the number of calculations required to crack it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to use online password generators?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, if the generator runs entirely client-side. Our tool processes the generation in your browser's local memory and does not upload your passwords to any server."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is password entropy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Password entropy measures a password's resistance to brute-force cracking, expressed in bits."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should I reuse the same password across multiple sites?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, unique passwords prevent secondary access to other accounts if one site is breached."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the best practices for storing passwords?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We recommend using a dedicated password manager to store your credentials securely under a strong master password."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why should I include symbols in my passwords?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Symbols expand the character pool size, making the password more complex and resistant to dictionary attacks."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I generate passwords offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline password generation."
+              }
+            }
+          ]
+        }
+        </script>
+""",
     "keyword-density": """
         <h2>Analyze Keyword Frequency and Optimize Content for Search Engines</h2>
         <p>In search engine optimization, semantic relevance is key. If you repeat a search phrase too many times, search bots might flag your page for keyword stuffing. If you use it too rarely, search engines may fail to index your page for the query. Our <strong>Keyword Density Analyzer</strong> lets you paste your content and see a detailed breakdown of the most frequently used words and phrases, helping you write naturally while optimizing for rankings.</p>
@@ -318,6 +739,21 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "credit-card-validator": {
+        "title": "Credit Card Validator - Check Card Numbers Online",
+        "description": "Validate credit card numbers instantly using the mathematical Luhn algorithm. Identifies card network (Visa, Mastercard, Amex, etc.). Secure and private."
+    },
+
+    "qr-generator": {
+        "title": "QR Code Generator - Free Custom QR Code Creator",
+        "description": "Generate custom QR codes from text, links, or numbers. Choose sizes, dark/light colors, and error correction levels. Secure local creation."
+    },
+
+    "uuid-generator": {
+        "title": "UUID Generator - Generate Unique UUIDs Online (v4)",
+        "description": "Create single or bulk UUIDs (GUIDs) v4 instantly. Custom uppercase, no hyphens, and braces formatting options. Fast and secure."
+    },
+
     "percentage-calc": {
         "title": "Percentage Calculator - Free Online Percentage Finder",
         "description": "Calculate percentages, percentage change, and percentage increase or decrease online. Quick, accurate, and completely private browser-based tool."

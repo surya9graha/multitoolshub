@@ -64,9 +64,28 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Raw JSON Content</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw, minified, or unformatted JSON here..." style="height: 180px; font-family: monospace; font-size: 0.95rem; line-height: 1.6;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="jsonSpacing">Indentation Spacing</label>
+            <select id="jsonSpacing" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="2" selected>2 Spaces</option>
+                <option value="4">4 Spaces</option>
+                <option value="8">8 Spaces</option>
+                <option value="tab">Tab Character</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="jsonMinify" style="width: 20px; height: 20px;">
+                Minify Output instead of Beautify
+            </label>
+        </div>
+    </div>
 </div>
 
                     
@@ -98,14 +117,226 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Professional JSON Formatting and Syntax Optimization</h2>
-        <p>In modern web architectures, JavaScript Object Notation (JSON) is the universal format for API data transmission, configuration files, and state synchronization. However, raw JSON responses from API gateways are typically minified, strip out whitespace, and are difficult for developers to inspect. Our <strong>JSON Formatter</strong> provides a professional, instant resolution. It parses your nested JSON data and formats it with customizable tab indentation, making complex arrays and key-value pairs easy to read.</p>
+            <h2>Introduction to JSON Formatting and API Data Validation</h2>
+        <p>JavaScript Object Notation (JSON) has become the standard data interchange format for web APIs, microservices, and software configurations. Because web applications squeeze whitespaces and line breaks from payloads to optimize network bandwidth, raw JSON data is often returned as a single, unreadable line of text. Our online <strong>JSON Formatter</strong> addresses this by parsing raw payloads and formatting them with customizable tab indentation.</p>
         
-        <h3>Local Syntax Validation & Visual Nesting</h3>
-        <p>A single missing comma, unmatched bracket, or unescaped quote can break an entire configuration file or API request. Beyond beautifying text, our formatter runs a robust syntax parser in the background. If your JSON structure is malformed, our validator isolates the parsing error, pointing you directly to the offending line number. By visualizing nested hierarchies, you can map parent-child objects quickly and audit data configurations before deployment.</p>
-        
-        <h3>Zero Server Exposure for Sensitive API Keys</h3>
-        <p>Many online formatters upload your inputs to external logs, posing a severe security risk if your payload contains private API keys, database user records, or customer transactions. MultiTools Hub is engineered on a strict <strong>client-side architecture</strong>. The formatting scripts process the pasted text entirely within your local browser memory. No data is sent to a server. This design guarantees compliance with corporate privacy standards and GDPR policies, allowing you to format production configs securely.</p>
+        <p>A single syntax error, such as a missing comma, unescaped double quote, or mismatched bracket, can break a configuration file or halt an API integration. Our formatter parses your JSON code client-side, validating its structure and highlighting syntax errors with line and column diagnostics.</p>
+
+        <h3>Why Client-Side Parsing is Essential for Data Privacy</h3>
+        <p>Many online JSON formatters upload your inputs to external logs, posing a security risk if your payloads contain private API tokens, database keys, or customer profiles. MultiTools Hub is built on a strict privacy-first architecture. All text transformations and JSON validations are processed locally in your browser's RAM, keeping your sensitive code secure and compliant with GDPR policies.</p>
+
+        <h3>Real-Life Use Cases for JSON Formatting</h3>
+        <ul>
+            <li><strong>API Debugging:</strong> Formatting unreadable minified API responses to inspect keys and array structures.</li>
+            <li><strong>Config Management:</strong> Organizing configuration files (like package.json, tsconfig.json, or settings.json) for readability.</li>
+            <li><strong>Syntax Troubleshooting:</strong> Locating missing commas, unquoted keys, or mismatched brackets in complex nested objects.</li>
+            <li><strong>Data Compression:</strong> Minifying large, formatted JSON payloads to optimize storage and transmission bandwidth.</li>
+        </ul>
+
+        <h2>Understanding the Logic of JSON Parsing and Diagnostics</h2>
+        <p>The JSON Formatter operates in two modes: Beautification and Minification. The tool parses inputs using native JavaScript parsing engines (<code>JSON.parse</code>) to ensure standards compliance:</p>
+
+        <h3>1. JSON Beautification (Formatting with Indentation)</h3>
+        <p>This mode parses the JSON string into a structured object, and then serializes it back into a string with customizable indentation formatting (2 spaces, 4 spaces, 8 spaces, or tabs). The formula is:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            FormattedString = JSON.stringify(JSON.parse(RawString), null, IndentLevel)
+        </div>
+
+        <h3>2. JSON Minification (Data Compression)</h3>
+        <p>This mode compresses the JSON data by stripping out all redundant whitespaces, line breaks, and indentation parameters, creating a compact string optimized for transmission:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            MinifiedString = JSON.stringify(JSON.parse(RawString))
+        </div>
+
+        <h3>3. Syntax Error Diagnostics</h3>
+        <p>If the input JSON is malformed, <code>JSON.parse</code> throws an error detailing the position of the syntax break. Our script parses this position and determines the exact line and column numbers of the error, helping you locate syntax issues quickly.</p>
+
+        <h2>Step-by-Step Guide: How to Format JSON</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Your JSON Code</strong> — Paste your raw or minified JSON text into the input field.</li>
+            <li><strong>Step 2: Choose Spacing Indentation</strong> — Select your preferred spacing (2 spaces, 4 spaces, 8 spaces, or tab character) from the drop-down menu.</li>
+            <li><strong>Step 3: Process the Code</strong> — Click "Process JSON Formatter". The formatted, beautified code will display in the output window. Check the "Minify Output instead of Beautify" box if you want to compress the data.</li>
+            <li><strong>Step 4: Copy to Clipboard</strong> — Click "Copy Output" to copy the output JSON.</li>
+        </ol>
+
+        <h2>Core Benefits of this JSON Formatter</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All formatting and validation occur locally. No data is sent to external servers, protecting your configurations.</li>
+            <li><strong>Line and Column Diagnostics:</strong> Identifies syntax errors and points you to the exact line and column where they occurred.</li>
+            <li><strong>Custom Spacing and Minification:</strong> Customize indentation levels or minify JSON payloads to optimize transmission bandwidth.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: JSON (JavaScript Object Notation) is a lightweight, text-based data interchange format that is easy for humans to read and write and easy for machines to parse and generate.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does my JSON fail to parse?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Common syntax issues include using single quotes instead of double quotes, trailing commas after the final object property, or missing brackets.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is it safe to format JSON containing private API keys?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All formatting and validation are processed client-side in your browser's local RAM. Your payloads are never sent to external servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between beautifying and minifying JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Beautifying adds indentation and line breaks to improve readability. Minifying strips out whitespaces and line breaks to optimize file size for transmission.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I format JSON files offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded in your browser, the script runs locally, allowing offline use.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are comments allowed in JSON files?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard JSON specifications do not support comments. Including comments (such as // or /* */) will trigger a parsing error.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does the tool determine the line number of a syntax error?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The parser catches the error character position, counts the number of line break symbols up to that position, and calculates the column offset.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use tabs instead of spaces for indentation?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, selecting "Tab Character" in the Spacing menu formats code using native tab formatting.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>This tool validates standard JSON syntax. Payloads that include custom extensions (like JSON5 or comments) may fail validation. Ensure your JSON adheres to RFC 8259 guidelines for standard integrations.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are working with data strings, use our <a href="../dev/base64-encoder.html">Base64 Encoder</a> or explore our <a href="../dev/regex-tester.html">Regex Tester</a> to validate match patterns.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JSON Formatter",
+            "item": "https://multitoolshub.co.in/tools/dev/json-formatter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "JSON Formatter",
+          "url": "https://multitoolshub.co.in/tools/dev/json-formatter.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is JSON?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "JSON (JavaScript Object Notation) is a lightweight, text-based data interchange format that is easy for humans to read and write and easy for machines to parse."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why does my JSON fail to parse?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Common syntax issues include using single quotes instead of double quotes, trailing commas, or missing brackets."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to format JSON containing private API keys?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, all formatting and validation are processed client-side in your browser's local RAM, and no data is sent to external servers."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between beautifying and minifying JSON?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Beautifying adds indentation and line breaks to improve readability. Minifying strips out whitespaces and line breaks to optimize file size."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I format JSON files offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded in your browser, the script runs locally, allowing offline use."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are comments allowed in JSON files?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Standard JSON specifications do not support comments. Including comments will trigger a parsing error."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the tool determine the line number of a syntax error?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The parser catches the error character position, counts the number of line break symbols up to that position, and calculates the column offset."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use tabs instead of spaces for indentation?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, selecting 'Tab Character' in the Spacing menu formats code using native tab formatting."
+              }
+            }
+          ]
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Json Formatter</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

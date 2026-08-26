@@ -845,7 +845,39 @@ async function runCoreLogic(tool, input, output) {
 
     // Developer / Dev Tools
     if (tool.includes('json formatter')) {
-        try { result = JSON.stringify(JSON.parse(input), null, 4); } catch(e) { result = "Invalid JSON: " + e.message; }
+        if (!input.trim()) {
+            result = "Validation Error: Please paste or write some JSON data to format.";
+        } else {
+            try {
+                const spacingVal = document.getElementById('jsonSpacing')?.value || "2";
+                const isMinify = document.getElementById('jsonMinify')?.checked;
+                
+                const parsed = JSON.parse(input);
+                if (isMinify) {
+                    result = JSON.stringify(parsed);
+                } else {
+                    const indent = spacingVal === 'tab' ? '\t' : parseInt(spacingVal);
+                    result = JSON.stringify(parsed, null, indent);
+                }
+            } catch (err) {
+                let errorDetails = err.message;
+                const match = err.message.match(/at position (\d+)/);
+                if (match) {
+                    const position = parseInt(match[1]);
+                    const beforeError = input.substring(0, position);
+                    const lines = beforeError.split('\n');
+                    const lineNum = lines.length;
+                    const colNum = lines[lines.length - 1].length + 1;
+                    errorDetails += ` (Line ${lineNum}, Column ${colNum})`;
+                }
+                result = `Syntax Error: Invalid JSON Format ❌\n\n` +
+                         `• Details: ${errorDetails}\n\n` +
+                         `💡 Formatting Tips:\n` +
+                         `  - Ensure keys and string values are wrapped in double quotes (""), not single quotes ('').\n` +
+                         `  - Remove any trailing commas after the last element in arrays or objects.\n` +
+                         `  - Double-check that all brackets [] and braces {} match and close correctly.`;
+            }
+        }
     } else if (tool.includes('json validator')) {
         try { JSON.parse(input); result = "Valid JSON ✅"; } catch(e) { result = "Invalid JSON ❌: " + e.message; }
     } else if (tool.includes('base64 encoder')) {
@@ -1072,10 +1104,11 @@ async function runCoreLogic(tool, input, output) {
         const syms = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
         let charPool = "";
-        if (upper) charPool += uppers;
-        if (lower) charPool += lowers;
-        if (numbers) charPool += nums;
-        if (symbols) charPool += syms;
+        let poolSize = 0;
+        if (upper) { charPool += uppers; poolSize += 26; }
+        if (lower) { charPool += lowers; poolSize += 26; }
+        if (numbers) { charPool += nums; poolSize += 10; }
+        if (symbols) { charPool += syms; poolSize += syms.length; }
 
         if (charPool.length === 0) {
             result = "Please select at least one character set!";
@@ -1086,10 +1119,27 @@ async function runCoreLogic(tool, input, output) {
             for (let i = 0; i < length; i++) {
                 password += charPool.charAt(randomValues[i] % charPool.length);
             }
-            result = password;
+            
+            const entropy = Math.round(length * Math.log2(poolSize));
+            let strength = "Weak ⚠️";
+            if (entropy >= 80) strength = "Very Strong (Excellent) ✅";
+            else if (entropy >= 60) strength = "Strong (Secure) ✅";
+            else if (entropy >= 40) strength = "Medium (Moderate) ⚠️";
+            
+            result = `Generated Password: ${password}\n\n` +
+                     `Password Strength Metrics:\n` +
+                     `• Length: ${length} characters\n` +
+                     `• Character Pool Size: ${poolSize} characters\n` +
+                     `• Password Entropy: ~${entropy} bits\n` +
+                     `• Security Level: ${strength}\n\n` +
+                     `💡 Note: This password was generated locally using cryptographically secure pseudorandom values.`;
         }
     } else if (tool.includes('uuid generator')) {
         const count = parseInt(document.getElementById('uuidCount')?.value || "5");
+        const uppercase = document.getElementById('uuidUppercase')?.checked;
+        const noHyphens = document.getElementById('uuidNoHyphens')?.checked;
+        const wrapBraces = document.getElementById('uuidBraces')?.checked;
+        
         let uuids = [];
         for (let j = 0; j < count; j++) {
             const sz = new Uint8Array(16);
@@ -1097,7 +1147,22 @@ async function runCoreLogic(tool, input, output) {
             sz[6] = (sz[6] & 0x0f) | 0x40;
             sz[8] = (sz[8] & 0x3f) | 0x80;
             const hex = Array.from(sz).map(b => b.toString(16).padStart(2, '0')).join('');
-            const uuid = `${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20, 32)}`;
+            
+            let uuid = "";
+            if (noHyphens) {
+                uuid = hex;
+            } else {
+                uuid = `${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20, 32)}`;
+            }
+            
+            if (uppercase) {
+                uuid = uuid.toUpperCase();
+            }
+            
+            if (wrapBraces) {
+                uuid = `{${uuid}}`;
+            }
+            
             uuids.push(uuid);
         }
         result = uuids.join('\n');
@@ -1252,17 +1317,38 @@ async function runCoreLogic(tool, input, output) {
         const qrTarget = document.getElementById('qrCodeTarget');
         const resContainer = document.getElementById('imageResultContainer');
         const downloadBtn = document.getElementById('downloadBtn');
+        
+        const size = parseInt(document.getElementById('qrSize')?.value || "200");
+        const colorDark = document.getElementById('qrColorDark')?.value || "#000000";
+        const colorLight = document.getElementById('qrColorLight')?.value || "#ffffff";
+        const ecc = document.getElementById('qrECC')?.value || "H";
+        
         if (qrTarget && input) {
             qrTarget.innerHTML = '';
+            
+            let eccLevel = QRCode.CorrectLevel.H;
+            if (ecc === 'L') eccLevel = QRCode.CorrectLevel.L;
+            else if (ecc === 'M') eccLevel = QRCode.CorrectLevel.M;
+            else if (ecc === 'Q') eccLevel = QRCode.CorrectLevel.Q;
+            
             new QRCode(qrTarget, {
                 text: input,
-                width: 200,
-                height: 200,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
+                width: size,
+                height: size,
+                colorDark: colorDark,
+                colorLight: colorLight,
+                correctLevel: eccLevel
             });
-            if (resContainer) resContainer.style.display = 'block';
+            
+            setTimeout(() => {
+                const canvas = qrTarget.querySelector('canvas');
+                const imgOut = document.getElementById('imageOutput');
+                if (canvas && imgOut) {
+                    imgOut.src = canvas.toDataURL("image/png");
+                    if (resContainer) resContainer.style.display = 'block';
+                }
+            }, 50);
+
             if (downloadBtn) {
                 downloadBtn.style.display = 'inline-block';
                 downloadBtn.onclick = () => {
@@ -1275,19 +1361,64 @@ async function runCoreLogic(tool, input, output) {
                     }
                 };
             }
-            result = "QR Code Generated Successfully!";
+            result = `QR Code Generated Successfully!\n\n• Encoded Content: ${input}\n• Dimensions: ${size} x ${size} px\n• Color Palette: Foreground ${colorDark} / Background ${colorLight}\n• ECC Level: ${ecc}`;
         } else {
-            result = "Please enter data to generate a QR Code.";
+            result = "Validation Error: Please enter some data or a URL to generate a QR Code.";
         }
     } else if (tool.includes('credit card validator')) {
-        let sum = 0, b = false;
-        const digits = input.replace(/\D/g, '');
-        for (let i = digits.length - 1; i >= 0; i--) {
-            let n = parseInt(digits[i]);
-            if (b) { if ((n *= 2) > 9) n -= 9; }
-            sum += n; b = !b;
+        const ccInputVal = document.getElementById('ccInput')?.value.replace(/\D/g, '') || input.replace(/\D/g, '');
+        
+        if (!ccInputVal) {
+            result = "Validation Error: Please enter a credit card number to validate.";
+        } else if (ccInputVal.length < 13 || ccInputVal.length > 19) {
+            result = `Validation Error: Invalid digit length (${ccInputVal.length}). Credit card numbers typically have between 13 and 19 digits.`;
+        } else {
+            let sum = 0;
+            let shouldDouble = false;
+            for (let i = ccInputVal.length - 1; i >= 0; i--) {
+                let digit = parseInt(ccInputVal[i]);
+                if (shouldDouble) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+                sum += digit;
+                shouldDouble = !shouldDouble;
+            }
+            
+            const isLuhnValid = (sum % 10 === 0);
+            
+            let cardBrand = "Unknown Network";
+            if (ccInputVal.startsWith('4')) {
+                cardBrand = "Visa 💳";
+            } else if (/^(5[1-5]|2[2-7])/.test(ccInputVal)) {
+                cardBrand = "Mastercard 💳";
+            } else if (/^3[47]/.test(ccInputVal)) {
+                cardBrand = "American Express (Amex) 💳";
+            } else if (/^6(?:011|5)/.test(ccInputVal)) {
+                cardBrand = "Discover 💳";
+            } else if (/^(352[89]|35[3-8][0-9])/.test(ccInputVal)) {
+                cardBrand = "JCB 💳";
+            } else if (/^3(?:0[0-5]|[68])/.test(ccInputVal)) {
+                cardBrand = "Diners Club 💳";
+            } else if (/^(5018|5020|5038|6304|6759|676[1-3])/.test(ccInputVal)) {
+                cardBrand = "Maestro 💳";
+            }
+            
+            if (isLuhnValid) {
+                result = `Credit Card Validation: PASSED ✅\n\n` +
+                         `• Card Number: ${ccInputVal.replace(/(.{4})/g, '$1 ')}\n` +
+                         `• Card Issuer Network: ${cardBrand}\n` +
+                         `• Length Check: ${ccInputVal.length} digits (Valid)\n` +
+                         `• Luhn Checksum: Valid (Sum: ${sum}, Divisible by 10)\n\n` +
+                         `✅ The card number is mathematically structured correctly according to the ISO/IEC 7812 standard. Note: This does not verify active credit, balance, or authorization status.`;
+            } else {
+                result = `Credit Card Validation: FAILED ❌\n\n` +
+                         `• Card Number: ${ccInputVal.replace(/(.{4})/g, '$1 ')}\n` +
+                         `• Length Check: ${ccInputVal.length} digits\n` +
+                         `• Luhn Checksum: Invalid (Sum: ${sum}, Not divisible by 10)\n\n` +
+                         `❌ The card number fails the Luhn algorithm mathematical verification. Please check for spelling mistakes or transpositions.`;
+            }
         }
-        result = (sum % 10 === 0 && digits.length >= 13) ? "Valid Card Number ✅" : "Invalid Card Number ❌";
     } else if (tool.includes('password strength')) {
         const score = input.length * 4 + (input.match(/[A-Z]/) ? 10 : 0) + (input.match(/[0-9]/) ? 10 : 0) + (input.match(/[^a-zA-Z0-9]/) ? 15 : 0);
         let strength = "Weak";

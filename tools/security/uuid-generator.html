@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uuid Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Uuid Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>UUID Generator - Generate Unique UUIDs Online (v4)</title>
+    <meta name="description" content="Create single or bulk UUIDs (GUIDs) v4 instantly. Custom uppercase, no hyphens, and braces formatting options. Fast and secure.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +68,20 @@
     <div>
         <label>Number of UUIDs to Generate: <span id="valUuidCount">5</span></label>
         <input type="range" id="uuidCount" min="1" max="50" value="5" style="width: 100%;">
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidUppercase" style="width: 20px; height: 20px;">
+            Uppercase UUIDs
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidNoHyphens" style="width: 20px; height: 20px;">
+            Remove Hyphens (-)
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidBraces" style="width: 20px; height: 20px;">
+            Wrap in Braces {}
+        </label>
     </div>
     <textarea id="toolInput" style="display:none"></textarea>
 </div>

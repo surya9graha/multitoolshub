@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Validator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Credit Card Validator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Credit Card Validator - Check Card Numbers Online</title>
+    <meta name="description" content="Validate credit card numbers instantly using the mathematical Luhn algorithm. Identifies card network (Visa, Mastercard, Amex, etc.). Secure and private.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,50 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="ccInput">Credit Card Number</label>
+        <div style="position: relative;">
+            <input type="text" id="ccInput" class="form-control" placeholder="e.g. 4111 1111 1111 1111" style="padding: 15px; font-family: monospace; font-size: 1.2rem; padding-right: 120px;">
+            <span id="ccBrand" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--primary); font-size: 1rem; text-transform: uppercase;">CARD</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">The validator automatically formats card digits and flags the card issuer network (Visa, Mastercard, Amex, etc.).</p>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    document.getElementById('ccInput')?.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+        let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+        e.target.value = formatted;
+        
+        const rawInput = document.getElementById('toolInput');
+        if (rawInput) rawInput.value = val;
+
+        const brand = document.getElementById('ccBrand');
+        if (brand) {
+            if (val.startsWith('4')) {
+                brand.innerText = 'VISA';
+                brand.style.color = '#2563eb';
+            } else if (/^(5[1-5]|2[2-7])/.test(val)) {
+                brand.innerText = 'MC';
+                brand.style.color = '#ea580c';
+            } else if (/^3[47]/.test(val)) {
+                brand.innerText = 'AMEX';
+                brand.style.color = '#0d9488';
+            } else if (/^6(?:011|5)/.test(val)) {
+                brand.innerText = 'DISCOVER';
+                brand.style.color = '#d97706';
+            } else if (/^(352[89]|35[3-8][0-9])/.test(val)) {
+                brand.innerText = 'JCB';
+                brand.style.color = '#7c3aed';
+            } else {
+                brand.innerText = 'CARD';
+                brand.style.color = 'var(--primary)';
+            }
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

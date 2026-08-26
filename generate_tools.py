@@ -575,7 +575,136 @@ INPUT_UUID_GENERATOR = """
         <label>Number of UUIDs to Generate: <span id="valUuidCount">5</span></label>
         <input type="range" id="uuidCount" min="1" max="50" value="5" style="width: 100%;">
     </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidUppercase" style="width: 20px; height: 20px;">
+            Uppercase UUIDs
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidNoHyphens" style="width: 20px; height: 20px;">
+            Remove Hyphens (-)
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="uuidBraces" style="width: 20px; height: 20px;">
+            Wrap in Braces {}
+        </label>
+    </div>
     <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_QR_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Text or URL to Encode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Enter text or URL to generate QR code..." style="height: 80px;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="qrSize">QR Code Size (px)</label>
+            <select id="qrSize" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="150">150 x 150</option>
+                <option value="200" selected>200 x 200</option>
+                <option value="250">250 x 250</option>
+                <option value="300">300 x 300</option>
+                <option value="400">400 x 400</option>
+            </select>
+        </div>
+        <div>
+            <label for="qrECC">Error Correction Level</label>
+            <select id="qrECC" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="L">Low (7% recovery)</option>
+                <option value="M">Medium (15% recovery)</option>
+                <option value="Q">Quartile (25% recovery)</option>
+                <option value="H" selected>High (30% recovery)</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="qrColorDark">Foreground Color (Dark)</label>
+            <input type="color" id="qrColorDark" value="#000000" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer; background: transparent;">
+        </div>
+        <div>
+            <label for="qrColorLight">Background Color (Light)</label>
+            <input type="color" id="qrColorLight" value="#ffffff" style="width: 100%; height: 50px; border: none; border-radius: 10px; cursor: pointer; background: transparent;">
+        </div>
+    </div>
+    <!-- Hidden container for library visual target -->
+    <div id="qrCodeTarget" style="display:none;"></div>
+</div>
+"""
+
+INPUT_CREDIT_CARD_VALIDATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="ccInput">Credit Card Number</label>
+        <div style="position: relative;">
+            <input type="text" id="ccInput" class="form-control" placeholder="e.g. 4111 1111 1111 1111" style="padding: 15px; font-family: monospace; font-size: 1.2rem; padding-right: 120px;">
+            <span id="ccBrand" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--primary); font-size: 1rem; text-transform: uppercase;">CARD</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">The validator automatically formats card digits and flags the card issuer network (Visa, Mastercard, Amex, etc.).</p>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    document.getElementById('ccInput')?.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\\D/g, '').substring(0, 16);
+        let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+        e.target.value = formatted;
+        
+        const rawInput = document.getElementById('toolInput');
+        if (rawInput) rawInput.value = val;
+
+        const brand = document.getElementById('ccBrand');
+        if (brand) {
+            if (val.startsWith('4')) {
+                brand.innerText = 'VISA';
+                brand.style.color = '#2563eb';
+            } else if (/^(5[1-5]|2[2-7])/.test(val)) {
+                brand.innerText = 'MC';
+                brand.style.color = '#ea580c';
+            } else if (/^3[47]/.test(val)) {
+                brand.innerText = 'AMEX';
+                brand.style.color = '#0d9488';
+            } else if (/^6(?:011|5)/.test(val)) {
+                brand.innerText = 'DISCOVER';
+                brand.style.color = '#d97706';
+            } else if (/^(352[89]|35[3-8][0-9])/.test(val)) {
+                brand.innerText = 'JCB';
+                brand.style.color = '#7c3aed';
+            } else {
+                brand.innerText = 'CARD';
+                brand.style.color = 'var(--primary)';
+            }
+        }
+    });
+</script>
+"""
+
+INPUT_JSON_FORMATTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Raw JSON Content</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw, minified, or unformatted JSON here..." style="height: 180px; font-family: monospace; font-size: 0.95rem; line-height: 1.6;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="jsonSpacing">Indentation Spacing</label>
+            <select id="jsonSpacing" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="2" selected>2 Spaces</option>
+                <option value="4">4 Spaces</option>
+                <option value="8">8 Spaces</option>
+                <option value="tab">Tab Character</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="jsonMinify" style="width: 20px; height: 20px;">
+                Minify Output instead of Beautify
+            </label>
+        </div>
+    </div>
 </div>
 """
 
@@ -937,6 +1066,12 @@ for category, tools in tools_data.items():
             current_input = INPUT_GST_CALC
         elif tool_name == "discount-calc":
             current_input = INPUT_DISCOUNT_CALC
+        elif tool_name == "qr-generator":
+            current_input = INPUT_QR_GENERATOR
+        elif tool_name == "credit-card-validator":
+            current_input = INPUT_CREDIT_CARD_VALIDATOR
+        elif tool_name == "json-formatter":
+            current_input = INPUT_JSON_FORMATTER
             
         seo_content = get_seo_content(category, tool_name, title)
         
