@@ -1095,6 +1095,260 @@ INPUT_FAVICON_GENERATOR = """
 </script>
 """
 
+INPUT_CASE_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Text to Convert</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type or paste your text here..." style="height: 120px;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label for="caseMode">Target Case Format</label>
+            <select id="caseMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="lower" selected>lower case (lowercase)</option>
+                <option value="upper">UPPER CASE (UPPERCASE)</option>
+                <option value="sentence">Sentence case (First letter capitalized)</option>
+                <option value="title">Title Case (Capitalize Every Word)</option>
+                <option value="camel">camelCase (variableName)</option>
+                <option value="pascal">PascalCase (TypeName)</option>
+                <option value="snake">snake_case (file_name)</option>
+                <option value="kebab">kebab-case (url-slug)</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 15px; border: 1px solid var(--border);">
+        <div>
+            <div id="statChars" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Characters</div>
+        </div>
+        <div>
+            <div id="statWords" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Words</div>
+        </div>
+        <div>
+            <div id="statLines" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Lines</div>
+        </div>
+        <div>
+            <div id="statSentences" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sentences</div>
+        </div>
+    </div>
+</div>
+<script>
+    const caseTxt = document.getElementById('toolInput');
+    const updateStats = () => {
+        const text = caseTxt?.value || '';
+        const chars = text.length;
+        const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
+        const lines = text ? text.split('\\n').length : 0;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+        
+        const sc = document.getElementById('statChars');
+        const sw = document.getElementById('statWords');
+        const sl = document.getElementById('statLines');
+        const ss = document.getElementById('statSentences');
+        if (sc) sc.innerText = chars;
+        if (sw) sw.innerText = words;
+        if (sl) sl.innerText = lines;
+        if (ss) ss.innerText = sentences;
+    };
+    caseTxt?.addEventListener('input', updateStats);
+</script>
+"""
+
+INPUT_LOREM_IPSUM = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="loremCount">Generate Count</label>
+            <input type="number" id="loremCount" class="form-control" value="5" min="1" max="100" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="loremType">Generation Unit</label>
+            <select id="loremType" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="paragraphs" selected>Paragraphs</option>
+                <option value="words">Words</option>
+                <option value="lists">Unordered List Items</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="loremFormat">Markup Format</label>
+            <select id="loremFormat" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="plain" selected>Plain Text</option>
+                <option value="html">HTML Elements (&lt;p&gt; or &lt;li&gt;)</option>
+                <option value="markdown">Markdown syntax</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="loremStartWith" checked style="width: 20px; height: 20px;">
+                Start with "Lorem ipsum"
+            </label>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_TIMESTAMP_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(var(--p-hue), 90%, 65%, 0.05); border: 1px solid var(--primary); padding: 15px 20px; border-radius: 15px;">
+        <div>
+            <span style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Current Epoch Timestamp</span>
+            <div id="liveEpoch" style="font-size: 1.6rem; font-weight: 800; font-family: monospace; color: var(--primary);">Loading...</div>
+        </div>
+        <button type="button" onclick="document.getElementById('toolInput').value = document.getElementById('liveEpoch').innerText" class="category-label active" style="border: none; padding: 10px 15px; font-size: 0.85rem; margin: 0;">Use Current</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label style="font-weight: 600; color: var(--primary);" for="toolInput">1. Convert Epoch to Human Date</label>
+            <input type="text" id="toolInput" class="form-control" placeholder="Epoch seconds (e.g. 1718000000) or milliseconds" style="padding: 15px;">
+        </div>
+        
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label style="font-weight: 600; color: var(--primary);" for="humanDateTime">2. Convert Human Date to Epoch</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="datetime-local" id="humanDateTime" class="form-control" style="padding: 12px; height: 50px;">
+            </div>
+        </div>
+    </div>
+    <div>
+        <label for="timeZoneSelect">Target Timezone for Output</label>
+        <select id="timeZoneSelect" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="local" selected>Your Local System Time</option>
+            <option value="UTC">Coordinated Universal Time (UTC / GMT)</option>
+        </select>
+    </div>
+</div>
+<script>
+    const liveEp = document.getElementById('liveEpoch');
+    if (liveEp) {
+        liveEp.innerText = Math.floor(Date.now() / 1000);
+        setInterval(() => {
+            liveEp.innerText = Math.floor(Date.now() / 1000);
+        }, 1000);
+    }
+    const localInput = document.getElementById('humanDateTime');
+    if (localInput) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        localInput.value = now.toISOString().slice(0, 16);
+    }
+</script>
+"""
+
+INPUT_MD5_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Text to Hash</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type text to hash. If hashing list, toggle option below..." style="height: 120px;"></textarea>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: var(--primary);">Generate Checksum from Local File (Optional)</label>
+        <input type="file" id="hashFile" class="form-control" style="padding: 10px; display: none;">
+        <button type="button" onclick="document.getElementById('hashFile').click()" class="category-label" style="display: inline-block; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 10px 20px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;">Choose File</button>
+        <span id="hashFileName" style="display: block; font-size: 0.9rem; color: var(--text-muted);">No file selected (Max 5MB)</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="hashCase">Output Case</label>
+            <select id="hashCase" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="lower" selected>Lowercase Hex (e.g. d41d8cd9...)</option>
+                <option value="upper">Uppercase Hex (e.g. D41D8CD9...)</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="hashBulk" style="width: 20px; height: 20px;">
+                Bulk Mode (Hash each line independently)
+            </label>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('hashFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const fileNameSpan = document.getElementById('hashFileName');
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File is too large. Max size is 5MB.');
+            e.target.value = '';
+            if (fileNameSpan) fileNameSpan.innerText = 'No file selected (Max 5MB)';
+            return;
+        }
+
+        if (fileNameSpan) {
+            fileNameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            window.CURRENT_HASH_FILE_BYTES = new Uint8Array(evt.target.result);
+        };
+        reader.readAsArrayBuffer(file);
+    });
+</script>
+"""
+
+INPUT_SHA256_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Text to Hash</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type text to hash. If hashing list, toggle option below..." style="height: 120px;"></textarea>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: var(--primary);">Generate Checksum from Local File (Optional)</label>
+        <input type="file" id="hashFile" class="form-control" style="padding: 10px; display: none;">
+        <button type="button" onclick="document.getElementById('hashFile').click()" class="category-label" style="display: inline-block; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 10px 20px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;">Choose File</button>
+        <span id="hashFileName" style="display: block; font-size: 0.9rem; color: var(--text-muted);">No file selected (Max 5MB)</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="hashCase">Output Case</label>
+            <select id="hashCase" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="lower" selected>Lowercase Hex (e.g. e3b0c442...)</option>
+                <option value="upper">Uppercase Hex (e.g. E3B0C442...)</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="hashBulk" style="width: 20px; height: 20px;">
+                Bulk Mode (Hash each line independently)
+            </label>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('hashFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const fileNameSpan = document.getElementById('hashFileName');
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File is too large. Max size is 5MB.');
+            e.target.value = '';
+            if (fileNameSpan) fileNameSpan.innerText = 'No file selected (Max 5MB)';
+            return;
+        }
+
+        if (fileNameSpan) {
+            fileNameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            window.CURRENT_HASH_FILE_BYTES = new Uint8Array(evt.target.result);
+        };
+        reader.readAsArrayBuffer(file);
+    });
+</script>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -1477,6 +1731,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_URL_ENCODER
         elif tool_name == "url-decoder":
             current_input = INPUT_URL_DECODER
+        elif tool_name == "case-converter":
+            current_input = INPUT_CASE_CONVERTER
+        elif tool_name == "lorem-ipsum":
+            current_input = INPUT_LOREM_IPSUM
+        elif tool_name == "timestamp-converter":
+            current_input = INPUT_TIMESTAMP_CONVERTER
+        elif tool_name == "md5-generator":
+            current_input = INPUT_MD5_GENERATOR
+        elif tool_name == "sha256-generator":
+            current_input = INPUT_SHA256_GENERATOR
             
         seo_content = get_seo_content(category, tool_name, title)
         

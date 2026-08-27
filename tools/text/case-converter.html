@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Converter | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Case Converter on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Case Converter - Convert Text Capitalization Online</title>
+    <meta name="description" content="Convert text capitalization instantly. Support lower case, UPPER CASE, Sentence case, Title Case, camelCase, pascalCase, snake_case, and kebab-case with real-time stats.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,65 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Text to Convert</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type or paste your text here..." style="height: 120px;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label for="caseMode">Target Case Format</label>
+            <select id="caseMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="lower" selected>lower case (lowercase)</option>
+                <option value="upper">UPPER CASE (UPPERCASE)</option>
+                <option value="sentence">Sentence case (First letter capitalized)</option>
+                <option value="title">Title Case (Capitalize Every Word)</option>
+                <option value="camel">camelCase (variableName)</option>
+                <option value="pascal">PascalCase (TypeName)</option>
+                <option value="snake">snake_case (file_name)</option>
+                <option value="kebab">kebab-case (url-slug)</option>
+            </select>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 15px; border: 1px solid var(--border);">
+        <div>
+            <div id="statChars" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Characters</div>
+        </div>
+        <div>
+            <div id="statWords" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Words</div>
+        </div>
+        <div>
+            <div id="statLines" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Lines</div>
+        </div>
+        <div>
+            <div id="statSentences" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sentences</div>
+        </div>
+    </div>
 </div>
+<script>
+    const caseTxt = document.getElementById('toolInput');
+    const updateStats = () => {
+        const text = caseTxt?.value || '';
+        const chars = text.length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const lines = text ? text.split('\n').length : 0;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+        
+        const sc = document.getElementById('statChars');
+        const sw = document.getElementById('statWords');
+        const sl = document.getElementById('statLines');
+        const ss = document.getElementById('statSentences');
+        if (sc) sc.innerText = chars;
+        if (sw) sw.innerText = words;
+        if (sl) sl.innerText = lines;
+        if (ss) ss.innerText = sentences;
+    };
+    caseTxt?.addEventListener('input', updateStats);
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -98,22 +153,111 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Case Converter Online</h2>
-        <p>Our <strong>Case Converter</strong> is a dedicated utility nested within our TEXT suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Change string cases instantly without typing. Translate plain text between lower, UPPER, and sentence formats to match style guides.</p>
+            <h2>Introduction to Text Capitalization and Case Formatting</h2>
+        <p>In copywriting, documentation, software engineering, and publishing, word presentation demands specific casing conventions. Correct casing ensures readability and compliance with style guides. Manually editing long paragraphs is slow and prone to errors. Our online <strong>Case Converter</strong> formats your text into standard capitalization styles (lower case, UPPER CASE, Sentence case, Title Case, camelCase, pascalCase, snake_case, and kebab-case) in real-time.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Converting code headings from lowercase to UPPERCASE.</li><li>Standardizing copy drafts for consistent capitalization.</li><li>Cleaning up title tags for web development.</li>
+        <p>Our tool also provides real-time statistics (character count, word count, line count, and sentence count) in your browser, helping you audit your content length as you convert formats.</p>
+
+        <h3>Why Variable Cases Matter in Writing and Coding</h3>
+        <p>Written communication uses case styling to denote structure. Sentence case indicates conversational flow, while Title Case marks headings and document divisions. In software development, case styles separate variable scopes and properties (e.g. database columns in snake_case vs classes in PascalCase). Using the correct format is essential for clear writing and programming.</p>
+
+        <h3>Real-Life Use Cases for Case Conversion</h3>
+        <ul>
+            <li><strong>Copywriting and Editing:</strong> Converting headings in articles from uppercase drafts to Sentence case or Title Case.</li>
+            <li><strong>Software Engineering:</strong> Transforming variable listings into camelCase or pascalCase to match project styles.</li>
+            <li><strong>Web URL Creation:</strong> Converting raw article titles into clean, kebab-case URL slugs.</li>
+            <li><strong>Data Cleansing:</strong> Standardizing user inputs into lowercase strings for database index normalization.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Our text processors work directly in your browser's RAM, utilizing native JavaScript string functions for maximum speed. Since all changes occur in real-time on your client, your drafts, notes, and documents remain private. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding Standard Case Formats</h2>
+        <p>Here are the common case styles supported by our converter:</p>
+        <ul>
+            <li><strong>lower case:</strong> Converts all characters to lowercase (e.g. <code>hello world</code>).</li>
+            <li><strong>UPPER CASE:</strong> Converts all characters to uppercase (e.g. <code>HELLO WORLD</code>).</li>
+            <li><strong>Sentence case:</strong> Capitalizes the first letter of each sentence, keeping the rest lowercase.</li>
+            <li><strong>Title Case:</strong> Capitalizes the first letter of every word (e.g. <code>Hello World</code>).</li>
+            <li><strong>camelCase:</strong> Capitalizes the first letter of each word except the first, removing all spaces (e.g. <code>helloWorld</code>). Used in JavaScript.</li>
+            <li><strong>PascalCase:</strong> Capitalizes the first letter of every word, removing all spaces (e.g. <code>HelloWorld</code>). Used in Java and C#.</li>
+            <li><strong>snake_case:</strong> Joins lowercase words with underscores (e.g. <code>hello_world</code>). Used in SQL and Python.</li>
+            <li><strong>kebab-case:</strong> Joins lowercase words with hyphens (e.g. <code>hello-world</code>). Used in CSS and URLs.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert Text Cases</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input the Text</strong> — Paste your text into the input box.</li>
+            <li><strong>Step 2: Choose Target Case</strong> — Select the casing format from the dropdown menu.</li>
+            <li><strong>Step 3: Review Results</strong> — The converted text will appear instantly in the output container. Check the statistics box for text length details.</li>
+            <li><strong>Step 4: Copy to Clipboard</strong> — Click "Copy Output" to copy the result.</li>
+        </ol>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can this counter count characters without spaces?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, our counters calculate total characters with and without space delimiters, giving you precise metrics for social media posts, SMS thresholds, and SEO requirements.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How secure is it to paste my private articles or notes here?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: 100% secure. Because the page does not communicate with any database server during text manipulation, your copy remains inside your browser session and is lost immediately when you close or reload the tab.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the slug generator support international characters?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Our slug generator strips special accents and symbols to convert strings into standard SEO-friendly URL formats (containing alphanumeric characters and dashes).</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is camelCase?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: camelCase is a naming convention where spaces are removed, and each word starts with a capital letter except the first word (e.g. <code>myVariableName</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between camelCase and PascalCase?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: camelCase starts with a lowercase letter, while PascalCase starts with an uppercase letter (e.g. <code>MyClassName</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my inputs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All conversions run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the converter work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded, the script runs locally, allowing offline use.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are formatting document divisions, use our <a href="../text/title-case.html">Title Case Converter</a>, check parameters with our <a href="../text/slug-generator.html">Slug Generator</a>, or count counts with our <a href="../text/word-counter.html">Word Counter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Case Converter",
+            "item": "https://multitoolshub.co.in/tools/text/case-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Case Converter",
+          "url": "https://multitoolshub.co.in/tools/text/case-converter.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Case Converter</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
