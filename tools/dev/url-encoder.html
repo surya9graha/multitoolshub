@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Url Encoder | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Url Encoder on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>URL Encoder - Percent Encode URLs & Parameters</title>
+    <meta name="description" content="Encode URLs, query strings, and parameters instantly. Supports standard RFC 3986 percent encoding, application space formatting, and full encoding.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +64,19 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Enter Text or URL to Encode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type or paste parameters or URL here..." style="height: 120px;"></textarea>
+    </div>
+    <div>
+        <label for="urlEncodeMode">Encoding Standard</label>
+        <select id="urlEncodeMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="standard" selected>Standard encodeURIComponent (RFC 3986)</option>
+            <option value="all">Full Encoding (Encode all characters including safe ones)</option>
+            <option value="plus">Application/x-www-form-urlencoded (Spaces to '+')</option>
+        </select>
+    </div>
 </div>
 
                     
@@ -98,22 +108,178 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Url Encoder Online</h2>
-        <p>Our <strong>Url Encoder</strong> is a dedicated utility nested within our DEV suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. URLs require special query structures. The URL Encoder translates query strings, replacing spaces and special characters with percent-encoding to ensure compliant parameters.</p>
+            <h2>Introduction to URL Encoding and Percent-Encoding Standards</h2>
+        <p>Uniform Resource Locators (URLs) support only a small subset of standard US-ASCII characters. Non-ASCII letters, emojis, and reserved symbols (like <code>?</code>, <code>&</code>, or <code>=</code>) have structural meanings. When sending custom query strings, these characters must be percent-encoded to prevent server routing breaks. Our <strong>URL Encoder</strong> performs percent-encoding on your strings locally.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Preparing query string parameters for API calls.</li><li>Encoding spaces and characters inside link paths.</li><li>Sanitizing user inputs for redirect paths.</li>
+        <p>URL encoding, also known as percent-encoding, replaces unsanctioned characters with a <code>%</code> symbol followed by two hexadecimal digits representing the character's ASCII/UTF-8 byte value, ensuring safe transmission across the web.</p>
+
+        <h3>Why URL Encoding is Required for Web Queries</h3>
+        <p>Web servers use specific characters to parse query requests. For example, the <code>?</code> separates the URL path from parameter keys, and the <code>=</code> separates keys from values. If a search query contains these characters (e.g. searching for "Why?"), they must be encoded (e.g. to "%3F") so the server parses them as search text rather than URL parameters.</p>
+
+        <h3>Real-Life Use Cases for URL Encoding</h3>
+        <ul>
+            <li><strong>Query Parameter Formatting:</strong> Encoding search queries, campaign tags (UTM parameters), or database IDs inside URLs.</li>
+            <li><strong>Form Data Submissions:</strong> Formatting form field values before submitting them via HTTP GET requests.</li>
+            <li><strong>OAuth Configurations:</strong> Encoding redirect URIs and scopes for web authentication protocols.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Our development utilities leverage browser-based JavaScript engines (like Google Chrome's V8) to process files and text. Encoders and minifiers run locally in sandboxed threads, ensuring your sensitive development configs, code tokens, and data payloads are never exposed to remote endpoints. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
-        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Are my code configurations or sensitive JSON files uploaded to your servers?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No. MultiTools Hub is built on a strict privacy-first architecture. All text transformation, JSON validation, and Base64 translations are processed locally in your browser cache. Zero bits of your files or text are sent to our hosts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What happens if my JSON file has syntax errors?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Our formatters and validators run syntactic parsers that highlight the exact character position and line number where a syntax break occurred, helping you locate missing commas or brackets instantly.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is there a size limit on the source code I paste in?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: While the tool can parse files up to several megabytes, performance is determined by your local device's memory. For optimal speeds on large code blocks, we recommend closing unused browser tabs.</p></div>
+
+        <h2>Understanding the Logic of Percent-Encoding</h2>
+        <p>Percent-encoding replaces unsanctioned characters with a percent sign (<code>%</code>) and their two-digit hexadecimal representation:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            Unsafe Character -> Hex Byte Value -> %XX (Hex Representation)
         </div>
+        <p>Our tool supports multiple encoding standards, including standard RFC 3986 encoding (using <code>encodeURIComponent</code>), application space formatting (converting spaces to <code>+</code>), and full encoding (converting all characters into hex values).</p>
+
+        <h2>Step-by-Step Guide: How to Encode URLs</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input URL or Query Text</strong> — Paste your parameters or URL string into the workspace textarea.</li>
+            <li><strong>Step 2: Choose Encoding Standard</strong> — Select either Standard RFC 3986, Application form, or Full Encoding.</li>
+            <li><strong>Step 3: Process the Output</strong> — Click "Process URL Encoder" to view the encoded string.</li>
+            <li><strong>Step 4: Copy Output</strong> — Click "Copy Output" to copy the result.</li>
+        </ol>
+
+        <h2>Core Benefits of this URL Encoder</h2>
+        <ul>
+            <li><strong>Multiple Standards Support:</strong> Format spaces as <code>%20</code> or <code>+</code>, or fully encode all characters.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All encoding is processed locally in your browser memory. Your links are never uploaded to our servers.</li>
+            <li><strong>Instant Generation:</strong> Real-time conversion with zero latency.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is URL encoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: URL encoding is the process of converting characters in a URL to a safe format that can be transmitted across the web without causing routing errors.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is percent-encoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Percent-encoding is another name for URL encoding, referring to the use of percent signs followed by hexadecimal values to represent unsafe characters.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are spaces encoded as %20 or +?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Under the standard RFC 3986, spaces are encoded as <code>%20</code>. However, form data submissions often format spaces as <code>+</code>. Our tool supports both formats.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my query URLs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All encoding calculations run locally in your browser memory, keeping your links and query parameters private.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the encoder work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Ensure that you encode query parameter values individually, rather than encoding the entire URL. Encoding a full URL converts structural characters (like <code>http://</code> or <code>?</code>), making it unreadable by web browsers.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are parsing percent-encoded strings, use our <a href="../dev/url-decoder.html">URL Decoder</a>, or encode files to Base64 with our <a href="../dev/base64-encoder.html">Base64 Encoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Encoder",
+            "item": "https://multitoolshub.co.in/tools/dev/url-encoder.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "URL Encoder",
+          "url": "https://multitoolshub.co.in/tools/dev/url-encoder.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is URL encoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "URL encoding is the process of converting characters in a URL to a safe format that can be transmitted across the web without causing routing errors."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is percent-encoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Percent-encoding is another name for URL encoding, referring to the use of percent signs followed by hexadecimal values to represent unsafe characters."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why are spaces encoded as %20 or +?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Spaces are encoded as %20 under RFC 3986, while form submissions often format them as +."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my query URLs sent to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. All encoding calculations run locally in your browser memory, keeping your links and query parameters private."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the encoder work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Url Encoder</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

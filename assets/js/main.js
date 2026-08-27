@@ -881,13 +881,180 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('json validator')) {
         try { JSON.parse(input); result = "Valid JSON ✅"; } catch(e) { result = "Invalid JSON ❌: " + e.message; }
     } else if (tool.includes('base64 encoder')) {
-        result = btoa(input);
+        const format = document.getElementById('b64Format')?.value || "raw";
+        let base64Result = "";
+        
+        if (window.CURRENT_FILE_B64) {
+            if (format === 'datauri') {
+                base64Result = window.CURRENT_FILE_B64;
+            } else {
+                const parts = window.CURRENT_FILE_B64.split(',');
+                base64Result = parts.length > 1 ? parts[1] : parts[0];
+            }
+        } else {
+            if (!input) {
+                result = "Validation Error: Please enter some text or select a file to encode.";
+            } else {
+                try {
+                    const encodedText = btoa(unescape(encodeURIComponent(input)));
+                    if (format === 'datauri') {
+                        base64Result = `data:text/plain;charset=utf-8;base64,${encodedText}`;
+                    } else {
+                        base64Result = encodedText;
+                    }
+                } catch (err) {
+                    result = `Encoding Error: ${err.message}`;
+                    return;
+                }
+            }
+        }
+        result = base64Result;
     } else if (tool.includes('base64 decoder')) {
-        try { result = atob(input); } catch(e) { result = "Invalid Base64 string"; }
+        let cleanInput = input.trim();
+        if (!cleanInput) {
+            result = "Validation Error: Please paste some Base64 code to decode.";
+        } else {
+            let mime = "";
+            let b64Data = cleanInput;
+            
+            const headerMatch = cleanInput.match(/^data:([^;]+);base64,(.+)$/i);
+            if (headerMatch) {
+                mime = headerMatch[1];
+                if (document.getElementById('b64AutoHeader')?.checked) {
+                    b64Data = headerMatch[2].trim();
+                }
+            }
+            
+            try {
+                const decodedBinaryString = atob(b64Data);
+                
+                if (!mime) {
+                    if (decodedBinaryString.substring(0, 4) === '\x89PNG') mime = 'image/png';
+                    else if (decodedBinaryString.substring(0, 3) === '\xFF\xD8\xFF') mime = 'image/jpeg';
+                    else if (decodedBinaryString.substring(0, 4) === 'GIF8') mime = 'image/gif';
+                    else if (decodedBinaryString.substring(0, 4) === '%PDF') mime = 'application/pdf';
+                    else if (decodedBinaryString.substring(0, 2) === 'PK') mime = 'application/zip';
+                }
+                
+                const previewContainer = document.getElementById('b64ImagePreviewContainer');
+                const previewImg = document.getElementById('b64ImagePreview');
+                if (previewContainer && previewImg && mime && mime.startsWith('image/')) {
+                    previewContainer.style.display = 'block';
+                    previewImg.src = `data:${mime};base64,${b64Data}`;
+                } else if (previewContainer) {
+                    previewContainer.style.display = 'none';
+                }
+                
+                const downloadContainer = document.getElementById('b64DownloadContainer');
+                const downloadBtn = document.getElementById('b64BinDownloadBtn');
+                if (downloadContainer && downloadBtn && mime) {
+                    downloadContainer.style.display = 'block';
+                    downloadBtn.onclick = () => {
+                        const len = decodedBinaryString.length;
+                        const bytes = new Uint8Array(len);
+                        for (let i = 0; i < len; i++) {
+                            bytes[i] = decodedBinaryString.charCodeAt(i);
+                        }
+                        const blob = new Blob([bytes], {type: mime});
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `decoded-file.${mime.split('/')[1] || 'bin'}`;
+                        link.click();
+                    };
+                } else if (downloadContainer) {
+                    downloadContainer.style.display = 'none';
+                }
+                
+                if (mime && (mime.startsWith('image/') || mime === 'application/pdf' || mime === 'application/zip')) {
+                    result = `Decoded Binary File Details:\n` +
+                             `---------------------------\n` +
+                             `• Detected MIME Type: ${mime}\n` +
+                             `• Extracted File Size: ${(decodedBinaryString.length / 1024).toFixed(2)} KB\n\n` +
+                             `✅ Binary payload detected successfully. Use the action button above to save the file locally.`;
+                } else {
+                    try {
+                        result = decodeURIComponent(escape(decodedBinaryString));
+                    } catch (utf8Err) {
+                        result = decodedBinaryString;
+                    }
+                }
+            } catch (err) {
+                result = `Decoding Error: Invalid Base64 payload. Please check for missing characters or invalid padding. Details: ${err.message}`;
+            }
+        }
     } else if (tool.includes('url encoder')) {
-        result = encodeURIComponent(input);
+        if (!input) {
+            result = "Validation Error: Please enter text to URL encode.";
+        } else {
+            const mode = document.getElementById('urlEncodeMode')?.value || "standard";
+            if (mode === 'standard') {
+                result = encodeURIComponent(input);
+            } else if (mode === 'plus') {
+                result = encodeURIComponent(input).replace(/%20/g, '+');
+            } else if (mode === 'all') {
+                let encoded = "";
+                for (let i = 0; i < input.length; i++) {
+                    const hex = input.charCodeAt(i).toString(16).toUpperCase().padStart(2, '0');
+                    encoded += '%' + hex;
+                }
+                result = encoded;
+            }
+        }
     } else if (tool.includes('url decoder')) {
-        result = decodeURIComponent(input);
+        if (!input) {
+            result = "Validation Error: Please enter percent-encoded text to decode.";
+        } else {
+            try {
+                const decoded = decodeURIComponent(input.replace(/\+/g, '%20'));
+                result = decoded;
+                
+                const tableContainer = document.getElementById('urlParamsTableContainer');
+                const tbody = document.getElementById('urlParamsTableBody');
+                if (tableContainer && tbody) {
+                    tbody.innerHTML = '';
+                    let searchString = "";
+                    if (input.includes('?')) {
+                        searchString = input.split('?')[1];
+                    } else {
+                        searchString = input;
+                    }
+                    
+                    const params = new URLSearchParams(searchString);
+                    let paramCount = 0;
+                    for (let [key, val] of params.entries()) {
+                        paramCount++;
+                        const row = document.createElement('tr');
+                        row.style.borderBottom = '1px solid var(--border)';
+                        
+                        const tdKey = document.createElement('td');
+                        tdKey.style.padding = '12px 15px';
+                        tdKey.style.fontFamily = 'monospace';
+                        tdKey.style.color = 'var(--text-main)';
+                        tdKey.style.wordBreak = 'break-all';
+                        tdKey.innerText = key;
+                        
+                        const tdVal = document.createElement('td');
+                        tdVal.style.padding = '12px 15px';
+                        tdVal.style.fontFamily = 'monospace';
+                        tdVal.style.color = 'var(--text-muted)';
+                        tdVal.style.wordBreak = 'break-all';
+                        tdVal.innerText = val;
+                        
+                        row.appendChild(tdKey);
+                        row.appendChild(tdVal);
+                        tbody.appendChild(row);
+                    }
+                    
+                    if (paramCount > 0) {
+                        tableContainer.style.display = 'block';
+                    } else {
+                        tableContainer.style.display = 'none';
+                    }
+                }
+            } catch (err) {
+                result = `Decoding Error: Malformed URL encoding patterns detected. Details: ${err.message}`;
+            }
+        }
     } else if (tool.includes('html minifier')) {
         result = input.replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ').trim();
     } else if (tool.includes('css minifier')) {
@@ -1420,12 +1587,97 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('password strength')) {
-        const score = input.length * 4 + (input.match(/[A-Z]/) ? 10 : 0) + (input.match(/[0-9]/) ? 10 : 0) + (input.match(/[^a-zA-Z0-9]/) ? 15 : 0);
-        let strength = "Weak";
-        if (score > 80) strength = "Very Strong";
-        else if (score > 60) strength = "Strong";
-        else if (score > 40) strength = "Medium";
-        result = `Strength Score: ${score}/100\nAssessment: ${strength}`;
+        const password = document.getElementById('passInput')?.value || input;
+        if (!password) {
+            result = "Validation Error: Please enter a password to analyze.";
+        } else {
+            let score = 0;
+            const length = password.length;
+            
+            const hasUpper = /[A-Z]/.test(password);
+            const hasLower = /[a-z]/.test(password);
+            const hasNumbers = /[0-9]/.test(password);
+            const hasSymbols = /[^a-zA-Z0-9]/.test(password);
+            
+            score += Math.min(length * 4, 40);
+            
+            if (hasUpper) score += 10;
+            if (hasLower) score += 10;
+            if (hasNumbers) score += 15;
+            if (hasSymbols) score += 15;
+            
+            if (hasUpper && hasLower) score += 5;
+            if ((hasUpper || hasLower) && hasNumbers && hasSymbols) score += 5;
+            
+            const commonBadPatterns = ['123456', 'password', 'qwerty', 'admin', 'welcome', '12345678', 'password123'];
+            let hasCommonPattern = false;
+            for (let pat of commonBadPatterns) {
+                if (password.toLowerCase().includes(pat)) {
+                    score = Math.max(10, score - 20);
+                    hasCommonPattern = true;
+                }
+            }
+            
+            let rangeSize = 0;
+            if (hasUpper) rangeSize += 26;
+            if (hasLower) rangeSize += 26;
+            if (hasNumbers) rangeSize += 10;
+            if (hasSymbols) rangeSize += 33;
+            
+            const entropy = Math.round(length * Math.log2(rangeSize || 1));
+            
+            let crackTimeText = "Instant (Brute force)";
+            if (entropy > 0) {
+                const totalGuesses = Math.pow(2, entropy);
+                const seconds = totalGuesses / 1e11;
+                
+                if (seconds < 1) {
+                    crackTimeText = "Under a second ⚡";
+                } else if (seconds < 60) {
+                    crackTimeText = `${Math.round(seconds)} seconds`;
+                } else if (seconds < 3600) {
+                    crackTimeText = `${Math.round(seconds / 60)} minutes`;
+                } else if (seconds < 86400) {
+                    crackTimeText = `${Math.round(seconds / 3600)} hours`;
+                } else if (seconds < 31536000) {
+                    crackTimeText = `${Math.round(seconds / 86400)} days`;
+                } else if (seconds < 31536000 * 1000) {
+                    crackTimeText = `${Math.round(seconds / 31536000)} years`;
+                } else {
+                    crackTimeText = "Centuries / Millennia 🔒";
+                }
+            }
+
+            let assessment = "Weak 🔴";
+            if (score >= 80 && entropy >= 60) assessment = "Very Strong (Excellent) 🟢";
+            else if (score >= 60 && entropy >= 45) assessment = "Strong (Secure) 🟢";
+            else if (score >= 40) assessment = "Medium (Moderate) 🟡";
+
+            const checkLength = length >= 12 ? "✅ Length is strong (12+ characters)" : "❌ Too short (Recommend 12+ characters)";
+            const checkUpper = hasUpper ? "✅ Contains uppercase letters" : "❌ Missing uppercase letters";
+            const checkLower = hasLower ? "✅ Contains lowercase letters" : "❌ Missing lowercase letters";
+            const checkNumbers = hasNumbers ? "✅ Contains numbers" : "❌ Missing numbers";
+            const checkSymbols = hasSymbols ? "✅ Contains special symbols" : "❌ Missing special symbols";
+            const checkPattern = !hasCommonPattern ? "✅ No obvious common keyboard sequence patterns" : "❌ Warning: Contains common easily guessable dictionary patterns";
+
+            result = `Password Strength Report\n` +
+                     `========================\n\n` +
+                     `• Strength Score: ${score}/100\n` +
+                     `• Information Entropy: ~${entropy} bits\n` +
+                     `• Security Assessment: ${assessment}\n` +
+                     `• Estimated Brute-Force Crack Time (100B guesses/sec): ${crackTimeText}\n\n` +
+                     `Structural Checklist:\n` +
+                     `---------------------\n` +
+                     `• ${checkLength}\n` +
+                     `• ${checkUpper}\n` +
+                     `• ${checkLower}\n` +
+                     `• ${checkNumbers}\n` +
+                     `• ${checkSymbols}\n` +
+                     `• ${checkPattern}\n\n` +
+                     `💡 Improvement Tips:\n` +
+                     `  - To increase entropy significantly, make your password longer (16+ characters).\n` +
+                     `  - Use unique passphrases (e.g. 4 random combined words) instead of a single word with replacements.`;
+        }
     } else if (tool.includes('ip lookup')) {
         const ip = input.trim();
         toggleLoader(true, "Looking up IP address information...");

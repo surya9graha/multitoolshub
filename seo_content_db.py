@@ -154,6 +154,902 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "url-decoder": """
+        <h2>Introduction to URL Decoding and Query Parameters Parsing</h2>
+        <p>Percent-encoded strings are difficult for developers and analytics professionals to read. Our online <strong>URL Decoder</strong> reverses the percent-encoding process, returning clear text and parsing query parameters into a visual table.</p>
+        
+        <p>URL decoding, also known as percent-decoding, translates character strings containing <code>%XX</code> hex blocks back into standard ASCII or UTF-8 characters, restoring readability.</p>
+
+        <h3>Why Local Decoding is Crucial for Data Privacy</h3>
+        <p>Many online tools upload your query URLs to external servers to parse parameters, exposing analytics parameters, OAuth codes, and user profiles. Our tool operates client-side in your browser's local memory. No URLs are uploaded to external databases, keeping your sensitive links secure.</p>
+
+        <h3>Real-Life Use Cases for URL Decoding</h3>
+        <ul>
+            <li><strong>Parameter Inspection:</strong> Decoding UTM campaign links to view source, medium, and term variables.</li>
+            <li><strong>OAuth Analysis:</strong> Reading redirect parameters and verification tokens inside callback URLs.</li>
+            <li><strong>Data Cleansing:</strong> Reclaiming original plain text from percent-encoded strings.</li>
+        </ul>
+
+        <h2>Understanding the Logic of Percent-Decoding</h2>
+        <p>Percent-decoding parses the input string, locates <code>%</code> escape codes, and converts the following two-digit hexadecimal value back into its ASCII/UTF-8 byte value:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            %XX (Hex code) -> Byte Value -> Reconstructed Character
+        </div>
+        <p>Our tool automatically converts <code>+</code> signs to spaces, supporting form data decoding, and extracts parameters to format them into a visual key-value table.</p>
+
+        <h2>Step-by-Step Guide: How to Decode URLs</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Your URL</strong> — Paste your percent-encoded URL or query string into the textarea workspace.</li>
+            <li><strong>Step 2: Process the Code</strong> — Click "Process URL Decoder". The decoded text will display in the output window.</li>
+            <li><strong>Step 3: Audit Parsed Parameters</strong> — Review the parsed query parameters table to inspect individual keys and values.</li>
+            <li><strong>Step 4: Copy Results</strong> — Click "Copy Output" to save the decoded text.</li>
+        </ol>
+
+        <h2>Core Benefits of this URL Decoder</h2>
+        <ul>
+            <li><strong>Key-Value Parameter Parsing:</strong> Auto-parses query strings into a readable table for quick debugging.</li>
+            <li><strong>100% Client-Side Privacy:</strong> Processing runs locally in your browser memory. Your links are never sent to external servers.</li>
+            <li><strong>Form Data Support:</strong> Automatically translates <code>+</code> signs to spaces.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is URL decoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: URL decoding is the process of converting percent-encoded character strings back into their original text format.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are plus symbols (+) converted to spaces?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Web application form submissions format spaces as <code>+</code> symbols. Our tool converts these back to spaces for standard readability.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my query parameters sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All decoding calculations run locally in your browser memory, keeping your links and query parameters private.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the decoder work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Ensure that you paste complete percent-encoded patterns. Malformed percent patterns (such as a trailing <code>%</code> without two valid hex digits) can trigger decoding errors. Check the error detail message if parsing fails.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are encoding query links, use our <a href="../dev/url-encoder.html">URL Encoder</a>, or decode Base64 strings with our <a href="../dev/base64-decoder.html">Base64 Decoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Decoder",
+            "item": "https://multitoolshub.co.in/tools/dev/url-decoder.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "URL Decoder",
+          "url": "https://multitoolshub.co.in/tools/dev/url-decoder.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is URL decoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "URL decoding is the process of converting percent-encoded character strings back into their original text format."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why are plus symbols (+) converted to spaces?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Web form submissions format spaces as + symbols, so we convert them back to spaces for standard readability."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my query parameters sent to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. All decoding calculations run locally in your browser memory, keeping your links and query parameters private."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the decoder work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
+""",
+
+    "url-encoder": """
+        <h2>Introduction to URL Encoding and Percent-Encoding Standards</h2>
+        <p>Uniform Resource Locators (URLs) support only a small subset of standard US-ASCII characters. Non-ASCII letters, emojis, and reserved symbols (like <code>?</code>, <code>&</code>, or <code>=</code>) have structural meanings. When sending custom query strings, these characters must be percent-encoded to prevent server routing breaks. Our <strong>URL Encoder</strong> performs percent-encoding on your strings locally.</p>
+        
+        <p>URL encoding, also known as percent-encoding, replaces unsanctioned characters with a <code>%</code> symbol followed by two hexadecimal digits representing the character's ASCII/UTF-8 byte value, ensuring safe transmission across the web.</p>
+
+        <h3>Why URL Encoding is Required for Web Queries</h3>
+        <p>Web servers use specific characters to parse query requests. For example, the <code>?</code> separates the URL path from parameter keys, and the <code>=</code> separates keys from values. If a search query contains these characters (e.g. searching for "Why?"), they must be encoded (e.g. to "%3F") so the server parses them as search text rather than URL parameters.</p>
+
+        <h3>Real-Life Use Cases for URL Encoding</h3>
+        <ul>
+            <li><strong>Query Parameter Formatting:</strong> Encoding search queries, campaign tags (UTM parameters), or database IDs inside URLs.</li>
+            <li><strong>Form Data Submissions:</strong> Formatting form field values before submitting them via HTTP GET requests.</li>
+            <li><strong>OAuth Configurations:</strong> Encoding redirect URIs and scopes for web authentication protocols.</li>
+        </ul>
+
+        <h2>Understanding the Logic of Percent-Encoding</h2>
+        <p>Percent-encoding replaces unsanctioned characters with a percent sign (<code>%</code>) and their two-digit hexadecimal representation:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            Unsafe Character -> Hex Byte Value -> %XX (Hex Representation)
+        </div>
+        <p>Our tool supports multiple encoding standards, including standard RFC 3986 encoding (using <code>encodeURIComponent</code>), application space formatting (converting spaces to <code>+</code>), and full encoding (converting all characters into hex values).</p>
+
+        <h2>Step-by-Step Guide: How to Encode URLs</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input URL or Query Text</strong> — Paste your parameters or URL string into the workspace textarea.</li>
+            <li><strong>Step 2: Choose Encoding Standard</strong> — Select either Standard RFC 3986, Application form, or Full Encoding.</li>
+            <li><strong>Step 3: Process the Output</strong> — Click "Process URL Encoder" to view the encoded string.</li>
+            <li><strong>Step 4: Copy Output</strong> — Click "Copy Output" to copy the result.</li>
+        </ol>
+
+        <h2>Core Benefits of this URL Encoder</h2>
+        <ul>
+            <li><strong>Multiple Standards Support:</strong> Format spaces as <code>%20</code> or <code>+</code>, or fully encode all characters.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All encoding is processed locally in your browser memory. Your links are never uploaded to our servers.</li>
+            <li><strong>Instant Generation:</strong> Real-time conversion with zero latency.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is URL encoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: URL encoding is the process of converting characters in a URL to a safe format that can be transmitted across the web without causing routing errors.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is percent-encoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Percent-encoding is another name for URL encoding, referring to the use of percent signs followed by hexadecimal values to represent unsafe characters.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are spaces encoded as %20 or +?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Under the standard RFC 3986, spaces are encoded as <code>%20</code>. However, form data submissions often format spaces as <code>+</code>. Our tool supports both formats.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my query URLs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All encoding calculations run locally in your browser memory, keeping your links and query parameters private.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the encoder work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Ensure that you encode query parameter values individually, rather than encoding the entire URL. Encoding a full URL converts structural characters (like <code>http://</code> or <code>?</code>), making it unreadable by web browsers.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are parsing percent-encoded strings, use our <a href="../dev/url-decoder.html">URL Decoder</a>, or encode files to Base64 with our <a href="../dev/base64-encoder.html">Base64 Encoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Encoder",
+            "item": "https://multitoolshub.co.in/tools/dev/url-encoder.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "URL Encoder",
+          "url": "https://multitoolshub.co.in/tools/dev/url-encoder.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is URL encoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "URL encoding is the process of converting characters in a URL to a safe format that can be transmitted across the web without causing routing errors."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is percent-encoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Percent-encoding is another name for URL encoding, referring to the use of percent signs followed by hexadecimal values to represent unsafe characters."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why are spaces encoded as %20 or +?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Spaces are encoded as %20 under RFC 3986, while form submissions often format them as +."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my query URLs sent to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. All encoding calculations run locally in your browser memory, keeping your links and query parameters private."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the encoder work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
+""",
+
+    "base64-decoder": """
+        <h2>Introduction to Base64 Decoding and Data Recovery</h2>
+        <p>Reclaiming original data from a Base64-encoded payload is crucial when debugging API responses, parsing config files, or extracting data. Our online <strong>Base64 Decoder</strong> parses encoded strings, strips Data URL headers, and reconstructs the original plain text or binary file locally.</p>
+        
+        <p>Base64 decoding reverses the encoding process. It maps groups of 4 ASCII characters back into their original 3 binary bytes, allowing you to reconstruct files, plain text, and layout configs.</p>
+
+        <h3>Why Local Decoding is Crucial for Data Privacy</h3>
+        <p>Many online decoders process data on external servers, creating risk if your payloads contain private API tokens, database keys, or customer profiles. Our tool operates client-side in your browser's local RAM. Your payloads are never sent to external servers, protecting your sensitive data.</p>
+
+        <h3>Real-Life Use Cases for Base64 Decoding</h3>
+        <ul>
+            <li><strong>API Debugging:</strong> Decoding Base64 payloads from API responses to inspect keys and content.</li>
+            <li><strong>Reconstructing File Attachments:</strong> Converting Base64 strings from emails or API queries back into binary files.</li>
+            <li><strong>Extracting Keys:</strong> Recovering certificates or cryptographic keys from configuration files.</li>
+        </ul>
+
+        <h2>Understanding the Logic of Base64 Decoding</h2>
+        <p>Base64 decoding reverses the encoding process, mapping groups of 4 ASCII characters back into 3 binary bytes:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            4 Base64 Characters -> 4 Sextets (6 bits each) -> 3 Bytes (24 bits)
+        </div>
+        <p>Our tool parses incoming payloads, removes padding characters, and decodes the string. It also checks for common file signatures (like PNG or PDF headers) to detect binary payloads and offer download options.</p>
+
+        <h2>Step-by-Step Guide: How to Decode Data</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Your Payload</strong> — Paste your Base64-encoded string into the workspace textarea.</li>
+            <li><strong>Step 2: Set Formatting Options</strong> — Check "Auto-strip Data URL Headers" if your payload contains a header.</li>
+            <li><strong>Step 3: Process the Output</strong> — Click "Process Base64 Decoder". The decoded output will display instantly.</li>
+            <li><strong>Step 4: Save Decoded Output</strong> — Copy the text output, or use the download button if a binary file is detected.</li>
+        </ol>
+
+        <h2>Core Benefits of this Base64 Decoder</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All decoding runs locally. No data is sent to external servers.</li>
+            <li><strong>Binary File Recovery:</strong> Automatically detects file types (like PNG or PDF) and offers download options.</li>
+            <li><strong>Visual Image Previews:</strong> Shows an inline preview if the decoded output is a valid image.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is Base64 decoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Base64 decoding is the process of converting an ASCII-encoded string back into its original binary or text format.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens if I decode a binary file (like an image) as text?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Decoding binary files as text results in unreadable characters. Our tool detects these payloads and offers a download option to save the reconstructed file.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my Base64 strings sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. We prioritize user privacy. The decoding process runs entirely within your browser's local memory, and no data is uploaded to external databases.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a Data URL header?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A Data URL header (like <code>data:image/png;base64,</code>) defines the MIME type and encoding of the payload, allowing browsers to render the data directly.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the decoder work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Ensure your Base64 string is complete and includes padding characters (<code>=</code>) if required. Corrupted or incomplete strings can result in decoding errors or truncated files. Use the file download option for binary payloads.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are encoding data, use our <a href="../dev/base64-encoder.html">Base64 Encoder</a>, or decode URL parameter strings with our <a href="../dev/url-decoder.html">URL Decoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Base64 Decoder",
+            "item": "https://multitoolshub.co.in/tools/dev/base64-decoder.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Base64 Decoder",
+          "url": "https://multitoolshub.co.in/tools/dev/base64-decoder.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Base64 decoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Base64 decoding is the process of converting an ASCII-encoded string back into its original binary or text format."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens if I decode a binary file (like an image) as text?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Decoding binary files as text results in unreadable characters. Our tool detects these payloads and offers a download option to save the reconstructed file."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my Base64 strings sent to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. We prioritize user privacy. The decoding process runs entirely within your browser's local memory, and no data is uploaded to external databases."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a Data URL header?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A Data URL header defines the MIME type and encoding of the payload, allowing browsers to render the data directly."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the decoder work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
+""",
+
+    "base64-encoder": """
+        <h2>Introduction to Base64 Encoding and Binary-to-Text Conversion</h2>
+        <p>In software development and network protocols, data must often be transmitted across text-only channels (like JSON, XML, CSS, or email). Sending raw binary data across these platforms can cause control character conflicts and data corruption. Our <strong>Base64 Encoder</strong> converts text and binary files (up to 2MB) into safe ASCII strings locally.</p>
+        
+        <p>Base64 is a binary-to-text encoding scheme. It converts binary data into a set of 64 printable characters, ensuring data remains intact during transit through systems that do not natively support binary format.</p>
+
+        <h3>Why Base64 Encoding is Vital for API Payloads</h3>
+        <p>Web APIs typically exchange data using text-based formats like JSON. If you need to transmit an image, PDF, or certificate file via an API query, you cannot insert raw bytes into the JSON file. Instead, the binary data is encoded into a Base64 string and sent as a text field. The receiving server then decodes this string to reconstruct the original file.</p>
+
+        <h3>Real-Life Use Cases for Base64 Encoding</h3>
+        <ul>
+            <li><strong>HTML/CSS Image Inlines:</strong> Embedding small icons or favicons directly into CSS or HTML code to reduce HTTP requests.</li>
+            <li><strong>Email Attachments:</strong> Converting file attachments to Base64 strings for transmission via SMTP.</li>
+            <li><strong>Configuration Storage:</strong> Storing certificates or cryptographic keys inside configuration files.</li>
+            <li><strong>Database Storage:</strong> Storing small files directly in database text fields as Base64 strings.</li>
+        </ul>
+
+        <h2>Understanding the Mathematical Logic of Base64</h2>
+        <p>Base64 encoding works by dividing binary data into groups of 3 bytes (24 bits) and converting them into 4 groups of 6 bits each:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            3 Bytes (24 bits) -> 4 Sextets (6 bits each) -> 4 Base64 Characters
+        </div>
+        <p>Each 6-bit value maps to a character in the Base64 alphabet: <code>A-Z</code> (0-255), <code>a-z</code> (26-51), <code>0-9</code> (52-61), and characters <code>+</code> (62) and <code>/</code> (63). If the input data is not a multiple of 3 bytes, the output is padded with <code>=</code> characters.</p>
+
+        <h2>Step-by-Step Guide: How to Encode Data</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Text or Choose a File</strong> — Enter your text in the workspace textarea, or upload a local file (max 2MB).</li>
+            <li><strong>Step 2: Choose Output Format</strong> — Select either "Raw Base64 String" or "Data URL Scheme" (ideal for CSS/HTML embeds).</li>
+            <li><strong>Step 3: Process the Output</strong> — Click "Process Base64 Encoder" to view the converted string in the output window.</li>
+            <li><strong>Step 4: Copy to Clipboard</strong> — Click "Copy Output" to copy the string.</li>
+        </ol>
+
+        <h2>Core Benefits of this Base64 Encoder</h2>
+        <ul>
+            <li><strong>File-to-Base64 Upload:</strong> Directly convert images or certificates in local memory.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All file conversions occur locally. No files are uploaded to external databases.</li>
+            <li><strong>Data URL Output Support:</strong> Generates fully formatted CSS/HTML inline code blocks.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is Base64 encoding?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Base64 is an encoding scheme that represents binary data as an ASCII string, allowing binary files to be sent safely via text-only protocols.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does Base64 encoding encrypt my data?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Base64 is an encoding scheme for data transmission, not encryption. Anyone can decode a Base64 string to access the original data.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What does the '=' padding symbol mean?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The '=' symbol indicates padding, added when the input binary data is not a multiple of 3 bytes to ensure the output remains aligned.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How much does Base64 increase file size?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Base64 encoding increases the file size by approximately 33%, as every 3 bytes of binary data are represented by 4 ASCII characters.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I encode image files locally?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, our tool uses browser APIs to read and convert files locally in your browser memory.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the encoder work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, once loaded in your browser, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Base64 increases payload sizes by ~33%. We recommend avoiding embedding large files directly in HTML/CSS to prevent slow page load times. Always keep files under 2MB for browser stability.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are parsing encoded strings, use our <a href="../dev/base64-decoder.html">Base64 Decoder</a>, or check parameter formats with our <a href="../dev/url-encoder.html">URL Encoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Dev",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Base64 Encoder",
+            "item": "https://multitoolshub.co.in/tools/dev/base64-encoder.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Base64 Encoder",
+          "url": "https://multitoolshub.co.in/tools/dev/base64-encoder.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Base64 encoding?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Base64 is an encoding scheme that represents binary data as an ASCII string, allowing binary files to be sent safely via text-only protocols."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Base64 encoding encrypt my data?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Base64 is an encoding scheme for data transmission, not encryption. Anyone can decode a Base64 string to access the original data."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What does the '=' padding symbol mean?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The '=' symbol indicates padding, added when the input binary data is not a multiple of 3 bytes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does Base64 increase file size?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Base64 encoding increases the file size by approximately 33%, as every 3 bytes of binary data are represented by 4 ASCII characters."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I encode image files locally?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, our tool uses browser APIs to read and convert files locally in your browser memory."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the encoder work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
+""",
+
+    "password-strength": """
+        <h2>Introduction to Password Security and Entropy Calculations</h2>
+        <p>In our connected environment, user accounts are targets for automated cracking programs, dictionary list runs, and credential stuffing. Many believe that simply adding a capital letter or symbol to a common phrase makes a password secure. However, modern GPU clusters process billions of variations every second. Our browser-based <strong>Password Strength Analyzer</strong> audits character distribution, calculates information entropy, and estimates cracking times locally.</p>
+        
+        <p>An effective password resists dictionary matches and character patterns. Using the Shannon entropy formula, the analyzer measures the unpredictability of your password based on its length and character sets. Our tool runs locally in your browser to evaluate security without exposing your credentials.</p>
+
+        <h3>Why Basic Length Checks Fail to Secure Accounts</h3>
+        <p>Many systems check only length, permitting weak passwords like <code>123456789012</code> or sequential repetitions like <code>aaaaabbbbbccccc</code>. While meeting length requirements, these lack complexity and are cracked quickly. Our tool checks for common keyboard sequences (like 'qwerty' and 'asdf') and repeated digits, providing feedback for stronger password creation.</p>
+
+        <h3>Real-Life Use Cases for Strength Audits</h3>
+        <ul>
+            <li><strong>Personal Device Passcodes:</strong> Creating secure lock screens and encryption keys for phones and laptops.</li>
+            <li><strong>Admin Credentials:</strong> Testing router, database, and cloud account passwords.</li>
+            <li><strong>Software Configurations:</strong> Verifying system keys and database root credentials before deployment.</li>
+        </ul>
+
+        <h2>Understanding the Mathematics of Password Entropy</h2>
+        <p>Password security is evaluated using information entropy, measured in bits. The formula is:</p>
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 10px; margin: 15px 0; font-family: monospace; text-align: center;">
+            Entropy (bits) = Length * log2(Character Pool Size)
+        </div>
+        <p>The pool size ($R$) varies with character variety: lowercase adds 26, uppercase adds 26, numbers add 10, and symbols add 33. Higher entropy indicates a more secure password.</p>
+
+        <h2>Step-by-Step Guide: How to Analyze Password Strength</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input the Password</strong> — Enter your password. Use the eye icon to toggle visibility if required.</li>
+            <li><strong>Step 2: Review Security Metrics</strong> — Check the strength score (out of 100), entropy bits, and estimated brute-force cracking time.</li>
+            <li><strong>Step 3: Audit the Structural Checklist</strong> — Review the checklist items (Length, Uppercase, Lowercase, Numbers, Symbols, Pattern Detection) to see where the password can be improved.</li>
+            <li><strong>Step 4: Refine the Password</strong> — Adjust the password based on recommendations until the status turns green.</li>
+        </ol>
+
+        <h2>Practical Examples of Password Entropy</h2>
+        <p>Here are examples of how length and character pool choices affect security:</p>
+        <ul>
+            <li><strong>'pa55w0rd!':</strong> Length 9, pool size 95. Entropy ~60 bits. Easy to crack due to common dictionary substitution.</li>
+            <li><strong>'correcthorsebatterystaple':</strong> Length 28, pool size 26. Entropy ~130 bits. Highly secure due to length, despite using only lowercase letters.</li>
+            <li><strong>'C7#k9!p2$m1&':</strong> Length 12, pool size 95. Entropy ~80 bits. Strong due to character variety.</li>
+        </ul>
+
+        <h2>Core Benefits of this Analyzer</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All calculations run locally in your browser. Your password is never sent to a server.</li>
+            <li><strong>Cracking Time Estimates:</strong> Estimates the time required to crack the password using standard hardware.</li>
+            <li><strong>Actionable Feedback:</strong> Suggests specific adjustments to improve security.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is password entropy?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Entropy measures the unpredictability of a password. Higher entropy values indicate stronger passwords that are harder to guess or crack.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How many entropy bits make a password secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Passwords with 60–80 bits of entropy are considered strong for general accounts, while 80+ bits are recommended for critical administrative credentials.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my passwords sent to a server for analysis?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations occur locally in your browser tab, protecting your inputs from server logging.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are dictionary words with number substitutions (like P@ssw0rd) weak?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Automated cracking programs use dictionary lists that test common character substitutions (like '@' for 'a', '0' for 'o'), making them easy to crack.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a brute-force attack?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A brute-force attack is an automated method where a computer tests combinations of characters until the correct password is found.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the analyzer work offline?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Once loaded, the script runs locally, allowing offline use.</p>
+            </div>
+        </div>
+
+        <h2>Accuracy, Limitations, and Precautions</h2>
+        <p>Our tool estimates security using standard mathematical entropy and common dictionary patterns. It cannot account for social engineering, keyloggers on your device, or data breaches on the host site. We recommend using a unique password for each service and enabling 2FA where supported.</p>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are updating your credentials, use our <a href="../security/password-generator.html">Password Generator</a> to create secure keys, or generate unique identifiers with our <a href="../security/uuid-generator.html">UUID Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Security",
+            "item": "https://multitoolshub.co.in/tools/security/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Password Strength Analyzer",
+            "item": "https://multitoolshub.co.in/tools/security/password-strength.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Password Strength Analyzer",
+          "url": "https://multitoolshub.co.in/tools/security/password-strength.html",
+          "applicationCategory": "SecurityApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "MultiTools Hub",
+          "url": "https://multitoolshub.co.in",
+          "logo": "https://multitoolshub.co.in/icon.png",
+          "sameAs": []
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is password entropy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Entropy measures the unpredictability of a password. Higher entropy values indicate stronger passwords that are harder to crack."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How many entropy bits make a password secure?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Passwords with 60–80 bits of entropy are considered strong for general accounts, while 80+ bits are recommended for critical administrative credentials."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my passwords sent to a server for analysis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. All calculations occur locally in your browser tab, protecting your inputs from server logging."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why are dictionary words with number substitutions weak?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Automated cracking programs use dictionary lists that test common character substitutions, making them easy to crack."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a brute-force attack?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A brute-force attack is an automated method where a computer tests combinations of characters until the correct password is found."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the analyzer work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, once loaded, the script runs locally, allowing offline use."
+              }
+            }
+          ]
+        }
+        </script>
+""",
+
     "credit-card-validator": """
         <h2>Introduction to Payment Card Structure and Checksum Validations</h2>
         <p>E-commerce forms and financial gateways verify card numbers to filter out typos before submitting authorization requests. If a customer mistypes a digit, processing it through the payment gateway causes unnecessary delay and traffic. Our online <strong>Credit Card Validator</strong> solves this by verifying numbers client-side, running the mathematical Luhn checksum and checking the issuer network prefix instantly.</p>
@@ -2592,6 +3488,31 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "url-decoder": {
+        "title": "URL Decoder - Parse & Decode URL Query Strings",
+        "description": "Decode percent-encoded URL parameters and parse them into a readable key-value table. Fast, private, and 100% browser-based tool."
+    },
+
+    "url-encoder": {
+        "title": "URL Encoder - Percent Encode URLs & Parameters",
+        "description": "Encode URLs, query strings, and parameters instantly. Supports standard RFC 3986 percent encoding, application space formatting, and full encoding."
+    },
+
+    "base64-decoder": {
+        "title": "Base64 Decoder - Decode Base64 Strings & Files",
+        "description": "Decode Base64 payloads back to plain text or binary files. Automatically strip headers, preview images, and download binary files locally."
+    },
+
+    "base64-encoder": {
+        "title": "Base64 Encoder - Convert Text & Files Online",
+        "description": "Convert text and binary files up to 2MB to Base64 strings or Data URLs locally in your browser. Fast, private, and secure developer tool."
+    },
+
+    "password-strength": {
+        "title": "Password Strength Analyzer - Check Password Security",
+        "description": "Analyze your password strength instantly. Calculate entropy bits, brute-force cracking times, and get dynamic structural improvement recommendations locally."
+    },
+
     "credit-card-validator": {
         "title": "Credit Card Validator - Check Card Numbers Online",
         "description": "Validate credit card numbers instantly using the mathematical Luhn algorithm. Identifies card network (Visa, Mastercard, Amex, etc.). Secure and private."

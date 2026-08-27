@@ -708,6 +708,164 @@ INPUT_JSON_FORMATTER = """
 </div>
 """
 
+INPUT_PASSWORD_STRENGTH = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="passInput">Enter Password to Analyze</label>
+        <div style="position: relative; display: flex; align-items: center;">
+            <input type="password" id="passInput" class="form-control" placeholder="Type a password..." style="padding: 15px; font-size: 1.1rem; width: 100%; padding-right: 50px;">
+            <button type="button" id="togglePassVisibility" style="position: absolute; right: 15px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%; width: 40px; outline: none;">
+                <i class="fas fa-eye"></i>
+            </button>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Your password is analyzed entirely in-browser and is never transmitted over the internet.</p>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    const passInput = document.getElementById('passInput');
+    const toggleBtn = document.getElementById('togglePassVisibility');
+    
+    toggleBtn?.addEventListener('click', () => {
+        const icon = toggleBtn.querySelector('i');
+        if (passInput.type === 'password') {
+            passInput.type = 'text';
+            if (icon) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        } else {
+            passInput.type = 'password';
+            if (icon) {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    });
+
+    passInput?.addEventListener('input', (e) => {
+        const rawInput = document.getElementById('toolInput');
+        if (rawInput) {
+            rawInput.value = e.target.value;
+        }
+    });
+</script>
+"""
+
+INPUT_BASE64_ENCODER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Text to Encode or Select File Below</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type or paste the text you want to encode..." style="height: 120px;"></textarea>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: var(--primary);">Convert File to Base64 (Optional)</label>
+        <input type="file" id="base64File" class="form-control" style="padding: 10px; display: none;">
+        <button type="button" onclick="document.getElementById('base64File').click()" class="category-label" style="display: inline-block; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 10px 20px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;">Choose File</button>
+        <span id="b64FileName" style="display: block; font-size: 0.9rem; color: var(--text-muted);">No file selected (Max 2MB)</span>
+    </div>
+    <div>
+        <label for="b64Format">Output Format</label>
+        <select id="b64Format" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="raw" selected>Raw Base64 String</option>
+            <option value="datauri">Data URL Scheme (for CSS/HTML embeds)</option>
+        </select>
+    </div>
+</div>
+<script>
+    document.getElementById('base64File')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const fileNameSpan = document.getElementById('b64FileName');
+        if (!file) return;
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File is too large. Max size is 2MB.');
+            e.target.value = '';
+            if (fileNameSpan) fileNameSpan.innerText = 'No file selected (Max 2MB)';
+            return;
+        }
+
+        if (fileNameSpan) {
+            fileNameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            window.CURRENT_FILE_B64 = evt.target.result;
+            window.CURRENT_FILE_NAME = file.name;
+            window.CURRENT_FILE_TYPE = file.type;
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+"""
+
+INPUT_BASE64_DECODER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Paste Base64 Payload to Decode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste the Base64 string here..." style="height: 120px; font-family: monospace; font-size: 0.95rem;"></textarea>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="b64AutoHeader" checked style="width: 20px; height: 20px;">
+            Auto-strip Data URL Headers
+        </label>
+    </div>
+    <!-- Hidden element to hold file download trigger -->
+    <div id="b64DownloadContainer" style="display:none; text-align: center; margin-top: 15px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border);">
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Binary File Detected in Payload!</p>
+        <button type="button" id="b64BinDownloadBtn" class="category-label active" style="border: none; padding: 10px 20px; font-size: 0.95rem;">Download Decoded Binary File</button>
+    </div>
+    <!-- Interactive preview container for decoded image base64 -->
+    <div id="b64ImagePreviewContainer" style="display:none; text-align: center; margin-top: 15px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border);">
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Decoded Image Preview:</p>
+        <img id="b64ImagePreview" style="max-width: 100%; max-height: 250px; border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+    </div>
+</div>
+"""
+
+INPUT_URL_ENCODER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Enter Text or URL to Encode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type or paste parameters or URL here..." style="height: 120px;"></textarea>
+    </div>
+    <div>
+        <label for="urlEncodeMode">Encoding Standard</label>
+        <select id="urlEncodeMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="standard" selected>Standard encodeURIComponent (RFC 3986)</option>
+            <option value="all">Full Encoding (Encode all characters including safe ones)</option>
+            <option value="plus">Application/x-www-form-urlencoded (Spaces to '+')</option>
+        </select>
+    </div>
+</div>
+"""
+
+INPUT_URL_DECODER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Paste URL or Query Parameters to Decode</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste the percent-encoded URL or queries here..." style="height: 120px;"></textarea>
+    </div>
+    <div id="urlParamsTableContainer" style="display:none; margin-top: 15px;">
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Parsed Query Parameters</label>
+        <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid var(--border);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 12px 15px; color: var(--primary);">Key</th>
+                        <th style="padding: 12px 15px; color: var(--primary);">Value</th>
+                    </tr>
+                </thead>
+                <tbody id="urlParamsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -1072,6 +1230,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_CREDIT_CARD_VALIDATOR
         elif tool_name == "json-formatter":
             current_input = INPUT_JSON_FORMATTER
+        elif tool_name == "password-strength":
+            current_input = INPUT_PASSWORD_STRENGTH
+        elif tool_name == "base64-encoder":
+            current_input = INPUT_BASE64_ENCODER
+        elif tool_name == "base64-decoder":
+            current_input = INPUT_BASE64_DECODER
+        elif tool_name == "url-encoder":
+            current_input = INPUT_URL_ENCODER
+        elif tool_name == "url-decoder":
+            current_input = INPUT_URL_DECODER
             
         seo_content = get_seo_content(category, tool_name, title)
         
