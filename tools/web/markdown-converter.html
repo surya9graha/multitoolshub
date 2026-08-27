@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Converter | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Markdown Converter on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Markdown Converter - Convert Markdown to HTML Online</title>
+    <meta name="description" content="Translate Markdown syntax into raw HTML tags instantly. Support real-time document styling previews and code outputs.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,92 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label for="splitLayout" style="margin: 0; white-space: nowrap;">Layout Split:</label>
+            <select id="splitLayout" class="form-control" style="padding: 10px; width: 150px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); height: auto;">
+                <option value="vertical" selected>Vertical Split</option>
+                <option value="horizontal">Horizontal Split</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Preview Mode:</span>
+            <button type="button" id="previewBtnHtml" onclick="toggleMarkdownPreviewMode('html')" class="category-label active" style="border: none; padding: 8px 12px; margin: 0; font-size: 0.8rem;">Rendered Preview</button>
+            <button type="button" id="previewBtnCode" onclick="toggleMarkdownPreviewMode('code')" class="category-label" style="border: 1px solid var(--border); padding: 8px 12px; margin: 0; font-size: 0.8rem;">Raw HTML Code</button>
+        </div>
+    </div>
+    
+    <div id="markdownWorkspace" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: grid-template-columns 0.3s ease;">
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label for="toolInput">Markdown Input</label>
+            <textarea id="toolInput" class="form-control" placeholder="# Heading 1&#10;&#10;Write markdown text here. Supports:&#10;- **Bold** and *Italics*&#10;- Bullet lists&#10;- Blockquotes&#10;- Inline \`code\`" style="height: 400px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label>Output Area</label>
+            <div id="markdownPreviewContainer" class="markdown-body" style="width: 100%; height: 400px; padding: 20px; overflow-y: auto; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main);"></div>
+            <textarea id="markdownHtmlCodeContainer" class="form-control" readonly style="width: 100%; height: 400px; display: none; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+    </div>
 </div>
+<script>
+    let currentPreviewMode = "html";
+    function toggleMarkdownPreviewMode(mode) {
+        currentPreviewMode = mode;
+        const htmlBtn = document.getElementById('previewBtnHtml');
+        const codeBtn = document.getElementById('previewBtnCode');
+        const previewDiv = document.getElementById('markdownPreviewContainer');
+        const codeTextarea = document.getElementById('markdownHtmlCodeContainer');
+        
+        if (mode === 'code') {
+            htmlBtn.className = "category-label";
+            htmlBtn.style.border = "1px solid var(--border)";
+            codeBtn.className = "category-label active";
+            codeBtn.style.border = "none";
+            
+            if (previewDiv) previewDiv.style.display = 'none';
+            if (codeTextarea) codeTextarea.style.display = 'block';
+        } else {
+            htmlBtn.className = "category-label active";
+            htmlBtn.style.border = "none";
+            codeBtn.className = "category-label";
+            codeBtn.style.border = "1px solid var(--border)";
+            
+            if (previewDiv) previewDiv.style.display = 'block';
+            if (codeTextarea) codeTextarea.style.display = 'none';
+        }
+    }
+    const splitSelMark = document.getElementById('splitLayout');
+    const workspaceMark = document.getElementById('markdownWorkspace');
+    splitSelMark?.addEventListener('change', (e) => {
+        if (workspaceMark) {
+            if (e.target.value === 'horizontal') {
+                workspaceMark.style.gridTemplateColumns = '1fr';
+            } else {
+                workspaceMark.style.gridTemplateColumns = '1fr 1fr';
+            }
+        }
+    });
+    setTimeout(() => {
+        const area = document.getElementById('toolInput');
+        if (area && !area.value) {
+            area.value = `# Welcome to Markdown Converter
+
+MultiTools Hub provides this interactive Markdown tool. 
+
+## Key Features
+- **Real-Time Compilation**: View changes instantly.
+- **HTML Export**: Copy clean target code.
+- **Client-Side privacy**: Your text stays in the browser.
+
+> Place blockquotes easily to highlight items of high importance.
+
+Try modifying this text block!`;
+            const evt = new Event('input', { bubbles: true });
+            area.dispatchEvent(evt);
+        }
+    }, 100);
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -99,22 +180,115 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Markdown Converter Online</h2>
-        <p>Our <strong>Markdown Converter</strong> is a dedicated utility nested within our WEB suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Convert markdown files into clean HTML formats. Translate markdown notes into formatted layouts instantly.</p>
+            <h2>Introduction to Markdown and HTML Syntax Conversion</h2>
+        <p>Writing raw HTML tags for articles, documentation, or blog posts is slow and cluttering. Markdown provides a lightweight markup syntax that allows you to draft formatted content using plain text qualifiers. Our online <strong>Markdown Converter</strong> translates Markdown into clean HTML elements, offering real-time rendering and syntax code display.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Formatting readme descriptions for web templates.</li><li>Converting documentation drafts into web formats.</li><li>Parsing styled drafts for CMS interfaces.</li>
+        <p>Our tool parses headings, bold text, italics, blockquotes, lists, and code blocks locally in your browser, helping you publish content quickly.</p>
+
+        <h3>Why Content Creators and Developers Use Markdown</h3>
+        <p>Markdown is the standard format for documentation (e.g. GitHub README files) because it is readable in raw text form. Converting it to HTML enables publishing on standard website pages, CMS platforms, or static site systems.</p>
+
+        <h3>Real-Life Use Cases for Markdown Conversion</h3>
+        <ul>
+            <li><strong>Documentation:</strong> Translating repository README files to HTML for website publication.</li>
+            <li><strong>Blog Writing:</strong> Drafting posts in plain text Markdown and exporting to HTML for publishing.</li>
+            <li><strong>Data Exchange:</strong> Exporting formatted text fields to database columns.</li>
+            <li><strong>Educational Content:</strong> Prototyping formatting schemes before styling templates.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Rendering preview engines load scripts in sandboxed frame containers. Network inspection queries utilize lightweight APIs to query registers (DNS, WHOIS) securely, outputting structural records in real-time. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the Compiler Parser Syntax</h2>
+        <p>The parser processes markdown structures sequentially:</p>
+        <ul>
+            <li>Heading markers (<code>#</code>, <code>##</code>, <code>###</code>) map to HTML tag counterparts (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>).</li>
+            <li>Bold wrappers (<code>**</code>) translate to strong tags (<code>&lt;strong&gt;</code>).</li>
+            <li>Italic markers (<code>*</code>) translate to emphasis tags (<code>&lt;em&gt;</code>).</li>
+            <li>Quote pointers (<code>&gt;</code>) translate to HTML blockquotes.</li>
+            <li>List points (<code>-</code>) map to HTML list tags.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert Markdown</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Markdown</strong> — Enter your markdown text in the Markdown Input panel.</li>
+            <li><strong>Step 2: Choose Layout Split</strong> — Select either vertical or horizontal panels.</li>
+            <li><strong>Step 3: Toggle Output View</strong> — Switch between Rendered Preview and Raw HTML Code.</li>
+            <li><strong>Step 4: Copy the Output</strong> — Copy the formatted HTML code to paste into your CMS or codebase.</li>
+        </ol>
+
+        <h2>Core Benefits of this Markdown Converter</h2>
+        <ul>
+            <li><strong>Dual Preview Modes:</strong> Toggle between raw HTML code and a rendered document preview.</li>
+            <li><strong>100% Client-Side Privacy:</strong> The parser runs locally in your browser memory.</li>
+            <li><strong>Responsive Layouts:</strong> Supports vertical or horizontal panel configurations.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Why is my live HTML preview not executing external scripts?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: To maintain security and prevent cross-site scripting (XSS), our preview frame is sandboxed, blocking frame breakouts and certain local cookie storage actions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the WHOIS tool lookup private registration details?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The WHOIS tool returns public registration records provided by TLD registries. If a domain owner has enabled WHOIS privacy protection, the output will list proxy registrar contacts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is my IP address logged when I inspect a website status?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No, domain inspections are processed via secure middle endpoints that check host records on our behalf, keeping your local IP anonymous to the destination host.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is Markdown?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Markdown is a lightweight markup language that uses plain text formatting syntax to structure documents easily.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I export raw HTML code?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Use the "Raw HTML Code" toggle button to display the HTML code for easy copying.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my documents uploaded?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the converter support tables?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: This converter supports core Markdown elements (headings, bold, italics, blockquotes, lists, and inline code). Complex Markdown tables are not currently supported.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are publishing web content, preview code with our <a href="../web/html-preview.html">HTML Previewer</a>, count words with our <a href="../text/word-counter.html">Word Counter</a>, or clean text formatting using our <a href="../text/case-converter.html">Case Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Markdown Converter",
+            "item": "https://multitoolshub.co.in/tools/web/markdown-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Markdown Converter",
+          "url": "https://multitoolshub.co.in/tools/web/markdown-converter.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Markdown Converter</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

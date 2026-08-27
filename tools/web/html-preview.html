@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Html Preview | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Html Preview on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>HTML Preview - Live HTML Viewer Online</title>
+    <meta name="description" content="Render HTML, CSS, and JavaScript code instantly in real-time. Sandbox iframe preview tool with split layouts and coding presets.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,137 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label for="splitLayout" style="margin: 0; white-space: nowrap;">Layout Split:</label>
+            <select id="splitLayout" class="form-control" style="padding: 10px; width: 150px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); height: auto;">
+                <option value="vertical" selected>Vertical Split</option>
+                <option value="horizontal">Horizontal Split</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Load Presets:</span>
+            <button type="button" onclick="loadHtmlPreset('simple')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">CSS Animation</button>
+            <button type="button" onclick="loadHtmlPreset('svg')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">SVG graphic</button>
+            <button type="button" onclick="loadHtmlPreset('bootstrap')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">Bootstrap Form</button>
+        </div>
+    </div>
+    
+    <div id="previewWorkspace" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: grid-template-columns 0.3s ease;">
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label for="toolInput">HTML Source Code</label>
+            <textarea id="toolInput" class="form-control" placeholder="Write or paste your HTML, CSS, and JS code here..." style="height: 400px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label>Real-Time Preview</label>
+            <iframe id="htmlPreviewIframe" sandbox="allow-scripts" style="width: 100%; height: 400px; background: white; border: 1px solid var(--border); border-radius: 12px;"></iframe>
+        </div>
+    </div>
 </div>
+<script>
+    const presets = {
+        simple: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: system-ui, sans-serif;
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    border-radius: 20px;
+    animation: spin 3s infinite linear;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>`,
+        svg: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #1e293b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <svg width="200" height="200" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" stroke="#f43f5e" stroke-width="4" fill="none" />
+    <polygon points="50,20 65,65 30,40 70,40 35,65" fill="#f59e0b" />
+  </svg>
+</body>
+</html>`,
+        bootstrap: `<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { padding: 30px; background-color: #f8f9fa; }
+</style>
+</head>
+<body>
+  <div class="card shadow-sm max-w-md mx-auto" style="max-width: 450px;">
+    <div class="card-body">
+      <h5 class="card-title">Bootstrap Sample Form</h5>
+      <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" placeholder="name@example.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit Form</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>`
+    };
+    function loadHtmlPreset(key) {
+        const area = document.getElementById('toolInput');
+        if (area) {
+            area.value = presets[key];
+            const evt = new Event('input', { bubbles: true });
+            area.dispatchEvent(evt);
+        }
+    }
+    const splitSel = document.getElementById('splitLayout');
+    const workspace = document.getElementById('previewWorkspace');
+    splitSel?.addEventListener('change', (e) => {
+        if (workspace) {
+            if (e.target.value === 'horizontal') {
+                workspace.style.gridTemplateColumns = '1fr';
+            } else {
+                workspace.style.gridTemplateColumns = '1fr 1fr';
+            }
+        }
+    });
+    setTimeout(() => {
+        const area = document.getElementById('toolInput');
+        if (area && !area.value) {
+            loadHtmlPreset('simple');
+        }
+    }, 100);
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -99,22 +225,108 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Html Preview Online</h2>
-        <p>Our <strong>Html Preview</strong> is a dedicated utility nested within our WEB suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Preview HTML and CSS layouts instantly in a secure sandbox. Test markup visual configurations in your browser.</p>
+            <h2>Introduction to Web Prototyping and HTML Previewers</h2>
+        <p>In web development, web design, and digital content creation, testing small code blocks quickly is a recurring task. Creating local files and refreshing a browser tab is slow and interrupts your coding flow. Our online <strong>HTML Preview</strong> tool renders HTML, CSS, and JavaScript code instantly in your browser, providing a sandboxed workspace for quick testing.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Testing visual formatting in custom HTML templates.</li><li>Verifying custom button shapes and designs.</li><li>Debugging raw code formats before deploy loops.</li>
+        <p>Your code is rendered inside a sandboxed iframe, isolating your code from the main website environment for safety and accuracy.</p>
+
+        <h3>Why Real-Time Code Previewing Accelerates Development</h3>
+        <p>Web developers frequently test component layouts, vector graphics, and CSS animation scripts. Real-time feedback loops help identify syntax errors or rendering anomalies instantly. This accelerates styling adjustments and prototyping.</p>
+
+        <h3>Real-Life Use Cases for Live HTML Previewing</h3>
+        <ul>
+            <li><strong>Component Testing:</strong> Drafting CSS layouts, card elements, or responsive navigation bars.</li>
+            <li><strong>Vector Design:</strong> Coding SVG graphics and verifying their shapes, coordinates, and color properties.</li>
+            <li><strong>Testing Libraries:</strong> Loading lightweight external resources (e.g. Bootstrap) to test interface components.</li>
+            <li><strong>Email Template Editing:</strong> Auditing table-based HTML email layouts before deployment.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Rendering preview engines load scripts in sandboxed frame containers. Network inspection queries utilize lightweight APIs to query registers (DNS, WHOIS) securely, outputting structural records in real-time. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding Sandbox Security in Preview Frames</h2>
+        <p>Running user-submitted JavaScript in a web browser requires security isolation. Our preview tool uses the HTML5 <code>sandbox="allow-scripts"</code> attribute. This prevents the rendered frame from accessing document objects or session tokens of the host page, maintaining client-side safety.</p>
+
+        <h2>Step-by-Step Guide: How to Use the HTML Previewer</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Write or Paste Code</strong> — Enter your markup in the HTML Source Code panel.</li>
+            <li><strong>Step 2: Load Presets (Optional)</strong> — Click any preset button (e.g. CSS Animation) to load sample code.</li>
+            <li><strong>Step 3: Choose Layout Split</strong> — Switch between Vertical and Horizontal split views from the dropdown.</li>
+            <li><strong>Step 4: Inspect Preview</strong> — View the rendered layout instantly in the preview panel.</li>
+        </ol>
+
+        <h2>Core Benefits of this HTML Preview Tool</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All code rendering runs locally in browser memory.</li>
+            <li><strong>Coding Presets:</strong> Quickly load sample layouts to start drafting.</li>
+            <li><strong>Flexible Layouts:</strong> Split panels vertically or horizontally to match different monitor sizes.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Why is my live HTML preview not executing external scripts?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: To maintain security and prevent cross-site scripting (XSS), our preview frame is sandboxed, blocking frame breakouts and certain local cookie storage actions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the WHOIS tool lookup private registration details?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The WHOIS tool returns public registration records provided by TLD registries. If a domain owner has enabled WHOIS privacy protection, the output will list proxy registrar contacts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is my IP address logged when I inspect a website status?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No, domain inspections are processed via secure middle endpoints that check host records on our behalf, keeping your local IP anonymous to the destination host.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What code is supported?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The previewer supports standard HTML markup, CSS styling blocks (within <code>&lt;style&gt;</code> tags), and client-side JavaScript (within <code>&lt;script&gt;</code> tags).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use CSS framework libraries?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. You can load external stylesheet libraries by using HTML link tags (e.g. linking to Bootstrap or Tailwind CDN distributions).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my codes uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All code compilation runs locally in browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does JavaScript alert fail inside the preview?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The sandboxed preview environment blocks popups and modals like <code>alert()</code> to protect the browser window, but console logs function normally.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are developing pages, format syntax using our <a href="../dev/json-formatter.html">JSON Formatter</a>, convert text files with our <a href="../web/markdown-converter.html">Markdown Converter</a>, or verify web domains with our <a href="../web/website-status.html">Website Status Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HTML Previewer",
+            "item": "https://multitoolshub.co.in/tools/web/html-preview.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "HTML Previewer",
+          "url": "https://multitoolshub.co.in/tools/web/html-preview.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Html Preview</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

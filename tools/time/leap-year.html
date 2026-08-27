@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leap Year | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Leap Year on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Leap Year Checker - Gregorian Leap Year Calculator</title>
+    <meta name="description" content="Check if any year is a leap year. Read details on Gregorian rules and audit year ranges dynamically in your browser.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,40 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Date, Time, or Timestamp</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px;" placeholder="e.g. 2026-04-01, 1711785600000, or leave blank for NOW"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Format: Standard date strings or Unix timestamps in milliseconds.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="leapYearInput">Target Year to Check</label>
+            <input type="number" id="leapYearInput" class="form-control" value="2026" min="1" max="9999" style="padding: 15px;">
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="leapRangeToggle" style="width: 20px; height: 20px;">
+                Audit a Year Range Instead
+            </label>
+        </div>
+    </div>
+    
+    <div id="leapRangeContainer" style="display: none; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="leapStartYear">Start Year</label>
+            <input type="number" id="leapStartYear" class="form-control" value="1990" min="1" max="9999" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="leapEndYear">End Year</label>
+            <input type="number" id="leapEndYear" class="form-control" value="2050" min="1" max="9999" style="padding: 15px;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    document.getElementById('leapRangeToggle')?.addEventListener('change', (e) => {
+        const rangeDiv = document.getElementById('leapRangeContainer');
+        if (rangeDiv) {
+            rangeDiv.style.display = e.target.checked ? 'grid' : 'none';
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -99,22 +128,114 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Leap Year Online</h2>
-        <p>Our <strong>Leap Year</strong> is a dedicated utility nested within our TIME suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Verify leap status for specific calendar years. Check leap calculations to ensure timezone scheduling configurations remain correct.</p>
+            <h2>Introduction to Leap Years and Solar Alignment</h2>
+        <p>Leap years are essential to keep our calendar system aligned with the astronomical seasons. The Earth takes approximately 365.2422 days to complete one orbit around the Sun, but our calendar year is 365 days. Without adding an extra day (February 29) every four years, our calendar would drift by about 24 days over a century. Our online <strong>Leap Year Checker</strong> verifies if any year is a leap year using standard Gregorian rules, and supports range calculations.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Validating calendar scripts inside date modules.</li><li>Verifying date adjustments for annual systems audits.</li><li>Calculating calendar year durations for database systems.</li>
+        <p>Gregorian leap year rules require three checks to determine whether a year is a leap year: divisibility by 4, divisibility by 100, and divisibility by 400.</p>
+
+        <h3>Why Calendar Synchronization is Crucial for Chronology</h3>
+        <p>If we did not add a leap day, the calendar would drift over time, causing seasons to shift. Over centuries, July would shift into the winter season in the Northern Hemisphere. Leap years keep the calendar aligned with the Earth's orbit.</p>
+
+        <h3>Real-Life Use Cases for Checking Leap Years</h3>
+        <ul>
+            <li><strong>Software Engineering:</strong> Verifying date calculation logic in applications to prevent end-of-month bugs.</li>
+            <li><strong>Project Planning:</strong> Auditing year lengths for long-term project schedules and budgets.</li>
+            <li><strong>Financial Auditing:</strong> Calculating interest rates for years that contain 366 days instead of 365.</li>
+            <li><strong>Academic Studies:</strong> Verifying historical calendar events and timelines.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Datetime parsing uses local system clocks and browser timezones. Timestamps are translated using built-in Unix date logic inside client-side scripts. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the Gregorian Leap Year Rules</h2>
+        <p>Our calculator checks years using the standard Gregorian rules:</p>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Rule 1:</strong> The year must be divisible by 4. If it is not, it is a standard year.</li>
+            <li><strong>Rule 2:</strong> If divisible by 4, the year must not be divisible by 100, unless...</li>
+            <li><strong>Rule 3:</strong> The year is also divisible by 400. Century years must be divisible by 400 to be leap years.</li>
+        </ol>
+        <p>This explains why the year 2000 was a leap year, but 1900, 2100, and 2200 are standard years.</p>
+
+        <h2>Step-by-Step Guide: How to Use the Leap Year Checker</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Mode</strong> — Select whether to check a single year or audit a year range.</li>
+            <li><strong>Step 2: Input Year(s)</strong> — Enter the year to check, or input the start and end years for a range check.</li>
+            <li><strong>Step 3: Run the Checker</strong> — Click "Process Leap Year" to run the rules.</li>
+            <li><strong>Step 4: Review Results</strong> — Read the explanation of the rules or view the list of leap years in the selected range.</li>
+        </ol>
+
+        <h2>Core Benefits of this Leap Year Checker</h2>
+        <ul>
+            <li><strong>Gregorian Rule Checker:</strong> Explains the calculations behind the result.</li>
+            <li><strong>Range Check Option:</strong> List all leap years within a custom range.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All calculations run locally in your browser memory.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How does timezone conversion handle daylight saving time (DST)?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The timezone tool utilizes the browser's native internationalization API (`Intl.DateTimeFormat`) which references the global IANA Time Zone Database to automatically resolve DST transitions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What is a Unix epoch timestamp?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: A Unix timestamp represents the total number of seconds (or milliseconds) that have elapsed since January 1, 1970 (UTC), excluding leap seconds. It is a standard format for database systems.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can I calculate days between dates across centuries?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, our calculator supports standard Gregorian calendar calculations spanning thousands of years, adjusting automatically for historical leap years.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a leap year?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A leap year is a calendar year that contains 366 days instead of 365, adding a leap day on February 29 to keep the calendar aligned with the Earth's orbit.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why is 2100 not a leap year?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Century years are divisible by 100 but not by 400. Under Gregorian rules, they are not leap years, correcting for slight over-estimations in the calendar calculation.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How often do leap years occur?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Leap years occur almost every four years, with exceptions for century years not divisible by 400.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are planning schedules, check date ranges with our <a href="../time/days-between.html">Days Between Dates Calculator</a>, convert timestamps using our <a href="../time/timestamp-converter.html">Timestamp Converter</a>, or format formats with our <a href="../time/date-formatter.html">Date Formatter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Leap Year Checker",
+            "item": "https://multitoolshub.co.in/tools/time/leap-year.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Leap Year Checker",
+          "url": "https://multitoolshub.co.in/tools/time/leap-year.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Leap Year</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

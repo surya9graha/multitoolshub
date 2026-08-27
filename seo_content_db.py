@@ -154,6 +154,443 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "leap-year": """
+        <h2>Introduction to Leap Years and Solar Alignment</h2>
+        <p>Leap years are essential to keep our calendar system aligned with the astronomical seasons. The Earth takes approximately 365.2422 days to complete one orbit around the Sun, but our calendar year is 365 days. Without adding an extra day (February 29) every four years, our calendar would drift by about 24 days over a century. Our online <strong>Leap Year Checker</strong> verifies if any year is a leap year using standard Gregorian rules, and supports range calculations.</p>
+        
+        <p>Gregorian leap year rules require three checks to determine whether a year is a leap year: divisibility by 4, divisibility by 100, and divisibility by 400.</p>
+
+        <h3>Why Calendar Synchronization is Crucial for Chronology</h3>
+        <p>If we did not add a leap day, the calendar would drift over time, causing seasons to shift. Over centuries, July would shift into the winter season in the Northern Hemisphere. Leap years keep the calendar aligned with the Earth's orbit.</p>
+
+        <h3>Real-Life Use Cases for Checking Leap Years</h3>
+        <ul>
+            <li><strong>Software Engineering:</strong> Verifying date calculation logic in applications to prevent end-of-month bugs.</li>
+            <li><strong>Project Planning:</strong> Auditing year lengths for long-term project schedules and budgets.</li>
+            <li><strong>Financial Auditing:</strong> Calculating interest rates for years that contain 366 days instead of 365.</li>
+            <li><strong>Academic Studies:</strong> Verifying historical calendar events and timelines.</li>
+        </ul>
+
+        <h2>Understanding the Gregorian Leap Year Rules</h2>
+        <p>Our calculator checks years using the standard Gregorian rules:</p>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Rule 1:</strong> The year must be divisible by 4. If it is not, it is a standard year.</li>
+            <li><strong>Rule 2:</strong> If divisible by 4, the year must not be divisible by 100, unless...</li>
+            <li><strong>Rule 3:</strong> The year is also divisible by 400. Century years must be divisible by 400 to be leap years.</li>
+        </ol>
+        <p>This explains why the year 2000 was a leap year, but 1900, 2100, and 2200 are standard years.</p>
+
+        <h2>Step-by-Step Guide: How to Use the Leap Year Checker</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Mode</strong> — Select whether to check a single year or audit a year range.</li>
+            <li><strong>Step 2: Input Year(s)</strong> — Enter the year to check, or input the start and end years for a range check.</li>
+            <li><strong>Step 3: Run the Checker</strong> — Click "Process Leap Year" to run the rules.</li>
+            <li><strong>Step 4: Review Results</strong> — Read the explanation of the rules or view the list of leap years in the selected range.</li>
+        </ol>
+
+        <h2>Core Benefits of this Leap Year Checker</h2>
+        <ul>
+            <li><strong>Gregorian Rule Checker:</strong> Explains the calculations behind the result.</li>
+            <li><strong>Range Check Option:</strong> List all leap years within a custom range.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All calculations run locally in your browser memory.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a leap year?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A leap year is a calendar year that contains 366 days instead of 365, adding a leap day on February 29 to keep the calendar aligned with the Earth's orbit.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why is 2100 not a leap year?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Century years are divisible by 100 but not by 400. Under Gregorian rules, they are not leap years, correcting for slight over-estimations in the calendar calculation.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How often do leap years occur?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Leap years occur almost every four years, with exceptions for century years not divisible by 400.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are planning schedules, check date ranges with our <a href="../time/days-between.html">Days Between Dates Calculator</a>, convert timestamps using our <a href="../time/timestamp-converter.html">Timestamp Converter</a>, or format formats with our <a href="../time/date-formatter.html">Date Formatter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Leap Year Checker",
+            "item": "https://multitoolshub.co.in/tools/time/leap-year.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Leap Year Checker",
+          "url": "https://multitoolshub.co.in/tools/time/leap-year.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "days-between": """
+        <h2>Introduction to Calendar Calculations and Date Ranges</h2>
+        <p>Calculating the exact duration between calendar dates is a common task in project management, contract planning, travel booking, and daily scheduling. Manually counting days on a calendar is slow and prone to errors, especially when accounting for leap years or different month lengths. Our online <strong>Days Between Dates</strong> calculator computes exact calendar ranges instantly.</p>
+        
+        <p>Our tool displays the total difference in days, weeks, months, and years, alongside total hours and minutes, with an option to toggle inclusive date boundaries.</p>
+
+        <h3>Why Date Audits are Essential in Project Management</h3>
+        <p>Project managers use date calculators to plan project milestones, verify invoice cycles, and monitor deadlines. Knowing the exact duration between start and end dates is essential for scheduling tasks and allocating resources.</p>
+
+        <h3>Real-Life Use Cases for Date Range Calculations</h3>
+        <ul>
+            <li><strong>Project Management:</strong> Estimating the total duration of task sprints and milestones.</li>
+            <li><strong>Financial Auditing:</strong> Calculating interest periods or subscription durations.</li>
+            <li><strong>Travel Planning:</strong> Planning travel itineraries and booking durations.</li>
+            <li><strong>Daily Planning:</strong> Tracking counts for personal milestones or events.</li>
+        </ul>
+
+        <h2>Understanding Inclusive vs Exclusive Date Ranges</h2>
+        <p>When calculating date ranges, the result can differ by one day depending on whether the end date is included:</p>
+        <ul>
+            <li><strong>Exclusive (Standard):</strong> Calculates the time elapsed between the start date and the end date. (e.g. Monday to Tuesday is 1 day).</li>
+            <li><strong>Inclusive (+1 Day):</strong> Includes both the start and end dates in the count. (e.g. Monday to Tuesday is 2 days). Useful for booking hotel stays or travel itineraries.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Calculate Days Between Dates</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Select Start Date</strong> — Choose the starting date using the calendar picker.</li>
+            <li><strong>Step 2: Select End Date</strong> — Choose the ending date using the calendar picker.</li>
+            <li><strong>Step 3: Toggle Preferences</strong> — Check "Include end date" if you want to include both dates in the calculation.</li>
+            <li><strong>Step 4: Read Converted Output</strong> — Click "Process Days Between" to view the difference in days, weeks, months, and years.</li>
+        </ol>
+
+        <h2>Core Features of this Date Calculator</h2>
+        <ul>
+            <li><strong>Multiple Duration Units:</strong> Displays the result in days, weeks, months, years, hours, and minutes.</li>
+            <li><strong>Inclusive Toggle:</strong> Switch between inclusive and exclusive calculations.</li>
+            <li><strong>Leap Year Aware:</strong> Calculations account for leap years and varying month lengths automatically.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the calculator account for leap years?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. The calculation accounts for leap years and varying month lengths.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between inclusive and exclusive date counting?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Exclusive counting calculates the time elapsed between dates, while inclusive counting adds the end date to the total count (adding 1 day).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my selected dates sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations occur locally in your browser, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I calculate differences back in time?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. If the end date is earlier than the start date, the calculator still displays the absolute duration between the two dates.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are tracking events, check year rules with our <a href="../time/leap-year.html">Leap Year Checker</a>, convert timestamps with our <a href="../time/timestamp-converter.html">Timestamp Converter</a>, or format formats with our <a href="../time/date-formatter.html">Date Formatter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Days Between Dates",
+            "item": "https://multitoolshub.co.in/tools/time/days-between.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Days Between Dates",
+          "url": "https://multitoolshub.co.in/tools/time/days-between.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "markdown-converter": """
+        <h2>Introduction to Markdown and HTML Syntax Conversion</h2>
+        <p>Writing raw HTML tags for articles, documentation, or blog posts is slow and cluttering. Markdown provides a lightweight markup syntax that allows you to draft formatted content using plain text qualifiers. Our online <strong>Markdown Converter</strong> translates Markdown into clean HTML elements, offering real-time rendering and syntax code display.</p>
+        
+        <p>Our tool parses headings, bold text, italics, blockquotes, lists, and code blocks locally in your browser, helping you publish content quickly.</p>
+
+        <h3>Why Content Creators and Developers Use Markdown</h3>
+        <p>Markdown is the standard format for documentation (e.g. GitHub README files) because it is readable in raw text form. Converting it to HTML enables publishing on standard website pages, CMS platforms, or static site systems.</p>
+
+        <h3>Real-Life Use Cases for Markdown Conversion</h3>
+        <ul>
+            <li><strong>Documentation:</strong> Translating repository README files to HTML for website publication.</li>
+            <li><strong>Blog Writing:</strong> Drafting posts in plain text Markdown and exporting to HTML for publishing.</li>
+            <li><strong>Data Exchange:</strong> Exporting formatted text fields to database columns.</li>
+            <li><strong>Educational Content:</strong> Prototyping formatting schemes before styling templates.</li>
+        </ul>
+
+        <h2>Understanding the Compiler Parser Syntax</h2>
+        <p>The parser processes markdown structures sequentially:</p>
+        <ul>
+            <li>Heading markers (<code>#</code>, <code>##</code>, <code>###</code>) map to HTML tag counterparts (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>).</li>
+            <li>Bold wrappers (<code>**</code>) translate to strong tags (<code>&lt;strong&gt;</code>).</li>
+            <li>Italic markers (<code>*</code>) translate to emphasis tags (<code>&lt;em&gt;</code>).</li>
+            <li>Quote pointers (<code>&gt;</code>) translate to HTML blockquotes.</li>
+            <li>List points (<code>-</code>) map to HTML list tags.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert Markdown</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Markdown</strong> — Enter your markdown text in the Markdown Input panel.</li>
+            <li><strong>Step 2: Choose Layout Split</strong> — Select either vertical or horizontal panels.</li>
+            <li><strong>Step 3: Toggle Output View</strong> — Switch between Rendered Preview and Raw HTML Code.</li>
+            <li><strong>Step 4: Copy the Output</strong> — Copy the formatted HTML code to paste into your CMS or codebase.</li>
+        </ol>
+
+        <h2>Core Benefits of this Markdown Converter</h2>
+        <ul>
+            <li><strong>Dual Preview Modes:</strong> Toggle between raw HTML code and a rendered document preview.</li>
+            <li><strong>100% Client-Side Privacy:</strong> The parser runs locally in your browser memory.</li>
+            <li><strong>Responsive Layouts:</strong> Supports vertical or horizontal panel configurations.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is Markdown?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Markdown is a lightweight markup language that uses plain text formatting syntax to structure documents easily.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I export raw HTML code?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Use the "Raw HTML Code" toggle button to display the HTML code for easy copying.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my documents uploaded?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the converter support tables?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: This converter supports core Markdown elements (headings, bold, italics, blockquotes, lists, and inline code). Complex Markdown tables are not currently supported.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are publishing web content, preview code with our <a href="../web/html-preview.html">HTML Previewer</a>, count words with our <a href="../text/word-counter.html">Word Counter</a>, or clean text formatting using our <a href="../text/case-converter.html">Case Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Markdown Converter",
+            "item": "https://multitoolshub.co.in/tools/web/markdown-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Markdown Converter",
+          "url": "https://multitoolshub.co.in/tools/web/markdown-converter.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "html-preview": """
+        <h2>Introduction to Web Prototyping and HTML Previewers</h2>
+        <p>In web development, web design, and digital content creation, testing small code blocks quickly is a recurring task. Creating local files and refreshing a browser tab is slow and interrupts your coding flow. Our online <strong>HTML Preview</strong> tool renders HTML, CSS, and JavaScript code instantly in your browser, providing a sandboxed workspace for quick testing.</p>
+        
+        <p>Your code is rendered inside a sandboxed iframe, isolating your code from the main website environment for safety and accuracy.</p>
+
+        <h3>Why Real-Time Code Previewing Accelerates Development</h3>
+        <p>Web developers frequently test component layouts, vector graphics, and CSS animation scripts. Real-time feedback loops help identify syntax errors or rendering anomalies instantly. This accelerates styling adjustments and prototyping.</p>
+
+        <h3>Real-Life Use Cases for Live HTML Previewing</h3>
+        <ul>
+            <li><strong>Component Testing:</strong> Drafting CSS layouts, card elements, or responsive navigation bars.</li>
+            <li><strong>Vector Design:</strong> Coding SVG graphics and verifying their shapes, coordinates, and color properties.</li>
+            <li><strong>Testing Libraries:</strong> Loading lightweight external resources (e.g. Bootstrap) to test interface components.</li>
+            <li><strong>Email Template Editing:</strong> Auditing table-based HTML email layouts before deployment.</li>
+        </ul>
+
+        <h2>Understanding Sandbox Security in Preview Frames</h2>
+        <p>Running user-submitted JavaScript in a web browser requires security isolation. Our preview tool uses the HTML5 <code>sandbox="allow-scripts"</code> attribute. This prevents the rendered frame from accessing document objects or session tokens of the host page, maintaining client-side safety.</p>
+
+        <h2>Step-by-Step Guide: How to Use the HTML Previewer</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Write or Paste Code</strong> — Enter your markup in the HTML Source Code panel.</li>
+            <li><strong>Step 2: Load Presets (Optional)</strong> — Click any preset button (e.g. CSS Animation) to load sample code.</li>
+            <li><strong>Step 3: Choose Layout Split</strong> — Switch between Vertical and Horizontal split views from the dropdown.</li>
+            <li><strong>Step 4: Inspect Preview</strong> — View the rendered layout instantly in the preview panel.</li>
+        </ol>
+
+        <h2>Core Benefits of this HTML Preview Tool</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> All code rendering runs locally in browser memory.</li>
+            <li><strong>Coding Presets:</strong> Quickly load sample layouts to start drafting.</li>
+            <li><strong>Flexible Layouts:</strong> Split panels vertically or horizontally to match different monitor sizes.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What code is supported?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The previewer supports standard HTML markup, CSS styling blocks (within <code>&lt;style&gt;</code> tags), and client-side JavaScript (within <code>&lt;script&gt;</code> tags).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use CSS framework libraries?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. You can load external stylesheet libraries by using HTML link tags (e.g. linking to Bootstrap or Tailwind CDN distributions).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my codes uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All code compilation runs locally in browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does JavaScript alert fail inside the preview?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The sandboxed preview environment blocks popups and modals like <code>alert()</code> to protect the browser window, but console logs function normally.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are developing pages, format syntax using our <a href="../dev/json-formatter.html">JSON Formatter</a>, convert text files with our <a href="../web/markdown-converter.html">Markdown Converter</a>, or verify web domains with our <a href="../web/website-status.html">Website Status Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HTML Previewer",
+            "item": "https://multitoolshub.co.in/tools/web/html-preview.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "HTML Previewer",
+          "url": "https://multitoolshub.co.in/tools/web/html-preview.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "sha256-generator": """
         <h2>Introduction to SHA-256 Hashing and Data Verification</h2>
         <p>Where MD5 is deprecated due to collision risks, modern cryptographic protocols require stronger hashing functions. Secure Hash Algorithm 2 (specifically SHA-256) outputs 256-bit signatures that resist brute-force collisions. Our online <strong>SHA256 Hash Generator</strong> computes cryptographic signatures for text, bulk lists, and local files locally.</p>
@@ -4227,15 +4664,116 @@ TOOL_SPECIFIC_SEO = {
         </script>
 """,
     "word-counter": """
-        <h2>Analyze Text Length, Word Metrics, and Reading Time Instantly</h2>
-        <p>Writing for the web requires strict adherence to length constraints. Whether you are drafting a meta description (160 characters), a social media post, or a long-form article, keeping track of your metrics is essential. Our <strong>Word Counter</strong> is a fast, client-side utility that analyzes your drafts and outputs real-time counts for words, characters, sentences, and paragraphs, helping you optimize content for any platform.</p>
+        <h2>Introduction to Text Audits and Content Metrics</h2>
+        <p>In copywriting, SEO content auditing, publishing, and academic drafting, verifying document statistics is essential. Meeting content length guidelines helps maintain readability. Our online <strong>Word Counter</strong> provides real-time counts for words, characters (with and without spaces), sentences, and paragraphs, alongside estimated reading and speaking times.</p>
         
-        <h3>Improving Readability and SEO Impact</h3>
-        <p>Search engines value structured, readable articles. By monitoring your average sentence lengths and paragraph divisions, you can ensure your content remains readable for users. Our tool goes beyond counting to estimate average reading times, allowing bloggers and editors to structure content formats effectively. Paste your text, view stats immediately, and edit directly inside the input workspace.</p>
-        
-        <h3>Complete Privacy for Confidential Drafts</h3>
-        <p>Writing sensitive business proposals, patent descriptions, or private letters requires a secure workspace. Our Word Counter runs entirely in your local RAM. We never transmit your text over the web, meaning your words stay private. There are no size restrictions or account requirements, making it the most convenient and secure counter on the web.</p>
-    """,
+        <p>Our tool also calculates word density metrics, showing the top 5 repeated words (excluding common English stopwords) to help identify overused terms.</p>
+
+        <h3>Why Content Auditing is Essential for Writing and SEO</h3>
+        <p>SEO meta-descriptions, academic papers, and social media posts all enforce specific character or word limits. Exceeding these limits can cause text truncation in search results or violate publication guidelines. Auditing these metrics is a routine task for writers.</p>
+
+        <h3>Real-Life Use Cases for Word Counting</h3>
+        <ul>
+            <li><strong>SEO Auditing:</strong> Verifying meta-title and meta-description lengths to prevent Google search result truncation.</li>
+            <li><strong>Speech Writing:</strong> Using estimated speaking times to pace presentations.</li>
+            <li><strong>Content Optimization:</strong> Auditing word density to identify and reduce repetitive keywords.</li>
+            <li><strong>Academic Writing:</strong> Keeping essay drafts within required word limits.</li>
+        </ul>
+
+        <h2>Understanding the Metric Algorithms</h2>
+        <p>Our checker calculates text metrics using standard formulas:</p>
+        <ul>
+            <li><strong>Word Counts:</strong> Splitting the input string by whitespace boundaries.</li>
+            <li><strong>Sentence Counts:</strong> Splitting the text by punctuation end markers (<code>.</code>, <code>!</code>, <code>?</code>).</li>
+            <li><strong>Estimated Reading Time:</strong> Calculated using an average reading speed of 225 words per minute.</li>
+            <li><strong>Estimated Speaking Time:</strong> Calculated using an average speaking speed of 130 words per minute.</li>
+            <li><strong>Density Analysis:</strong> Counts occurrences of individual words, filtering out common stopwords (like "the" or "and").</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Audit Text Metrics</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input the Text</strong> — Paste or type your text into the textarea.</li>
+            <li><strong>Step 2: Read Live Stats</strong> — The word, character, sentence, and paragraph counters update instantly.</li>
+            <li><strong>Step 3: Review Reading/Speaking Times</strong> — Check the timer indicators to estimate delivery durations.</li>
+            <li><strong>Step 4: Check Word Density</strong> — Review the list of top repeated words to identify and adjust repetitive language.</li>
+        </ol>
+
+        <h2>Core Benefits of this Word Counter</h2>
+        <ul>
+            <li><strong>Reading and Speaking Estimators:</strong> Predicts presentation and reading times.</li>
+            <li><strong>Stopword Filtering:</strong> Analyzes keyword density by excluding filler words like "the", "and", and "of".</li>
+            <li><strong>100% Client-Side Privacy:</strong> All analysis runs locally in your browser memory. Your text is never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does this tool count words?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool counts words by splitting your text at spaces, tabs, and newlines.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What reading speed is used?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It uses an average silent reading speed of 225 words per minute.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my texts uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All analysis occurs locally in your browser tab, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are stopwords?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Stopwords are common filler words (e.g., "the", "a", "is", "of") that our density analysis filters out to highlight more meaningful keywords.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are drafting copy, format capitalization using our <a href="../text/case-converter.html">Case Converter</a>, generate placeholder texts with our <a href="../text/lorem-ipsum.html">Lorem Ipsum Generator</a>, or compare texts using our <a href="../text/text-diff.html">Text Diff Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Word Counter",
+            "item": "https://multitoolshub.co.in/tools/text/word-counter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Word Counter",
+          "url": "https://multitoolshub.co.in/tools/text/word-counter.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
     "password-generator": """
         <h2>Introduction to Strong Passwords and Cryptographic Security</h2>
         <p>In our connected ecosystem, protecting your personal accounts, cloud portals, and server assets starts with a strong password. Automated scripts and database dictionary attacks test millions of common terms every second. Using names, birthdates, or repeating standard keyboard runs (like 'qwerty') makes accounts vulnerable. Our online <strong>Password Generator</strong> addresses this by building strong, random character strings locally in your browser tab.</p>
@@ -4589,6 +5127,26 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "leap-year": {
+        "title": "Leap Year Checker - Gregorian Leap Year Calculator",
+        "description": "Check if any year is a leap year. Read details on Gregorian rules and audit year ranges dynamically in your browser."
+    },
+
+    "days-between": {
+        "title": "Days Between Dates - Calendar Range Calculator",
+        "description": "Calculate the exact number of days, weeks, months, and years between two calendar dates. Toggle inclusive boundaries in real-time."
+    },
+
+    "markdown-converter": {
+        "title": "Markdown Converter - Convert Markdown to HTML Online",
+        "description": "Translate Markdown syntax into raw HTML tags instantly. Support real-time document styling previews and code outputs."
+    },
+
+    "html-preview": {
+        "title": "HTML Preview - Live HTML Viewer Online",
+        "description": "Render HTML, CSS, and JavaScript code instantly in real-time. Sandbox iframe preview tool with split layouts and coding presets."
+    },
+
     "sha256-generator": {
         "title": "SHA256 Hash Generator - Secure Cryptographic Checksums",
         "description": "Generate 256-bit SHA-256 cryptographic hashes instantly. Perform local text, list, and file audits up to 5MB in secure browser memory."

@@ -1349,6 +1349,419 @@ INPUT_SHA256_GENERATOR = """
 </script>
 """
 
+INPUT_HTML_PREVIEW = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label for="splitLayout" style="margin: 0; white-space: nowrap;">Layout Split:</label>
+            <select id="splitLayout" class="form-control" style="padding: 10px; width: 150px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); height: auto;">
+                <option value="vertical" selected>Vertical Split</option>
+                <option value="horizontal">Horizontal Split</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Load Presets:</span>
+            <button type="button" onclick="loadHtmlPreset('simple')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">CSS Animation</button>
+            <button type="button" onclick="loadHtmlPreset('svg')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">SVG graphic</button>
+            <button type="button" onclick="loadHtmlPreset('bootstrap')" class="category-label" style="border: 1px solid var(--border); padding: 5px 10px; margin: 0; font-size: 0.8rem;">Bootstrap Form</button>
+        </div>
+    </div>
+    
+    <div id="previewWorkspace" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: grid-template-columns 0.3s ease;">
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label for="toolInput">HTML Source Code</label>
+            <textarea id="toolInput" class="form-control" placeholder="Write or paste your HTML, CSS, and JS code here..." style="height: 400px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label>Real-Time Preview</label>
+            <iframe id="htmlPreviewIframe" sandbox="allow-scripts" style="width: 100%; height: 400px; background: white; border: 1px solid var(--border); border-radius: 12px;"></iframe>
+        </div>
+    </div>
+</div>
+<script>
+    const presets = {
+        simple: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: system-ui, sans-serif;
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    border-radius: 20px;
+    animation: spin 3s infinite linear;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>`,
+        svg: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #1e293b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <svg width="200" height="200" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" stroke="#f43f5e" stroke-width="4" fill="none" />
+    <polygon points="50,20 65,65 30,40 70,40 35,65" fill="#f59e0b" />
+  </svg>
+</body>
+</html>`,
+        bootstrap: `<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { padding: 30px; background-color: #f8f9fa; }
+</style>
+</head>
+<body>
+  <div class="card shadow-sm max-w-md mx-auto" style="max-width: 450px;">
+    <div class="card-body">
+      <h5 class="card-title">Bootstrap Sample Form</h5>
+      <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" placeholder="name@example.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit Form</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>`
+    };
+    function loadHtmlPreset(key) {
+        const area = document.getElementById('toolInput');
+        if (area) {
+            area.value = presets[key];
+            const evt = new Event('input', { bubbles: true });
+            area.dispatchEvent(evt);
+        }
+    }
+    const splitSel = document.getElementById('splitLayout');
+    const workspace = document.getElementById('previewWorkspace');
+    splitSel?.addEventListener('change', (e) => {
+        if (workspace) {
+            if (e.target.value === 'horizontal') {
+                workspace.style.gridTemplateColumns = '1fr';
+            } else {
+                workspace.style.gridTemplateColumns = '1fr 1fr';
+            }
+        }
+    });
+    setTimeout(() => {
+        const area = document.getElementById('toolInput');
+        if (area && !area.value) {
+            loadHtmlPreset('simple');
+        }
+    }, 100);
+</script>
+"""
+
+INPUT_MARKDOWN_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <label for="splitLayout" style="margin: 0; white-space: nowrap;">Layout Split:</label>
+            <select id="splitLayout" class="form-control" style="padding: 10px; width: 150px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); height: auto;">
+                <option value="vertical" selected>Vertical Split</option>
+                <option value="horizontal">Horizontal Split</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Preview Mode:</span>
+            <button type="button" id="previewBtnHtml" onclick="toggleMarkdownPreviewMode('html')" class="category-label active" style="border: none; padding: 8px 12px; margin: 0; font-size: 0.8rem;">Rendered Preview</button>
+            <button type="button" id="previewBtnCode" onclick="toggleMarkdownPreviewMode('code')" class="category-label" style="border: 1px solid var(--border); padding: 8px 12px; margin: 0; font-size: 0.8rem;">Raw HTML Code</button>
+        </div>
+    </div>
+    
+    <div id="markdownWorkspace" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: grid-template-columns 0.3s ease;">
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label for="toolInput">Markdown Input</label>
+            <textarea id="toolInput" class="form-control" placeholder="# Heading 1&#10;&#10;Write markdown text here. Supports:&#10;- **Bold** and *Italics*&#10;- Bullet lists&#10;- Blockquotes&#10;- Inline \\`code\\`" style="height: 400px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+        <div style="display: grid; gap: 10px; align-content: start;">
+            <label>Output Area</label>
+            <div id="markdownPreviewContainer" class="markdown-body" style="width: 100%; height: 400px; padding: 20px; overflow-y: auto; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main);"></div>
+            <textarea id="markdownHtmlCodeContainer" class="form-control" readonly style="width: 100%; height: 400px; display: none; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+        </div>
+    </div>
+</div>
+<script>
+    let currentPreviewMode = "html";
+    function toggleMarkdownPreviewMode(mode) {
+        currentPreviewMode = mode;
+        const htmlBtn = document.getElementById('previewBtnHtml');
+        const codeBtn = document.getElementById('previewBtnCode');
+        const previewDiv = document.getElementById('markdownPreviewContainer');
+        const codeTextarea = document.getElementById('markdownHtmlCodeContainer');
+        
+        if (mode === 'code') {
+            htmlBtn.className = "category-label";
+            htmlBtn.style.border = "1px solid var(--border)";
+            codeBtn.className = "category-label active";
+            codeBtn.style.border = "none";
+            
+            if (previewDiv) previewDiv.style.display = 'none';
+            if (codeTextarea) codeTextarea.style.display = 'block';
+        } else {
+            htmlBtn.className = "category-label active";
+            htmlBtn.style.border = "none";
+            codeBtn.className = "category-label";
+            codeBtn.style.border = "1px solid var(--border)";
+            
+            if (previewDiv) previewDiv.style.display = 'block';
+            if (codeTextarea) codeTextarea.style.display = 'none';
+        }
+    }
+    const splitSelMark = document.getElementById('splitLayout');
+    const workspaceMark = document.getElementById('markdownWorkspace');
+    splitSelMark?.addEventListener('change', (e) => {
+        if (workspaceMark) {
+            if (e.target.value === 'horizontal') {
+                workspaceMark.style.gridTemplateColumns = '1fr';
+            } else {
+                workspaceMark.style.gridTemplateColumns = '1fr 1fr';
+            }
+        }
+    });
+    setTimeout(() => {
+        const area = document.getElementById('toolInput');
+        if (area && !area.value) {
+            area.value = `# Welcome to Markdown Converter
+
+MultiTools Hub provides this interactive Markdown tool. 
+
+## Key Features
+- **Real-Time Compilation**: View changes instantly.
+- **HTML Export**: Copy clean target code.
+- **Client-Side privacy**: Your text stays in the browser.
+
+> Place blockquotes easily to highlight items of high importance.
+
+Try modifying this text block!`;
+            const evt = new Event('input', { bubbles: true });
+            area.dispatchEvent(evt);
+        }
+    }, 100);
+</script>
+"""
+
+INPUT_WORD_COUNTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Text to Count</label>
+        <textarea id="toolInput" class="form-control" placeholder="Type, paste, or draft your text content here to analyze dynamic stats..." style="height: 150px;"></textarea>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; text-align: center; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--border);">
+        <div>
+            <div id="statWords" style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Words</div>
+        </div>
+        <div>
+            <div id="statCharsWith" style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Characters (Spaces)</div>
+        </div>
+        <div>
+            <div id="statCharsWithout" style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Characters (No Space)</div>
+        </div>
+        <div>
+            <div id="statSentences" style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Sentences</div>
+        </div>
+        <div>
+            <div id="statParagraphs" style="font-size: 1.4rem; font-weight: 700; color: var(--primary);">0</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Paragraphs</div>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: rgba(var(--p-hue), 90%, 65%, 0.03); border: 1px solid rgba(var(--p-hue), 90%, 65%, 0.2); padding: 15px 20px; border-radius: 15px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">⏱️</span>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Estimated Reading Time</div>
+                <div id="readTime" style="font-weight: 600; color: var(--text-main);">0 minutes</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">🗣️</span>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Estimated Speaking Time</div>
+                <div id="speakTime" style="font-weight: 600; color: var(--text-main);">0 minutes</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 15px; padding: 20px;">
+        <h4 style="margin-top:0; margin-bottom: 15px; font-size: 1rem; color: var(--primary); display: flex; align-items: center; gap: 10px;">📊 Word Density Analysis (Top 5 Repeated Words)</h4>
+        <div id="densityList" style="display: grid; gap: 10px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem; font-style: italic;">Enter text above to compile keyword repetition statistics.</div>
+        </div>
+    </div>
+</div>
+<script>
+    const wordArea = document.getElementById('toolInput');
+    const processStats = () => {
+        const text = wordArea?.value || '';
+        
+        const rawWords = text.trim() ? text.trim().split(/\\s+/) : [];
+        const words = rawWords.length;
+        const charsWith = text.length;
+        const charsWithout = text.replace(/\\s/g, '').length;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+        const paragraphs = text.trim() ? text.split(/\\n+/).filter(p => p.trim()).length : 0;
+        
+        document.getElementById('statWords').innerText = words;
+        document.getElementById('statCharsWith').innerText = charsWith;
+        document.getElementById('statCharsWithout').innerText = charsWithout;
+        document.getElementById('statSentences').innerText = sentences;
+        document.getElementById('statParagraphs').innerText = paragraphs;
+        
+        const readMin = (words / 225).toFixed(1);
+        const speakMin = (words / 130).toFixed(1);
+        document.getElementById('readTime').innerText = words > 0 ? `${readMin} min (${Math.ceil(words * 60 / 225)} sec)` : "0 minutes";
+        document.getElementById('speakTime').innerText = words > 0 ? `${speakMin} min (${Math.ceil(words * 60 / 130)} sec)` : "0 minutes";
+        
+        const densityList = document.getElementById('densityList');
+        if (!densityList) return;
+        
+        if (words === 0) {
+            densityList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; font-style: italic;">Enter text above to compile keyword repetition statistics.</div>';
+            return;
+        }
+        
+        const counts = {};
+        const stopwords = new Set(["the", "a", "and", "of", "to", "in", "is", "that", "it", "on", "for", "with", "as", "at", "by", "an", "this", "be", "are", "from", "or", "your", "our", "my"]);
+        rawWords.forEach(w => {
+            const clean = w.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (clean && clean.length > 2 && !stopwords.has(clean)) {
+                counts[clean] = (counts[clean] || 0) + 1;
+            }
+        });
+        
+        const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 5);
+        if (sorted.length === 0) {
+            densityList.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; font-style: italic;">Provide longer paragraphs with diverse terms to calculate keyword patterns.</div>';
+            return;
+        }
+        
+        let html = '';
+        sorted.forEach(([word, count]) => {
+            const percentage = ((count / words) * 100).toFixed(1);
+            html += `
+                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
+                    <strong style="color: var(--text-main); font-family: monospace;">"${word}"</strong>
+                    <div style="display: flex; gap: 15px; font-size: 0.9rem;">
+                        <span style="color: var(--primary);">Count: ${count}</span>
+                        <span style="color: var(--text-muted);">Density: ${percentage}%</span>
+                    </div>
+                </div>
+            `;
+        });
+        densityList.innerHTML = html;
+    };
+    wordArea?.addEventListener('input', processStats);
+</script>
+"""
+
+INPUT_DAYS_BETWEEN = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" class="form-control" style="padding: 15px; height: 50px;">
+        </div>
+        <div>
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" class="form-control" style="padding: 15px; height: 50px;">
+        </div>
+    </div>
+    
+    <div>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="includeEndDate" style="width: 20px; height: 20px;">
+            Include end date in calculation (add 1 day)
+        </label>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    const startInput = document.getElementById('startDate');
+    const endInput = document.getElementById('endDate');
+    if (startInput && endInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        startInput.value = today.toISOString().split('T')[0];
+        endInput.value = tomorrow.toISOString().split('T')[0];
+    }
+</script>
+"""
+
+INPUT_LEAP_YEAR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="leapYearInput">Target Year to Check</label>
+            <input type="number" id="leapYearInput" class="form-control" value="2026" min="1" max="9999" style="padding: 15px;">
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; height: 54px; margin: 0;">
+                <input type="checkbox" id="leapRangeToggle" style="width: 20px; height: 20px;">
+                Audit a Year Range Instead
+            </label>
+        </div>
+    </div>
+    
+    <div id="leapRangeContainer" style="display: none; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="leapStartYear">Start Year</label>
+            <input type="number" id="leapStartYear" class="form-control" value="1990" min="1" max="9999" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="leapEndYear">End Year</label>
+            <input type="number" id="leapEndYear" class="form-control" value="2050" min="1" max="9999" style="padding: 15px;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    document.getElementById('leapRangeToggle')?.addEventListener('change', (e) => {
+        const rangeDiv = document.getElementById('leapRangeContainer');
+        if (rangeDiv) {
+            rangeDiv.style.display = e.target.checked ? 'grid' : 'none';
+        }
+    });
+</script>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -1741,6 +2154,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_MD5_GENERATOR
         elif tool_name == "sha256-generator":
             current_input = INPUT_SHA256_GENERATOR
+        elif tool_name == "html-preview":
+            current_input = INPUT_HTML_PREVIEW
+        elif tool_name == "markdown-converter":
+            current_input = INPUT_MARKDOWN_CONVERTER
+        elif tool_name == "word-counter":
+            current_input = INPUT_WORD_COUNTER
+        elif tool_name == "days-between":
+            current_input = INPUT_DAYS_BETWEEN
+        elif tool_name == "leap-year":
+            current_input = INPUT_LEAP_YEAR
             
         seo_content = get_seo_content(category, tool_name, title)
         

@@ -1165,10 +1165,24 @@ async function runCoreLogic(tool, input, output) {
     
     // Text Tools
     else if (tool.includes('word counter')) {
-        const words = input.trim().split(/\s+/).filter(x => x).length;
-        const chars = input.length;
-        const sentences = input.split(/[.!?]+/).filter(x => x).length;
-        result = `Words: ${words}\nCharacters: ${chars}\nSentences: ${sentences}`;
+        const text = input || "";
+        const rawWords = text.trim() ? text.trim().split(/\s+/) : [];
+        const words = rawWords.length;
+        const charsWith = text.length;
+        const charsWithout = text.replace(/\s/g, '').length;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+        const paragraphs = text.trim() ? text.split(/\n+/).filter(p => p.trim()).length : 0;
+        
+        const readMin = (words / 225).toFixed(1);
+        const speakMin = (words / 130).toFixed(1);
+        
+        result = `Word Count: ${words}\n` +
+                 `Character Count (with spaces): ${charsWith}\n` +
+                 `Character Count (without spaces): ${charsWithout}\n` +
+                 `Sentence Count: ${sentences}\n` +
+                 `Paragraph Count: ${paragraphs}\n\n` +
+                 `Estimated Reading Time: ${readMin} minutes\n` +
+                 `Estimated Speaking Time: ${speakMin} minutes`;
     } else if (tool.includes('char counter')) {
         result = `Characters (with spaces): ${input.length}\nCharacters (no spaces): ${input.replace(/\s/g, '').length}`;
     } else if (tool.includes('sentence counter')) {
@@ -2822,16 +2836,91 @@ async function runCoreLogic(tool, input, output) {
         const now = new Date();
         result = `London: ${now.toLocaleTimeString('en-GB', {timeZone:'Europe/London'})}\nNew York: ${now.toLocaleTimeString('en-US', {timeZone:'America/New_York'})}\nTokyo: ${now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo'})}\nDubai: ${now.toLocaleTimeString('en-US', {timeZone:'Asia/Dubai'})}\nDelhi: ${now.toLocaleTimeString('en-GB', {timeZone:'Asia/Kolkata'})}`;
     } else if (tool.includes('leap year')) {
-        const year = parseInt(input) || new Date().getFullYear();
-        const isLeap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-        result = `${year} is ${isLeap ? 'a Leap Year ✅' : 'NOT a Leap Year ❌'}`;
+        const isRange = document.getElementById('leapRangeToggle')?.checked;
+        const singleYear = parseInt(document.getElementById('leapYearInput')?.value, 10);
+        
+        const checkLeap = (y) => (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+        
+        if (isRange) {
+            const startYear = parseInt(document.getElementById('leapStartYear')?.value, 10);
+            const endYear = parseInt(document.getElementById('leapEndYear')?.value, 10);
+            if (isNaN(startYear) || isNaN(endYear)) {
+                result = "Validation Error: Please enter valid start and end years.";
+            } else if (startYear > endYear) {
+                result = "Validation Error: Start year cannot be greater than end year.";
+            } else {
+                let leapYears = [];
+                for (let y = startYear; y <= endYear; y++) {
+                    if (checkLeap(y)) {
+                        leapYears.push(y);
+                    }
+                }
+                result = `Leap Years between ${startYear} and ${endYear}:\n` +
+                         `========================================\n\n` +
+                         `Total Found: ${leapYears.length}\n` +
+                         `Leap Years: ${leapYears.length > 0 ? leapYears.join(', ') : 'None'}`;
+            }
+        } else {
+            if (isNaN(singleYear) || singleYear < 1) {
+                result = "Validation Error: Please enter a valid positive year.";
+            } else {
+                const isLeap = checkLeap(singleYear);
+                let nextLeaps = [];
+                let curr = singleYear + 1;
+                while (nextLeaps.length < 10) {
+                    if (checkLeap(curr)) {
+                        nextLeaps.push(curr);
+                    }
+                    curr++;
+                }
+                
+                result = `Year Checked: ${singleYear}\n` +
+                         `========================================\n\n` +
+                         `• Status: ${isLeap ? '✅ Yes, this is a Leap Year.' : '❌ No, this is not a Leap Year.'}\n` +
+                         `• Logic: ${singleYear} ${isLeap ? 'is divisible by 4 (and not 100, or is divisible by 400).' : 'does not satisfy Gregorian leap rules.'}\n\n` +
+                         `Next 10 Leap Years after ${singleYear}:\n` +
+                         `${nextLeaps.join(', ')}`;
+            }
+        }
     } else if (tool.includes('days between')) {
-        const dates = input.split(' ');
-        if (dates.length >= 2) {
-            const d1 = new Date(dates[0]), d2 = new Date(dates[1]);
-            const diff = Math.abs(d1 - d2);
-            result = `Difference: ${Math.ceil(diff / (1000 * 60 * 60 * 24))} days`;
-        } else { result = "Format: YYYY-MM-DD YYYY-MM-DD"; }
+        const startVal = document.getElementById('startDate')?.value;
+        const endVal = document.getElementById('endDate')?.value;
+        const includeEnd = document.getElementById('includeEndDate')?.checked;
+        
+        if (!startVal || !endVal) {
+            result = "Validation Error: Please select both a start date and an end date.";
+        } else {
+            const d1 = new Date(startVal);
+            const d2 = new Date(endVal);
+            
+            if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+                result = "Validation Error: One of the selected dates is invalid.";
+            } else {
+                let diffMs = Math.abs(d2 - d1);
+                let diffDays = diffMs / (1000 * 60 * 60 * 24);
+                
+                if (includeEnd) {
+                    diffDays += 1;
+                    diffMs += 1000 * 60 * 60 * 24;
+                }
+                
+                const totalWeeks = (diffDays / 7).toFixed(1);
+                const totalMonths = (diffDays / 30.4375).toFixed(1);
+                const totalYears = (diffDays / 365.25).toFixed(1);
+                
+                result = `Start Date: ${d1.toDateString()}\n` +
+                         `End Date:   ${d2.toDateString()}\n` +
+                         `========================================\n\n` +
+                         `• Total Difference: ${Math.floor(diffDays)} days\n` +
+                         `• Equivalent Weeks: ${totalWeeks} weeks\n` +
+                         `• Equivalent Months: ${totalMonths} months\n` +
+                         `• Equivalent Years: ${totalYears} years\n\n` +
+                         `Detailed Metrics:\n` +
+                         `• Hours: ${(diffDays * 24).toLocaleString()}\n` +
+                         `• Minutes: ${(diffDays * 24 * 60).toLocaleString()}\n` +
+                         `• Mode: ${includeEnd ? 'End date included (+1 day)' : 'Standard difference'}`;
+            }
+        }
     } else if (tool.includes('timezone converter')) {
         const now = new Date();
         result = `From Local: ${now.toLocaleTimeString()}\nTo Tokyo: ${now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo'})}\nTo New York: ${now.toLocaleTimeString('en-US', {timeZone:'America/New_York'})}\nTo London: ${now.toLocaleTimeString('en-GB', {timeZone:'Europe/London'})}`;
@@ -2859,17 +2948,48 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
         }
     }
 
-    // Web Tools
     else if (tool.includes('html preview')) {
-        const resContainer = document.getElementById('imageResultContainer');
-        const resultImg = document.getElementById('imageOutput');
-        if (resContainer) {
-            resContainer.style.display = 'block';
-            resContainer.innerHTML = `<iframe sandbox="allow-scripts" style="width:100%; height:300px; border:1px solid var(--border); border-radius:15px; background:white;" srcdoc="${input.replace(/"/g, '&quot;')}"></iframe>`;
-            result = "Live preview rendered below.";
+        const iframe = document.getElementById('htmlPreviewIframe');
+        if (iframe) {
+            iframe.srcdoc = input;
+            result = "Live preview rendered directly inside the preview frame.";
+        } else {
+            result = "Error: Preview container not found.";
         }
     } else if (tool.includes('markdown converter')) {
-        result = input.replace(/^# (.*$)/gim, '<h1>$1</h1>').replace(/^## (.*$)/gim, '<h2>$1</h2>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\*(.*)\*/gim, '<i>$1</i>').replace(/\n/gim, '<br>');
+        const rawText = input || "";
+        const parseMarkdown = (md) => {
+            let html = md
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+                
+            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            html = html.replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>');
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
+            html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+            html = html.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
+            html = html.replace(/<\/ul>\s*<ul>/gim, '');
+            html = html.replace(/\n$/gim, '<br>');
+            html = html.replace(/\n\n/gim, '</p><p>');
+            return `<p>${html}</p>`.replace(/<p>\s*<\/p>/g, '');
+        };
+        
+        const htmlOutput = parseMarkdown(rawText);
+        const previewDiv = document.getElementById('markdownPreviewContainer');
+        const codeTextarea = document.getElementById('markdownHtmlCodeContainer');
+        
+        if (previewDiv) previewDiv.innerHTML = htmlOutput;
+        if (codeTextarea) codeTextarea.value = htmlOutput;
+        
+        result = htmlOutput;
     } else if (tool.includes('url shortener')) {
         const url = input.trim();
         if (!url || !url.startsWith('http')) {
