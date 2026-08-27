@@ -1912,9 +1912,106 @@ async function runCoreLogic(tool, input, output) {
         const min = parseInt(range[0]), max = parseInt(range[1] || 100);
         result = Math.floor(Math.random() * (max - min + 1) + min).toString();
     } else if (tool.includes('binary converter')) {
-        const num = parseInt(input);
-        if (isNaN(num)) result = "Please enter a valid number";
-        else result = `Binary: ${num.toString(2)}\nHex: ${num.toString(16).toUpperCase()}\nOctal: ${num.toString(8)}\nDecimal: ${num}`;
+        const mode = document.getElementById('binaryMode')?.value || "bin_to_all";
+        const cleanInput = input.trim();
+        
+        if (!cleanInput) {
+            result = "Validation Error: Input is empty. Please enter value to convert.";
+        } else {
+            let tableRows = [];
+            let textResult = "";
+            
+            if (mode === 'bin_to_all') {
+                if (!/^[01\s]+$/.test(cleanInput)) {
+                    result = "Validation Error: Input contains non-binary characters. Please enter only 0s and 1s.";
+                    return;
+                }
+                const cleanBin = cleanInput.replace(/\s+/g, '');
+                const dec = parseInt(cleanBin, 2);
+                if (isNaN(dec)) {
+                    result = "Validation Error: Invalid binary value.";
+                    return;
+                }
+                tableRows = [
+                    { base: "Decimal (Base 10)", val: dec },
+                    { base: "Hexadecimal (Base 16)", val: dec.toString(16).toUpperCase() },
+                    { base: "Octal (Base 8)", val: dec.toString(8) }
+                ];
+                textResult = `Binary Conversion Report\n========================\n\n• Binary: ${cleanBin}\n• Decimal: ${dec}\n• Hexadecimal: ${dec.toString(16).toUpperCase()}\n• Octal: ${dec.toString(8)}`;
+            } 
+            else if (mode === 'dec_to_all') {
+                if (!/^-?\d+$/.test(cleanInput)) {
+                    result = "Validation Error: Input is not a valid integer.";
+                    return;
+                }
+                const dec = parseInt(cleanInput, 10);
+                tableRows = [
+                    { base: "Binary (Base 2)", val: dec.toString(2) },
+                    { base: "Hexadecimal (Base 16)", val: dec.toString(16).toUpperCase() },
+                    { base: "Octal (Base 8)", val: dec.toString(8) }
+                ];
+                textResult = `Decimal Conversion Report\n=========================\n\n• Decimal: ${dec}\n• Binary: ${dec.toString(2)}\n• Hexadecimal: ${dec.toString(16).toUpperCase()}\n• Octal: ${dec.toString(8)}`;
+            }
+            else if (mode === 'text_to_bin') {
+                let binaryStr = "";
+                for (let i = 0; i < cleanInput.length; i++) {
+                    const charCode = cleanInput.charCodeAt(i);
+                    binaryStr += charCode.toString(2).padStart(8, '0') + " ";
+                }
+                binaryStr = binaryStr.trim();
+                tableRows = [
+                    { base: "Input Length", val: `${cleanInput.length} character(s)` },
+                    { base: "Binary String (UTF-8)", val: binaryStr }
+                ];
+                textResult = binaryStr;
+            }
+            else if (mode === 'bin_to_text') {
+                const bytes = cleanInput.split(/\s+/);
+                let textStr = "";
+                for (let i = 0; i < bytes.length; i++) {
+                    if (!bytes[i]) continue;
+                    if (!/^[01]+$/.test(bytes[i])) {
+                        result = "Validation Error: Binary byte contains non-binary characters.";
+                        return;
+                    }
+                    const charCode = parseInt(bytes[i], 2);
+                    textStr += String.fromCharCode(charCode);
+                }
+                tableRows = [
+                    { base: "Binary Bytes Count", val: `${bytes.filter(b=>b).length} byte(s)` },
+                    { base: "Decoded Plain Text", val: textStr }
+                ];
+                textResult = textStr;
+            }
+            
+            const tableContainer = document.getElementById('binaryResultsTableContainer');
+            const tbody = document.getElementById('binaryResultsTableBody');
+            if (tableContainer && tbody) {
+                tbody.innerHTML = '';
+                for (let row of tableRows) {
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid var(--border)';
+                    
+                    const tdBase = document.createElement('td');
+                    tdBase.style.padding = '12px 15px';
+                    tdBase.style.color = 'var(--text-main)';
+                    tdBase.innerText = row.base;
+                    
+                    const tdVal = document.createElement('td');
+                    tdVal.style.padding = '12px 15px';
+                    tdVal.style.fontFamily = 'monospace';
+                    tdVal.style.color = 'var(--text-muted)';
+                    tdVal.style.wordBreak = 'break-all';
+                    tdVal.innerText = row.val;
+                    
+                    tr.appendChild(tdBase);
+                    tr.appendChild(tdVal);
+                    tbody.appendChild(tr);
+                }
+                tableContainer.style.display = 'block';
+            }
+            result = textResult;
+        }
     } else if (tool.includes('percentage calc')) {
         const val1El = document.getElementById('percentageVal1');
         const val2El = document.getElementById('percentageVal2');
@@ -2218,8 +2315,62 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('temp converter')) {
-        const val = parseFloat(input) || 0;
-        result = `${val}°C = ${(val * 9/5 + 32).toFixed(1)}°F = ${(val + 273.15).toFixed(1)}K`;
+        const valStr = document.getElementById('tempValue')?.value;
+        const val = parseFloat(valStr !== undefined ? valStr : input);
+        if (isNaN(val)) {
+            result = "Validation Error: Please enter a valid number to convert.";
+        } else {
+            const unit = document.getElementById('tempFrom')?.value || "c";
+            
+            let cValue = 0;
+            if (unit === 'c') cValue = val;
+            else if (unit === 'f') cValue = (val - 32) * 5/9;
+            else if (unit === 'k') cValue = val - 273.15;
+            else if (unit === 'r') cValue = (val - 491.67) * 5/9;
+            
+            const results = {
+                "Celsius (°C)": cValue,
+                "Fahrenheit (°F)": cValue * 9/5 + 32,
+                "Kelvin (K)": cValue + 273.15,
+                "Rankine (°R)": (cValue + 273.15) * 9/5
+            };
+            
+            if (results["Kelvin (K)"] < 0) {
+                result = `Conversion Error: Temperature cannot fall below absolute zero (-273.15°C / 0K). Entered value corresponds to ${results["Kelvin (K)"].toFixed(2)}K.`;
+            } else {
+                const tableContainer = document.getElementById('tempResultTableContainer');
+                const tbody = document.getElementById('tempResultTableBody');
+                if (tableContainer && tbody) {
+                    tbody.innerHTML = '';
+                    for (let [u, convertedVal] of Object.entries(results)) {
+                        const row = document.createElement('tr');
+                        row.style.borderBottom = '1px solid var(--border)';
+                        
+                        const tdUnit = document.createElement('td');
+                        tdUnit.style.padding = '12px 15px';
+                        tdUnit.style.color = 'var(--text-main)';
+                        tdUnit.innerText = u;
+                        
+                        const tdVal = document.createElement('td');
+                        tdVal.style.padding = '12px 15px';
+                        tdVal.style.fontFamily = 'monospace';
+                        tdVal.style.color = 'var(--text-muted)';
+                        tdVal.innerText = convertedVal.toFixed(4).replace(/\.?0+$/, '');
+                        
+                        row.appendChild(tdUnit);
+                        row.appendChild(tdVal);
+                        tbody.appendChild(row);
+                    }
+                    tableContainer.style.display = 'block';
+                }
+                
+                let textResult = `Temperature Conversion Report\n=============================\n\n`;
+                for (let [u, convertedVal] of Object.entries(results)) {
+                    textResult += `• ${u}: ${convertedVal.toFixed(4).replace(/\.?0+$/, '')}\n`;
+                }
+                result = textResult;
+            }
+        }
     } else if (tool.includes('roman numeral')) {
         const roman = (num) => {
             const map = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
@@ -2231,11 +2382,131 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('math solver')) {
         try { result = "Result: " + eval(input.replace(/[^-+*/().0-9]/g, '')); } catch(e) { result = "Error solving expression"; }
     } else if (tool.includes('length converter')) {
-        const val = parseFloat(input) || 0;
-        result = `${val} m = ${(val * 100).toFixed(2)} cm\n${val} m = ${(val * 3.28084).toFixed(2)} ft\n${val} m = ${(val * 39.3701).toFixed(2)} in\n${val} m = ${(val / 1000).toFixed(3)} km`;
+        const valStr = document.getElementById('lengthValue')?.value;
+        const val = parseFloat(valStr !== undefined ? valStr : input);
+        if (isNaN(val)) {
+            result = "Validation Error: Please enter a valid number to convert.";
+        } else {
+            const unit = document.getElementById('lengthFrom')?.value || "m";
+            
+            const mFactor = {
+                m: 1,
+                km: 1000,
+                cm: 0.01,
+                mm: 0.001,
+                mi: 1609.344,
+                yd: 0.9144,
+                ft: 0.3048,
+                in: 0.0254
+            };
+            
+            const valueInMeters = val * (mFactor[unit] || 1);
+            
+            const results = {
+                "Meter (m)": valueInMeters,
+                "Kilometer (km)": valueInMeters / 1000,
+                "Centimeter (cm)": valueInMeters * 100,
+                "Millimeter (mm)": valueInMeters * 1000,
+                "Mile (mi)": valueInMeters / 1609.344,
+                "Yard (yd)": valueInMeters / 0.9144,
+                "Foot (ft)": valueInMeters / 0.3048,
+                "Inch (in)": valueInMeters / 0.0254
+            };
+            
+            const tableContainer = document.getElementById('lengthResultTableContainer');
+            const tbody = document.getElementById('lengthResultTableBody');
+            if (tableContainer && tbody) {
+                tbody.innerHTML = '';
+                for (let [u, convertedVal] of Object.entries(results)) {
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid var(--border)';
+                    
+                    const tdUnit = document.createElement('td');
+                    tdUnit.style.padding = '12px 15px';
+                    tdUnit.style.color = 'var(--text-main)';
+                    tdUnit.innerText = u;
+                    
+                    const tdVal = document.createElement('td');
+                    tdVal.style.padding = '12px 15px';
+                    tdVal.style.fontFamily = 'monospace';
+                    tdVal.style.color = 'var(--text-muted)';
+                    tdVal.innerText = convertedVal % 1 === 0 ? convertedVal : convertedVal.toFixed(6).replace(/\.?0+$/, '');
+                    
+                    row.appendChild(tdUnit);
+                    row.appendChild(tdVal);
+                    tbody.appendChild(row);
+                }
+                tableContainer.style.display = 'block';
+            }
+            
+            let textResult = `Length Conversion Report\n========================\n\n`;
+            for (let [u, convertedVal] of Object.entries(results)) {
+                const formatted = convertedVal % 1 === 0 ? convertedVal : convertedVal.toFixed(6).replace(/\.?0+$/, '');
+                textResult += `• ${u}: ${formatted}\n`;
+            }
+            result = textResult;
+        }
     } else if (tool.includes('weight converter')) {
-        const val = parseFloat(input) || 0;
-        result = `${val} kg = ${(val * 2.20462).toFixed(2)} lbs\n${val} kg = ${(val * 1000).toFixed(0)} g\n${val} kg = ${(val * 35.274).toFixed(2)} oz`;
+        const valStr = document.getElementById('weightValue')?.value;
+        const val = parseFloat(valStr !== undefined ? valStr : input);
+        if (isNaN(val)) {
+            result = "Validation Error: Please enter a valid number to convert.";
+        } else {
+            const unit = document.getElementById('weightFrom')?.value || "kg";
+            
+            const kgFactor = {
+                kg: 1,
+                g: 0.001,
+                lb: 0.45359237,
+                oz: 0.028349523125,
+                st: 6.35029318,
+                ton: 1000
+            };
+            
+            const valueInKg = val * (kgFactor[unit] || 1);
+            
+            const results = {
+                "Kilogram (kg)": valueInKg,
+                "Gram (g)": valueInKg * 1000,
+                "Pound (lb)": valueInKg / 0.45359237,
+                "Ounce (oz)": valueInKg / 0.028349523125,
+                "Stone (st)": valueInKg / 6.35029318,
+                "Metric Ton (t)": valueInKg / 1000
+            };
+            
+            const tableContainer = document.getElementById('weightResultTableContainer');
+            const tbody = document.getElementById('weightResultTableBody');
+            if (tableContainer && tbody) {
+                tbody.innerHTML = '';
+                for (let [u, convertedVal] of Object.entries(results)) {
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid var(--border)';
+                    
+                    const tdUnit = document.createElement('td');
+                    tdUnit.style.padding = '12px 15px';
+                    tdUnit.style.color = 'var(--text-main)';
+                    tdUnit.innerText = u;
+                    
+                    const tdVal = document.createElement('td');
+                    tdVal.style.padding = '12px 15px';
+                    tdVal.style.fontFamily = 'monospace';
+                    tdVal.style.color = 'var(--text-muted)';
+                    tdVal.innerText = convertedVal % 1 === 0 ? convertedVal : convertedVal.toFixed(6).replace(/\.?0+$/, '');
+                    
+                    row.appendChild(tdUnit);
+                    row.appendChild(tdVal);
+                    tbody.appendChild(row);
+                }
+                tableContainer.style.display = 'block';
+            }
+            
+            let textResult = `Weight Conversion Report\n========================\n\n`;
+            for (let [u, convertedVal] of Object.entries(results)) {
+                const formatted = convertedVal % 1 === 0 ? convertedVal : convertedVal.toFixed(6).replace(/\.?0+$/, '');
+                textResult += `• ${u}: ${formatted}\n`;
+            }
+            result = textResult;
+        }
     } else if (tool.includes('hex converter')) {
         const cleanInput = input.trim().replace(/^0x|^#/i, '');
         if (/^[0-9a-fA-F]+$/.test(cleanInput)) {
@@ -2530,44 +2801,59 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
             }
         }
     } else if (tool.includes('favicon generator')) {
-        if (!CURRENT_FILE) {
-            result = "Please upload an image first!";
+        const fileData = window.CURRENT_FAVICON_DATA;
+        if (!fileData) {
+            result = "Validation Error: Please select an image file first.";
         } else {
+            const size = parseInt(document.getElementById('favSize')?.value || "32", 10);
+            const format = document.getElementById('favFormat')?.value || "png";
+            
             const canvas = document.createElement('canvas');
-            canvas.width = 32;
-            canvas.height = 32;
+            canvas.width = size;
+            canvas.height = size;
             const ctx = canvas.getContext('2d');
             const img = new Image();
             
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0, 32, 32);
-                    const dataUrl = canvas.toDataURL('image/png');
-                    
-                    const resultImg = document.getElementById('imageOutput');
-                    const resContainer = document.getElementById('imageResultContainer');
-                    const downloadBtn = document.getElementById('downloadBtn');
-                    
-                    if (resultImg) resultImg.src = dataUrl;
-                    if (resContainer) resContainer.style.display = 'block';
-                    if (downloadBtn) {
-                        downloadBtn.style.display = 'inline-block';
-                        downloadBtn.onclick = () => {
-                            const link = document.createElement('a');
-                            link.download = 'favicon.png';
-                            link.href = dataUrl;
-                            link.click();
-                        };
-                    }
-                    if (output) {
-                        output.innerText = "Favicon (32x32) generated successfully! Click Download to save.";
-                    }
-                };
-                img.src = e.target.result;
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, size, size);
+                
+                const dataUrl = canvas.toDataURL('image/png');
+                const filename = `favicon.${format}`;
+                
+                const previewImg = document.getElementById('faviconPreviewImg');
+                const previewContainer = document.getElementById('faviconPreviewContainer');
+                if (previewImg && previewContainer) {
+                    previewImg.src = dataUrl;
+                    previewContainer.style.display = 'block';
+                }
+                
+                const resultImg = document.getElementById('imageOutput');
+                const resContainer = document.getElementById('imageResultContainer');
+                const downloadBtn = document.getElementById('downloadBtn');
+                
+                if (resultImg) resultImg.src = dataUrl;
+                if (resContainer) resContainer.style.display = 'block';
+                if (downloadBtn) {
+                    downloadBtn.style.display = 'inline-block';
+                    downloadBtn.onclick = () => {
+                        const link = document.createElement('a');
+                        link.download = filename;
+                        link.href = dataUrl;
+                        link.click();
+                    };
+                }
+                
+                if (output) {
+                    output.innerText = `Favicon (${size}x${size} px, ${format.toUpperCase()}) generated successfully!\n\nClick the Download button above to save the file.`;
+                }
             };
-            reader.readAsDataURL(CURRENT_FILE);
-            result = "Processing image...";
+            
+            img.onerror = () => {
+                if (output) output.innerText = "Error: Invalid image file.";
+            };
+            
+            img.src = fileData;
+            result = "Processing favicon...";
         }
     } else if (tool.includes('dns lookup')) {
         const domain = input.trim().replace(/^https?:\/\//i, '').split('/')[0];

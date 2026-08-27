@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favicon Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Favicon Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Favicon Generator - Create Website Icons Online</title>
+    <meta name="description" content="Convert PNG, JPG, SVG, or WEBP images into optimized favicon files. Choose custom resolutions from 16px to 128px in PNG or ICO format.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,19 +64,64 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Upload Your Image</label>
-    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
-        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 15px; padding: 25px; text-align: center;">
+        <label style="display: block; font-weight: 600; margin-bottom: 15px; color: var(--primary);">Upload Source Image</label>
+        <input type="file" id="faviconFile" class="form-control" accept="image/*" style="display: none;">
+        <button type="button" onclick="document.getElementById('faviconFile').click()" class="category-label" style="display: inline-block; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 12px 25px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;">Select Image File</button>
+        <span id="favFileName" style="display: block; font-size: 0.9rem; color: var(--text-muted);">Supports PNG, JPG, WEBP, or SVG (Max 5MB)</span>
     </div>
-    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
-        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="favSize">Favicon Output Size</label>
+            <select id="favSize" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="16">16 x 16 px (Standard)</option>
+                <option value="32" selected>32 x 32 px (Recommended)</option>
+                <option value="48">48 x 48 px</option>
+                <option value="64">64 x 64 px</option>
+                <option value="128">128 x 128 px</option>
+            </select>
+        </div>
+        <div>
+            <label for="favFormat">Output File Format</label>
+            <select id="favFormat" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="png" selected>PNG Graphic (.png)</option>
+                <option value="ico">ICO Icon Format (.ico)</option>
+            </select>
+        </div>
     </div>
-    <!-- Hidden text input for compatibility -->
-    <textarea id="toolInput" style="display:none"></textarea>
+    <!-- Canvas display for generated favicon in workspace -->
+    <div id="faviconPreviewContainer" style="display:none; text-align: center; margin-top: 15px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border);">
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Generated Favicon Preview:</p>
+        <div style="display: inline-flex; align-items: center; justify-content: center; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <img id="faviconPreviewImg" style="image-rendering: pixelated; width: 32px; height: 32px;">
+        </div>
+    </div>
 </div>
+<script>
+    document.getElementById('faviconFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const fileNameSpan = document.getElementById('favFileName');
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File is too large. Max size is 5MB.');
+            e.target.value = '';
+            if (fileNameSpan) fileNameSpan.innerText = 'No file selected (Max 5MB)';
+            return;
+        }
+
+        if (fileNameSpan) {
+            fileNameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            window.CURRENT_FAVICON_DATA = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -107,22 +152,112 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Favicon Generator Online</h2>
-        <p>Our <strong>Favicon Generator</strong> is a dedicated utility nested within our WEB suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Convert standard design images into multi-size favicon formats. Create compliant icons for browsers.</p>
+            <h2>Introduction to Web Favicons and Brand Recognition</h2>
+        <p>A favicon (favorite icon) is a small graphic displayed in browser tabs, bookmark lists, and mobile shortcut screens. It is critical for brand recognition and professional website presentation. An absent favicon can trigger 404 error logs on web servers. Our browser-based <strong>Favicon Generator</strong> converts custom images (PNG, JPEG, SVG, or WEBP) into optimized sizes and formats locally.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Generating web-compliant .ico favicon packages.</li><li>Sizing icons for mobile bookmark compatibility.</li><li>Creating tab icons for custom sites.</li>
+        <p>Favicons identify your website in browser tabs, helping users locate your site among open tabs. Generating and placing a favicon is a standard step in web deployment.</p>
+
+        <h3>Why Multi-Resolution Icons are Vital for Web Standards</h3>
+        <p>Different platforms require different icon sizes. Classic browsers require 16x16 or 32x32 pixel icons, while mobile shortcuts require larger resolutions (up to 128x128 or 180x180 pixels). Our tool supports generating favicons in multiple resolutions and formats (PNG or ICO) to meet these standards.</p>
+
+        <h3>Real-Life Use Cases for Favicon Generators</h3>
+        <ul>
+            <li><strong>Website Development:</strong> Generating the initial favicon asset for a new domain.</li>
+            <li><strong>Mobile Web App Setup:</strong> Creating high-resolution shortcut icons for iOS and Android homescreens.</li>
+            <li><strong>Server Error Prevention:</strong> Resolving <code>favicon.ico 404</code> errors in web server logs.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Rendering preview engines load scripts in sandboxed frame containers. Network inspection queries utilize lightweight APIs to query registers (DNS, WHOIS) securely, outputting structural records in real-time. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the Logic of Favicon Formats</h2>
+        <p>Favicons use specific formats depending on the platform:</p>
+        <ul>
+            <li><strong>ICO Format:</strong> The classic format that can store multiple resolutions in a single file, supported by older versions of Internet Explorer.</li>
+            <li><strong>PNG Format:</strong> The modern standard, supported by all modern browsers. It is lightweight and supports transparency.</li>
+        </ul>
+        <p>Our tool uses browser Canvas APIs to resize images to optimized resolutions and convert them to PNG or ICO files locally.</p>
+
+        <h2>Step-by-Step Guide: How to Generate a Favicon</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Upload Source Image</strong> — Select a local image file (PNG, JPG, SVG, or WEBP, max 5MB).</li>
+            <li><strong>Step 2: Choose Output Size</strong> — Select the resolution from the dropdown (e.g., 32x32 px).</li>
+            <li><strong>Step 3: Select File Format</strong> — Choose either PNG or ICO format.</li>
+            <li><strong>Step 4: Generate and Download</strong> — Click "Process Favicon Generator", inspect the preview, and click "Download" to save the file.</li>
+        </ol>
+
+        <h2>Core Benefits of this Favicon Generator</h2>
+        <ul>
+            <li><strong>100% Client-Side Privacy:</strong> Image processing runs entirely in your browser memory. Your graphics are never uploaded to our servers.</li>
+            <li><strong>Multi-Size Support:</strong> Supports dimensions from 16px up to 128px.</li>
+            <li><strong>Real-Time Previews:</strong> Shows how the resized icon will appear before download.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Why is my live HTML preview not executing external scripts?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: To maintain security and prevent cross-site scripting (XSS), our preview frame is sandboxed, blocking frame breakouts and certain local cookie storage actions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the WHOIS tool lookup private registration details?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The WHOIS tool returns public registration records provided by TLD registries. If a domain owner has enabled WHOIS privacy protection, the output will list proxy registrar contacts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is my IP address logged when I inspect a website status?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No, domain inspections are processed via secure middle endpoints that check host records on our behalf, keeping your local IP anonymous to the destination host.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a favicon?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A favicon is a small icon associated with a website, displayed in browser tabs, bookmarks, and mobile shortcuts.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Should I use PNG or ICO format?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Modern websites primarily use PNG favicons. However, keeping a <code>favicon.ico</code> file in your website's root directory is recommended for compatibility with older browsers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does my server log 404 errors for favicon.ico?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Browsers automatically look for a <code>favicon.ico</code> file in the website root. If the file is missing, the server logs a 404 (Not Found) error.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my uploaded images private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All image processing occurs locally in your browser memory, and no files are uploaded to our servers.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are setting up your site assets, use our <a href="../security/qr-generator.html">QR Generator</a> to create QR codes, or check page elements with our <a href="../seo/website-status.html">Website Status Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Favicon Generator",
+            "item": "https://multitoolshub.co.in/tools/web/favicon-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Favicon Generator",
+          "url": "https://multitoolshub.co.in/tools/web/favicon-generator.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Favicon Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

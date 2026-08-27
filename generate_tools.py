@@ -866,6 +866,235 @@ INPUT_URL_DECODER = """
 </div>
 """
 
+INPUT_LENGTH_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="lengthValue">Value to Convert</label>
+            <input type="number" id="lengthValue" class="form-control" value="1" placeholder="e.g. 10" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="lengthFrom">From Unit</label>
+            <select id="lengthFrom" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="m" selected>Meter (m)</option>
+                <option value="km">Kilometer (km)</option>
+                <option value="cm">Centimeter (cm)</option>
+                <option value="mm">Millimeter (mm)</option>
+                <option value="mi">Mile (mi)</option>
+                <option value="yd">Yard (yd)</option>
+                <option value="ft">Foot (ft)</option>
+                <option value="in">Inch (in)</option>
+            </select>
+        </div>
+    </div>
+    <div id="lengthResultTableContainer" style="display:none; margin-top: 15px;">
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Equivalent Length Conversions</label>
+        <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid var(--border);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 12px 15px; color: var(--primary);">Unit</th>
+                        <th style="padding: 12px 15px; color: var(--primary);">Converted Value</th>
+                    </tr>
+                </thead>
+                <tbody id="lengthResultTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_WEIGHT_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="weightValue">Value to Convert</label>
+            <input type="number" id="weightValue" class="form-control" value="1" placeholder="e.g. 150" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="weightFrom">From Unit</label>
+            <select id="weightFrom" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="kg" selected>Kilogram (kg)</option>
+                <option value="g">Gram (g)</option>
+                <option value="lb">Pound (lb)</option>
+                <option value="oz">Ounce (oz)</option>
+                <option value="st">Stone (st)</option>
+                <option value="ton">Metric Ton (t)</option>
+            </select>
+        </div>
+    </div>
+    <div id="weightResultTableContainer" style="display:none; margin-top: 15px;">
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Equivalent Weight Conversions</label>
+        <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid var(--border);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 12px 15px; color: var(--primary);">Unit</th>
+                        <th style="padding: 12px 15px; color: var(--primary);">Converted Value</th>
+                    </tr>
+                </thead>
+                <tbody id="weightResultTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_TEMP_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="tempValue">Value to Convert</label>
+            <input type="number" id="tempValue" class="form-control" value="0" placeholder="e.g. 100" style="padding: 15px;" step="any">
+        </div>
+        <div>
+            <label for="tempFrom">From Unit</label>
+            <select id="tempFrom" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="c" selected>Celsius (°C)</option>
+                <option value="f">Fahrenheit (°F)</option>
+                <option value="k">Kelvin (K)</option>
+                <option value="r">Rankine (°R)</option>
+            </select>
+        </div>
+    </div>
+    <div id="tempResultTableContainer" style="display:none; margin-top: 15px;">
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Equivalent Temperature Conversions</label>
+        <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid var(--border);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 12px 15px; color: var(--primary);">Unit</th>
+                        <th style="padding: 12px 15px; color: var(--primary);">Converted Value</th>
+                    </tr>
+                </thead>
+                <tbody id="tempResultTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_BINARY_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="binaryMode">Select Mode</label>
+        <select id="binaryMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+            <option value="bin_to_all" selected>Binary to Decimal / Hex / Octal</option>
+            <option value="dec_to_all">Decimal to Binary / Hex / Octal</option>
+            <option value="text_to_bin">Text to Binary</option>
+            <option value="bin_to_text">Binary to Text</option>
+        </select>
+    </div>
+    <div>
+        <label id="binaryInputLabel" for="toolInput">Input Value</label>
+        <textarea id="toolInput" class="form-control" placeholder="Enter binary code (e.g., 01001000)..." style="height: 100px; font-family: monospace;"></textarea>
+    </div>
+    <div id="binaryResultsTableContainer" style="display:none; margin-top: 15px;">
+        <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 600;">Equivalent Numerical Bases</label>
+        <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid var(--border);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 12px 15px; color: var(--primary);">Base</th>
+                        <th style="padding: 12px 15px; color: var(--primary);">Value</th>
+                    </tr>
+                </thead>
+                <tbody id="binaryResultsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('binaryMode')?.addEventListener('change', (e) => {
+        const mode = e.target.value;
+        const lbl = document.getElementById('binaryInputLabel');
+        const txt = document.getElementById('toolInput');
+        
+        if (mode === 'bin_to_all') {
+            if (lbl) lbl.innerText = 'Input Binary Value';
+            if (txt) txt.placeholder = 'Enter binary code (e.g. 01001000)...';
+        } else if (mode === 'dec_to_all') {
+            if (lbl) lbl.innerText = 'Input Decimal Value';
+            if (txt) txt.placeholder = 'Enter decimal value (e.g. 72)...';
+        } else if (mode === 'text_to_bin') {
+            if (lbl) lbl.innerText = 'Input Plain Text';
+            if (txt) txt.placeholder = 'Enter text characters (e.g. Hello)...';
+        } else if (mode === 'bin_to_text') {
+            if (lbl) lbl.innerText = 'Input Binary String';
+            if (txt) txt.placeholder = 'Enter space-separated binary bytes (e.g. 01001000 01100101)...';
+        }
+    });
+</script>
+"""
+
+INPUT_FAVICON_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); border-radius: 15px; padding: 25px; text-align: center;">
+        <label style="display: block; font-weight: 600; margin-bottom: 15px; color: var(--primary);">Upload Source Image</label>
+        <input type="file" id="faviconFile" class="form-control" accept="image/*" style="display: none;">
+        <button type="button" onclick="document.getElementById('faviconFile').click()" class="category-label" style="display: inline-block; border: 1px solid var(--border); background: rgba(255,255,255,0.05); padding: 12px 25px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;">Select Image File</button>
+        <span id="favFileName" style="display: block; font-size: 0.9rem; color: var(--text-muted);">Supports PNG, JPG, WEBP, or SVG (Max 5MB)</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="favSize">Favicon Output Size</label>
+            <select id="favSize" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="16">16 x 16 px (Standard)</option>
+                <option value="32" selected>32 x 32 px (Recommended)</option>
+                <option value="48">48 x 48 px</option>
+                <option value="64">64 x 64 px</option>
+                <option value="128">128 x 128 px</option>
+            </select>
+        </div>
+        <div>
+            <label for="favFormat">Output File Format</label>
+            <select id="favFormat" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="png" selected>PNG Graphic (.png)</option>
+                <option value="ico">ICO Icon Format (.ico)</option>
+            </select>
+        </div>
+    </div>
+    <!-- Canvas display for generated favicon in workspace -->
+    <div id="faviconPreviewContainer" style="display:none; text-align: center; margin-top: 15px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border: 1px solid var(--border);">
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">Generated Favicon Preview:</p>
+        <div style="display: inline-flex; align-items: center; justify-content: center; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <img id="faviconPreviewImg" style="image-rendering: pixelated; width: 32px; height: 32px;">
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('faviconFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const fileNameSpan = document.getElementById('favFileName');
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File is too large. Max size is 5MB.');
+            e.target.value = '';
+            if (fileNameSpan) fileNameSpan.innerText = 'No file selected (Max 5MB)';
+            return;
+        }
+
+        if (fileNameSpan) {
+            fileNameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            window.CURRENT_FAVICON_DATA = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -1207,7 +1436,15 @@ for category, tools in tools_data.items():
         elif tool_name == "drawing-board":
             current_input = INPUT_DRAWING_BOARD
         elif tool_name == "favicon-generator":
-            current_input = INPUT_FILE
+            current_input = INPUT_FAVICON_GENERATOR
+        elif tool_name == "length-converter":
+            current_input = INPUT_LENGTH_CONVERTER
+        elif tool_name == "weight-converter":
+            current_input = INPUT_WEIGHT_CONVERTER
+        elif tool_name == "temp-converter":
+            current_input = INPUT_TEMP_CONVERTER
+        elif tool_name == "binary-converter":
+            current_input = INPUT_BINARY_CONVERTER
         elif tool_name == "text-diff":
             current_input = INPUT_TEXT_DIFF
         elif tool_name == "regex-tester":
