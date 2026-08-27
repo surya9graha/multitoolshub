@@ -879,7 +879,38 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('json validator')) {
-        try { JSON.parse(input); result = "Valid JSON ✅"; } catch(e) { result = "Invalid JSON ❌: " + e.message; }
+        const alertDiv = document.getElementById('jsonStatusAlert');
+        if (!input.trim()) {
+            result = "Validation Error: Please enter some JSON text to validate.";
+            if (alertDiv) {
+                alertDiv.style.display = 'block';
+                alertDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                alertDiv.style.border = '1px solid rgb(239, 68, 68)';
+                alertDiv.style.color = 'rgb(248, 113, 113)';
+                alertDiv.innerText = "Error: Input is empty.";
+            }
+        } else {
+            try {
+                const parsed = JSON.parse(input);
+                result = JSON.stringify(parsed, null, 2);
+                if (alertDiv) {
+                    alertDiv.style.display = 'block';
+                    alertDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                    alertDiv.style.border = '1px solid rgb(16, 185, 129)';
+                    alertDiv.style.color = 'rgb(52, 211, 153)';
+                    alertDiv.innerText = "Valid JSON ✅. The JSON structure is correct and successfully formatted.";
+                }
+            } catch (e) {
+                result = `Invalid JSON ❌\n------------------------------------------\nError Message: ${e.message}\n\n💡 Troubleshooting Tips:\n- Make sure all object keys are wrapped in double quotes (e.g., "key": "value").\n- Remove any trailing commas after the last array/object element.\n- Ensure all quotes, curly braces {}, and square brackets [] match and close correctly.`;
+                if (alertDiv) {
+                    alertDiv.style.display = 'block';
+                    alertDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                    alertDiv.style.border = '1px solid rgb(239, 68, 68)';
+                    alertDiv.style.color = 'rgb(248, 113, 113)';
+                    alertDiv.innerText = "Invalid JSON: " + e.message;
+                }
+            }
+        }
     } else if (tool.includes('base64 encoder')) {
         const format = document.getElementById('b64Format')?.value || "raw";
         let base64Result = "";
@@ -1896,7 +1927,40 @@ async function runCoreLogic(tool, input, output) {
         const keys = input.match(/<meta name="keywords" content="(.*?)"/i)?.[1] || "No Keywords Found";
         result = `Title: ${title}\nDescription: ${desc}\nKeywords: ${keys}`;
     } else if (tool.includes('robots generator')) {
-        result = `User-agent: *\nDisallow: /admin/\nDisallow: /private/\n\nSitemap: https://${input || 'example.com'}/sitemap.xml`;
+        const agent = document.getElementById('robotsAgent')?.value || "*";
+        const delay = document.getElementById('robotsDelay')?.value || "none";
+        const sitemap = document.getElementById('robotsSitemap')?.value || "";
+        const disallowedRaw = document.getElementById('robotsDisallowed')?.value || "";
+        const allowedRaw = document.getElementById('robotsAllowed')?.value || "";
+        
+        let txt = `# Robots.txt generated online via MultiTools Hub\n`;
+        txt += `User-agent: ${agent}\n`;
+        
+        if (delay !== 'none') {
+            txt += `Crawl-delay: ${delay}\n`;
+        }
+        
+        const disallowLines = disallowedRaw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        if (disallowLines.length > 0) {
+            disallowLines.forEach(l => {
+                txt += `Disallow: ${l}\n`;
+            });
+        } else {
+            txt += `Disallow:\n`;
+        }
+        
+        const allowLines = allowedRaw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        if (allowLines.length > 0) {
+            allowLines.forEach(l => {
+                txt += `Allow: ${l}\n`;
+            });
+        }
+        
+        if (sitemap.trim().length > 0) {
+            txt += `\nSitemap: ${sitemap.trim()}\n`;
+        }
+        
+        result = txt;
     } else if (tool.includes('sitemap generator')) {
         result = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>https://${input || 'example.com'}/</loc>\n    <lastmod>2026-03-30</lastmod>\n    <priority>1.0</priority>\n  </url>\n</urlset>`;
     } else if (tool.includes('keyword density')) {
@@ -2538,13 +2602,72 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('roman numeral')) {
-        const roman = (num) => {
-            const map = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
-            let res = '';
-            for (let i in map) { while (num >= map[i]) { res += i; num -= map[i]; } }
-            return res;
-        };
-        result = roman(parseInt(input) || 0) || "Result would appear here";
+        const mode = document.getElementById('romanMode')?.value || "arabicToRoman";
+        const val = input.trim();
+        
+        if (!val) {
+            result = "Validation Error: Please enter a value to convert.";
+        } else {
+            const romanMap = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+            
+            if (mode === 'arabicToRoman') {
+                const num = parseInt(val, 10);
+                if (isNaN(num) || num < 1 || num > 3999) {
+                    result = "Validation Error: Please enter a valid integer between 1 and 3999.";
+                } else {
+                    let temp = num;
+                    let romanVal = '';
+                    let steps = [];
+                    for (let key in romanMap) {
+                        while (temp >= romanMap[key]) {
+                            romanVal += key;
+                            temp -= romanMap[key];
+                            steps.push(`${key} (+${romanMap[key]})`);
+                        }
+                    }
+                    result = `Arabic Number: ${num}\n` +
+                             `========================================\n\n` +
+                             `• Roman Numeral: ${romanVal}\n\n` +
+                             `Step-by-Step Breakdown:\n` +
+                             `• Formula: ${num} = ${steps.join(' + ')}`;
+                }
+            } else {
+                const romanStr = val.toUpperCase().replace(/[^MDCLXVI]/g, '');
+                if (!romanStr || romanStr !== val.toUpperCase()) {
+                    result = "Validation Error: Input contains invalid Roman numeral characters (use M, D, C, L, X, V, I).";
+                } else {
+                    let arabicVal = 0;
+                    let i = 0;
+                    let steps = [];
+                    while (i < romanStr.length) {
+                        const s1 = romanStr.charAt(i);
+                        const v1 = romanMap[s1];
+                        if (i + 1 < romanStr.length) {
+                            const s2 = romanStr.charAt(i + 1);
+                            const v2 = romanMap[s2];
+                            if (v1 >= v2) {
+                                arabicVal += v1;
+                                steps.push(`${s1} (${v1})`);
+                                i++;
+                            } else {
+                                arabicVal += (v2 - v1);
+                                steps.push(`${s1}${s2} (${v2} - ${v1} = ${v2 - v1})`);
+                                i += 2;
+                            }
+                        } else {
+                            arabicVal += v1;
+                            steps.push(`${s1} (${v1})`);
+                            i++;
+                        }
+                    }
+                    result = `Roman Numeral: ${romanStr}\n` +
+                             `========================================\n\n` +
+                             `• Arabic Number: ${arabicVal}\n\n` +
+                             `Step-by-Step Addition:\n` +
+                             `• Calculation: ${steps.join(' + ')} = ${arabicVal}`;
+                }
+            }
+        }
     } else if (tool.includes('math solver')) {
         try { result = "Result: " + eval(input.replace(/[^-+*/().0-9]/g, '')); } catch(e) { result = "Error solving expression"; }
     } else if (tool.includes('length converter')) {
@@ -2922,8 +3045,41 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('timezone converter')) {
-        const now = new Date();
-        result = `From Local: ${now.toLocaleTimeString()}\nTo Tokyo: ${now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo'})}\nTo New York: ${now.toLocaleTimeString('en-US', {timeZone:'America/New_York'})}\nTo London: ${now.toLocaleTimeString('en-GB', {timeZone:'Europe/London'})}`;
+        const sourceVal = document.getElementById('timezoneDateTime')?.value;
+        const sourceTZ = document.getElementById('sourceTZ')?.value || "UTC";
+        const targetTZ = document.getElementById('targetTZ')?.value || "Asia/Kolkata";
+        
+        if (!sourceVal) {
+            result = "Validation Error: Please select a source date and time.";
+        } else {
+            try {
+                const localDate = new Date(sourceVal);
+                const formatterOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
+                
+                const targetFormatter = new Intl.DateTimeFormat('en-US', {
+                    timeZone: targetTZ,
+                    dateStyle: 'full',
+                    timeStyle: 'long'
+                });
+                
+                const sourceFormatter = new Intl.DateTimeFormat('en-US', {
+                    timeZone: sourceTZ,
+                    dateStyle: 'full',
+                    timeStyle: 'long'
+                });
+                
+                result = `Source Timezone (${sourceTZ}):\n` +
+                         `• ${sourceFormatter.format(localDate)}\n\n` +
+                         `Target Timezone (${targetTZ}):\n` +
+                         `• ${targetFormatter.format(localDate)}\n\n` +
+                         `========================================\n` +
+                         `Offset Information:\n` +
+                         `• Source Time: ${localDate.toLocaleString('en-US', { timeZone: sourceTZ })}\n` +
+                         `• Target Time: ${localDate.toLocaleString('en-US', { timeZone: targetTZ })}`;
+            } catch (e) {
+                result = `Conversion Error: Unable to perform calculation for target zone. Details: ${e.message}`;
+            }
+        }
     } else if (tool.includes('date formatter')) {
         const d = input.trim() ? new Date(isNaN(input.trim()) ? input.trim() : parseInt(input.trim())) : new Date();
         if (isNaN(d.getTime())) {
@@ -2992,8 +3148,10 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
         result = htmlOutput;
     } else if (tool.includes('url shortener')) {
         const url = input.trim();
-        if (!url || !url.startsWith('http')) {
-            result = "Please enter a valid URL starting with http:// or https://";
+        const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
+        
+        if (!url || !url.startsWith('http') || !urlPattern.test(url)) {
+            result = "Validation Error: Please enter a valid destination URL starting with http:// or https://\nExample: https://multitoolshub.co.in";
         } else {
             toggleLoader(true, "Shortening URL...");
             try {
@@ -3002,13 +3160,20 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
                 toggleLoader(false);
                 if (response.ok) {
                     const data = await response.json();
-                    result = `Original URL:  ${url}\nShortened URL: ${data.contents}`;
+                    if (data && data.contents && data.contents.startsWith('http')) {
+                        result = `Original URL:  ${url}\n` +
+                                 `Shortened URL: ${data.contents}\n\n` +
+                                 `========================================\n` +
+                                 `Status: Success ✅. You can copy the shortened link above.`;
+                    } else {
+                        result = "Error: TinyURL service returned an unexpected response format. Please try again later.";
+                    }
                 } else {
-                    result = `Failed to shorten. Temporary link:\nShortened URL: https://tinyurl.com/${Math.random().toString(36).substring(7)}`;
+                    result = "Error: The shortening proxy service returned an error response. Please try again later.";
                 }
             } catch (err) {
                 toggleLoader(false);
-                result = `Failed to shorten: ${err.message}`;
+                result = `Network Error: Unable to contact the shortening service. Details: ${err.message}`;
             }
         }
     } else if (tool.includes('favicon grabber')) {

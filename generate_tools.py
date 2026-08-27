@@ -1762,6 +1762,181 @@ INPUT_LEAP_YEAR = """
 </script>
 """
 
+INPUT_JSON_VALIDATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <label for="toolInput" style="margin: 0; font-weight: 600;">JSON Input String</label>
+        <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="loadJsonPreset('valid')" class="category-label" style="border: 1px solid var(--border); padding: 5px 12px; margin: 0; font-size: 0.8rem;">Load Valid JSON</button>
+            <button type="button" onclick="loadJsonPreset('invalid')" class="category-label" style="border: 1px solid var(--border); padding: 5px 12px; margin: 0; font-size: 0.8rem;">Load Invalid JSON</button>
+        </div>
+    </div>
+    
+    <div>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your JSON text content here to validate structure..." style="height: 250px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+    </div>
+    
+    <div id="jsonStatusAlert" style="display: none; padding: 15px 20px; border-radius: 12px; font-size: 0.95rem; line-height: 1.5; font-weight: 500;"></div>
+</div>
+<script>
+    const jsonPresets = {
+        valid: `{
+  "site": "MultiTools Hub",
+  "tools": 100,
+  "features": [
+    "Secure local processing",
+    "Real-time calculations",
+    "AdSense optimized layouts"
+  ],
+  "active": true
+}`,
+        invalid: `{
+  "site": "MultiTools Hub",
+  "tools": 100
+  "features": [
+    "Missing comma boundary"
+  ]
+}`
+    };
+    function loadJsonPreset(key) {
+        const area = document.getElementById('toolInput');
+        if (area) {
+            area.value = jsonPresets[key];
+            const evt = new Event('input', { bubbles: true });
+            area.dispatchEvent(evt);
+        }
+    }
+</script>
+"""
+
+INPUT_ROBOTS_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="robotsAgent">Target User-Agent Directive</label>
+            <select id="robotsAgent" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="*" selected>All Crawlers (*)</option>
+                <option value="Googlebot">Googlebot (Google Search)</option>
+                <option value="Bingbot">Bingbot (Microsoft Bing)</option>
+                <option value="Yandex">YandexBot (Yandex Search)</option>
+                <option value="Baiduspider">Baiduspider (Baidu Search)</option>
+            </select>
+        </div>
+        <div>
+            <label for="robotsDelay">Crawl-Delay Constraint (Seconds)</label>
+            <select id="robotsDelay" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="none" selected>No Delay (Recommended)</option>
+                <option value="5">5 Seconds</option>
+                <option value="10">10 Seconds</option>
+                <option value="20">20 Seconds</option>
+            </select>
+        </div>
+    </div>
+    
+    <div>
+        <label for="robotsSitemap">Sitemap XML URL (Optional)</label>
+        <input type="url" id="robotsSitemap" class="form-control" placeholder="e.g. https://multitoolshub.co.in/sitemap.xml" style="padding: 15px;">
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="robotsDisallowed">Disallowed Paths (One per line)</label>
+            <textarea id="robotsDisallowed" class="form-control" placeholder="/admin/&#10;/temp/&#10;/private/" style="height: 120px; font-family: monospace;"></textarea>
+        </div>
+        <div>
+            <label for="robotsAllowed">Allowed Paths (One per line)</label>
+            <textarea id="robotsAllowed" class="form-control" placeholder="/public/&#10;/assets/" style="height: 120px; font-family: monospace;"></textarea>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_ROMAN_NUMERAL = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="romanMode">Conversion Direction</label>
+            <select id="romanMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="arabicToRoman" selected>Arabic Number to Roman Numeral</option>
+                <option value="romanToArabic">Roman Numeral to Arabic Number</option>
+            </select>
+        </div>
+        <div>
+            <label for="toolInput">Value to Convert</label>
+            <input type="text" id="toolInput" class="form-control" placeholder="Enter integer (1 - 3999)" style="padding: 15px;">
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('romanMode')?.addEventListener('change', (e) => {
+        const inp = document.getElementById('toolInput');
+        if (inp) {
+            inp.value = '';
+            if (e.target.value === 'arabicToRoman') {
+                inp.placeholder = 'Enter integer (1 - 3999)';
+            } else {
+                inp.placeholder = 'Enter Roman numeral (e.g. MCX)';
+            }
+        }
+    });
+</script>
+"""
+
+INPUT_TIMEZONE_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="timezoneDateTime">Source Date & Time</label>
+            <input type="datetime-local" id="timezoneDateTime" class="form-control" style="padding: 12px; height: 50px;">
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="sourceTZ">Source Timezone</label>
+            <select id="sourceTZ" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="UTC" selected>UTC - Coordinated Universal Time</option>
+                <option value="America/New_York">EST/EDT - America/New_York</option>
+                <option value="Europe/London">GMT/BST - Europe/London</option>
+                <option value="Asia/Kolkata">IST - Asia/Kolkata (India)</option>
+                <option value="Asia/Tokyo">JST - Asia/Tokyo (Japan)</option>
+                <option value="Australia/Sydney">AEST/AEDT - Australia/Sydney</option>
+            </select>
+        </div>
+        <div>
+            <label for="targetTZ">Target Timezone</label>
+            <select id="targetTZ" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="Asia/Kolkata" selected>IST - Asia/Kolkata (India)</option>
+                <option value="UTC">UTC - Coordinated Universal Time</option>
+                <option value="America/New_York">EST/EDT - America/New_York</option>
+                <option value="Europe/London">GMT/BST - Europe/London</option>
+                <option value="Asia/Tokyo">JST - Asia/Tokyo (Japan)</option>
+                <option value="Australia/Sydney">AEST/AEDT - Australia/Sydney</option>
+            </select>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    const tzInput = document.getElementById('timezoneDateTime');
+    if (tzInput) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        tzInput.value = now.toISOString().slice(0, 16);
+    }
+</script>
+"""
+
+INPUT_URL_SHORTENER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Long URL link to Shorten</label>
+        <input type="url" id="toolInput" class="form-control" placeholder="e.g. https://multitoolshub.co.in/tools/text/word-counter.html" style="padding: 15px;">
+    </div>
+</div>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -2164,6 +2339,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_DAYS_BETWEEN
         elif tool_name == "leap-year":
             current_input = INPUT_LEAP_YEAR
+        elif tool_name == "json-validator":
+            current_input = INPUT_JSON_VALIDATOR
+        elif tool_name == "robots-generator":
+            current_input = INPUT_ROBOTS_GENERATOR
+        elif tool_name == "roman-numeral":
+            current_input = INPUT_ROMAN_NUMERAL
+        elif tool_name == "timezone-converter":
+            current_input = INPUT_TIMEZONE_CONVERTER
+        elif tool_name == "url-shortener":
+            current_input = INPUT_URL_SHORTENER
             
         seo_content = get_seo_content(category, tool_name, title)
         

@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robots Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Robots Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Robots.txt Generator - Create Robots.txt Online</title>
+    <meta name="description" content="Generate customized robots.txt files for search crawlers. Add directives for Googlebot, Bingbot, custom path limits, and sitemap hooks.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,45 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Site & Content Details</label>
-    <textarea id="toolInput" class="form-control" style="height: 180px;" placeholder="Title: MultiTools Hub&#10;Description: Professional online tools for developers and creators.&#10;Keywords: tools, developer, online, free"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">For generators: Use 'Attribute: Value' format. For analyzers: Paste your content directly.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="robotsAgent">Target User-Agent Directive</label>
+            <select id="robotsAgent" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="*" selected>All Crawlers (*)</option>
+                <option value="Googlebot">Googlebot (Google Search)</option>
+                <option value="Bingbot">Bingbot (Microsoft Bing)</option>
+                <option value="Yandex">YandexBot (Yandex Search)</option>
+                <option value="Baiduspider">Baiduspider (Baidu Search)</option>
+            </select>
+        </div>
+        <div>
+            <label for="robotsDelay">Crawl-Delay Constraint (Seconds)</label>
+            <select id="robotsDelay" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="none" selected>No Delay (Recommended)</option>
+                <option value="5">5 Seconds</option>
+                <option value="10">10 Seconds</option>
+                <option value="20">20 Seconds</option>
+            </select>
+        </div>
+    </div>
+    
+    <div>
+        <label for="robotsSitemap">Sitemap XML URL (Optional)</label>
+        <input type="url" id="robotsSitemap" class="form-control" placeholder="e.g. https://multitoolshub.co.in/sitemap.xml" style="padding: 15px;">
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <label for="robotsDisallowed">Disallowed Paths (One per line)</label>
+            <textarea id="robotsDisallowed" class="form-control" placeholder="/admin/&#10;/temp/&#10;/private/" style="height: 120px; font-family: monospace;"></textarea>
+        </div>
+        <div>
+            <label for="robotsAllowed">Allowed Paths (One per line)</label>
+            <textarea id="robotsAllowed" class="form-control" placeholder="/public/&#10;/assets/" style="height: 120px; font-family: monospace;"></textarea>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     
@@ -99,22 +134,116 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Robots Generator Online</h2>
-        <p>Our <strong>Robots Generator</strong> is a dedicated utility nested within our SEO suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Search engines require indexation rules. The Robots Generator creates custom robots.txt directives, telling crawl bots which paths to scan or ignore on your domain.</p>
+            <h2>Introduction to Web Crawlers and robots.txt Directives</h2>
+        <p>A robots.txt file is a plain text file placed in a website's root directory to direct search engine crawlers on which pages to scan or ignore. Standard search crawlers (like Googlebot) read this file before indexing site URLs. Our online <strong>Robots.txt Generator</strong> creates optimized configurations with custom allowances, crawl-delay directives, and sitemap locations.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Creating search-compliant robots.txt files for domains.</li><li>Preventing duplicate indexing of administrative folders.</li><li>Saving search crawl budgets by blocking useless paths.</li>
+        <p>You can configure directives for Googlebot, Bingbot, Yandex, or all crawlers, and add specific allowed and disallowed directories.</p>
+
+        <h3>Why Access Control is Essential for SEO</h3>
+        <p>Allowing crawlers to scan duplicate content, admin panels, or temporary directories wastes crawl budget and can dilute your site's SEO value. Directing crawlers to ignore private pages helps optimize search engine crawling.</p>
+
+        <h3>Real-Life Use Cases for robots.txt Generation</h3>
+        <ul>
+            <li><strong>SEO Audits:</strong> Configuring robots.txt to direct crawlers to ignore duplicate page variants.</li>
+            <li><strong>Securing Paths:</strong> Requesting crawlers to ignore admin folders (e.g. `/wp-admin/` or `/tmp/`).</li>
+            <li><strong>Crawl Delay Adjustments:</strong> Adding delay limits to prevent crawlers from overloading smaller host servers.</li>
+            <li><strong>XML Sitemap Links:</strong> Listing sitemap paths so crawlers find site URLs quickly.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. These SEO tools parse website configurations, generate index directives, and check tags locally. Sitemaps and Robots rules are formulated instantly based on standards defined by Google and major search engines. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding robots.txt Directives and RFC 9309 Rules</h2>
+        <p>Robots.txt files follow the Robots Exclusion Standard (RFC 9309) rules:</p>
+        <ul>
+            <li><strong>User-agent:</strong> Specifies the crawler name (e.g., <code>*</code> for all crawlers, <code>Googlebot</code> for Google).</li>
+            <li><strong>Disallow:</strong> Lists paths crawlers are requested not to visit.</li>
+            <li><strong>Allow:</strong> Lists paths crawlers are allowed to visit, often within a disallowed parent directory.</li>
+            <li><strong>Crawl-delay:</strong> Requests crawler bots to wait a specified number of seconds between page requests.</li>
+            <li><strong>Sitemap:</strong> Lists the full URL path of the site's XML sitemap.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate a robots.txt File</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose User-Agent</strong> — Select which crawlers to target (e.g., all crawlers or specific search bots).</li>
+            <li><strong>Step 2: Add Crawl Delay (Optional)</strong> — Set a delay limit if you want to pace page requests.</li>
+            <li><strong>Step 3: Define Allow/Disallow Paths</strong> — Enter the directories to allow or disallow, one per line.</li>
+            <li><strong>Step 4: Input Sitemap URL</strong> — Add your site's sitemap path for search bot discovery.</li>
+            <li><strong>Step 5: Generate and Copy</strong> — Click "Process Robots.txt" to generate and copy the formatted code.</li>
+        </ol>
+
+        <h2>Core Features of this Robots.txt Generator</h2>
+        <ul>
+            <li><strong>Custom Path Mappings:</strong> Support for defining multiple allowed and disallowed paths.</li>
+            <li><strong>Crawl-Delay Options:</strong> Set delays to manage crawler traffic.</li>
+            <li><strong>100% Client-Side:</strong> All configuration formatting runs locally in your browser memory.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How do robots.txt generator files help my SEO?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: A robots.txt file guides search bots on which pages to crawl or avoid. Restricting crawlers from scanning administrative or private directories saves crawl budget and prevents duplicate indexation issues.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What are Open Graph tags, and why are they necessary?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Open Graph (OG) tags are special meta tags that control how your website's preview card is displayed on platforms like Facebook, Twitter, and LinkedIn. A descriptive title and high-resolution image tag increase CTR by up to 150%.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Do your analyzers run live requests on remote websites?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Certain analyzer tools evaluate local parameters client-side. For analyzers that inspect live URL meta tags, minor requests are funneled through secure cloud APIs purely to retrieve header schemas, without storing queries.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a robots.txt file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A robots.txt file is a text file placed in a site's root folder to direct search crawlers on which pages to index or ignore.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does robots.txt keep private pages secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Robots.txt is a request to crawlers, not a security mechanism. Publicly available robots.txt files can be read by anyone, so private pages should be protected using password authentication.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where should I upload my robots.txt file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Upload the file to your domain's root directory (e.g., <code>https://example.com/robots.txt</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does Google support Crawl-delay?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Googlebot ignores Crawl-delay directives, but other search engine bots (like Bingbot and Yandex) respect them.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, create a sitemap with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, manage header layouts with our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or inspect density using our <a href="../seo/keyword-density.html">Keyword Density Analyzer</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Robots.txt Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/robots-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Robots.txt Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/robots-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Robots Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

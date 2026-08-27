@@ -154,6 +154,559 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "url-shortener": """
+        <h2>Introduction to Web Sharing and URL Shortening</h2>
+        <p>Long, complex URLs containing tracking tokens, analytics parameters, or nested folders can be difficult to share, print on flyers, or copy into social media updates. Short URLs improve link readability and visual clean lines. Our online <strong>URL Shortener</strong> shortens long web links instantly using the TinyURL API.</p>
+        
+        <p>Our tool validates destination URLs before processing requests, providing a copyable shortened link for easy sharing.</p>
+
+        <h3>Why Link Formatting Matters for Social Sharing</h3>
+        <p>Character limits on social platforms, messaging apps, and email layouts require concise formatting. Clean links look more professional and trustworthy to users, helping to improve click-through rates.</p>
+
+        <h3>Real-Life Use Cases for URL Shortening</h3>
+        <ul>
+            <li><strong>Social Media:</strong> Shortening long links to stay within character limits on platforms like X (Twitter).</li>
+            <li><strong>Marketing Campaigns:</strong> Creating clean, readable links for print materials, newsletters, or flyers.</li>
+            <li><strong>Messaging Apps:</strong> Sharing concise links in chat channels to keep conversations clean.</li>
+            <li><strong>Developer Logs:</strong> Keeping reference lists neat in internal documentation.</li>
+        </ul>
+
+        <h2>Understanding Redirection and Link Safety</h2>
+        <p>Shortened links function through redirect protocols:</p>
+        <ul>
+            <li><strong>Destination URL Validation:</strong> Enforces the correct protocol format (e.g. <code>http://</code> or <code>https://</code>).</li>
+            <li><strong>HTTP 301 Redirects:</strong> The browser is directed to the destination URL using permanent redirect status codes.</li>
+            <li><strong>Proxy Safety:</strong> The tool uses a secure request proxy to fetch shortening indicators from the API safely.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Shorten a URL</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input URL Link</strong> — Enter your long URL (starting with http:// or https://) into the input box.</li>
+            <li><strong>Step 2: Generate Short URL</strong> — Click "Process URL Shortener" to submit the link.</li>
+            <li><strong>Step 3: Copy Results</strong> — Review the success output and copy the shortened link to your clipboard.</li>
+        </ol>
+
+        <h2>Core Benefits of this URL Shortener</h2>
+        <ul>
+            <li><strong>Validates Destination Protocol:</strong> Verifies the URL structure to prevent broken links.</li>
+            <li><strong>Real-Time API Integration:</strong> Shortens links instantly using the TinyURL service.</li>
+            <li><strong>Copy-to-Clipboard:</strong> A one-click copy option for quick sharing.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does this tool shorten links?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool sends the long URL to the TinyURL API, which returns a shortened redirect link.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are there length limits?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool supports standard URLs of any length, but the input must start with a valid protocol (http:// or https://).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How long do shortened URLs remain active?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Shortened URLs generated via TinyURL do not expire and will remain active as long as the destination page exists.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I edit the destination URL after generating the short link?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Once a short URL is generated, the redirect is permanent. If the destination URL changes, you will need to generate a new short link.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are managing web links, format protocols with our <a href="../web/url-encoder.html">URL Encoder</a>, decode paths with our <a href="../web/url-decoder.html">URL Decoder</a>, or check status with our <a href="../web/website-status.html">Website Status Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web Tools",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Shortener",
+            "item": "https://multitoolshub.co.in/tools/web/url-shortener.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "URL Shortener",
+          "url": "https://multitoolshub.co.in/tools/web/url-shortener.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "timezone-converter": """
+        <h2>Introduction to Global Timezones and Offset Adjustments</h2>
+        <p>In a globalized world, scheduling international calls, coordinating remote team meetings, tracking shipping times, and planning travel requires converting times between different timezones. Calculating timezone conversions manually is prone to errors, especially when accounting for Daylight Saving Time (DST) changes. Our online <strong>Timezone Converter</strong> converts dates and times between global zones instantly.</p>
+        
+        <p>Our tool uses browser-native API formatting rules to adjust timezone offsets (e.g. EST, GMT, IST, JST) dynamically without requiring server requests.</p>
+
+        <h3>Why Daylight Saving and Local Time Adjustments Matter</h3>
+        <p>Timezone offsets are not static. Many countries observe Daylight Saving Time, shifting their offset by one hour during the summer months. An online timezone converter accounts for these seasonal changes automatically, ensuring accurate scheduling.</p>
+
+        <h3>Real-Life Use Cases for Timezone Conversion</h3>
+        <ul>
+            <li><strong>Remote Team Work:</strong> Scheduling video calls across different timezones (e.g. EST, GMT, IST).</li>
+            <li><strong>Travel Planning:</strong> Verifying local arrival times and flight departures.</li>
+            <li><strong>Webinar Planning:</strong> Promoting online event times for international audiences.</li>
+            <li><strong>Financial Trading:</strong> Tracking opening and closing times of global stock exchanges.</li>
+        </ul>
+
+        <h2>Understanding UTC Coordinates and Zone Offsets</h2>
+        <p>Global time zones are defined relative to Coordinated Universal Time (UTC):</p>
+        <ul>
+            <li><strong>Coordinated Universal Time (UTC):</strong> The primary time standard by which the world regulates clocks. (formerly Greenwich Mean Time or GMT).</li>
+            <li><strong>Offset Constants:</strong> Local time is represented as a positive or negative offset relative to UTC (e.g. India Standard Time is UTC +5:30, Eastern Standard Time is UTC -5).</li>
+            <li><strong>Daylight Saving Time (DST):</strong> Seasonal adjustments where clocks are advanced by one hour in spring and set back in autumn.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert Timezones</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Source Time</strong> — Select the starting date and time using the datetime-local picker.</li>
+            <li><strong>Step 2: Choose Source Timezone</strong> — Select the timezone matching the starting time.</li>
+            <li><strong>Step 3: Choose Target Timezone</strong> — Select the timezone to convert the time into.</li>
+            <li><strong>Step 4: Read Conversion</strong> — Click "Process Timezone Converter" to view the converted date, time, and offset details.</li>
+        </ol>
+
+        <h2>Core Features of this Timezone Converter</h2>
+        <ul>
+            <li><strong>Dst-Aware Calculations:</strong> Leverages browser APIs to handle daylight saving adjustments automatically.</li>
+            <li><strong>Clear Offset Displays:</strong> Displays formatted dates, times, and offset values.</li>
+            <li><strong>100% Client-Side Privacy:</strong> Conversions are calculated locally in your browser memory. Your schedules are never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is UTC?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: UTC (Coordinated Universal Time) is the global time standard used to regulate clocks and timezones worldwide.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does this converter account for Daylight Saving Time (DST)?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. The tool uses native browser formatting rules to adjust timezone offsets for daylight saving time automatically based on the selected date.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All conversions are calculated locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do I schedule a meeting with someone in India (IST) from New York (EST)?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Select the New York timezone (EST) as the source, enter your desired meeting time, select the India timezone (IST) as the target, and read the converted time.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are coordinating event schedules, check calendars using our <a href="../time/days-between.html">Days Between Dates Calculator</a>, format dates with our <a href="../time/date-formatter.html">Date Formatter</a>, or convert timestamps with our <a href="../time/timestamp-converter.html">Timestamp Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time Tools",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Timezone Converter",
+            "item": "https://multitoolshub.co.in/tools/time/timezone-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Timezone Converter",
+          "url": "https://multitoolshub.co.in/tools/time/timezone-converter.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "roman-numeral": """
+        <h2>Introduction to Numerical Conversion and Roman Notation</h2>
+        <p>The Roman numeral system was developed in ancient Rome and remains in use today for numbering book chapters, indexing clock faces, listing movie sequels, and organizing documents. Calculating converters for Roman notation is a routine task in education, history, and design. Our online <strong>Roman Numeral Converter</strong> converts Arabic integers to Roman numerals and back.</p>
+        
+        <p>Our tool validates input boundaries (limiting calculations between 1 and 3999) and displays a step-by-step mathematical breakdown for each conversion.</p>
+
+        <h3>Why Subtractive and Additive Notation Rules Matter</h3>
+        <p>Unlike modern decimal systems, Roman numerals use letters (I, V, X, L, C, D, M) to represent values. The system uses both additive rules (e.g. `VI` = 6) and subtractive rules (e.g. `IV` = 4) to structure numbers. Knowing these notation patterns is key to accurate conversion.</p>
+
+        <h3>Real-Life Use Cases for Roman Numeral Conversion</h3>
+        <ul>
+            <li><strong>Education:</strong> Helping students check mathematical exercises and study numeral histories.</li>
+            <li><strong>Historic Studies:</strong> Reading copyright dates on old books, monuments, or film titles.</li>
+            <li><strong>Graphic Design:</strong> Formatting clocks, chapter headings, or page outlines.</li>
+            <li><strong>Programming:</strong> Auditing numeral parser algorithms in codebases.</li>
+        </ul>
+
+        <h2>Understanding the Roman Numeral Map and Rules</h2>
+        <p>Roman numerals are based on seven symbols: <code>I</code> (1), <code>V</code> (5), <code>X</code> (10), <code>L</code> (50), <code>C</code> (100), <code>D</code> (500), and <code>M</code> (1000). Conversions follow strict guidelines:</p>
+        <ul>
+            <li><strong>Maximum Bounds:</strong> 3999 (<code>MMMCMXCIX</code>) is the standard limit for Roman numerals, as writing larger numbers requires horizontal bar notations (vinculum).</li>
+            <li><strong>Subtractive Placement:</strong> A smaller symbol before a larger symbol indicates subtraction (e.g., `IV` is 5 - 1 = 4, and `XC` is 100 - 10 = 90).</li>
+            <li><strong>No Fourfold Repetitions:</strong> The same symbol cannot be repeated more than three times consecutively (use `IV` instead of `IIII`).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert Roman Numerals</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Direction</strong> — Select between Arabic to Roman or Roman to Arabic conversions.</li>
+            <li><strong>Step 2: Enter Input Value</strong> — Input an integer between 1 and 3999, or a Roman numeral (e.g., MCX).</li>
+            <li><strong>Step 3: Run the Conversion</strong> — Click "Process Roman Numeral" to convert.</li>
+            <li><strong>Step 4: Review Steps</strong> — Review the step-by-step mathematical breakdown of the conversion.</li>
+        </ol>
+
+        <h2>Core Features of this Roman Numeral Converter</h2>
+        <ul>
+            <li>**Dual-Direction Support:** Convert Arabic numbers to Roman numerals and back.</li>
+            <li>**Step-by-Step Breakdowns:** Displays the mathematical equations used to compute the result.</li>
+            <li>**100% Browser Processing:** Calculations run locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why is 3999 the conversion limit?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard Roman numerals do not have symbols for numbers larger than 1000 (M). Representing numbers 4000 and larger requires horizontal bars above symbols, which are not supported by standard keyboards.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What symbols represent Roman numerals?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The seven standard symbols are I (1), V (5), X (10), L (50), C (100), D (500), and M (1000).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is IIII a valid Roman numeral?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard subtractive Roman notation uses `IV` for 4. `IIII` is sometimes used on clock faces for visual balance, but it is not standard in mathematical notation.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are exploring numerical conversions, check formats with our <a href="../math/hex-converter.html">Hex Converter</a>, calculate numbers with our <a href="../math/binary-converter.html">Binary Converter</a>, or compute ranges with our <a href="../math/percentage-calc.html">Percentage Calculator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Math Tools",
+            "item": "https://multitoolshub.co.in/tools/math/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Roman Numeral Converter",
+            "item": "https://multitoolshub.co.in/tools/math/roman-numeral.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Roman Numeral Converter",
+          "url": "https://multitoolshub.co.in/tools/math/roman-numeral.html",
+          "applicationCategory": "MathApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "robots-generator": """
+        <h2>Introduction to Web Crawlers and robots.txt Directives</h2>
+        <p>A robots.txt file is a plain text file placed in a website's root directory to direct search engine crawlers on which pages to scan or ignore. Standard search crawlers (like Googlebot) read this file before indexing site URLs. Our online <strong>Robots.txt Generator</strong> creates optimized configurations with custom allowances, crawl-delay directives, and sitemap locations.</p>
+        
+        <p>You can configure directives for Googlebot, Bingbot, Yandex, or all crawlers, and add specific allowed and disallowed directories.</p>
+
+        <h3>Why Access Control is Essential for SEO</h3>
+        <p>Allowing crawlers to scan duplicate content, admin panels, or temporary directories wastes crawl budget and can dilute your site's SEO value. Directing crawlers to ignore private pages helps optimize search engine crawling.</p>
+
+        <h3>Real-Life Use Cases for robots.txt Generation</h3>
+        <ul>
+            <li><strong>SEO Audits:</strong> Configuring robots.txt to direct crawlers to ignore duplicate page variants.</li>
+            <li><strong>Securing Paths:</strong> Requesting crawlers to ignore admin folders (e.g. `/wp-admin/` or `/tmp/`).</li>
+            <li><strong>Crawl Delay Adjustments:</strong> Adding delay limits to prevent crawlers from overloading smaller host servers.</li>
+            <li><strong>XML Sitemap Links:</strong> Listing sitemap paths so crawlers find site URLs quickly.</li>
+        </ul>
+
+        <h2>Understanding robots.txt Directives and RFC 9309 Rules</h2>
+        <p>Robots.txt files follow the Robots Exclusion Standard (RFC 9309) rules:</p>
+        <ul>
+            <li><strong>User-agent:</strong> Specifies the crawler name (e.g., <code>*</code> for all crawlers, <code>Googlebot</code> for Google).</li>
+            <li><strong>Disallow:</strong> Lists paths crawlers are requested not to visit.</li>
+            <li><strong>Allow:</strong> Lists paths crawlers are allowed to visit, often within a disallowed parent directory.</li>
+            <li><strong>Crawl-delay:</strong> Requests crawler bots to wait a specified number of seconds between page requests.</li>
+            <li><strong>Sitemap:</strong> Lists the full URL path of the site's XML sitemap.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate a robots.txt File</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose User-Agent</strong> — Select which crawlers to target (e.g., all crawlers or specific search bots).</li>
+            <li><strong>Step 2: Add Crawl Delay (Optional)</strong> — Set a delay limit if you want to pace page requests.</li>
+            <li><strong>Step 3: Define Allow/Disallow Paths</strong> — Enter the directories to allow or disallow, one per line.</li>
+            <li><strong>Step 4: Input Sitemap URL</strong> — Add your site's sitemap path for search bot discovery.</li>
+            <li><strong>Step 5: Generate and Copy</strong> — Click "Process Robots.txt" to generate and copy the formatted code.</li>
+        </ol>
+
+        <h2>Core Features of this Robots.txt Generator</h2>
+        <ul>
+            <li><strong>Custom Path Mappings:</strong> Support for defining multiple allowed and disallowed paths.</li>
+            <li><strong>Crawl-Delay Options:</strong> Set delays to manage crawler traffic.</li>
+            <li><strong>100% Client-Side:</strong> All configuration formatting runs locally in your browser memory.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a robots.txt file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A robots.txt file is a text file placed in a site's root folder to direct search crawlers on which pages to index or ignore.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does robots.txt keep private pages secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Robots.txt is a request to crawlers, not a security mechanism. Publicly available robots.txt files can be read by anyone, so private pages should be protected using password authentication.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where should I upload my robots.txt file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Upload the file to your domain's root directory (e.g., <code>https://example.com/robots.txt</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does Google support Crawl-delay?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Googlebot ignores Crawl-delay directives, but other search engine bots (like Bingbot and Yandex) respect them.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, create a sitemap with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, manage header layouts with our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or inspect density using our <a href="../seo/keyword-density.html">Keyword Density Analyzer</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Robots.txt Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/robots-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Robots.txt Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/robots-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "json-validator": """
+        <h2>Introduction to Data Formatting and JSON Validation</h2>
+        <p>JavaScript Object Notation (JSON) has become the standard text-based data format for web APIs, configuration files, and database columns. Because of its strict structure, a single missing comma, unmatched bracket, or unquoted key will cause syntax errors that break applications. Our online <strong>JSON Validator</strong> validates, diagnoses, and formats your JSON code locally in your browser.</p>
+        
+        <p>If your code contains errors, the validator flags the problem with descriptive feedback, helping you locate syntax issues instantly.</p>
+
+        <h3>Why Clean Data Structures Prevent API Crashes</h3>
+        <p>API endpoints, servers, and build processes expect formatted JSON data. If a client-side form sends malformed payloads, target services fail to parse them. Validating syntax structure helps developers prevent API crashes and debug configs efficiently.</p>
+
+        <h3>Real-Life Use Cases for JSON Validation</h3>
+        <ul>
+            <li><strong>API Debugging:</strong> Verifying backend responses to locate formatting bugs.</li>
+            <li><strong>Configuration Files:</strong> Auditing package dependencies or static configuration settings (e.g. package.json).</li>
+            <li><strong>NoSQL Databases:</strong> Formatting document entries before inserting them into MongoDB or Firebase.</li>
+            <li><strong>Data Exchange:</strong> Ensuring data files conform to correct formats.</li>
+        </ul>
+
+        <h2>Common Syntax Errors in JSON Code</h2>
+        <p>Writers and developers often encounter common formatting mistakes:</p>
+        <ul>
+            <li><strong>Single Quotes:</strong> JSON requires double quotes (<code>"key"</code>) instead of single quotes (<code>'key'</code>).</li>
+            <li><strong>Trailing Commas:</strong> Commas must not be placed after the last key-value pair in an object or array.</li>
+            <li><strong>Unwrapped Keys:</strong> All object keys must be wrapped in double quotes.</li>
+            <li><strong>Unmatched Brackets:</strong> Every opening bracket (<code>{</code> or <code>[</code>) must have a matching closing bracket (<code>}</code> or <code>]</code>).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Validate and Format JSON</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Code</strong> — Paste or type your JSON code into the validator input panel.</li>
+            <li><strong>Step 2: Load Samples (Optional)</strong> — Click "Load Valid JSON" or "Load Invalid JSON" to test the status alerts.</li>
+            <li><strong>Step 3: Process Validation</strong> — Click "Process JSON Validator" to run the parser.</li>
+            <li><strong>Step 4: Copy Formatted Output</strong> — If valid, copy the pretty-printed output. If invalid, review the syntax error alerts.</li>
+        </ol>
+
+        <h2>Core Benefits of this JSON Validator</h2>
+        <ul>
+            <li><strong>Interactive Alerts:</strong> Displays green confirmation banners for valid JSON, and red alerts for syntax errors.</li>
+            <li><strong>Pretty-Print Formatting:</strong> Outputs formatted JSON with clean indentations.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All data parsing runs locally in your browser memory. Your data is never uploaded to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: JSON (JavaScript Object Notation) is a lightweight, human-readable data interchange format used to structure and transmit data.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does the validator point out errors?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool uses native JS parsing exceptions to capture the exact character position and line number where the formatting error occurs.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my codes uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I format minified JSON?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Paste your minified JSON string and run the tool to format it with clean line breaks and indents.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are working with web code, format files using our <a href="../dev/json-formatter.html">JSON Formatter</a>, parse variables with our <a href="../dev/base64-decoder.html">Base64 Decoder</a>, or test outputs using our <a href="../web/html-preview.html">HTML Previewer</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JSON Validator",
+            "item": "https://multitoolshub.co.in/tools/dev/json-validator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "JSON Validator",
+          "url": "https://multitoolshub.co.in/tools/dev/json-validator.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "leap-year": """
         <h2>Introduction to Leap Years and Solar Alignment</h2>
         <p>Leap years are essential to keep our calendar system aligned with the astronomical seasons. The Earth takes approximately 365.2422 days to complete one orbit around the Sun, but our calendar year is 365 days. Without adding an extra day (February 29) every four years, our calendar would drift by about 24 days over a century. Our online <strong>Leap Year Checker</strong> verifies if any year is a leap year using standard Gregorian rules, and supports range calculations.</p>
@@ -5127,6 +5680,31 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "url-shortener": {
+        "title": "URL Shortener - Shorten Links Online",
+        "description": "Create shortened URLs for cleaner links and easier sharing. Validate destination protocols and get secure shortened redirects."
+    },
+
+    "timezone-converter": {
+        "title": "Timezone Converter - Convert Timezones Online",
+        "description": "Convert date and time between global timezones. Compare source and target offsets (EST, GMT, IST, JST) with daylight saving corrections."
+    },
+
+    "roman-numeral": {
+        "title": "Roman Numeral Converter - Arabic to Roman Online",
+        "description": "Convert Arabic integers to Roman numerals and back. View step-by-step conversion mathematical breakdowns for numbers 1 to 3999."
+    },
+
+    "robots-generator": {
+        "title": "Robots.txt Generator - Create Robots.txt Online",
+        "description": "Generate customized robots.txt files for search crawlers. Add directives for Googlebot, Bingbot, custom path limits, and sitemap hooks."
+    },
+
+    "json-validator": {
+        "title": "JSON Validator - Format and Validate JSON Online",
+        "description": "Parse, validate, and pretty-print JSON code snippets. Locate syntax errors with exact line diagnostics and copy clean formatted text."
+    },
+
     "leap-year": {
         "title": "Leap Year Checker - Gregorian Leap Year Calculator",
         "description": "Check if any year is a leap year. Read details on Gregorian rules and audit year ranges dynamically in your browser."
