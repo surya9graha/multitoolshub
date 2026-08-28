@@ -1767,7 +1767,10 @@ async function runCoreLogic(tool, input, output) {
                 uuid = `{${uuid}}`;
             }
             
-             } else if (tool.includes('md5 generator')) {
+            uuids.push(uuid);
+        }
+        result = uuids.join('\n');
+    } else if (tool.includes('md5 generator')) {
         const hashCase = document.getElementById('hashCase')?.value || "lower";
         const hashBulk = document.getElementById('hashBulk')?.checked;
         
@@ -1928,6 +1931,7 @@ async function runCoreLogic(tool, input, output) {
                     if (hashCase === 'upper') sha256Result = sha256Result.toUpperCase();
                 }
             }
+        }
         result = sha256Result;
     } else if (tool.includes('bcrypt hash')) {
         if (!input) {
