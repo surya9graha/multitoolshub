@@ -353,6 +353,83 @@ INPUT_IMAGE_COMPRESSOR = """
 </div>
 """
 
+
+INPUT_HEX_TO_RGB = """
+        <div class="input-group">
+            <label>HEX Color Code</label>
+            <input type="text" id="hexInput" placeholder="#FF5733 or FF5733" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; font-family: monospace; font-size: 1.1rem; text-transform: uppercase;">
+        </div>
+        <div class="input-group" style="margin-top: 20px;">
+            <label>Opacity (Alpha): <span id="alphaValDisplay">1.0</span></label>
+            <input type="range" id="alphaInput" min="0" max="1" step="0.05" value="1" style="width: 100%; margin-top:10px;">
+        </div>
+        <div class="input-group" style="margin-top: 20px;">
+            <label>Color Preview</label>
+            <div id="colorPreviewBox" style="width: 100%; height: 100px; border-radius: 10px; border: 1px solid var(--border); background: #ff5733; margin-top: 10px;"></div>
+        </div>
+    """
+
+INPUT_RANDOM_NUMBER = """
+        <div class="grid-2">
+            <div class="input-group">
+                <label>Minimum Value</label>
+                <input type="number" id="minVal" value="1" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+            </div>
+            <div class="input-group">
+                <label>Maximum Value</label>
+                <input type="number" id="maxVal" value="100" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 20px;">
+            <div class="input-group">
+                <label>Quantity to Generate</label>
+                <input type="number" id="quantityVal" value="1" min="1" max="1000" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+            </div>
+            <div class="input-group" style="display: flex; align-items: center; gap: 10px; padding-top: 30px;">
+                <input type="checkbox" id="allowDuplicates" checked style="width: 20px; height: 20px;">
+                <label for="allowDuplicates" style="margin: 0; cursor: pointer;">Allow Duplicates</label>
+            </div>
+        </div>
+    """
+
+INPUT_RANDOM_NAME = """
+        <div class="grid-2">
+            <div class="input-group">
+                <label>Gender Preference</label>
+                <select id="nameGender" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main);">
+                    <option value="any">Any / Random</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Quantity</label>
+                <input type="number" id="nameQuantity" value="10" min="1" max="100" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+            </div>
+        </div>
+    """
+
+INPUT_TEXT_REVERSER = """
+        <div class="input-group">
+            <label>Text to Reverse</label>
+            <textarea id="toolInput" rows="6" placeholder="Enter your text here..." style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main); font-family: inherit; resize: vertical;"></textarea>
+        </div>
+        <div class="input-group" style="margin-top: 20px;">
+            <label>Reversal Mode</label>
+            <select id="reverserMode" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main);">
+                <option value="string">Reverse Entire String (Mirror)</option>
+                <option value="words">Reverse Word Order Only</option>
+                <option value="letters">Reverse Letters Within Words</option>
+            </select>
+        </div>
+    """
+
+INPUT_FANCY_TEXT = """
+        <div class="input-group">
+            <label>Enter Normal Text</label>
+            <input type="text" id="toolInput" placeholder="Type your text here..." style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; font-size: 1.1rem; background: var(--bg-card); color: var(--text-main);">
+        </div>
+    """
 INPUT_MATH = """
 <div class="input-group">
     <label>Enter Values (Numbers Only)</label>
@@ -2832,6 +2909,82 @@ INPUT_DISCOUNT_CALC = """
     <textarea id="toolInput" style="display:none"></textarea>
 </div>
 """
+INPUT_HEX_TO_RGB = """
+<div class="input-group">
+    <label>HEX Color Code</label>
+    <input type="text" id="hexInput" placeholder="#FF5733 or FF5733" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; font-family: monospace; font-size: 1.1rem; text-transform: uppercase;">
+</div>
+<div class="input-group" style="margin-top: 20px;">
+    <label>Opacity (Alpha): <span id="alphaValDisplay">1.0</span></label>
+    <input type="range" id="alphaInput" min="0" max="1" step="0.05" value="1" style="width: 100%; margin-top:10px;">
+</div>
+<div class="input-group" style="margin-top: 20px;">
+    <label>Color Preview</label>
+    <div id="colorPreviewBox" style="width: 100%; height: 100px; border-radius: 10px; border: 1px solid var(--border); background: #ff5733; margin-top: 10px;"></div>
+</div>
+"""
+
+INPUT_RANDOM_NUMBER = """
+<div class="grid-2">
+    <div class="input-group">
+        <label>Minimum Value</label>
+        <input type="number" id="minVal" value="1" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+    <div class="input-group">
+        <label>Maximum Value</label>
+        <input type="number" id="maxVal" value="100" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+</div>
+<div class="grid-2" style="margin-top: 20px;">
+    <div class="input-group">
+        <label>Quantity to Generate</label>
+        <input type="number" id="quantityVal" value="1" min="1" max="1000" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+    <div class="input-group" style="display: flex; align-items: center; gap: 10px; padding-top: 30px;">
+        <input type="checkbox" id="allowDuplicates" checked style="width: 20px; height: 20px;">
+        <label for="allowDuplicates" style="margin: 0; cursor: pointer;">Allow Duplicates</label>
+    </div>
+</div>
+"""
+
+INPUT_RANDOM_NAME = """
+<div class="grid-2">
+    <div class="input-group">
+        <label>Gender Preference</label>
+        <select id="nameGender" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main);">
+            <option value="any">Any / Random</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label>Quantity</label>
+        <input type="number" id="nameQuantity" value="10" min="1" max="100" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+</div>
+"""
+
+INPUT_TEXT_REVERSER = """
+<div class="input-group">
+    <label>Text to Reverse</label>
+    <textarea id="toolInput" rows="6" placeholder="Enter your text here..." style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main); font-family: inherit; resize: vertical;"></textarea>
+</div>
+<div class="input-group" style="margin-top: 20px;">
+    <label>Reversal Mode</label>
+    <select id="reverserMode" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text-main);">
+        <option value="string">Reverse Entire String (Mirror)</option>
+        <option value="words">Reverse Word Order Only</option>
+        <option value="letters">Reverse Letters Within Words</option>
+    </select>
+</div>
+"""
+
+INPUT_FANCY_TEXT = """
+<div class="input-group">
+    <label>Enter Normal Text</label>
+    <input type="text" id="toolInput" placeholder="Type your text here..." style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px; font-size: 1.1rem; background: var(--bg-card); color: var(--text-main);">
+</div>
+"""
 
 # Generate the files
 for category, tools in tools_data.items():
@@ -3002,6 +3155,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_JS_MINIFIER
         elif tool_name == "fraction-calc":
             current_input = INPUT_FRACTION_CALC
+        elif tool_name == "hex-to-rgb":
+            current_input = INPUT_HEX_TO_RGB
+        elif tool_name == "random-number":
+            current_input = INPUT_RANDOM_NUMBER
+        elif tool_name == "random-name":
+            current_input = INPUT_RANDOM_NAME
+        elif tool_name == "text-reverser":
+            current_input = INPUT_TEXT_REVERSER
+        elif tool_name == "fancy-text":
+            current_input = INPUT_FANCY_TEXT
             
         seo_content = get_seo_content(category, tool_name, title)
         

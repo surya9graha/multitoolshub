@@ -64,10 +64,25 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="grid-2">
+    <div class="input-group">
+        <label>Minimum Value</label>
+        <input type="number" id="minVal" value="1" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+    <div class="input-group">
+        <label>Maximum Value</label>
+        <input type="number" id="maxVal" value="100" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+</div>
+<div class="grid-2" style="margin-top: 20px;">
+    <div class="input-group">
+        <label>Quantity to Generate</label>
+        <input type="number" id="quantityVal" value="1" min="1" max="1000" style="width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 10px;">
+    </div>
+    <div class="input-group" style="display: flex; align-items: center; gap: 10px; padding-top: 30px;">
+        <input type="checkbox" id="allowDuplicates" checked style="width: 20px; height: 20px;">
+        <label for="allowDuplicates" style="margin: 0; cursor: pointer;">Allow Duplicates</label>
+    </div>
 </div>
 
                     

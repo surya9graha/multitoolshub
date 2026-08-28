@@ -725,6 +725,30 @@ function initToolEngine() {
     if (!pBtn) return;
     const h1 = document.querySelector('h1')?.innerText?.toLowerCase() || "";
     
+    // Live HEX Preview logic
+    if (h1.includes('hex to rgb')) {
+        const hInput = document.getElementById('hexInput');
+        const aInput = document.getElementById('alphaInput');
+        const aDisp = document.getElementById('alphaValDisplay');
+        const prev = document.getElementById('colorPreviewBox');
+        const updateColor = () => {
+            if (!hInput || !prev) return;
+            let val = hInput.value.replace('#', '').trim();
+            let alpha = aInput ? parseFloat(aInput.value).toFixed(2) : "1.00";
+            if (aDisp) aDisp.innerText = alpha;
+            if (val.length === 3) val = val[0]+val[0]+val[1]+val[1]+val[2]+val[2];
+            if (val.length === 6) {
+                const r = parseInt(val.substring(0, 2), 16);
+                const g = parseInt(val.substring(2, 4), 16);
+                const b = parseInt(val.substring(4, 6), 16);
+                if (!isNaN(r)) prev.style.background = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+        };
+        if (hInput) hInput.addEventListener('input', updateColor);
+        if (aInput) aInput.addEventListener('input', updateColor);
+    }
+
+    
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1595,7 +1619,18 @@ async function runCoreLogic(tool, input, output) {
             }).join('\n');
         }
     } else if (tool.includes('text reverser')) {
-        result = input.split('').reverse().join('');
+        const mode = document.getElementById('reverserMode')?.value || "string";
+        if (!input.trim()) {
+            result = "Validation Error: Please enter some text to reverse.";
+        } else {
+            if (mode === 'string') {
+                result = input.split('').reverse().join('');
+            } else if (mode === 'words') {
+                result = input.split(/\s+/).reverse().join(' ');
+            } else if (mode === 'letters') {
+                result = input.split(/\s+/).map(word => word.split('').reverse().join('')).join(' ');
+            }
+        }
     } else if (tool.includes('lorem ipsum')) {
         const count = parseInt(document.getElementById('loremCount')?.value || "5", 10);
         const type = document.getElementById('loremType')?.value || "paragraphs";
@@ -1721,12 +1756,57 @@ async function runCoreLogic(tool, input, output) {
             result = slug;
         }
     } else if (tool.includes('random name')) {
-        const names = ["John Doe", "Jane Smith", "Alex Johnson", "Sam Wilson", "Emily Davis"];
-        result = names[Math.floor(Math.random() * names.length)];
+        const gender = document.getElementById('nameGender')?.value || "any";
+        const qty = parseInt(document.getElementById('nameQuantity')?.value || "10");
+        
+        if (isNaN(qty) || qty < 1 || qty > 500) {
+            result = "Validation Error: Please enter a valid quantity between 1 and 500.";
+        } else {
+            const maleFirst = ["James","John","Robert","Michael","William","David","Richard","Joseph","Thomas","Charles","Christopher","Daniel","Matthew","Anthony","Mark","Donald","Steven","Paul","Andrew","Joshua"];
+            const femaleFirst = ["Mary","Patricia","Jennifer","Linda","Elizabeth","Barbara","Susan","Jessica","Sarah","Karen","Lisa","Nancy","Betty","Margaret","Sandra","Ashley","Kimberly","Emily","Donna","Michelle"];
+            const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Hernandez","Lopez","Gonzalez","Wilson","Anderson","Thomas","Taylor","Moore","Jackson","Martin"];
+            
+            let pool = [];
+            if (gender === 'male') pool = maleFirst;
+            else if (gender === 'female') pool = femaleFirst;
+            else pool = [...maleFirst, ...femaleFirst];
+            
+            let names = [];
+            for (let i = 0; i < qty; i++) {
+                const fName = pool[Math.floor(Math.random() * pool.length)];
+                const lName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                names.push(`${fName} ${lName}`);
+            }
+            result = names.join('\n');
+        }
     } else if (tool.includes('username generator')) {
         result = input.toLowerCase().replace(/\s+/g, '_') + Math.floor(Math.random() * 999);
     } else if (tool.includes('fancy text')) {
-        result = "Ⓕⓐⓝⓒⓨ Ⓣⓔⓧⓣ: " + input.split('').join(' ');
+        if (!input.trim()) {
+            result = "Validation Error: Please enter some text.";
+        } else {
+            const maps = {
+                'Script': {'a':'𝒶','b':'𝒷','c':'𝒸','d':'𝒹','e':'ℯ','f':'𝒻','g':'ℊ','h':'𝒽','i':'𝒾','j':'𝒿','k':'𝓀','l':'𝓁','m':'𝓂','n':'𝓃','o':'ℴ','p':'𝓅','q':'𝓆','r':'𝓇','s':'𝓈','t':'𝓉','u':'𝓊','v':'𝓋','w':'𝓌','x':'𝓍','y':'𝓎','z':'𝓏','A':'𝒜','B':'ℬ','C':'𝒞','D':'𝒟','E':'ℰ','F':'ℱ','G':'𝒢','H':'ℋ','I':'ℐ','J':'𝒥','K':'𝒦','L':'ℒ','M':'ℳ','N':'𝒩','O':'𝒪','P':'𝒫','Q':'𝒬','R':'ℛ','S':'𝒮','T':'𝒯','U':'𝒰','V':'𝒱','W':'𝒲','X':'𝒳','Y':'𝒴','Z':'𝒵'},
+                'Gothic': {'a':'𝔞','b':'𝔟','c':'𝔠','d':'𝔡','e':'𝔢','f':'𝔣','g':'𝔤','h':'𝔥','i':'𝔦','j':'𝔧','k':'𝔨','l':'𝔩','m':'𝔪','n':'𝔫','o':'𝔬','p':'𝔭','q':'𝔮','r':'𝔯','s':'𝔰','t':'𝔱','u':'𝔲','v':'𝔳','w':'𝔴','x':'𝔵','y':'𝔶','z':'𝔷','A':'𝔄','B':'𝔅','C':'ℭ','D':'𝔇','E':'𝔈','F':'𝔉','G':'𝔊','H':'ℌ','I':'ℑ','J':'𝔍','K':'𝔎','L':'𝔏','M':'𝔐','N':'𝔑','O':'𝔒','P':'𝔓','Q':'𝔔','R':'ℜ','S':'𝔖','T':'𝔗','U':'𝔘','V':'𝔙','W':'𝔚','X':'𝔛','Y':'𝔜','Z':'ℨ'},
+                'Bubble': {'a':'ⓐ','b':'ⓑ','c':'ⓒ','d':'ⓓ','e':'ⓔ','f':'ⓕ','g':'ⓖ','h':'ⓗ','i':'ⓘ','j':'ⓙ','k':'ⓚ','l':'ⓛ','m':'ⓜ','n':'ⓝ','o':'ⓞ','p':'ⓟ','q':'ⓠ','r':'ⓡ','s':'ⓢ','t':'ⓣ','u':'ⓤ','v':'ⓥ','w':'ⓦ','x':'ⓧ','y':'ⓨ','z':'ⓩ','A':'Ⓐ','B':'Ⓑ','C':'Ⓒ','D':'Ⓓ','E':'Ⓔ','F':'Ⓕ','G':'Ⓖ','H':'Ⓗ','I':'Ⓘ','J':'Ⓙ','K':'Ⓚ','L':'Ⓛ','M':'Ⓜ','N':'Ⓝ','O':'Ⓞ','P':'Ⓟ','Q':'Ⓠ','R':'Ⓡ','S':'Ⓢ','T':'Ⓣ','U':'Ⓤ','V':'Ⓥ','W':'Ⓦ','X':'Ⓧ','Y':'Ⓨ','Z':'Ⓩ'},
+                'Vaporwave': {'a':'ａ','b':'ｂ','c':'ｃ','d':'ｄ','e':'ｅ','f':'ｆ','g':'ｇ','h':'ｈ','i':'ｉ','j':'ｊ','k':'ｋ','l':'ｌ','m':'ｍ','n':'ｎ','o':'ｏ','p':'ｐ','q':'ｑ','r':'ｒ','s':'ｓ','t':'ｔ','u':'ｕ','v':'ｖ','w':'ｗ','x':'ｘ','y':'ｙ','z':'ｚ','A':'Ａ','B':'Ｂ','C':'Ｃ','D':'Ｄ','E':'Ｅ','F':'Ｆ','G':'Ｇ','H':'Ｈ','I':'Ｉ','J':'Ｊ','K':'Ｋ','L':'Ｌ','M':'Ｍ','N':'Ｎ','O':'Ｏ','P':'Ｐ','Q':'Ｑ','R':'Ｒ','S':'Ｓ','T':'Ｔ','U':'Ｕ','V':'Ｖ','W':'Ｗ','X':'Ｘ','Y':'Ｙ','Z':'Ｚ'}
+            };
+            
+            let outLines = [];
+            for (const [styleName, charMap] of Object.entries(maps)) {
+                let styled = input.split('').map(c => charMap[c] || c).join('');
+                outLines.push(`--- ${styleName} ---`);
+                outLines.push(styled);
+                outLines.push("");
+            }
+            // Add Upside down
+            const flipMap = {'a':'ɐ','b':'q','c':'ɔ','d':'p','e':'ǝ','f':'ɟ','g':'ƃ','h':'ɥ','i':'ᴉ','j':'ɾ','k':'ʞ','l':'l','m':'ɯ','n':'u','o':'o','p':'d','q':'b','r':'ɹ','s':'s','t':'ʇ','u':'n','v':'ʌ','w':'ʍ','x':'x','y':'ʎ','z':'z'};
+            let flipped = input.toLowerCase().split('').map(c => flipMap[c] || c).reverse().join('');
+            outLines.push(`--- Upside Down ---`);
+            outLines.push(flipped);
+            
+            result = outLines.join('\n');
+        }
     } else if (tool.includes('text diff')) {
         const originalText = input;
         const modifiedText = document.getElementById('textDiffModified')?.value || "";
@@ -2482,11 +2562,30 @@ async function runCoreLogic(tool, input, output) {
 
     // CSS Tools
     else if (tool.includes('hex to rgb')) {
-        const hex = input.replace('#', '');
-        const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 4), 16);
-        const b = parseInt(hex.substring(4, 6), 16);
-        result = isNaN(r) ? "Invalid HEX code" : `rgb(${r}, ${g}, ${b})`;
+        const hexInput = document.getElementById('hexInput');
+        const alphaInput = document.getElementById('alphaInput');
+        if (!hexInput || !hexInput.value.trim()) {
+            result = "Validation Error: Please enter a HEX color code.";
+        } else {
+            let val = hexInput.value.replace('#', '').trim();
+            if (!/^[0-9A-Fa-f]{3}$/.test(val) && !/^[0-9A-Fa-f]{6}$/.test(val)) {
+                result = "Validation Error: Invalid HEX code. It must be exactly 3 or 6 valid hexadecimal characters (0-9, A-F).";
+            } else {
+                if (val.length === 3) {
+                    val = val[0] + val[0] + val[1] + val[1] + val[2] + val[2];
+                }
+                const r = parseInt(val.substring(0, 2), 16);
+                const g = parseInt(val.substring(2, 4), 16);
+                const b = parseInt(val.substring(4, 6), 16);
+                const a = alphaInput ? parseFloat(alphaInput.value).toFixed(2) : "1.00";
+                
+                result = `HEX: #${val.toUpperCase()}\nRGB: rgb(${r}, ${g}, ${b})\nRGBA: rgba(${r}, ${g}, ${b}, ${a})`;
+                
+                // Update preview
+                const preview = document.getElementById('colorPreviewBox');
+                if (preview) preview.style.background = `rgba(${r}, ${g}, ${b}, ${a})`;
+            }
+        }
     } else if (tool.includes('rgb to hex')) {
         const parts = input.match(/\d+/g);
         if (parts && parts.length >= 3) {
@@ -2673,9 +2772,46 @@ async function runCoreLogic(tool, input, output) {
 
     // Math Tools
     else if (tool.includes('random number')) {
-        const range = input.match(/\d+/g) || [0, 100];
-        const min = parseInt(range[0]), max = parseInt(range[1] || 100);
-        result = Math.floor(Math.random() * (max - min + 1) + min).toString();
+        const minVal = parseInt(document.getElementById('minVal')?.value || "1");
+        const maxVal = parseInt(document.getElementById('maxVal')?.value || "100");
+        const qty = parseInt(document.getElementById('quantityVal')?.value || "1");
+        const allowDups = document.getElementById('allowDuplicates')?.checked;
+        
+        if (isNaN(minVal) || isNaN(maxVal) || isNaN(qty)) {
+            result = "Validation Error: Please enter valid numbers.";
+        } else if (minVal > maxVal) {
+            result = "Validation Error: Minimum value cannot be greater than Maximum value.";
+        } else if (qty < 1 || qty > 1000) {
+            result = "Validation Error: Quantity must be between 1 and 1000.";
+        } else if (!allowDups && qty > (maxVal - minVal + 1)) {
+            result = `Validation Error: You requested ${qty} unique numbers, but the range [${minVal} to ${maxVal}] only contains ${maxVal - minVal + 1} possible unique numbers.`;
+        } else {
+            let numbers = [];
+            if (!allowDups) {
+                // Generate unique pool and shuffle (Fisher-Yates) if range is small enough
+                if ((maxVal - minVal) < 100000) {
+                    let pool = [];
+                    for(let i=minVal; i<=maxVal; i++) pool.push(i);
+                    for (let i = pool.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [pool[i], pool[j]] = [pool[j], pool[i]];
+                    }
+                    numbers = pool.slice(0, qty);
+                } else {
+                    // For very large ranges, use Set
+                    let numSet = new Set();
+                    while(numSet.size < qty) {
+                        numSet.add(Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal);
+                    }
+                    numbers = Array.from(numSet);
+                }
+            } else {
+                for (let i = 0; i < qty; i++) {
+                    numbers.push(Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal);
+                }
+            }
+            result = numbers.join('\n');
+        }
     } else if (tool.includes('binary converter')) {
         const mode = document.getElementById('binaryMode')?.value || "bin_to_all";
         const cleanInput = input.trim();
