@@ -1154,7 +1154,38 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('js minifier')) {
-        result = input.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
+        const val = input.trim();
+        const comments = document.getElementById('jsMinifyComments')?.checked ?? true;
+        const whitespace = document.getElementById('jsMinifyWhitespace')?.checked ?? true;
+        const reportDiv = document.getElementById('jsMinifierReport');
+        
+        if (!val) {
+            result = "Validation Error: Please enter some JavaScript code to minify.";
+            if (reportDiv) reportDiv.style.display = 'none';
+        } else {
+            let minified = val;
+            
+            if (comments) {
+                minified = minified.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
+            }
+            if (whitespace) {
+                minified = minified.replace(/\s+/g, ' ')
+                                   .replace(/\s*([=+\-*/%&|<>!?;:.,{}()\[\]])\s*/g, '$1');
+            }
+            
+            minified = minified.trim();
+            result = minified;
+            
+            if (reportDiv) {
+                const originalSize = val.length;
+                const minifiedSize = minified.length;
+                const saved = originalSize - minifiedSize;
+                const pct = originalSize > 0 ? ((saved / originalSize) * 100).toFixed(1) : 0;
+                
+                reportDiv.style.display = 'block';
+                reportDiv.innerText = `Optimization Report: Size reduced from ${originalSize.toLocaleString()} to ${minifiedSize.toLocaleString()} characters. Saved ${saved.toLocaleString()} characters (${pct}% reduction).`;
+            }
+        }
     } else if (tool.includes('regex tester')) {
         const pattern = document.getElementById('regexPattern')?.value || "";
         const testText = input;
@@ -1283,7 +1314,53 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('html to text')) {
-        const div = document.createElement('div'); div.innerHTML = input; result = div.textContent || div.innerText || "";
+        const val = input.trim();
+        if (!val) {
+            result = "Validation Error: Please enter some HTML code to parse.";
+        } else {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(val, 'text/html');
+                
+                const stripTags = ['script', 'style', 'noscript', 'iframe', 'object', 'embed'];
+                stripTags.forEach(tag => {
+                    const elms = doc.getElementsByTagName(tag);
+                    for (let i = elms.length - 1; i >= 0; i--) {
+                        elms[i].parentNode.removeChild(elms[i]);
+                    }
+                });
+                
+                let text = "";
+                const walk = (node) => {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        text += node.nodeValue;
+                    } else if (node.nodeType === Node.ELEMENT_NODE) {
+                        const tag = node.tagName.toLowerCase();
+                        
+                        if (tag === 'br') {
+                            text += '\n';
+                        } else if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'tr'].includes(tag)) {
+                            if (text && !text.endsWith('\n')) text += '\n';
+                        }
+                        
+                        for (let i = 0; i < node.childNodes.length; i++) {
+                            walk(node.childNodes[i]);
+                        }
+                        
+                        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'tr'].includes(tag)) {
+                            if (!text.endsWith('\n')) text += '\n';
+                        }
+                    }
+                };
+                
+                walk(doc.body);
+                result = text.replace(/[ \t]+/g, ' ')
+                             .replace(/\n\s*\n/g, '\n\n')
+                             .trim();
+            } catch (err) {
+                result = `Parsing Error: Could not compile HTML block. (${err.message})`;
+            }
+        }
     } else if (tool.includes('text to html')) {
         result = input.split('\n').map(p => `<p>${p}</p>`).join('\n');
     }
@@ -1350,7 +1427,51 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('title case')) {
-        result = input.toLowerCase().split(' ').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+        const val = input.trim();
+        const style = document.getElementById('titleCaseStyle')?.value || "ap";
+        
+        if (!val) {
+            result = "Validation Error: Please enter a title text block.";
+        } else {
+            const apMinorWords = new Set([
+                'a', 'an', 'the', 'and', 'but', 'or', 'for', 'of', 'to', 'in', 'on', 'at', 'with', 'by', 
+                'from', 'it', 'its', 'as'
+            ]);
+            
+            const chicagoMinorWords = new Set([
+                'a', 'an', 'the', 'and', 'but', 'or', 'for', 'of', 'to', 'in', 'on', 'at', 'with', 'by',
+                'from', 'as', 'into', 'onto', 'than', 'via', 'vs', 'per'
+            ]);
+            
+            const wikipediaMinorWords = new Set([
+                'a', 'an', 'the', 'and', 'but', 'or', 'for', 'of', 'to', 'in', 'on', 'at', 'with', 'by',
+                'from', 'as', 'into', 'onto', 'than', 'via', 'vs', 'per', 'off', 'out'
+            ]);
+            
+            const minorWords = style === 'ap' ? apMinorWords : (style === 'chicago' ? chicagoMinorWords : wikipediaMinorWords);
+            
+            const formatWord = (word, index, array) => {
+                if (word.length === 0) return word;
+                const cleaned = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
+                const isFirst = index === 0;
+                const isLast = index === array.length - 1;
+                
+                if (style === 'capital') {
+                    return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
+                }
+                
+                if (minorWords.has(cleaned) && !isFirst && !isLast) {
+                    return word.toLowerCase();
+                }
+                
+                return word.charAt(0).toUpperCase() + word.substring(1);
+            };
+            
+            result = val.split('\n').map(line => {
+                const words = line.split(/\s+/);
+                return words.map((w, idx) => formatWord(w, idx, words)).join(' ');
+            }).join('\n');
+        }
     } else if (tool.includes('text reverser')) {
         result = input.split('').reverse().join('');
     } else if (tool.includes('lorem ipsum')) {
@@ -2086,8 +2207,33 @@ async function runCoreLogic(tool, input, output) {
         
         result = tags;
     } else if (tool.includes('og generator')) {
-        const title = input.match(/title:\s*(.*)/i)?.[1] || "Site Title";
-        result = `<meta property="og:title" content="${title}">\n<meta property="og:description" content="Professional tools for everyone.">\n<meta property="og:type" content="website">\n<meta property="og:url" content="https://example.com">\n<meta property="og:image" content="https://example.com/og-image.jpg">`;
+        const title = document.getElementById('ogTitle')?.value || "Site Title";
+        const url = document.getElementById('ogUrl')?.value || "https://example.com";
+        const img = document.getElementById('ogImage')?.value || "https://example.com/og-image.jpg";
+        const type = document.getElementById('ogType')?.value || "website";
+        const desc = input.trim();
+        
+        let tags = `<!-- Open Graph Social Meta Tags Generated via MultiTools Hub -->\n`;
+        tags += `<meta property="og:title" content="${title.trim()}">\n`;
+        tags += `<meta property="og:type" content="${type}">\n`;
+        tags += `<meta property="og:url" content="${url.trim()}">\n`;
+        tags += `<meta property="og:image" content="${img.trim()}">\n`;
+        
+        if (desc.length > 0) {
+            tags += `<meta property="og:description" content="${desc}">\n`;
+        } else {
+            tags += `<meta property="og:description" content="Social summary description here.">\n`;
+        }
+        
+        tags += `\n<!-- Twitter Card Metadata -->\n`;
+        tags += `<meta name="twitter:card" content="summary_large_image">\n`;
+        tags += `<meta name="twitter:title" content="${title.trim()}">\n`;
+        if (desc.length > 0) {
+            tags += `<meta name="twitter:description" content="${desc}">\n`;
+        }
+        tags += `<meta name="twitter:image" content="${img.trim()}">\n`;
+        
+        result = tags;
     } else if (tool.includes('meta tag analyzer')) {
         const title = input.match(/<title>(.*?)<\/title>/i)?.[1] || "No Title Found";
         const desc = input.match(/<meta name="description" content="(.*?)"/i)?.[1] || "No Description Found";
@@ -3197,52 +3343,82 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('fraction calc')) {
-        const match = input.match(/^\s*(\d+)\/(\d+)\s*([\+\-\*\/])\s*(\d+)\/(\d+)\s*$/);
-        if (match) {
-            const n1 = parseInt(match[1]), d1 = parseInt(match[2]);
-            const op = match[3];
-            const n2 = parseInt(match[4]), d2 = parseInt(match[5]);
-            
-            const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
-            const simplifyFraction = (num, denom) => {
-                const common = gcd(num, denom);
-                return {
-                    num: num / common,
-                    denom: denom / common
-                };
-            };
-            
-            if (d1 === 0 || d2 === 0) {
-                result = "Denominator cannot be zero.";
-            } else {
-                let resNum, resDen;
-                if (op === '+') {
-                    resNum = n1 * d2 + n2 * d1;
-                    resDen = d1 * d2;
-                } else if (op === '-') {
-                    resNum = n1 * d2 - n2 * d1;
-                    resDen = d1 * d2;
-                } else if (op === '*') {
-                    resNum = n1 * n2;
-                    resDen = d1 * d2;
-                } else if (op === '/') {
-                    resNum = n1 * d2;
-                    resDen = d1 * n2;
-                }
-                
-                if (resDen === 0) {
-                    result = "Error: Division by zero fraction.";
-                } else {
-                    const simplified = simplifyFraction(resNum, resDen);
-                    const decVal = (simplified.num / simplified.denom).toFixed(4);
-                    result = `Input: ${n1}/${d1} ${op} ${n2}/${d2}\n\n`;
-                    result += `Result (Raw): ${resNum}/${resDen}\n`;
-                    result += `Result (Simplified): ${simplified.num}/${simplified.denom}\n`;
-                    result += `Result (Decimal): ${decVal}`;
-                }
-            }
+        const n1 = parseInt(document.getElementById('fracNumerator1')?.value, 10);
+        const d1 = parseInt(document.getElementById('fracDenominator1')?.value, 10);
+        const op = document.getElementById('fracOperator')?.value || "+";
+        const n2 = parseInt(document.getElementById('fracNumerator2')?.value, 10);
+        const d2 = parseInt(document.getElementById('fracDenominator2')?.value, 10);
+        
+        const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
+        const lcm = (a, b) => (a * b) / gcd(a, b);
+        
+        if (isNaN(n1) || isNaN(d1) || isNaN(n2) || isNaN(d2)) {
+            result = "Validation Error: Please enter valid integer values for all numerator and denominator fields.";
+        } else if (d1 === 0 || d2 === 0) {
+            result = "Validation Error: Denominators cannot be zero.";
         } else {
-            result = "Please enter calculation in format: [fraction] [operator] [fraction]\nExample: 1/2 + 3/4\nSupported operators: +, -, *, /";
+            let resNum, resDen;
+            let stepText = [];
+            
+            if (op === '+') {
+                const commonDen = lcm(d1, d2);
+                const mult1 = commonDen / d1;
+                const mult2 = commonDen / d2;
+                resNum = (n1 * mult1) + (n2 * mult2);
+                resDen = commonDen;
+                
+                stepText.push(`Find Lowest Common Multiple (LCM) of denominators ${d1} and ${d2} -> ${commonDen}`);
+                stepText.push(`Convert fractions: (${n1} * ${mult1})/${commonDen} + (${n2} * ${mult2})/${commonDen}`);
+                stepText.push(`Sum numerators: ${n1 * mult1} + ${n2 * mult2} = ${resNum}`);
+            } else if (op === '-') {
+                const commonDen = lcm(d1, d2);
+                const mult1 = commonDen / d1;
+                const mult2 = commonDen / d2;
+                resNum = (n1 * mult1) - (n2 * mult2);
+                resDen = commonDen;
+                
+                stepText.push(`Find Lowest Common Multiple (LCM) of denominators ${d1} and ${d2} -> ${commonDen}`);
+                stepText.push(`Convert fractions: (${n1} * ${mult1})/${commonDen} - (${n2} * ${mult2})/${commonDen}`);
+                stepText.push(`Subtract numerators: ${n1 * mult1} - ${n2 * mult2} = ${resNum}`);
+            } else if (op === '*') {
+                resNum = n1 * n2;
+                resDen = d1 * d2;
+                
+                stepText.push(`Multiply numerators: ${n1} * ${n2} = ${resNum}`);
+                stepText.push(`Multiply denominators: ${d1} * ${d2} = ${resDen}`);
+            } else if (op === '/') {
+                resNum = n1 * d2;
+                resDen = d1 * n2;
+                
+                stepText.push(`Reciprocal of divisor fraction: ${d2}/${n2}`);
+                stepText.push(`Multiply original fraction by reciprocal: (${n1}/${d1}) * (${d2}/${n2})`);
+                stepText.push(`Multiply: ${n1} * ${d2} = ${resNum} (Numerator)`);
+                stepText.push(`Multiply: ${d1} * ${n2} = ${resDen} (Denominator)`);
+            }
+            
+            if (resDen === 0) {
+                result = "Validation Error: Division by zero fraction (numerator 2 cannot be zero when dividing).";
+            } else {
+                const common = gcd(resNum, resDen);
+                const simpNum = resNum / common;
+                const simpDen = resDen / common;
+                const decVal = (simpNum / simpDen).toFixed(4);
+                
+                const simpStr = simpDen === 1 ? `${simpNum}` : `${simpNum}/${simpDen}`;
+                
+                let mathReport = `Fraction Calculation Results\n`;
+                mathReport += `========================================\n\n`;
+                mathReport += `• Operation:          ${n1}/${d1} ${op} ${n2}/${d2}\n`;
+                mathReport += `• Result (Raw):        ${resNum}/${resDen}\n`;
+                mathReport += `• Result (Simplified): ${simpStr}\n`;
+                mathReport += `• Result (Decimal):    ${decVal}\n\n`;
+                mathReport += `Mathematical Step-by-Step Breakdown:\n`;
+                mathReport += `• ` + stepText.join('\n• ') + `\n`;
+                mathReport += `• Simplify using Greatest Common Divisor (GCD): GCD of ${resNum} and ${resDen} is ${common}.\n`;
+                mathReport += `  (${resNum} / ${common}) / (${resDen} / ${common}) = ${simpStr}`;
+                
+                result = mathReport;
+            }
         }
     }
 

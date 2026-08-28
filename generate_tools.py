@@ -2436,6 +2436,120 @@ INPUT_STOPWATCH = """
 </div>
 """
 
+INPUT_TITLE_CASE = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="titleCaseStyle">Capitalization Style Guide</label>
+            <select id="titleCaseStyle" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="ap" selected>AP Stylebook Rules</option>
+                <option value="chicago">Chicago Manual of Style</option>
+                <option value="wikipedia">Wikipedia Stylebook guidelines</option>
+                <option value="capital">Simple Capital Case (All Words)</option>
+            </select>
+        </div>
+        <div>
+            <label for="toolInput">Input Title or Headline Text</label>
+            <textarea id="toolInput" class="form-control" placeholder="Paste your title or headline text here..." style="height: 120px;"></textarea>
+        </div>
+    </div>
+</div>
+"""
+
+INPUT_HTML_TO_TEXT = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">HTML Code Input</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw HTML markup code here..." style="height: 200px; font-family: monospace;"></textarea>
+    </div>
+</div>
+"""
+
+INPUT_OG_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div>
+            <label for="ogTitle">OG Title (Social Headline)</label>
+            <input type="text" id="ogTitle" class="form-control" placeholder="e.g. MultiTools Hub - Free Utilities" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogUrl">OG URL (Canonical Page Link)</label>
+            <input type="url" id="ogUrl" class="form-control" placeholder="e.g. https://multitoolshub.co.in" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogImage">OG Image URL (Social Image Thumbnail)</label>
+            <input type="url" id="ogImage" class="form-control" placeholder="e.g. https://multitoolshub.co.in/assets/img/og-thumbnail.jpg" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogType">OG Content Type</label>
+            <select id="ogType" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="website" selected>website (Standard Site)</option>
+                <option value="article">article (Blog Post/News)</option>
+                <option value="profile">profile (User Account)</option>
+                <option value="book">book (Book Page)</option>
+            </select>
+        </div>
+    </div>
+    
+    <div>
+        <label for="toolInput">OG Description (Social Summary)</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste social summary description here (keep under 110 characters)..." style="height: 100px;"></textarea>
+    </div>
+</div>
+"""
+
+INPUT_JS_MINIFIER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input JavaScript Code</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw Javascript code here to minify..." style="height: 200px; font-family: monospace;"></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="jsMinifyComments" checked style="accent-color: var(--primary);"> Strip Comments
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="jsMinifyWhitespace" checked style="accent-color: var(--primary);"> Collapse Whitespace
+        </label>
+    </div>
+    
+    <div id="jsMinifierReport" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; background: rgba(16, 185, 129, 0.1); border: 1px solid rgb(16, 185, 129); color: rgb(52, 211, 153);"></div>
+</div>
+"""
+
+INPUT_FRACTION_CALC = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; align-items: center;">
+        <div style="display: grid; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center;">
+            <label style="color: var(--primary); font-weight: 700;">Fraction 1</label>
+            <input type="number" id="fracNumerator1" value="3" class="form-control" style="text-align: center; font-size: 1.2rem; padding: 10px;" placeholder="Numerator">
+            <div style="border-bottom: 2px solid var(--border); margin: 5px 0;"></div>
+            <input type="number" id="fracDenominator1" value="4" class="form-control" style="text-align: center; font-size: 1.2rem; padding: 10px;" placeholder="Denominator">
+        </div>
+        
+        <div>
+            <label for="fracOperator" style="display: block; text-align: center;">Operator</label>
+            <select id="fracOperator" class="form-control" style="padding: 15px; font-size: 1.5rem; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="+" selected>+</option>
+                <option value="-">-</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+            </select>
+        </div>
+        
+        <div style="display: grid; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center;">
+            <label style="color: var(--primary); font-weight: 700;">Fraction 2</label>
+            <input type="number" id="fracNumerator2" value="2" class="form-control" style="text-align: center; font-size: 1.2rem; padding: 10px;" placeholder="Numerator">
+            <div style="border-bottom: 2px solid var(--border); margin: 5px 0;"></div>
+            <input type="number" id="fracDenominator2" value="3" class="form-control" style="text-align: center; font-size: 1.2rem; padding: 10px;" placeholder="Denominator">
+        </div>
+    </div>
+    
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -2878,6 +2992,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_OCTAL_CONVERTER
         elif tool_name == "stopwatch":
             current_input = INPUT_STOPWATCH
+        elif tool_name == "title-case":
+            current_input = INPUT_TITLE_CASE
+        elif tool_name == "html-to-text":
+            current_input = INPUT_HTML_TO_TEXT
+        elif tool_name == "og-generator":
+            current_input = INPUT_OG_GENERATOR
+        elif tool_name == "js-minifier":
+            current_input = INPUT_JS_MINIFIER
+        elif tool_name == "fraction-calc":
+            current_input = INPUT_FRACTION_CALC
             
         seo_content = get_seo_content(category, tool_name, title)
         

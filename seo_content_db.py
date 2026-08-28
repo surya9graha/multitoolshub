@@ -154,6 +154,556 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "fraction-calc": """
+        <h2>Introduction to Fraction Mathematics and Calculations</h2>
+        <p>Adding, subtracting, multiplying, or dividing fractions by hand requires finding common denominators and simplifying results. This can be time-consuming and prone to errors. Our online <strong>Fraction Calculator</strong> handles these calculations, showing simplified fraction outputs alongside decimal ratios and step-by-step mathematical breakdowns.</p>
+        
+        <p>Our tool processes operations client-side, showing the LCM and GCD steps used to reach the simplified result.</p>
+
+        <h3>Why Finding the LCM is Vital for Adding and Subtracting Fractions</h3>
+        <p>You cannot directly add or subtract fractions with different denominators (e.g. `1/3 + 1/4`). You must first find the Lowest Common Multiple (LCM) of the denominators, convert the fractions to have this common denominator, and then add or subtract the numerators.</p>
+
+        <h3>Real-Life Use Cases for Fraction Calculations</h3>
+        <ul>
+            <li><strong>Education:</strong> Checking homework calculations with step-by-step solutions.</li>
+            <li><strong>Baking & Recipes:</strong> Scaling ingredient quantities (e.g., doubling `3/4` cup).</li>
+            <li><strong>Woodworking & Carpentry:</strong> Adding dimensional offsets in inches (e.g. `5/8` plus `3/16`).</li>
+        </ul>
+
+        <h2>Understanding the Mathematical Process</h2>
+        <p>This calculator processes fraction arithmetic using standard mathematical rules:</p>
+        <ul>
+            <li><strong>Fraction Addition:</strong> Finds the Lowest Common Multiple (LCM) of the denominators, converts the numerators, and adds them.</li>
+            <li><strong>Fraction Subtraction:</strong> Converts the denominators using the LCM and subtracts the numerators.</li>
+            <li><strong>Fraction Multiplication:</strong> Multiplies numerators together and denominators together directly.</li>
+            <li><strong>Fraction Division:</strong> Multiplies the first fraction by the reciprocal of the second.</li>
+            <li><strong>Simplification:</strong> Divides both numerator and denominator by their Greatest Common Divisor (GCD) to reach the simplest form.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Calculate Fractions</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Numerator & Denominator</strong> — Input the numbers for Fraction 1 and Fraction 2.</li>
+            <li><strong>Step 2: Choose Operation</strong> — Select an operator (Add, Subtract, Multiply, or Divide).</li>
+            <li><strong>Step 3: Calculate</strong> — Click "Process Fraction Calculator" to run the calculation.</li>
+            <li><strong>Step 4: Review Math Steps</strong> — Review the step-by-step division, LCM, and GCD calculations.</li>
+        </ol>
+
+        <h2>Core Features of this Fraction Calculator</h2>
+        <ul>
+            <li><strong>Step-by-Step Math Breakdown:</strong> Displays the LCM conversions and GCD simplification steps.</li>
+            <li><strong>Decimal Equivalents:</strong> Shows the decimal ratio alongside the fraction results.</li>
+            <li><strong>100% Client-Side Processing:</strong> All calculations run locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a simplified fraction?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A fraction is in its simplest form when its numerator and denominator have no common factors other than 1.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can denominators be negative?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes, but it is standard mathematical practice to represent negative signs in the numerator or in front of the fraction.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my calculations secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All processing occurs locally in your browser memory, so your data is never uploaded to our servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens if a denominator is zero?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Division by zero is mathematically undefined, so denominators cannot be set to zero.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Math Utilities on MultiTools Hub</h2>
+        <p>If you are exploring numerical conversions, convert binary with our <a href="../math/binary-converter.html">Binary Converter</a>, calculate numbers with our <a href="../math/octal-converter.html">Octal Converter</a>, or convert hexadecimal values using our <a href="../math/hex-converter.html">Hex Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Math Tools",
+            "item": "https://multitoolshub.co.in/tools/math/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Fraction Calculator",
+            "item": "https://multitoolshub.co.in/tools/math/fraction-calc.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Fraction Calculator",
+          "url": "https://multitoolshub.co.in/tools/math/fraction-calc.html",
+          "applicationCategory": "MathApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "js-minifier": """
+        <h2>Introduction to Web Performance and JS Minification</h2>
+        <p>JavaScript is a key component of modern web functionality, but files containing large indentations, long variable names, and comments can slow down page loading. Reducing JS file sizes can help improve page load times and Core Web Vitals scores. Our online <strong>JavaScript Minifier</strong> compresses JS code by removing comments and collapsing whitespace locally in your browser.</p>
+        
+        <p>Our tool runs entirely client-side, showing optimization reports detailing character and byte reduction metrics.</p>
+
+        <h3>Why Compressing JS Scripts Speeds Up Rendering</h3>
+        <p>Browsers block page rendering while downloading and parsing JavaScript files. Minified JS files download faster, reducing load times and improving page responsiveness.</p>
+
+        <h3>Real-Life Use Cases for JS Minification</h3>
+        <ul>
+            <li><strong>Production Deployment:</strong> Compressing custom JavaScript files before uploading them to your live server.</li>
+            <li><strong>Bandwidth Reduction:</strong> Reducing size footprint configurations.</li>
+            <li><strong>Page Speed Audits:</strong> Fixing page speed errors related to unminified JavaScript.</li>
+        </ul>
+
+        <h2>How JavaScript Minification Works</h2>
+        <p>This tool compresses your JavaScript using several clean formatting actions:</p>
+        <ul>
+            <li><strong>Strip Block Comments:</strong> Deletes comment blocks starting with <code>/*</code> and ending with <code>*/</code>.</li>
+            <li><strong>Strip Line Comments:</strong> Removes single-line comments starting with <code>//</code>.</li>
+            <li><strong>Collapse Whitespace:</strong> Replaces consecutive spaces, tabs, and line breaks with a single space.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Minify JavaScript</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste JS Code</strong> — Paste your raw JavaScript code into the input area.</li>
+            <li><strong>Step 2: Set Options</strong> — Toggle comment stripping and whitespace collapsing options.</li>
+            <li><strong>Step 3: Minify</strong> — Click "Process JS Minifier" to compress the code.</li>
+            <li><strong>Step 4: Review Report</strong> — Copy the minified output and check the size savings report.</li>
+        </ol>
+
+        <h2>Core Features of this JS Minifier</h2>
+        <ul>
+            <li>**Optimization Reports:** Displays original size, minified size, and percentage of characters saved.</li>
+            <li>**Safe comment removal:** Removes comments without breaking your code logic.</li>
+            <li>**100% Client-Side Processing:** All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between minification and obfuscation?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Minification removes unnecessary characters to reduce file size, keeping code readable. Obfuscation renames variables and alters code structure to make it difficult for humans to understand.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does minifying JS affect my code's functionality?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The minifier only removes whitespace and comments, leaving your code's functionality unchanged.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my JavaScript codes secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All processing occurs locally in your browser memory, so your code is never uploaded to our servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are comment stripping rules?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool removes block comments and inline comments, but preserves script URLs in string variables.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Developer Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing code structures, compress styles with our <a href="../dev/css-minifier.html">CSS Minifier</a>, compress markup using our <a href="../dev/html-minifier.html">HTML Minifier</a>, or validate structures with our <a href="../dev/json-validator.html">JSON Validator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JS Minifier",
+            "item": "https://multitoolshub.co.in/tools/dev/js-minifier.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "JS Minifier",
+          "url": "https://multitoolshub.co.in/tools/dev/js-minifier.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "og-generator": """
+        <h2>Introduction to Social Metadata and Open Graph Protocol</h2>
+        <p>When users share links on social media platforms like Facebook, LinkedIn, or Twitter, the platform displays a summary card containing a headline, thumbnail image, and description. Open Graph meta tags tell social platforms how to format this card. Our online <strong>Open Graph Generator</strong> formats these tags based on your inputs.</p>
+        
+        <p>Our tool generates Open Graph and Twitter Card tags in standard HTML format, ready to paste into your website's header.</p>
+
+        <h3>Why Structured Social Meta Tags Matter for SEO</h3>
+        <p>Structured Open Graph tags don't directly impact search rankings, but they do improve how your pages look when shared. Eye-catching social cards can increase click-through rates (CTR) from social media channels.</p>
+
+        <h3>Real-Life Use Cases for Open Graph Tags</h3>
+        <ul>
+            <li><strong>Marketing Campaigns:</strong> Formatting unique page descriptions for social shares.</li>
+            <li><strong>Blog Customization:</strong> Setting custom social card thumbnails for individual blog posts.</li>
+            <li><strong>CMS Theme Optimization:</strong> Creating default metadata rules for theme templates.</li>
+        </ul>
+
+        <h2>Understanding the Key Open Graph Properties</h2>
+        <p>An effective social metadata block includes several key tags:</p>
+        <ul>
+            <li><strong>og:title:</strong> The headline displayed on the social card (recommended: under 60 characters).</li>
+            <li><strong>og:type:</strong> The type of content (e.g. website, article, profile).</li>
+            <li><strong>og:image:</strong> The URL of the image thumbnail (recommended: 1200x630 pixels).</li>
+            <li><strong>og:url:</strong> The canonical link for the page.</li>
+            <li><strong>og:description:</strong> A brief description of the page (recommended: under 110 characters).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate Open Graph Meta Tags</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Title & Link Details</strong> — Input your headline, canonical link URL, and image link.</li>
+            <li><strong>Step 2: Paste Summary Description</strong> — Paste a page summary into the description input.</li>
+            <li><strong>Step 3: Generate Tags</strong> — Click "Process Open Graph Generator" to compile the HTML meta tags.</li>
+            <li><strong>Step 4: Add to Website</strong> — Copy the output tags and paste them inside the <code>&lt;head&gt;</code> section of your page.</li>
+        </ol>
+
+        <h2>Core Features of this Open Graph Generator</h2>
+        <ul>
+            <li><strong>Dual Platform Metadata:</strong> Compiles Facebook Open Graph and Twitter Card tags simultaneously.</li>
+            <li><strong>Standard Format Output:</strong> Generates clean HTML code, ready to paste.</li>
+            <li><strong>100% Client-Side Processing:</strong> All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the recommended size for an OG image?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Use an image size of 1200x630 pixels to ensure it displays correctly across multiple social platforms.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use multiple OG images?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Platforms typically select the first image tag, but adding multiple images is supported.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my inputs uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do you verify Open Graph tags?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: You can test your tags using debuggers like Facebook Sharing Debugger or Twitter Card Validator.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing page headers, build sitemaps with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, format tags using our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or generate tags with our <a href="../seo/robots-generator.html">Robots Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Open Graph Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/og-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Open Graph Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/og-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "html-to-text": """
+        <h2>Introduction to HTML and Text Content Extraction</h2>
+        <p>When migrating website pages, scraping data, or editing text logs, converting raw HTML markup into plain text is a common requirement. Leaving raw tag codes inside copy can cause parsing issues. Our online <strong>HTML to Text Converter</strong> strips tag elements, drops script and style block variables, and outputs clean plain text.</p>
+        
+        <p>Our tool processes code client-side using DOM parsing to preserve spacing without needing external API dependencies.</p>
+
+        <h3>Why Standard Regex Stripping Fails HTML Formatting</h3>
+        <p>Using basic search-and-replace regular expressions (e.g. replacing `<.*?>` with nothing) to strip HTML often strips text inside script elements (like JS scripts) or leaves inline layout tags merged without spaces. Proper parsing requires a DOM tree walk to handle linebreaks correctly.</p>
+
+        <h3>Real-Life Use Cases for HTML to Text Conversion</h3>
+        <ul>
+            <li><strong>Data Migration:</strong> Stripping layouts from old CMS posts to export clean text.</li>
+            <li><strong>Email Template Cleanup:</strong> Extracting plain-text emails from rich HTML templates.</li>
+            <li><strong>Programming:</strong> Sanitizing code outputs before storing them in database records.</li>
+        </ul>
+
+        <h2>Understanding the DOM Walk-Tree Algorithm</h2>
+        <p>To convert HTML to text cleanly, this tool uses the browser's DOM parser:</p>
+        <ul>
+            <li><strong>Remove Scripts and Styles:</strong> Deletes <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> blocks so their code doesn't appear in the plain text.</li>
+            <li><strong>Preserve Block Line Breaks:</strong> Identifies block elements like <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, and <code>&lt;li&gt;</code>, adding line breaks to preserve formatting.</li>
+            <li><strong>Map Anchors and Images:</strong> Extracts text content from layout tags.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Convert HTML to Text</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste HTML Code</strong> — Paste your raw HTML markup code into the input area.</li>
+            <li><strong>Step 2: Run Conversion</strong> — Click "Process HTML to Text" to convert the markup.</li>
+            <li><strong>Step 3: Check Spacing</strong> — Review the plain text output, checking that layout line breaks are preserved.</li>
+            <li><strong>Step 4: Copy Text</strong> — Copy the plain text output.</li>
+        </ol>
+
+        <h2>Core Features of this HTML to Text Converter</h2>
+        <ul>
+            <li><strong>Safe DOM Parsing:</strong> Prevents browser script execution while parsing markup.</li>
+            <li><strong>Style & Script Stripping:</strong> Automatically removes styling and script tags.</li>
+            <li><strong>100% Client-Side Processing:</strong> All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are comments in the HTML stripped?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All HTML comments (<code>&lt;!-- ... --&gt;</code>) are automatically removed.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does this tool support inline scripting?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard inline script text is stripped, but code elements are treated as plain text if they are not enclosed in script tags.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my codes uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens to HTML entities?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Standard HTML entities (like <code>&amp;amp;</code> or <code>&amp;lt;</code>) are converted back into standard text characters (like `&` and `<`).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Developer Utilities on MultiTools Hub</h2>
+        <p>If you are formatting code layouts, convert text back with our <a href="../text/markdown-converter.html">Markdown Converter</a>, compile markup with our <a href="../dev/html-minifier.html">HTML Minifier</a>, or preview code using our <a href="../dev/html-preview.html">HTML Preview</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HTML to Text Converter",
+            "item": "https://multitoolshub.co.in/tools/dev/html-to-text.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "HTML to Text Converter",
+          "url": "https://multitoolshub.co.in/tools/dev/html-to-text.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "title-case": """
+        <h2>Introduction to Headline Capitalization and Title Case</h2>
+        <p>Whether you are writing blog posts, drafting academic papers, or preparing magazine columns, formatting headlines correctly is vital. Different publishers require distinct rules for capitalization. Our online <strong>Title Case Converter</strong> automatically capitalizes your text based on major style guides: AP, Chicago, Wikipedia, or simple Capital Case.</p>
+        
+        <p>Our tool runs entirely client-side, formatting input titles in your browser window.</p>
+
+        <h3>Why Stylebook Guidelines Matter for Authors</h3>
+        <p>Headline capitalization is not just about capitalizing every word. Major stylebooks (like AP Stylebook or Chicago Manual of Style) specify that minor words (such as articles, short prepositions, and coordinate conjunctions) should remain lowercased unless they start or end the title.</p>
+
+        <h3>Real-Life Use Cases for Title Case Conversion</h3>
+        <ul>
+            <li><strong>Blogging:</strong> Capitalizing blog article headlines for better visual appeal and click-through rates.</li>
+            <li><strong>Academic Writing:</strong> Formatting essay and research paper titles to comply with Chicago Manual guidelines.</li>
+            <li><strong>Content Curation:</strong> Standardizing title cases across multiple curated posts.</li>
+        </ul>
+
+        <h2>Comparing Major Title Capitalization Rules</h2>
+        <p>Each style guide has unique rules for determining which words to lowercase:</p>
+        <ul>
+            <li><strong>AP Stylebook Rules:</strong> Lowercases articles (a, an, the), coordinate conjunctions (and, but, or, for), and prepositions of three or fewer letters (of, to, by, in, on, at, with).</li>
+            <li><strong>Chicago Manual of Style:</strong> Lowercases all prepositions regardless of length (including from, into, onto, than, via, per).</li>
+            <li><strong>Wikipedia Stylebook:</strong> Lowercases similar prepositions and articles, standardizing layouts for wiki entries.</li>
+            <li><strong>Simple Capital Case:</strong> Capitalizes the first letter of every single word without exception.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Format Titles</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Style Guide</strong> — Select your style guide (e.g. AP Stylebook or Chicago Style).</li>
+            <li><strong>Step 2: Enter Headline Text</strong> — Paste your title into the input text area.</li>
+            <li><strong>Step 3: Convert</strong> — Click "Process Title Case" to format the text.</li>
+            <li><strong>Step 4: Copy Output</strong> — Copy the formatted title.</li>
+        </ol>
+
+        <h2>Core Features of this Title Case Converter</h2>
+        <ul>
+            <li>**Multiple Style Guides:** Supports AP, Chicago, Wikipedia, and simple Capital Case.</li>
+            <li>**Preposition Filtering:** Automatically identifies and lowercases minor prepositions.</li>
+            <li>**100% Client-Side Conversion:** Your text is processed locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are the first and last words of a title always capitalized?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Under AP, Chicago, and Wikipedia guidelines, the first and last words of a title must be capitalized, even if they are minor prepositions or articles.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does this tool upload my texts?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All processing runs locally in your browser tab, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the rule for hyphenated words?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Most stylebooks recommend capitalizing both parts of hyphenated words (e.g. `Step-by-Step`), which this tool handles.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use this for book titles?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Book titles are typically formatted using Chicago Manual rules, which this tool supports.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Text Utilities on MultiTools Hub</h2>
+        <p>If you are processing text strings, convert formats with our <a href="../text/case-converter.html">Case Converter</a>, count letters using our <a href="../text/word-counter.html">Word Counter</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Title Case Converter",
+            "item": "https://multitoolshub.co.in/tools/text/title-case.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Title Case Converter",
+          "url": "https://multitoolshub.co.in/tools/text/title-case.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "stopwatch": """
         <h2>Introduction to Time Measurement and Stopwatches</h2>
         <p>Whether you are timing workouts, tracking presentation slides, monitoring laboratory processes, or recording research iterations, having an accurate stopwatch is useful. Our online <strong>Stopwatch</strong> provides a millisecond-accurate timer that supports start, pause, resume, and split lap logs.</p>
@@ -7314,6 +7864,31 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "fraction-calc": {
+        "title": "Fraction Calculator - Add, Subtract, Multiply & Divide",
+        "description": "Perform fraction additions, subtractions, multiplications, and divisions. Renders simplified fractions and step math calculations."
+    },
+
+    "js-minifier": {
+        "title": "JavaScript Minifier - Compress JS Code Online",
+        "description": "Compress Javascript files instantly. Strip comments, collapse white space, and review optimization byte reduction stats."
+    },
+
+    "og-generator": {
+        "title": "Open Graph Generator - Create Social Meta Tags",
+        "description": "Generate Open Graph meta tags and Twitter card parameters for your website. Preview and copy responsive meta elements."
+    },
+
+    "html-to-text": {
+        "title": "HTML to Text Converter - Strip HTML Tags Online",
+        "description": "Convert raw HTML markup code into clean plain text. Strips script, style, and iframe tag blocks safely in your browser tab."
+    },
+
+    "title-case": {
+        "title": "Title Case Converter - Capitalize Headlines Online",
+        "description": "Convert headline titles into standard AP, Chicago, Wikipedia, or Simple Capitalization formats instantly. Formats minor prepositions correctly."
+    },
+
     "stopwatch": {
         "title": "Online Stopwatch - Accurate Digital Millisecond Timer",
         "description": "Measure time intervals with millisecond accuracy. Start, pause, resume, and record lap splits locally using browser APIs."

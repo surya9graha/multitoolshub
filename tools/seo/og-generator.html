@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Og Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Og Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Open Graph Generator - Create Social Meta Tags</title>
+    <meta name="description" content="Generate Open Graph meta tags and Twitter card parameters for your website. Preview and copy responsive meta elements.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,35 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Site & Content Details</label>
-    <textarea id="toolInput" class="form-control" style="height: 180px;" placeholder="Title: MultiTools Hub&#10;Description: Professional online tools for developers and creators.&#10;Keywords: tools, developer, online, free"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">For generators: Use 'Attribute: Value' format. For analyzers: Paste your content directly.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div>
+            <label for="ogTitle">OG Title (Social Headline)</label>
+            <input type="text" id="ogTitle" class="form-control" placeholder="e.g. MultiTools Hub - Free Utilities" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogUrl">OG URL (Canonical Page Link)</label>
+            <input type="url" id="ogUrl" class="form-control" placeholder="e.g. https://multitoolshub.co.in" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogImage">OG Image URL (Social Image Thumbnail)</label>
+            <input type="url" id="ogImage" class="form-control" placeholder="e.g. https://multitoolshub.co.in/assets/img/og-thumbnail.jpg" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="ogType">OG Content Type</label>
+            <select id="ogType" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="website" selected>website (Standard Site)</option>
+                <option value="article">article (Blog Post/News)</option>
+                <option value="profile">profile (User Account)</option>
+                <option value="book">book (Book Page)</option>
+            </select>
+        </div>
+    </div>
+    
+    <div>
+        <label for="toolInput">OG Description (Social Summary)</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste social summary description here (keep under 110 characters)..." style="height: 100px;"></textarea>
+    </div>
 </div>
 
                     
@@ -99,22 +124,114 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Og Generator Online</h2>
-        <p>Our <strong>Og Generator</strong> is a dedicated utility nested within our SEO suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Social links require rich visual cards. The OG Meta Tag Generator creates structured Open Graph declarations, custom-tailoring social link cards for platforms.</p>
+            <h2>Introduction to Social Metadata and Open Graph Protocol</h2>
+        <p>When users share links on social media platforms like Facebook, LinkedIn, or Twitter, the platform displays a summary card containing a headline, thumbnail image, and description. Open Graph meta tags tell social platforms how to format this card. Our online <strong>Open Graph Generator</strong> formats these tags based on your inputs.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Configuring social preview cards for blog pages.</li><li>Defining specific share images, site names, and titles.</li><li>Boosting social media engagement and click-through rates.</li>
+        <p>Our tool generates Open Graph and Twitter Card tags in standard HTML format, ready to paste into your website's header.</p>
+
+        <h3>Why Structured Social Meta Tags Matter for SEO</h3>
+        <p>Structured Open Graph tags don't directly impact search rankings, but they do improve how your pages look when shared. Eye-catching social cards can increase click-through rates (CTR) from social media channels.</p>
+
+        <h3>Real-Life Use Cases for Open Graph Tags</h3>
+        <ul>
+            <li><strong>Marketing Campaigns:</strong> Formatting unique page descriptions for social shares.</li>
+            <li><strong>Blog Customization:</strong> Setting custom social card thumbnails for individual blog posts.</li>
+            <li><strong>CMS Theme Optimization:</strong> Creating default metadata rules for theme templates.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. These SEO tools parse website configurations, generate index directives, and check tags locally. Sitemaps and Robots rules are formulated instantly based on standards defined by Google and major search engines. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the Key Open Graph Properties</h2>
+        <p>An effective social metadata block includes several key tags:</p>
+        <ul>
+            <li><strong>og:title:</strong> The headline displayed on the social card (recommended: under 60 characters).</li>
+            <li><strong>og:type:</strong> The type of content (e.g. website, article, profile).</li>
+            <li><strong>og:image:</strong> The URL of the image thumbnail (recommended: 1200x630 pixels).</li>
+            <li><strong>og:url:</strong> The canonical link for the page.</li>
+            <li><strong>og:description:</strong> A brief description of the page (recommended: under 110 characters).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate Open Graph Meta Tags</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Title & Link Details</strong> — Input your headline, canonical link URL, and image link.</li>
+            <li><strong>Step 2: Paste Summary Description</strong> — Paste a page summary into the description input.</li>
+            <li><strong>Step 3: Generate Tags</strong> — Click "Process Open Graph Generator" to compile the HTML meta tags.</li>
+            <li><strong>Step 4: Add to Website</strong> — Copy the output tags and paste them inside the <code>&lt;head&gt;</code> section of your page.</li>
+        </ol>
+
+        <h2>Core Features of this Open Graph Generator</h2>
+        <ul>
+            <li><strong>Dual Platform Metadata:</strong> Compiles Facebook Open Graph and Twitter Card tags simultaneously.</li>
+            <li><strong>Standard Format Output:</strong> Generates clean HTML code, ready to paste.</li>
+            <li><strong>100% Client-Side Processing:</strong> All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How do robots.txt generator files help my SEO?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: A robots.txt file guides search bots on which pages to crawl or avoid. Restricting crawlers from scanning administrative or private directories saves crawl budget and prevents duplicate indexation issues.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What are Open Graph tags, and why are they necessary?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Open Graph (OG) tags are special meta tags that control how your website's preview card is displayed on platforms like Facebook, Twitter, and LinkedIn. A descriptive title and high-resolution image tag increase CTR by up to 150%.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Do your analyzers run live requests on remote websites?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Certain analyzer tools evaluate local parameters client-side. For analyzers that inspect live URL meta tags, minor requests are funneled through secure cloud APIs purely to retrieve header schemas, without storing queries.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the recommended size for an OG image?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Use an image size of 1200x630 pixels to ensure it displays correctly across multiple social platforms.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use multiple OG images?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Platforms typically select the first image tag, but adding multiple images is supported.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my inputs uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do you verify Open Graph tags?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: You can test your tags using debuggers like Facebook Sharing Debugger or Twitter Card Validator.</p>
+            </div>
         </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing page headers, build sitemaps with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, format tags using our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or generate tags with our <a href="../seo/robots-generator.html">Robots Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Open Graph Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/og-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Open Graph Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/og-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Og Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

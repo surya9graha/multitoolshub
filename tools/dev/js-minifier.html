@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Js Minifier | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Js Minifier on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>JavaScript Minifier - Compress JS Code Online</title>
+    <meta name="description" content="Compress Javascript files instantly. Strip comments, collapse white space, and review optimization byte reduction stats.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +64,22 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input JavaScript Code</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw Javascript code here to minify..." style="height: 200px; font-family: monospace;"></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="jsMinifyComments" checked style="accent-color: var(--primary);"> Strip Comments
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="jsMinifyWhitespace" checked style="accent-color: var(--primary);"> Collapse Whitespace
+        </label>
+    </div>
+    
+    <div id="jsMinifierReport" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; background: rgba(16, 185, 129, 0.1); border: 1px solid rgb(16, 185, 129); color: rgb(52, 211, 153);"></div>
 </div>
 
                     
@@ -98,22 +111,112 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Js Minifier Online</h2>
-        <p>Our <strong>Js Minifier</strong> is a dedicated utility nested within our DEV suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Reduce JavaScript payload sizes to optimize browser parse times. The JavaScript Minifier trims source scripts, removing spaces and debugging statements to secure faster client executions.</p>
+            <h2>Introduction to Web Performance and JS Minification</h2>
+        <p>JavaScript is a key component of modern web functionality, but files containing large indentations, long variable names, and comments can slow down page loading. Reducing JS file sizes can help improve page load times and Core Web Vitals scores. Our online <strong>JavaScript Minifier</strong> compresses JS code by removing comments and collapsing whitespace locally in your browser.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Minifying custom script utilities before script deployment.</li><li>Compressing background workers and local libraries.</li><li>Improving script execution performance on mobile browsers.</li>
+        <p>Our tool runs entirely client-side, showing optimization reports detailing character and byte reduction metrics.</p>
+
+        <h3>Why Compressing JS Scripts Speeds Up Rendering</h3>
+        <p>Browsers block page rendering while downloading and parsing JavaScript files. Minified JS files download faster, reducing load times and improving page responsiveness.</p>
+
+        <h3>Real-Life Use Cases for JS Minification</h3>
+        <ul>
+            <li><strong>Production Deployment:</strong> Compressing custom JavaScript files before uploading them to your live server.</li>
+            <li><strong>Bandwidth Reduction:</strong> Reducing size footprint configurations.</li>
+            <li><strong>Page Speed Audits:</strong> Fixing page speed errors related to unminified JavaScript.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Our development utilities leverage browser-based JavaScript engines (like Google Chrome's V8) to process files and text. Encoders and minifiers run locally in sandboxed threads, ensuring your sensitive development configs, code tokens, and data payloads are never exposed to remote endpoints. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>How JavaScript Minification Works</h2>
+        <p>This tool compresses your JavaScript using several clean formatting actions:</p>
+        <ul>
+            <li><strong>Strip Block Comments:</strong> Deletes comment blocks starting with <code>/*</code> and ending with <code>*/</code>.</li>
+            <li><strong>Strip Line Comments:</strong> Removes single-line comments starting with <code>//</code>.</li>
+            <li><strong>Collapse Whitespace:</strong> Replaces consecutive spaces, tabs, and line breaks with a single space.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Minify JavaScript</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste JS Code</strong> — Paste your raw JavaScript code into the input area.</li>
+            <li><strong>Step 2: Set Options</strong> — Toggle comment stripping and whitespace collapsing options.</li>
+            <li><strong>Step 3: Minify</strong> — Click "Process JS Minifier" to compress the code.</li>
+            <li><strong>Step 4: Review Report</strong> — Copy the minified output and check the size savings report.</li>
+        </ol>
+
+        <h2>Core Features of this JS Minifier</h2>
+        <ul>
+            <li>**Optimization Reports:** Displays original size, minified size, and percentage of characters saved.</li>
+            <li>**Safe comment removal:** Removes comments without breaking your code logic.</li>
+            <li>**100% Client-Side Processing:** All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Are my code configurations or sensitive JSON files uploaded to your servers?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No. MultiTools Hub is built on a strict privacy-first architecture. All text transformation, JSON validation, and Base64 translations are processed locally in your browser cache. Zero bits of your files or text are sent to our hosts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What happens if my JSON file has syntax errors?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Our formatters and validators run syntactic parsers that highlight the exact character position and line number where a syntax break occurred, helping you locate missing commas or brackets instantly.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is there a size limit on the source code I paste in?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: While the tool can parse files up to several megabytes, performance is determined by your local device's memory. For optimal speeds on large code blocks, we recommend closing unused browser tabs.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between minification and obfuscation?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Minification removes unnecessary characters to reduce file size, keeping code readable. Obfuscation renames variables and alters code structure to make it difficult for humans to understand.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does minifying JS affect my code's functionality?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The minifier only removes whitespace and comments, leaving your code's functionality unchanged.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my JavaScript codes secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All processing occurs locally in your browser memory, so your code is never uploaded to our servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are comment stripping rules?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool removes block comments and inline comments, but preserves script URLs in string variables.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Developer Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing code structures, compress styles with our <a href="../dev/css-minifier.html">CSS Minifier</a>, compress markup using our <a href="../dev/html-minifier.html">HTML Minifier</a>, or validate structures with our <a href="../dev/json-validator.html">JSON Validator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JS Minifier",
+            "item": "https://multitoolshub.co.in/tools/dev/js-minifier.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "JS Minifier",
+          "url": "https://multitoolshub.co.in/tools/dev/js-minifier.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Js Minifier</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

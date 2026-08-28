@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title Case | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Title Case on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Title Case Converter - Capitalize Headlines Online</title>
+    <meta name="description" content="Convert headline titles into standard AP, Chicago, Wikipedia, or Simple Capitalization formats instantly. Formats minor prepositions correctly.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +64,22 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="titleCaseStyle">Capitalization Style Guide</label>
+            <select id="titleCaseStyle" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="ap" selected>AP Stylebook Rules</option>
+                <option value="chicago">Chicago Manual of Style</option>
+                <option value="wikipedia">Wikipedia Stylebook guidelines</option>
+                <option value="capital">Simple Capital Case (All Words)</option>
+            </select>
+        </div>
+        <div>
+            <label for="toolInput">Input Title or Headline Text</label>
+            <textarea id="toolInput" class="form-control" placeholder="Paste your title or headline text here..." style="height: 120px;"></textarea>
+        </div>
+    </div>
 </div>
 
                     
@@ -98,22 +111,113 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Title Case Online</h2>
-        <p>Our <strong>Title Case</strong> is a dedicated utility nested within our TEXT suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Capitalize headings according to formal style guides. The Title Case Converter handles prepositions, articles, and formatting rules to output perfectly styled titles.</p>
+            <h2>Introduction to Headline Capitalization and Title Case</h2>
+        <p>Whether you are writing blog posts, drafting academic papers, or preparing magazine columns, formatting headlines correctly is vital. Different publishers require distinct rules for capitalization. Our online <strong>Title Case Converter</strong> automatically capitalizes your text based on major style guides: AP, Chicago, Wikipedia, or simple Capital Case.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Formatting blog headlines and document title structures.</li><li>Standardizing book chapters and title configurations.</li><li>Correcting capitalizations in web layouts.</li>
+        <p>Our tool runs entirely client-side, formatting input titles in your browser window.</p>
+
+        <h3>Why Stylebook Guidelines Matter for Authors</h3>
+        <p>Headline capitalization is not just about capitalizing every word. Major stylebooks (like AP Stylebook or Chicago Manual of Style) specify that minor words (such as articles, short prepositions, and coordinate conjunctions) should remain lowercased unless they start or end the title.</p>
+
+        <h3>Real-Life Use Cases for Title Case Conversion</h3>
+        <ul>
+            <li><strong>Blogging:</strong> Capitalizing blog article headlines for better visual appeal and click-through rates.</li>
+            <li><strong>Academic Writing:</strong> Formatting essay and research paper titles to comply with Chicago Manual guidelines.</li>
+            <li><strong>Content Curation:</strong> Standardizing title cases across multiple curated posts.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Our text processors work directly in your browser's RAM, utilizing native JavaScript string functions for maximum speed. Since all changes occur in real-time on your client, your drafts, notes, and documents remain private. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Comparing Major Title Capitalization Rules</h2>
+        <p>Each style guide has unique rules for determining which words to lowercase:</p>
+        <ul>
+            <li><strong>AP Stylebook Rules:</strong> Lowercases articles (a, an, the), coordinate conjunctions (and, but, or, for), and prepositions of three or fewer letters (of, to, by, in, on, at, with).</li>
+            <li><strong>Chicago Manual of Style:</strong> Lowercases all prepositions regardless of length (including from, into, onto, than, via, per).</li>
+            <li><strong>Wikipedia Stylebook:</strong> Lowercases similar prepositions and articles, standardizing layouts for wiki entries.</li>
+            <li><strong>Simple Capital Case:</strong> Capitalizes the first letter of every single word without exception.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Format Titles</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Style Guide</strong> — Select your style guide (e.g. AP Stylebook or Chicago Style).</li>
+            <li><strong>Step 2: Enter Headline Text</strong> — Paste your title into the input text area.</li>
+            <li><strong>Step 3: Convert</strong> — Click "Process Title Case" to format the text.</li>
+            <li><strong>Step 4: Copy Output</strong> — Copy the formatted title.</li>
+        </ol>
+
+        <h2>Core Features of this Title Case Converter</h2>
+        <ul>
+            <li>**Multiple Style Guides:** Supports AP, Chicago, Wikipedia, and simple Capital Case.</li>
+            <li>**Preposition Filtering:** Automatically identifies and lowercases minor prepositions.</li>
+            <li>**100% Client-Side Conversion:** Your text is processed locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can this counter count characters without spaces?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, our counters calculate total characters with and without space delimiters, giving you precise metrics for social media posts, SMS thresholds, and SEO requirements.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How secure is it to paste my private articles or notes here?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: 100% secure. Because the page does not communicate with any database server during text manipulation, your copy remains inside your browser session and is lost immediately when you close or reload the tab.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the slug generator support international characters?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Our slug generator strips special accents and symbols to convert strings into standard SEO-friendly URL formats (containing alphanumeric characters and dashes).</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are the first and last words of a title always capitalized?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Under AP, Chicago, and Wikipedia guidelines, the first and last words of a title must be capitalized, even if they are minor prepositions or articles.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does this tool upload my texts?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All processing runs locally in your browser tab, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the rule for hyphenated words?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Most stylebooks recommend capitalizing both parts of hyphenated words (e.g. `Step-by-Step`), which this tool handles.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use this for book titles?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Book titles are typically formatted using Chicago Manual rules, which this tool supports.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Text Utilities on MultiTools Hub</h2>
+        <p>If you are processing text strings, convert formats with our <a href="../text/case-converter.html">Case Converter</a>, count letters using our <a href="../text/word-counter.html">Word Counter</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Checker</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Title Case Converter",
+            "item": "https://multitoolshub.co.in/tools/text/title-case.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Title Case Converter",
+          "url": "https://multitoolshub.co.in/tools/text/title-case.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Title Case</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
