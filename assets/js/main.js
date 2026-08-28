@@ -418,12 +418,134 @@ function initTrendingGuidesRail() {
 
 function initSearch() {
     const sInput = document.getElementById('toolSearch');
-    if (sInput) sInput.addEventListener('input', () => {
-        const val = sInput.value.toLowerCase();
+    if (!sInput) return;
+    
+    const wrapper = sInput.parentElement;
+    
+    const suggestBox = document.createElement('div');
+    suggestBox.id = 'searchSuggestions';
+    suggestBox.style.position = 'absolute';
+    suggestBox.style.top = '100%';
+    suggestBox.style.left = '0';
+    suggestBox.style.right = '0';
+    suggestBox.style.background = 'var(--bg-card)';
+    suggestBox.style.border = '1px solid var(--border)';
+    suggestBox.style.borderRadius = '16px';
+    suggestBox.style.marginTop = '10px';
+    suggestBox.style.maxHeight = '300px';
+    suggestBox.style.overflowY = 'auto';
+    suggestBox.style.zIndex = '9999';
+    suggestBox.style.display = 'none';
+    suggestBox.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+    suggestBox.style.textAlign = 'left';
+    suggestBox.style.padding = '10px';
+    
+    wrapper.appendChild(suggestBox);
+    
+    const flatTools = [];
+    Object.entries(TOOLS_DATA).forEach(([cat, list]) => {
+        list.forEach(([id, name, desc]) => {
+            flatTools.push({ cat, id, name, desc });
+        });
+    });
+    
+    let activeIdx = -1;
+    
+    sInput.addEventListener('input', () => {
+        const val = sInput.value.toLowerCase().trim();
+        activeIdx = -1;
+        
         document.querySelectorAll('.tool-card').forEach(c => {
             const match = c.innerText.toLowerCase().includes(val);
             c.style.display = match ? 'block' : 'none';
         });
+        
+        if (!val) {
+            suggestBox.style.display = 'none';
+            suggestBox.innerHTML = '';
+            return;
+        }
+        
+        const matches = flatTools.filter(t => 
+            t.name.toLowerCase().includes(val) || 
+            t.desc.toLowerCase().includes(val) || 
+            t.cat.toLowerCase().includes(val)
+        );
+        
+        if (matches.length === 0) {
+            suggestBox.innerHTML = `<div style="padding: 12px 20px; color: var(--text-muted); font-size: 0.95rem;">No matching tools found.</div>`;
+            suggestBox.style.display = 'block';
+            return;
+        }
+        
+        suggestBox.innerHTML = '';
+        matches.forEach((t, idx) => {
+            const item = document.createElement('a');
+            item.href = `tools/${t.cat}/${t.id}.html`;
+            item.style.display = 'block';
+            item.style.padding = '12px 20px';
+            item.style.borderRadius = '8px';
+            item.style.color = 'var(--text-main)';
+            item.style.textDecoration = 'none';
+            item.style.transition = 'background 0.2s';
+            item.style.cursor = 'pointer';
+            item.className = 'suggest-item';
+            
+            item.innerHTML = `
+                <div style="font-weight: 700; font-size: 1rem; color: var(--primary);">${t.name}</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Category: ${t.cat.toUpperCase()} — ${t.desc}</div>
+            `;
+            
+            item.addEventListener('mouseenter', () => {
+                const activeElms = suggestBox.querySelectorAll('.suggest-item');
+                activeElms.forEach(el => el.style.background = 'transparent');
+                item.style.background = 'rgba(255, 255, 255, 0.05)';
+                activeIdx = idx;
+            });
+            
+            suggestBox.appendChild(item);
+        });
+        
+        suggestBox.style.display = 'block';
+    });
+    
+    sInput.addEventListener('keydown', (e) => {
+        const items = suggestBox.querySelectorAll('.suggest-item');
+        if (suggestBox.style.display === 'none' || !items.length) return;
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeIdx = (activeIdx + 1) % items.length;
+            highlightActive(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeIdx = (activeIdx - 1 + items.length) % items.length;
+            highlightActive(items);
+        } else if (e.key === 'Enter') {
+            if (activeIdx >= 0 && activeIdx < items.length) {
+                e.preventDefault();
+                items[activeIdx].click();
+            }
+        } else if (e.key === 'Escape') {
+            suggestBox.style.display = 'none';
+        }
+    });
+    
+    const highlightActive = (items) => {
+        items.forEach((el, idx) => {
+            if (idx === activeIdx) {
+                el.style.background = 'rgba(255, 255, 255, 0.05)';
+                el.scrollIntoView({ block: 'nearest' });
+            } else {
+                el.style.background = 'transparent';
+            }
+        });
+    };
+    
+    document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) {
+            suggestBox.style.display = 'none';
+        }
     });
 }
 
