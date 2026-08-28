@@ -154,6 +154,443 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "stopwatch": """
+        <h2>Introduction to Time Measurement and Stopwatches</h2>
+        <p>Whether you are timing workouts, tracking presentation slides, monitoring laboratory processes, or recording research iterations, having an accurate stopwatch is useful. Our online <strong>Stopwatch</strong> provides a millisecond-accurate timer that supports start, pause, resume, and split lap logs.</p>
+        
+        <p>Our tool uses browser APIs to run the stopwatch locally, letting you record laps without database lag.</p>
+
+        <h3>Why System Clock Offsets Prevent Timer Drifts</h3>
+        <p>Simple javascript timer loops can drift over time due to browser thread delays. Our stopwatch calculates elapsed time by checking the system clock dynamically, keeping the timer accurate over long periods.</p>
+
+        <h3>Real-Life Use Cases for Stopwatches</h3>
+        <ul>
+            <li><strong>Athletic Timing:</strong> Recording split lap times during training.</li>
+            <li><strong>Usability Audits:</strong> Timing user interactions during UI testing.</li>
+            <li><strong>Presentations:</strong> Timing speaking slides to stay within limits.</li>
+            <li><strong>Cooking & Recipes:</strong> Tracking precise cooking intervals.</li>
+        </ul>
+
+        <h2>Understanding the Stopwatch Mechanics</h2>
+        <p>Our stopwatch tracks time intervals using standard browser features:</p>
+        <ul>
+            <li><strong>Millisecond Precision:</strong> Displays elapsed time down to thousandths of a second.</li>
+            <li><strong>Date Delta:</strong> Calculates the difference between the start time and the current time dynamically to prevent drift.</li>
+            <li><strong>Dynamic Lap Lists:</strong> Renders recorded lap splits in a scrollable list.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Use the Stopwatch</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Start Stopwatch</strong> — Click "Start" to begin tracking time.</li>
+            <li><strong>Step 2: Record Lap Splits</strong> — Click "Lap" to record splits while the timer is running.</li>
+            <li><strong>Step 3: Pause and Resume</strong> — Click "Pause" to temporarily stop the timer, and click "Resume" to continue.</li>
+            <li><strong>Step 4: Reset Display</strong> — Click "Reset" to clear the timer and lap records.</li>
+        </ol>
+
+        <h2>Core Features of this Online Stopwatch</h2>
+        <ul>
+            <li><strong>Millisecond-Accurate Ticking:</strong> High-precision display updates.</li>
+            <li><strong>Detailed Lap Records:</strong> Lists each split lap time in a scrollable display.</li>
+            <li><strong>100% Client-Side Timing:</strong> Runs locally in your browser tab, keeping your sessions private.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the stopwatch run if I minimize the browser window?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Because the stopwatch calculates elapsed time using system clock checks, it remains accurate even when the tab is minimized or in the background.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my timed sessions saved on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All data is processed locally in your browser memory and is cleared when you close the tab.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How many laps can I record?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: You can record unlimited laps. The display area scrolls automatically to show recent laps.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I copy my lap times list?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. You can highlight and copy the lap list text from the results panel.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Time Utilities on MultiTools Hub</h2>
+        <p>If you are tracking time schedules, check global times with our <a href="../time/world-clock.html">World Clock</a>, convert time zones using our <a href="../time/timezone-converter.html">Timezone Converter</a>, or set timers with our <a href="../time/countdown-timer.html">Countdown Timer</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time Tools",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Stopwatch",
+            "item": "https://multitoolshub.co.in/tools/time/stopwatch.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Online Stopwatch",
+          "url": "https://multitoolshub.co.in/tools/time/stopwatch.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "octal-converter": """
+        <h2>Introduction to Octal Numbering and Octal Converters</h2>
+        <p>Octal numbering (base-8) is a positional number system widely used in computing, digital electronics, and file permission configurations (e.g., Linux permissions). While decimal integers are based on powers of 10, octal numbers are based on powers of 8. Our online <strong>Octal Converter</strong> converts octal values to decimal, binary, and hexadecimal, and vice versa.</p>
+        
+        <p>Our tool validates inputs and displays a positional expansion or division step breakdown to explain the mathematical process.</p>
+
+        <h3>Why Base-8 Notation is Used in Computing</h3>
+        <p>Computers process binary data, but reading long binary strings is difficult. Because one octal digit represents exactly three binary bits, base-8 provides a more compact way to represent binary code and memory allocations.</p>
+
+        <h3>Real-Life Use Cases for Octal Conversion</h3>
+        <ul>
+            <li><strong>Linux File Permissions:</strong> Converting numeric permissions (e.g., `755`) to symbolic forms (e.g., `rwxr-xr-x`).</li>
+            <li><strong>Computer Architecture Studies:</strong> Learning binary and octal conversion steps.</li>
+            <li><strong>Debugging System Codes:</strong> Analyzing legacy systems that use octal logs.</li>
+        </ul>
+
+        <h2>Understanding the Base-8 Translation Math</h2>
+        <p>The octal system uses digits <code>0-7</code> to represent values:</p>
+        <ul>
+            <li><strong>Octal to Decimal:</strong> Multiply each digit by its positional power of 8 (e.g., `175` is 1*8^2 + 7*8^1 + 5*8^0 = 64 + 56 + 5 = 125).</li>
+            <li><strong>Decimal to Octal:</strong> Divide the decimal integer by 8 repeatedly, listing the remainders from bottom to top to form the octal value.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Use the Octal Converter</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Conversion Direction</strong> — Select your direction (e.g. Octal to Decimal or Decimal to Octal).</li>
+            <li><strong>Step 2: Enter Input Value</strong> — Input your octal value (using digits 0-7) or decimal integer.</li>
+            <li><strong>Step 3: Run the Conversion</strong> — Click "Process Octal Converter" to run the calculations.</li>
+            <li><strong>Step 4: Review Calculations</strong> — Read the step-by-step division steps or positional expansion breakdown.</li>
+        </ol>
+
+        <h2>Core Features of this Octal Converter</h2>
+        <ul>
+            <li><strong>Dual-Direction Conversions:</strong> Convert octal values to decimal and vice versa.</li>
+            <li><strong>Positional Weight Logs:</strong> Explains calculations with clear math breakdowns.</li>
+            <li><strong>100% Client-Side Processing:</strong> All calculations run locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are base-8 digits?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Octal numbers only use digits 0 through 7. Digits 8 and 9 are not allowed in the octal system.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do you write octal prefixes?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Octal values are often written with a prefix like `0o` (e.g., 0o175) to distinguish them from decimal numbers. Our tool handles this prefix automatically.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does octal compare to hexadecimal?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Octal is a base-8 system (one digit representing 3 bits), while hexadecimal is a base-16 system (one digit representing 4 bits).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Math Utilities on MultiTools Hub</h2>
+        <p>If you are exploring numerical conversions, convert hex with our <a href="../math/hex-converter.html">Hex Converter</a>, calculate numbers with our <a href="../math/binary-converter.html">Binary Converter</a>, or convert roman numerals using our <a href="../math/roman-numeral.html">Roman Numeral Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Math Tools",
+            "item": "https://multitoolshub.co.in/tools/math/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Octal Converter",
+            "item": "https://multitoolshub.co.in/tools/math/octal-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Octal Converter",
+          "url": "https://multitoolshub.co.in/tools/math/octal-converter.html",
+          "applicationCategory": "MathApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "slug-generator": """
+        <h2>Introduction to Web Usability and URL Slugs</h2>
+        <p>A URL slug is the last part of a web address that identifies a specific page in a human-readable format. Clean, readable URL structures improve user experience (UX) and are parsed by search engine crawlers to understand page content. Our online <strong>Slug Generator</strong> converts page titles and headlines into optimized URL slugs locally in your browser.</p>
+        
+        <p>Our tool formats slugs using search engine guidelines, removing special characters, stripping stopwords, and normalizing accents.</p>
+
+        <h3>Why SEO-Friendly URL Slugs Matter</h3>
+        <p>Cryptic URL structures (e.g. `example.com/?p=4832`) provide no context to search engines or users. Describing page topics within URL paths (e.g., `example.com/best-seo-tools`) helps set expectation before users click.</p>
+
+        <h3>Real-Life Use Cases for Slug Generation</h3>
+        <ul>
+            <li><strong>Blogging:</strong> Generating slugs for new blog posts from their titles.</li>
+            <li><strong>E-Commerce:</strong> Generating URLs for product names that contain punctuation.</li>
+            <li><strong>CMS Integrations:</strong> Creating uniform URL path values for content management workflows.</li>
+        </ul>
+
+        <h2>How URL Slug Formatting Works</h2>
+        <p>This generator processes input titles using specific formatting rules:</p>
+        <ul>
+            <li><strong>Diacritic Normalization:</strong> Replaces accented characters (e.g., `é`, `ü`) with standard equivalents (e.g., `e`, `u`).</li>
+            <li><strong>Punctuation Strip:</strong> Removes brackets, commas, periods, and symbols that aren't allowed in URLs.</li>
+            <li><strong>Stopword Removal (Optional):</strong> Removes common grammar filler words (e.g., "the", "and") to keep slugs short.</li>
+            <li><strong>Hyphen Mapping:</strong> Replaces spaces with hyphens (<code>-</code>) and removes duplicate hyphens.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate URL Slugs</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Title String</strong> — Paste your post title or page headline into the input area.</li>
+            <li><strong>Step 2: Set Formatting Preferences</strong> — Toggle lowercase forcing and stopword removal options.</li>
+            <li><strong>Step 3: Generate Slug</strong> — Click "Process Slug Generator" to format the slug.</li>
+            <li><strong>Step 4: Copy Result</strong> — Copy the formatted slug to use in your URL path configurations.</li>
+        </ol>
+
+        <h2>Core Features of this Slug Generator</h2>
+        <ul>
+            <li><strong>Stopword Stripping:</strong> Keeps slugs clean by removing filler words.</li>
+            <li><strong>Diacritics Support:</strong> Converts accented characters to standard equivalents.</li>
+            <li><strong>100% Client-Side Processing:</strong> All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are hyphens preferred over underscores in URLs?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Search engine algorithms treat hyphens as word separators, whereas underscores are treated as part of the word (e.g., `word-one` is parsed as two words, while `word_one` is parsed as one word).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use numbers in my URL slugs?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Numbers are allowed in URL structures, but they should be separated by hyphens (e.g. `10-best-tools`).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my titles uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How long should an SEO slug be?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Keep slugs short, generally between three and five words, focusing on target keywords.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Text Utilities on MultiTools Hub</h2>
+        <p>If you are processing text strings, convert formats with our <a href="../text/case-converter.html">Case Converter</a>, count letters using our <a href="../text/word-counter.html">Word Counter</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Slug Generator",
+            "item": "https://multitoolshub.co.in/tools/text/slug-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Slug Generator",
+          "url": "https://multitoolshub.co.in/tools/text/slug-generator.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "css-minifier": """
+        <h2>Introduction to Web Performance and CSS Minification</h2>
+        <p>CSS styling is a key element of modern websites, but files containing large indentations, block comments, and line breaks can increase page load times. Slow stylesheet loading directly impacts Core Web Vitals, particularly First Contentful Paint (FCP). Our online <strong>CSS Minifier</strong> compresses CSS styles by stripping comments and collapsing whitespace locally in your browser.</p>
+        
+        <p>Our tool runs entirely client-side, showing optimization reports detailing character and byte reduction metrics.</p>
+
+        <h3>Why Compressing CSS Stylesheets Speeds Up Rendering</h3>
+        <p>When browser engines parse page files, they fetch and block rendering until all referenced CSS style rules are processed. Minified CSS files require less network bandwidth to download, reducing page render delays.</p>
+
+        <h3>Real-Life Use Cases for CSS Minification</h3>
+        <ul>
+            <li><strong>Production Deployment:</strong> Compressing raw CSS stylesheet files before pushing them to live servers.</li>
+            <li><strong>Theme Optimization:</strong> Minifying WordPress or web theme layouts to improve site speed scores.</li>
+            <li><strong>Third-Party Libraries:</strong> Collapsing custom plugin files to reduce overall page weight.</li>
+        </ul>
+
+        <h2>How CSS Minification Works</h2>
+        <p>The minifier cleans up your CSS rules using targeted formatting actions:</p>
+        <ul>
+            <li><strong>Strip Comments:</strong> Locates and removes comment blocks starting with <code>/*</code> and ending with <code>*/</code>.</li>
+            <li><strong>Collapse Whitespace:</strong> Replaces consecutive spaces, tabs, and line breaks with a single space.</li>
+            <li><strong>Rule Compress:</strong> Removes spaces around colons, semicolons, brackets, and commas (e.g. converting <code>margin: 10px 0px;</code> to <code>margin:10px 0</code>).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Minify CSS Code</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste CSS Rules</strong> — Paste your raw CSS style rules into the input area.</li>
+            <li><strong>Step 2: Choose Minification Options</strong> — Select options for comment stripping and whitespace collapsing.</li>
+            <li><strong>Step 3: Run compression</strong> — Click "Process CSS Minifier" to minify the code.</li>
+            <li><strong>Step 4: Copy Output</strong> — Copy the minified CSS output and review the character savings report.</li>
+        </ol>
+
+        <h2>Core Features of this CSS Minifier</h2>
+        <ul>
+            <li><strong>Detailed Optimization Stats:</strong> Displays original size, compressed size, and percentage of characters saved.</li>
+            <li><strong>Customizable Filters:</strong> Toggle comment removal and whitespace collapsing based on your needs.</li>
+            <li><strong>100% Client-Side Minification:</strong> All processing is done locally in your browser, keeping your styling code private.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between HTML and CSS minification?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: HTML minification compresses layout tags, while CSS minification compresses design rules (such as selectors, properties, and color values).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does minifying CSS affect my layout's appearance?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Minification only removes unnecessary characters like whitespace and comments, leaving style rules and layout appearance unchanged.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my CSS codes secure?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All processing occurs locally in your browser memory, so your code is never uploaded to our servers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens to single-line comments in CSS?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: CSS does not natively support single-line comments (<code>//</code>). Standard block comments (<code>/* ... */</code>) are stripped by this tool.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Developer Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing code structures, compress markup with our <a href="../dev/html-minifier.html">HTML Minifier</a>, parse values using our <a href="../dev/json-formatter.html">JSON Formatter</a>, or evaluate data using our <a href="../dev/json-validator.html">JSON Validator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "CSS Minifier",
+            "item": "https://multitoolshub.co.in/tools/dev/css-minifier.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "CSS Minifier",
+          "url": "https://multitoolshub.co.in/tools/dev/css-minifier.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "css-gradient": """
         <h2>Introduction to CSS Gradients and Modern Web Layouts</h2>
         <p>In modern web design, gradients are a key styling element for buttons, headers, backgrounds, and cards. Instead of loading heavy image assets, developers use CSS gradients, which render quickly and scale smoothly. Our online <strong>CSS Gradient Generator</strong> generates linear and radial CSS gradient rules with custom color inputs, angles, and real-time previews.</p>
@@ -6546,15 +6983,110 @@ TOOL_SPECIFIC_SEO = {
         </script>
 """,
     "keyword-density": """
-        <h2>Analyze Keyword Frequency and Optimize Content for Search Engines</h2>
-        <p>In search engine optimization, semantic relevance is key. If you repeat a search phrase too many times, search bots might flag your page for keyword stuffing. If you use it too rarely, search engines may fail to index your page for the query. Our <strong>Keyword Density Analyzer</strong> lets you paste your content and see a detailed breakdown of the most frequently used words and phrases, helping you write naturally while optimizing for rankings.</p>
+        <h2>Introduction to On-Page SEO and Keyword Density</h2>
+        <p>Keyword density refers to the percentage frequency with which a targeted search query appears inside website content relative to the total word count. While search algorithms are now more semantic, monitoring keyword usage helps ensure terms are used naturally and prevents keyword stuffing penalty risks. Our online <strong>Keyword Density Checker</strong> tokenizes input texts, filters out common stopwords, and lists keyword density percentages.</p>
         
-        <h3>Writing for Search Generative Experience (SGE)</h3>
-        <p>Modern search systems like Google's SGE look for natural language, structured explanations, and comprehensive answers. By analyzing single, double, and triple-word frequency loops, you can identify grammatical patterns, eliminate repetitive filler words, and balance keyword variations to make your articles read professionally for both AI and human reviewers.</p>
-        
-        <h3>Instant Analysis with Local Processing</h3>
-        <p>We analyze your text right inside your browser window. No drafts are sent to server databases, protecting your unpublished articles, client copy, and content drafts. Simply copy your draft, run the density analyzer, and refine your copy to hit the sweet spot for search engines.</p>
-    """,
+        <p>Our tool parses copy text locally in your browser tab, outputting word count analyses instantly.</p>
+
+        <h3>Why Stopword Filtering is Essential for Keyword Auditing</h3>
+        <p>Analyzing raw text without filtering common stopwords (e.g. "the", "and", "a") results in a list dominated by grammar filler words instead of relevant content topics. Filtering these terms helps highlight the core subjects of the article.</p>
+
+        <h3>Real-Life Use Cases for Keyword Density Checking</h3>
+        <ul>
+            <li><strong>Content Optimization:</strong> Verifying targeted search queries are used naturally across draft posts.</li>
+            <li><strong>Preventing Stuffing:</strong> Identifying keywords used too frequently to prevent quality search penalty risks.</li>
+            <li><strong>Competitor Analysis:</strong> Paste competitor text content to see how they structure their content.</li>
+        </ul>
+
+        <h2>Understanding Keyword Density Math</h2>
+        <p>Keyword density is calculated by dividing the frequency of a specific word by the total count of filtered semantic words, multiplied by 100:</p>
+        \\[ \\text{Keyword Density} = \\left( \\frac{\\text{Keyword Frequency}}{\\text{Total Filtered Words}} \\right) \\times 100 \\]
+        <p>Most SEO experts recommend maintaining a density of <code>1% to 2.5%</code> for main search queries, while supporting them with related terms.</p>
+
+        <h2>Step-by-Step Guide: How to Analyze Keyword Density</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Text Copy</strong> — Paste your draft content or article copy into the input area.</li>
+            <li><strong>Step 2: Run Analysis</strong> — Click "Process Keyword Density" to run the word tokenizer.</li>
+            <li><strong>Step 3: Check Totals</strong> — Review raw and filtered word counts.</li>
+            <li><strong>Step 4: Audit Density Tables</strong> — Check the keyword lists for any terms with high density scores.</li>
+        </ol>
+
+        <h2>Core Features of this Keyword Density Checker</h2>
+        <ul>
+            <li><strong>50+ English Stopwords Filter:</strong> Automatically filters out grammar filler words.</li>
+            <li><strong>Detailed Density Percentages:</strong> Calculates exact density percentages for top terms.</li>
+            <li><strong>100% Client-Side Analysis:</strong> All text processing runs locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is keyword stuffing?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Keyword stuffing is the practice of overloading a webpage with search queries to manipulate search rankings, which can lead to search quality penalties.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a safe density limit?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: A keyword density of 1% to 2.5% is generally considered safe and natural by search engines.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my text contents uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does stopword filtering improve calculations?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It removes common terms like articles and prepositions, allowing you to focus on the semantic keywords in your content.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing page layouts, count elements with our <a href="../text/word-counter.html">Word Counter</a>, edit string values with our <a href="../text/case-converter.html">Case Converter</a>, or verify layouts using our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Keyword Density",
+            "item": "https://multitoolshub.co.in/tools/seo/keyword-density.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Keyword Density Checker",
+          "url": "https://multitoolshub.co.in/tools/seo/keyword-density.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
     "meta-tag-generator": """
         <h2>Introduction to Web Metadata and HTML Header tags</h2>
         <p>Meta tags are HTML snippets placed in a page's header section that provide search engines and social networks with information about your content. Because these tags are read by search crawlers, they are crucial for search indexing and click-through rates. Our online <strong>Meta Tag Generator</strong> creates optimized HTML meta tags with custom title lengths, meta descriptions, search engine indexing parameters, and language settings.</p>
@@ -6782,6 +7314,26 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "stopwatch": {
+        "title": "Online Stopwatch - Accurate Digital Millisecond Timer",
+        "description": "Measure time intervals with millisecond accuracy. Start, pause, resume, and record lap splits locally using browser APIs."
+    },
+
+    "octal-converter": {
+        "title": "Octal Converter - Base 8 to Decimal, Binary & Hex",
+        "description": "Convert octal numbers to decimal, binary, and hexadecimal. Review base-8 positional expansion steps and modulo division steps."
+    },
+
+    "slug-generator": {
+        "title": "Slug Generator - Create Clean URL Slugs Online",
+        "description": "Convert headlines and titles into SEO-friendly URL slugs. Enforce lowercase, normalize accented characters, and strip stopwords."
+    },
+
+    "css-minifier": {
+        "title": "CSS Minifier - Compress CSS Styles Online",
+        "description": "Compress CSS stylesheets instantly. Remove comments, collapse extra spacing, and calculate size optimization reports locally."
+    },
+
     "css-gradient": {
         "title": "CSS Gradient Generator - Create Linear and Radial Gradients",
         "description": "Generate linear and radial CSS gradients. Choose start/end colors, slide angles, preview changes, and copy cross-browser markup."

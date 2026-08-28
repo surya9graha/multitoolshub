@@ -2337,6 +2337,105 @@ INPUT_CSS_GRADIENT = """
 </script>
 """
 
+INPUT_CSS_MINIFIER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input CSS Rules</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw CSS styles here to minify..." style="height: 200px; font-family: monospace;"></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="minifyComments" checked style="accent-color: var(--primary);"> Strip Comments
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="minifyWhitespace" checked style="accent-color: var(--primary);"> Collapse Whitespace
+        </label>
+    </div>
+    
+    <div id="cssMinifierReport" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; background: rgba(16, 185, 129, 0.1); border: 1px solid rgb(16, 185, 129); color: rgb(52, 211, 153);"></div>
+</div>
+"""
+
+INPUT_KEYWORD_DENSITY = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Article Copy / Text Content</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your text content here to analyze keywords density distributions..." style="height: 220px;"></textarea>
+    </div>
+</div>
+"""
+
+INPUT_SLUG_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Title or Text String</label>
+        <input type="text" id="toolInput" class="form-control" placeholder="e.g. 10 Best SEO Tools For Small Businesses" style="padding: 15px;">
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="slugRemoveStopwords" style="accent-color: var(--primary);"> Strip Common Stopwords
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="slugLowercase" checked style="accent-color: var(--primary);"> Force Lowercase
+        </label>
+    </div>
+</div>
+"""
+
+INPUT_OCTAL_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="octalMode">Conversion Direction</label>
+            <select id="octalMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); height: auto; width: 100%;">
+                <option value="octToDec" selected>Octal to Decimal (Base 8 to Base 10)</option>
+                <option value="decToOct">Decimal to Octal (Base 10 to Base 8)</option>
+                <option value="octToBin">Octal to Binary (Base 8 to Base 2)</option>
+                <option value="octToHex">Octal to Hexadecimal (Base 8 to Base 16)</option>
+            </select>
+        </div>
+        <div>
+            <label for="toolInput">Input Value</label>
+            <input type="text" id="toolInput" class="form-control" placeholder="e.g. 175 (Octal) or 125 (Decimal)" style="padding: 15px; font-family: monospace;">
+        </div>
+    </div>
+</div>
+<script>
+    const oMode = document.getElementById('octalMode');
+    oMode?.addEventListener('change', (e) => {
+        const inp = document.getElementById('toolInput');
+        if (!inp) return;
+        if (e.target.value === 'decToOct') {
+            inp.placeholder = "e.g. 125 (Decimal)";
+        } else {
+            inp.placeholder = "e.g. 175 (Octal)";
+        }
+    });
+</script>
+"""
+
+INPUT_STOPWATCH = """
+<div class="input-group" style="display: grid; gap: 25px;">
+    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 30px; text-align: center; max-width: 500px; margin: 0 auto; width: 100%;">
+        <div id="stopwatchClockDisplay" style="font-family: monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; margin-bottom: 20px; line-height: 1;">00:00:00.000</div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px;">
+            <button id="btnStopwatchStart" onclick="window.startStopwatchTicker()" class="btn btn-primary" style="padding: 12px 25px; font-weight: 600; border-radius: 10px;">Start</button>
+            <button id="btnStopwatchLap" onclick="window.recordStopwatchLap()" class="btn" style="padding: 12px 25px; font-weight: 600; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-main); display: none;">Lap</button>
+            <button id="btnStopwatchReset" onclick="window.resetStopwatchTicker()" class="btn" style="padding: 12px 25px; font-weight: 600; border-radius: 10px; background: rgba(239,68,68,0.1); border: 1px solid rgb(239,68,68); color: rgb(248,113,113); display: none;">Reset</button>
+        </div>
+        
+        <div id="stopwatchLapsListContainer" style="display: none; text-align: left; max-height: 200px; overflow-y: auto; border-top: 1px solid var(--border); padding-top: 15px;">
+            <label style="font-size: 0.85rem; color: var(--primary); text-transform: uppercase; font-weight: 800; letter-spacing: 2px; display: block; margin-bottom: 10px;">Recorded Laps</label>
+            <div id="stopwatchLapsList" style="display: grid; gap: 8px;"></div>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -2769,6 +2868,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_WEBSITE_STATUS
         elif tool_name == "css-gradient":
             current_input = INPUT_CSS_GRADIENT
+        elif tool_name == "css-minifier":
+            current_input = INPUT_CSS_MINIFIER
+        elif tool_name == "keyword-density":
+            current_input = INPUT_KEYWORD_DENSITY
+        elif tool_name == "slug-generator":
+            current_input = INPUT_SLUG_GENERATOR
+        elif tool_name == "octal-converter":
+            current_input = INPUT_OCTAL_CONVERTER
+        elif tool_name == "stopwatch":
+            current_input = INPUT_STOPWATCH
             
         seo_content = get_seo_content(category, tool_name, title)
         

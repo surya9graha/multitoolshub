@@ -1120,7 +1120,39 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('css minifier')) {
-        result = input.replace(/\s+/g, ' ').replace(/\/\*.*?\*\//g, '').replace(/\s*([{};:])\s*/g, '$1').trim();
+        const val = input.trim();
+        const comments = document.getElementById('minifyComments')?.checked ?? true;
+        const whitespace = document.getElementById('minifyWhitespace')?.checked ?? true;
+        const reportDiv = document.getElementById('cssMinifierReport');
+        
+        if (!val) {
+            result = "Validation Error: Please enter some CSS code to minify.";
+            if (reportDiv) reportDiv.style.display = 'none';
+        } else {
+            let minified = val;
+            
+            if (comments) {
+                minified = minified.replace(/\/\*[\s\S]*?\*\//g, '');
+            }
+            if (whitespace) {
+                minified = minified.replace(/\s+/g, ' ')
+                                   .replace(/\s*([{};:])\s*/g, '$1')
+                                   .replace(/;}/g, '}');
+            }
+            
+            minified = minified.trim();
+            result = minified;
+            
+            if (reportDiv) {
+                const originalSize = val.length;
+                const minifiedSize = minified.length;
+                const saved = originalSize - minifiedSize;
+                const pct = originalSize > 0 ? ((saved / originalSize) * 100).toFixed(1) : 0;
+                
+                reportDiv.style.display = 'block';
+                reportDiv.innerText = `Optimization Report: Size reduced from ${originalSize.toLocaleString()} to ${minifiedSize.toLocaleString()} characters. Saved ${saved.toLocaleString()} characters (${pct}% reduction).`;
+            }
+        }
     } else if (tool.includes('js minifier')) {
         result = input.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
     } else if (tool.includes('regex tester')) {
@@ -1415,7 +1447,36 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('slug generator')) {
-        result = input.toLowerCase().replace(/[^a-z0-0]+/g, '-').replace(/^-+|-+$/g, '');
+        const val = input.trim();
+        const removeStopwords = document.getElementById('slugRemoveStopwords')?.checked ?? false;
+        const forceLowercase = document.getElementById('slugLowercase')?.checked ?? true;
+        
+        if (!val) {
+            result = "Validation Error: Please enter a title or text to generate a slug.";
+        } else {
+            let slug = val;
+            slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            if (forceLowercase) {
+                slug = slug.toLowerCase();
+            }
+            
+            slug = slug.replace(/[^a-zA-Z0-9\s-]/g, '');
+            
+            if (removeStopwords) {
+                const stopwords = new Set([
+                    'the', 'a', 'an', 'and', 'but', 'or', 'for', 'of', 'to', 'in', 'on', 'at', 'with', 'by', 
+                    'is', 'are', 'was', 'were', 'from', 'this', 'that', 'these', 'those', 'it', 'its'
+                ]);
+                const words = slug.split(/\s+/);
+                slug = words.filter(w => !stopwords.has(w.toLowerCase())).join(' ');
+            }
+            
+            slug = slug.replace(/\s+/g, '-').replace(/-+/g, '-');
+            slug = slug.replace(/^-+|-+$/g, '');
+            
+            result = slug;
+        }
     } else if (tool.includes('random name')) {
         const names = ["John Doe", "Jane Smith", "Alex Johnson", "Sam Wilson", "Emily Davis"];
         result = names[Math.floor(Math.random() * names.length)];
@@ -2096,10 +2157,55 @@ async function runCoreLogic(tool, input, output) {
             result = xml;
         }
     } else if (tool.includes('keyword density')) {
-        const words = input.toLowerCase().match(/\w+/g) || [];
-        const freq = {};
-        words.forEach(w => freq[w] = (freq[w] || 0) + 1);
-        result = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0, 10).map(e => `${e[0]}: ${((e[1]/words.length)*100).toFixed(1)}%`).join('\n');
+        const val = input.trim();
+        if (!val) {
+            result = "Validation Error: Please enter some text content to analyze.";
+        } else {
+            const rawWords = val.toLowerCase().match(/\b[a-z0-9]+(?:'[a-z]+)?\b/g) || [];
+            
+            if (rawWords.length === 0) {
+                result = "Validation Error: The input does not contain any valid alphanumeric words.";
+            } else {
+                const stopwords = new Set([
+                    'the', 'a', 'an', 'and', 'but', 'or', 'for', 'of', 'to', 'in', 'on', 'at', 'with', 'by', 
+                    'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 
+                    'did', 'will', 'would', 'shall', 'should', 'can', 'could', 'may', 'might', 'must', 'about', 
+                    'above', 'after', 'again', 'against', 'all', 'any', 'as', 'both', 'each', 'few', 'more', 
+                    'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 
+                    'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now', 'i', 'you', 'he', 
+                    'she', 'it', 'we', 'they', 'them', 'him', 'her', 'us', 'me', 'my', 'your', 'their', 'our'
+                ]);
+                
+                const wordCounts = {};
+                let filteredCount = 0;
+                
+                rawWords.forEach(w => {
+                    if (!stopwords.has(w) && w.length > 1) {
+                        wordCounts[w] = (wordCounts[w] || 0) + 1;
+                        filteredCount++;
+                    }
+                });
+                
+                if (filteredCount === 0) {
+                    result = "Status: All input words are common grammar stopwords. Try paste a larger text sample.";
+                } else {
+                    const sorted = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
+                    
+                    let table = `Keyword Density Analysis\n`;
+                    table += `========================================\n\n`;
+                    table += `• Total Words (Raw):      ${rawWords.length}\n`;
+                    table += `• Semantic Words (Filtered): ${filteredCount}\n\n`;
+                    table += `Top Keyword Densities (Excluding Stopwords):\n`;
+                    
+                    sorted.slice(0, 15).forEach(([word, count], idx) => {
+                        const density = ((count / filteredCount) * 100).toFixed(2);
+                        table += `  ${(idx + 1).toString().padStart(2, ' ')}. "${word}": ${count} times (${density}%)\n`;
+                    });
+                    
+                    result = table;
+                }
+            }
+        }
     }
 
     // CSS Tools
@@ -3023,16 +3129,71 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('octal converter')) {
-        const cleanInput = input.trim();
-        if (/^[0-7]+$/.test(cleanInput)) {
-            const dec = parseInt(cleanInput, 8);
-            result = `Octal: ${cleanInput}\nDecimal: ${dec}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}`;
+        const mode = document.getElementById('octalMode')?.value || "octToDec";
+        const val = input.trim();
+        
+        if (!val) {
+            result = "Validation Error: Please enter a value to convert.";
         } else {
-            const dec = parseInt(cleanInput);
-            if (!isNaN(dec)) {
-                result = `Decimal: ${dec}\nOctal: ${dec.toString(8)}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}`;
+            if (mode === 'decToOct') {
+                const dec = parseInt(val, 10);
+                if (isNaN(dec) || dec < 0) {
+                    result = "Validation Error: Please enter a non-negative decimal integer.";
+                } else {
+                    const oct = dec.toString(8);
+                    const bin = dec.toString(2);
+                    const hex = dec.toString(16).toUpperCase();
+                    
+                    let steps = [];
+                    let temp = dec;
+                    if (temp === 0) steps.push("0 / 8 = 0 (Remainder: 0)");
+                    while (temp > 0) {
+                        const rem = temp % 8;
+                        steps.push(`${temp} / 8 = ${Math.floor(temp / 8)} (Remainder: ${rem})`);
+                        temp = Math.floor(temp / 8);
+                    }
+                    
+                    result = `Decimal Integer: ${dec}\n` +
+                             `========================================\n\n` +
+                             `• Octal:       ${oct}\n` +
+                             `• Binary:      ${bin}\n` +
+                             `• Hexadecimal: ${hex}\n\n` +
+                             `Mathematical Division Steps (Base 10 to Base 8):\n` +
+                             `• Divide decimal number by 8 repeatedly. List remainders from bottom to top:\n` +
+                             `  ${steps.join('\n  ')}`;
+                }
             } else {
-                result = "Please enter a valid Octal string (digits 0-7) or a Decimal number.";
+                const cleanOct = val.replace(/^0o/i, '');
+                if (!/^[0-7]+$/.test(cleanOct)) {
+                    result = "Validation Error: Input is not a valid Octal string (use characters 0 to 7).";
+                } else {
+                    const dec = parseInt(cleanOct, 8);
+                    const bin = dec.toString(2);
+                    const hex = dec.toString(16).toUpperCase();
+                    
+                    let steps = [];
+                    const digits = cleanOct.split('');
+                    const len = digits.length;
+                    let sumStr = [];
+                    
+                    digits.forEach((d, idx) => {
+                        const power = len - 1 - idx;
+                        const digitVal = parseInt(d, 10);
+                        const termVal = digitVal * Math.pow(8, power);
+                        sumStr.push(`(${digitVal} * 8^${power})`);
+                        steps.push(`Position ${power}: Digit "${d}" -> value ${digitVal} * 8^${power} = ${termVal.toLocaleString()}`);
+                    });
+                    
+                    result = `Octal Value: ${cleanOct}\n` +
+                             `========================================\n\n` +
+                             `• Decimal (Base 10): ${dec.toLocaleString()}\n` +
+                             `• Binary (Base 2):   ${bin}\n` +
+                             `• Hexadecimal (Base 16): ${hex}\n\n` +
+                             `Positional Expansion Steps (Base 8 to Base 10):\n` +
+                             `• ${sumStr.join(' + ')} = ${dec.toLocaleString()}\n\n` +
+                             `• Position Breakdown:\n` +
+                             `  ${steps.join('\n  ')}`;
+                }
             }
         }
     } else if (tool.includes('fraction calc')) {
@@ -3277,14 +3438,118 @@ async function runCoreLogic(tool, input, output) {
         
         result = `Countdown started for target: ${targetDate.toString()}`;
     } else if (tool.includes('stopwatch')) {
-        let sec = 0;
-        if (TIMER_INTERVAL) clearInterval(TIMER_INTERVAL);
-        TIMER_INTERVAL = setInterval(() => {
-            sec++;
-            const m = Math.floor(sec / 60), s = sec % 60;
-            output.innerText = `Stopwatch Running: ${m}:${s.toString().padStart(2, '0')}`;
-        }, 1000);
-        result = "Stopwatch started!";
+        window.startStopwatchTicker = () => {
+            const btnStart = document.getElementById('btnStopwatchStart');
+            const btnLap = document.getElementById('btnStopwatchLap');
+            const btnReset = document.getElementById('btnStopwatchReset');
+            const display = document.getElementById('stopwatchClockDisplay');
+            
+            if (!window.stopwatchIsRunning) {
+                window.stopwatchStartTime = Date.now() - (window.stopwatchElapsedBeforePause || 0);
+                window.stopwatchIsRunning = true;
+                if (btnStart) btnStart.innerText = 'Pause';
+                if (btnStart) btnStart.className = 'btn btn-secondary';
+                if (btnLap) btnLap.style.display = 'inline-block';
+                if (btnReset) btnReset.style.display = 'inline-block';
+                
+                const updateTick = () => {
+                    const elapsed = Date.now() - window.stopwatchStartTime;
+                    
+                    const ms = elapsed % 1000;
+                    const totalSecs = Math.floor(elapsed / 1000);
+                    const hours = Math.floor(totalSecs / 3600);
+                    const minutes = Math.floor((totalSecs % 3600) / 60);
+                    const seconds = totalSecs % 60;
+                    
+                    const fmt = `${hours.toString().padStart(2, '0')}:` +
+                                `${minutes.toString().padStart(2, '0')}:` +
+                                `${seconds.toString().padStart(2, '0')}.` +
+                                `${ms.toString().padStart(3, '0')}`;
+                                
+                    if (display) display.innerText = fmt;
+                };
+                
+                window.stopwatchIntervalId = setInterval(updateTick, 10);
+            } else {
+                clearInterval(window.stopwatchIntervalId);
+                window.stopwatchElapsedBeforePause = Date.now() - window.stopwatchStartTime;
+                window.stopwatchIsRunning = false;
+                if (btnStart) btnStart.innerText = 'Resume';
+                if (btnStart) btnStart.className = 'btn btn-primary';
+            }
+        };
+        
+        window.recordStopwatchLap = () => {
+            if (!window.stopwatchIsRunning && !window.stopwatchElapsedBeforePause) return;
+            const elapsed = window.stopwatchIsRunning 
+                ? Date.now() - window.stopwatchStartTime 
+                : window.stopwatchElapsedBeforePause;
+                
+            const ms = elapsed % 1000;
+            const totalSecs = Math.floor(elapsed / 1000);
+            const hours = Math.floor(totalSecs / 3600);
+            const minutes = Math.floor((totalSecs % 3600) / 60);
+            const seconds = totalSecs % 60;
+            
+            const fmt = `${hours.toString().padStart(2, '0')}:` +
+                        `${minutes.toString().padStart(2, '0')}:` +
+                        `${seconds.toString().padStart(2, '0')}.` +
+                        `${ms.toString().padStart(3, '0')}`;
+                        
+            if (!window.stopwatchLaps) window.stopwatchLaps = [];
+            window.stopwatchLaps.push(fmt);
+            
+            const container = document.getElementById('stopwatchLapsListContainer');
+            const list = document.getElementById('stopwatchLapsList');
+            if (container) container.style.display = 'block';
+            if (list) {
+                const item = document.createElement('div');
+                item.style.padding = '8px 12px';
+                item.style.background = 'rgba(255,255,255,0.03)';
+                item.style.border = '1px solid var(--border)';
+                item.style.borderRadius = '8px';
+                item.style.fontFamily = 'monospace';
+                item.style.fontSize = '0.9rem';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.innerHTML = `<span>Lap ${window.stopwatchLaps.length}</span><span style="font-weight:700; color:var(--primary);">${fmt}</span>`;
+                list.appendChild(item);
+                list.scrollTop = list.scrollHeight;
+            }
+            
+            const outArea = document.getElementById('toolOutput');
+            if (outArea) {
+                outArea.innerText = `Recorded Laps:\n` + window.stopwatchLaps.map((l, i) => `• Lap ${i + 1}: ${l}`).join('\n');
+            }
+        };
+        
+        window.resetStopwatchTicker = () => {
+            clearInterval(window.stopwatchIntervalId);
+            window.stopwatchStartTime = 0;
+            window.stopwatchElapsedBeforePause = 0;
+            window.stopwatchIsRunning = false;
+            window.stopwatchLaps = [];
+            
+            const display = document.getElementById('stopwatchClockDisplay');
+            const btnStart = document.getElementById('btnStopwatchStart');
+            const btnLap = document.getElementById('btnStopwatchLap');
+            const btnReset = document.getElementById('btnStopwatchReset');
+            const container = document.getElementById('stopwatchLapsListContainer');
+            const list = document.getElementById('stopwatchLapsList');
+            
+            if (display) display.innerText = "00:00:00.000";
+            if (btnStart) btnStart.innerText = 'Start';
+            if (btnStart) btnStart.className = 'btn btn-primary';
+            if (btnLap) btnLap.style.display = 'none';
+            if (btnReset) btnReset.style.display = 'none';
+            if (container) container.style.display = 'none';
+            if (list) list.innerHTML = '';
+            
+            const outArea = document.getElementById('toolOutput');
+            if (outArea) outArea.innerText = "Stopwatch reset. Press Start above to begin dynamic tracking.";
+        };
+        
+        result = "Stopwatch initialized! Click the Start button above to begin tracking time intervals.";
     } else if (tool.includes('world clock')) {
         const now = new Date();
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };

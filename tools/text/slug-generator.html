@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slug Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Slug Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Slug Generator - Create Clean URL Slugs Online</title>
+    <meta name="description" content="Convert headlines and titles into SEO-friendly URL slugs. Enforce lowercase, normalize accented characters, and strip stopwords.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,9 +64,20 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Title or Text String</label>
+        <input type="text" id="toolInput" class="form-control" placeholder="e.g. 10 Best SEO Tools For Small Businesses" style="padding: 15px;">
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="slugRemoveStopwords" style="accent-color: var(--primary);"> Strip Common Stopwords
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="slugLowercase" checked style="accent-color: var(--primary);"> Force Lowercase
+        </label>
+    </div>
 </div>
 
                     
@@ -98,22 +109,113 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Slug Generator Online</h2>
-        <p>Our <strong>Slug Generator</strong> is a dedicated utility nested within our TEXT suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Clean URLs improve user trust and search rankings. The Slug Generator converts headlines into alphanumeric string paths separated by compliant dashes.</p>
+            <h2>Introduction to Web Usability and URL Slugs</h2>
+        <p>A URL slug is the last part of a web address that identifies a specific page in a human-readable format. Clean, readable URL structures improve user experience (UX) and are parsed by search engine crawlers to understand page content. Our online <strong>Slug Generator</strong> converts page titles and headlines into optimized URL slugs locally in your browser.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Generating clean URL slugs for blog posts.</li><li>Removing special characters and accents from path strings.</li><li>Structuring SEO-compliant web routing formats.</li>
+        <p>Our tool formats slugs using search engine guidelines, removing special characters, stripping stopwords, and normalizing accents.</p>
+
+        <h3>Why SEO-Friendly URL Slugs Matter</h3>
+        <p>Cryptic URL structures (e.g. `example.com/?p=4832`) provide no context to search engines or users. Describing page topics within URL paths (e.g., `example.com/best-seo-tools`) helps set expectation before users click.</p>
+
+        <h3>Real-Life Use Cases for Slug Generation</h3>
+        <ul>
+            <li><strong>Blogging:</strong> Generating slugs for new blog posts from their titles.</li>
+            <li><strong>E-Commerce:</strong> Generating URLs for product names that contain punctuation.</li>
+            <li><strong>CMS Integrations:</strong> Creating uniform URL path values for content management workflows.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Our text processors work directly in your browser's RAM, utilizing native JavaScript string functions for maximum speed. Since all changes occur in real-time on your client, your drafts, notes, and documents remain private. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>How URL Slug Formatting Works</h2>
+        <p>This generator processes input titles using specific formatting rules:</p>
+        <ul>
+            <li><strong>Diacritic Normalization:</strong> Replaces accented characters (e.g., `é`, `ü`) with standard equivalents (e.g., `e`, `u`).</li>
+            <li><strong>Punctuation Strip:</strong> Removes brackets, commas, periods, and symbols that aren't allowed in URLs.</li>
+            <li><strong>Stopword Removal (Optional):</strong> Removes common grammar filler words (e.g., "the", "and") to keep slugs short.</li>
+            <li><strong>Hyphen Mapping:</strong> Replaces spaces with hyphens (<code>-</code>) and removes duplicate hyphens.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate URL Slugs</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Title String</strong> — Paste your post title or page headline into the input area.</li>
+            <li><strong>Step 2: Set Formatting Preferences</strong> — Toggle lowercase forcing and stopword removal options.</li>
+            <li><strong>Step 3: Generate Slug</strong> — Click "Process Slug Generator" to format the slug.</li>
+            <li><strong>Step 4: Copy Result</strong> — Copy the formatted slug to use in your URL path configurations.</li>
+        </ol>
+
+        <h2>Core Features of this Slug Generator</h2>
+        <ul>
+            <li><strong>Stopword Stripping:</strong> Keeps slugs clean by removing filler words.</li>
+            <li><strong>Diacritics Support:</strong> Converts accented characters to standard equivalents.</li>
+            <li><strong>100% Client-Side Processing:</strong> All processing is done locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can this counter count characters without spaces?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, our counters calculate total characters with and without space delimiters, giving you precise metrics for social media posts, SMS thresholds, and SEO requirements.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How secure is it to paste my private articles or notes here?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: 100% secure. Because the page does not communicate with any database server during text manipulation, your copy remains inside your browser session and is lost immediately when you close or reload the tab.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the slug generator support international characters?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Our slug generator strips special accents and symbols to convert strings into standard SEO-friendly URL formats (containing alphanumeric characters and dashes).</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why are hyphens preferred over underscores in URLs?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Search engine algorithms treat hyphens as word separators, whereas underscores are treated as part of the word (e.g., `word-one` is parsed as two words, while `word_one` is parsed as one word).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use numbers in my URL slugs?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Numbers are allowed in URL structures, but they should be separated by hyphens (e.g. `10-best-tools`).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my titles uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How long should an SEO slug be?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Keep slugs short, generally between three and five words, focusing on target keywords.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Text Utilities on MultiTools Hub</h2>
+        <p>If you are processing text strings, convert formats with our <a href="../text/case-converter.html">Case Converter</a>, count letters using our <a href="../text/word-counter.html">Word Counter</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Slug Generator",
+            "item": "https://multitoolshub.co.in/tools/text/slug-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Slug Generator",
+          "url": "https://multitoolshub.co.in/tools/text/slug-generator.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Slug Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>
