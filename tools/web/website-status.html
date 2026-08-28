@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Status | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Website Status on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Website Status Checker - Is It Down Right Now?</title>
+    <meta name="description" content="Check if a domain is up or down. Get immediate HTTP status codes, latency times, and connection availability reports.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,13 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Domain or Web Link URL to Check</label>
+        <input type="url" id="toolInput" class="form-control" placeholder="e.g. https://multitoolshub.co.in" style="padding: 15px;">
+    </div>
+    
+    <div id="websiteStatusReport" style="display: none; padding: 20px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; font-weight: 500;"></div>
 </div>
 
                     
@@ -99,22 +102,115 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Website Status Online</h2>
-        <p>Our <strong>Website Status</strong> is a dedicated utility nested within our WEB suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Check domain connectivity instantly. Verify if websites are responding to online query packages.</p>
+            <h2>Introduction to Server Monitoring and Online Status Checks</h2>
+        <p>If a website becomes slow or unreachable, it is important to know if the issue is a local network problem or a server-side outage. Our online <strong>Website Status Checker</strong> checks if a website is up or down using a client-side CORS proxy. It displays the response status and latency of the target domain immediately.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Verifying server downtime for custom domains.</li><li>Identifying connection timeouts on external links.</li><li>Checking site accessibility after DNS updates.</li>
+        <p>Our tool processes status checks using secure browser fetch requests, showing availability diagnostics without server delays.</p>
+
+        <h3>Why Checking Site Availability Restores Normal Workflow</h3>
+        <p>When a website fails to load, the issue could be your local Wi-Fi, DNS cache, browser plugins, or a global server outage. Checking the domain status from an external network path helps confirm if the site is down for everyone or just you.</p>
+
+        <h3>Real-Life Use Cases for Website Status Checking</h3>
+        <ul>
+            <li><strong>IT Diagnostics:</strong> Verifying if a server is online after maintenance updates.</li>
+            <li><strong>E-Commerce Monitoring:</strong> Double-checking store availability during shopping events.</li>
+            <li><strong>Content Publishing:</strong> Verifying client sites are live after domain migration updates.</li>
+            <li><strong>Network Debugging:</strong> Confirming if connection issues are restricted to your local network.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Rendering preview engines load scripts in sandboxed frame containers. Network inspection queries utilize lightweight APIs to query registers (DNS, WHOIS) securely, outputting structural records in real-time. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding HTTP Status Codes and Latency</h2>
+        <p>HTTP servers return specific status codes to indicate the result of a request:</p>
+        <ul>
+            <li><strong>200 OK:</strong> The website is online and responding normally.</li>
+            <li><strong>301/302 Redirect:</strong> The request is redirected to another URL.</li>
+            <li><strong>403 Forbidden:</strong> The server is blocking public crawlers or requests.</li>
+            <li><strong>404 Not Found:</strong> The requested page does not exist on the server.</li>
+            <li><strong>500/503 Internal Error:</strong> The server is experiencing an outage.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Check Domain Availability</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter URL or Domain Name</strong> — Input the domain (e.g. google.com) or full link (e.g. https://example.com).</li>
+            <li><strong>Step 2: Start Check</strong> — Click "Process Website Status" to test server access.</li>
+            <li><strong>Step 3: Analyze Alert Box</strong> — Read the green (online) or red (unreachable) status report.</li>
+            <li><strong>Step 4: Check Latency</strong> — Review the response time latency shown in milliseconds.</li>
+        </ol>
+
+        <h2>Core Features of this Website Status Checker</h2>
+        <ul>
+            <li><strong>Domain Validation:</strong> Verifies URL formats and structure before checking.</li>
+            <li><strong>CORS Proxy Fallbacks:</strong> Uses external CORS proxies to check domains from a neutral network path.</li>
+            <li><strong>Latency Metrics:</strong> Displays server response times in milliseconds.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Why is my live HTML preview not executing external scripts?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: To maintain security and prevent cross-site scripting (XSS), our preview frame is sandboxed, blocking frame breakouts and certain local cookie storage actions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Does the WHOIS tool lookup private registration details?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The WHOIS tool returns public registration records provided by TLD registries. If a domain owner has enabled WHOIS privacy protection, the output will list proxy registrar contacts.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is my IP address logged when I inspect a website status?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No, domain inspections are processed via secure middle endpoints that check host records on our behalf, keeping your local IP anonymous to the destination host.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What does "Up" status mean?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It means the website resolved successfully and responded to the test request.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does a site show as down for me but up on the checker?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The issue is likely local, such as a browser cache mismatch, local Wi-Fi outage, or a block from your internet provider.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my domain checks private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Status checks are run locally via the CORS proxy from your browser tab. No database records are kept on MultiTools Hub.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the tool work for localhost addresses?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The proxy cannot access your local server environment (e.g. `localhost` or local IP ranges).</p>
+            </div>
         </div>
+
+        <h2>Explore Related Web Utilities on MultiTools Hub</h2>
+        <p>If you are managing domain configurations, build XML structures with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, configure crawler rules with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, or inspect site metadata using our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web Tools",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Website Status",
+            "item": "https://multitoolshub.co.in/tools/web/website-status.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Website Status Checker",
+          "url": "https://multitoolshub.co.in/tools/web/website-status.html",
+          "applicationCategory": "WebApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Website Status</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

@@ -154,6 +154,563 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "css-gradient": """
+        <h2>Introduction to CSS Gradients and Modern Web Layouts</h2>
+        <p>In modern web design, gradients are a key styling element for buttons, headers, backgrounds, and cards. Instead of loading heavy image assets, developers use CSS gradients, which render quickly and scale smoothly. Our online <strong>CSS Gradient Generator</strong> generates linear and radial CSS gradient rules with custom color inputs, angles, and real-time previews.</p>
+        
+        <p>Our tool compiles gradient code locally in your browser, generating copyable CSS syntax ready for your stylesheet.</p>
+
+        <h3>Why CSS Gradients Improve Page Performance</h3>
+        <p>Image files (like PNGs or JPGs) take time to download, increasing page load times. CSS gradients are rendered natively by browser engines, reducing network requests and keeping layouts crisp on high-resolution displays.</p>
+
+        <h3>Real-Life Use Cases for CSS Gradient Generation</h3>
+        <ul>
+            <li><strong>Web Layout Styling:</strong> Creating gradient backgrounds for sections and hero banners.</li>
+            <li><strong>UI Components:</strong> Styling call-to-action buttons, cards, and navigation headers.</li>
+            <li><strong>Design Prototyping:</strong> Tweaking color palettes visually before exporting styles.</li>
+            <li><strong>CSS Coding Study:</strong> Learning syntax rules for linear and radial gradients.</li>
+        </ul>
+
+        <h2>Understanding the CSS Gradient Types</h2>
+        <p>CSS supports multiple gradient structures:</p>
+        <ul>
+            <li><strong>Linear Gradients:</strong> Colors transition along a straight line. The direction is set by angles (e.g., 90deg, 180deg) or keywords (e.g., to bottom, to right).</li>
+            <li><strong>Radial Gradients:</strong> Colors radiate outward from a central point, transitioning in circular or elliptical shapes.</li>
+            <li><strong>Color Stops:</strong> Define color transition points along the gradient path.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate CSS Gradient Code</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Gradient Type</strong> — Select either a Linear or Radial gradient layout.</li>
+            <li><strong>Step 2: Choose Start and End Colors</strong> — Use the color pickers or type hex values into the text inputs.</li>
+            <li><strong>Step 3: Adjust Gradient Angle (Linear Only)</strong> — Slide the angle selector from 0° to 360° to set the transition direction.</li>
+            <li><strong>Step 4: Copy Code</strong> — Preview the gradient in the box, then copy the CSS code from the output panel.</li>
+        </ol>
+
+        <h2>Core Features of this CSS Gradient Generator</h2>
+        <ul>
+            <li><strong>Dual Color Picker Sync:</strong> Syncs visual color pickers with hex text inputs.</li>
+            <li><strong>Live CSS Preview:</strong> Displays color changes immediately in a preview box.</li>
+            <li><strong>Cross-Browser Support:</strong> Generates cross-browser CSS prefixes (e.g. -webkit-, -moz-).</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are vendor prefixes still required for CSS gradients?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Modern web browsers support standard gradient syntax, but vendor prefixes (like `-webkit-`) are still useful to support older browsers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do I sync hex inputs with color pickers?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Changing the visual color picker updates the text field, and entering a valid 6-character hex value updates the picker immediately.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use CSS gradients in background-image styles?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Gradients are treated as images in CSS, so they should be assigned to `background` or `background-image` properties.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is my design data private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All gradient compilation runs locally in your browser memory. No color or design data is sent to a server.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related CSS Utilities on MultiTools Hub</h2>
+        <p>If you are building stylesheets, convert values with our <a href="../css/hex-to-rgb.html">Hex to RGB Converter</a>, convert RGB colors using our <a href="../css/rgb-to-hex.html">RGB to Hex Converter</a>, or generate layouts with our <a href="../css/css-shadow.html">CSS Box Shadow Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "CSS Tools",
+            "item": "https://multitoolshub.co.in/tools/css/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "CSS Gradient",
+            "item": "https://multitoolshub.co.in/tools/css/css-gradient.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "CSS Gradient Generator",
+          "url": "https://multitoolshub.co.in/tools/css/css-gradient.html",
+          "applicationCategory": "CSSApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "website-status": """
+        <h2>Introduction to Server Monitoring and Online Status Checks</h2>
+        <p>If a website becomes slow or unreachable, it is important to know if the issue is a local network problem or a server-side outage. Our online <strong>Website Status Checker</strong> checks if a website is up or down using a client-side CORS proxy. It displays the response status and latency of the target domain immediately.</p>
+        
+        <p>Our tool processes status checks using secure browser fetch requests, showing availability diagnostics without server delays.</p>
+
+        <h3>Why Checking Site Availability Restores Normal Workflow</h3>
+        <p>When a website fails to load, the issue could be your local Wi-Fi, DNS cache, browser plugins, or a global server outage. Checking the domain status from an external network path helps confirm if the site is down for everyone or just you.</p>
+
+        <h3>Real-Life Use Cases for Website Status Checking</h3>
+        <ul>
+            <li><strong>IT Diagnostics:</strong> Verifying if a server is online after maintenance updates.</li>
+            <li><strong>E-Commerce Monitoring:</strong> Double-checking store availability during shopping events.</li>
+            <li><strong>Content Publishing:</strong> Verifying client sites are live after domain migration updates.</li>
+            <li><strong>Network Debugging:</strong> Confirming if connection issues are restricted to your local network.</li>
+        </ul>
+
+        <h2>Understanding HTTP Status Codes and Latency</h2>
+        <p>HTTP servers return specific status codes to indicate the result of a request:</p>
+        <ul>
+            <li><strong>200 OK:</strong> The website is online and responding normally.</li>
+            <li><strong>301/302 Redirect:</strong> The request is redirected to another URL.</li>
+            <li><strong>403 Forbidden:</strong> The server is blocking public crawlers or requests.</li>
+            <li><strong>404 Not Found:</strong> The requested page does not exist on the server.</li>
+            <li><strong>500/503 Internal Error:</strong> The server is experiencing an outage.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Check Domain Availability</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter URL or Domain Name</strong> — Input the domain (e.g. google.com) or full link (e.g. https://example.com).</li>
+            <li><strong>Step 2: Start Check</strong> — Click "Process Website Status" to test server access.</li>
+            <li><strong>Step 3: Analyze Alert Box</strong> — Read the green (online) or red (unreachable) status report.</li>
+            <li><strong>Step 4: Check Latency</strong> — Review the response time latency shown in milliseconds.</li>
+        </ol>
+
+        <h2>Core Features of this Website Status Checker</h2>
+        <ul>
+            <li><strong>Domain Validation:</strong> Verifies URL formats and structure before checking.</li>
+            <li><strong>CORS Proxy Fallbacks:</strong> Uses external CORS proxies to check domains from a neutral network path.</li>
+            <li><strong>Latency Metrics:</strong> Displays server response times in milliseconds.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What does "Up" status mean?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It means the website resolved successfully and responded to the test request.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does a site show as down for me but up on the checker?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The issue is likely local, such as a browser cache mismatch, local Wi-Fi outage, or a block from your internet provider.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my domain checks private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Status checks are run locally via the CORS proxy from your browser tab. No database records are kept on MultiTools Hub.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the tool work for localhost addresses?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The proxy cannot access your local server environment (e.g. `localhost` or local IP ranges).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Web Utilities on MultiTools Hub</h2>
+        <p>If you are managing domain configurations, build XML structures with our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, configure crawler rules with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, or inspect site metadata using our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Web Tools",
+            "item": "https://multitoolshub.co.in/tools/web/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Website Status",
+            "item": "https://multitoolshub.co.in/tools/web/website-status.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Website Status Checker",
+          "url": "https://multitoolshub.co.in/tools/web/website-status.html",
+          "applicationCategory": "WebApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "world-clock": """
+        <h2>Introduction to Global Time Keeping and IANA Timezones</h2>
+        <p>In our connected world, keeping track of time zones is essential for remote work, scheduling international meetings, and coordinate travel. Since time zone transitions and daylight saving adjustments occur automatically based on region, tracking time offsets manually is difficult. Our online <strong>World Clock</strong> displays current dates and times for major cities (London, New York, Tokyo, Dubai, Delhi, Sydney) using ticking live clocks.</p>
+        
+        <p>Our tool reads dynamic global zones locally in your browser, helping you compare offsets without database latency.</p>
+
+        <h3>Why Accurate Timezone Offset Tracking Matters</h3>
+        <p>Time zones are offset from Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT). Some regions also use Daylight Saving Time (DST), changing their offset twice a year. Keeping track of local time differences helps prevent scheduling errors for global calls.</p>
+
+        <h3>Real-Life Use Cases for World Clocks</h3>
+        <ul>
+            <li><strong>Remote Work Teams:</strong> Coordinating online standups across multiple continents.</li>
+            <li><strong>Travel Planning:</strong> Checking local times in flight destination cities.</li>
+            <li><strong>International Broadcasting:</strong> Pacing product releases or webinar events.</li>
+            <li><strong>Finance & Markets:</strong> Tracking trading hour clocks for global stock exchanges.</li>
+        </ul>
+
+        <h2>Key Global Cities Monitored by this Tool</h2>
+        <p>This world clock monitors major financial and cultural zones:</p>
+        <ul>
+            <li><strong>London (GMT/BST):</strong> UK time zone, serving as the benchmark for offset calculations.</li>
+            <li><strong>New York (EST/EDT):</strong> Eastern Time Zone, tracking US market hours.</li>
+            <li><strong>Tokyo (JST):</strong> Japan Standard Time, tracking Asian market hours.</li>
+            <li><strong>Dubai (GST):</strong> Gulf Standard Time, tracking Middle Eastern schedules.</li>
+            <li><strong>Delhi (IST):</strong> India Standard Time, tracking South Asian schedules.</li>
+            <li><strong>Sydney (AEST/AEDT):</strong> Australian Eastern Time.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Compare World Times</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Open the Tool</strong> — The clock dashboard displays current times for key cities immediately.</li>
+            <li><strong>Step 2: Check Ticking Seconds</strong> — The display updates every second to match regional clocks.</li>
+            <li><strong>Step 3: Analyze Offsets</strong> — Click "Process World Clock" to print a detailed text report of current times.</li>
+            <li><strong>Step 4: Compare with System Time</strong> — Review the offset comparison section showing differences relative to your system clock.</li>
+        </ol>
+
+        <h2>Core Features of this World Clock</h2>
+        <ul>
+            <li><strong>Ticking Live Clocks:</strong> Clock times update dynamically every second.</li>
+            <li><strong>Automatic DST Adjustments:</strong> Uses browser localization APIs to apply Daylight Saving Time changes.</li>
+            <li><strong>100% Client-Side Processing:</strong> Calculations run locally in your browser. No server queries are made.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does this tool know regional times?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It uses the JavaScript `Intl.DateTimeFormat` API built into modern browsers to retrieve time zone data.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are time calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does India use Daylight Saving Time (DST)?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. India Standard Time (IST) is always UTC+5:30 throughout the year.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why does London's offset change during the year?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: London uses Greenwich Mean Time (UTC+0) in winter, but shifts to British Summer Time (UTC+1) during DST in summer.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Time Utilities on MultiTools Hub</h2>
+        <p>If you are tracking time schedules, check offsets using our <a href="../time/timezone-converter.html">Timezone Converter</a>, track elapsed times with our <a href="../time/stopwatch.html">Stopwatch</a>, or set timers with our <a href="../time/countdown-timer.html">Countdown Timer</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time Tools",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "World Clock",
+            "item": "https://multitoolshub.co.in/tools/time/world-clock.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "World Clock",
+          "url": "https://multitoolshub.co.in/tools/time/world-clock.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "text-diff": """
+        <h2>Introduction to Text Diffing and Document Comparisons</h2>
+        <p>Whether you are comparing source code revisions, checking translation updates, reviewing content drafts, or comparing configuration files, finding differences manually is slow and error-prone. Our online <strong>Text Diff Tool</strong> compares two text blocks line-by-line and highlights line insertions, deletions, and identical lines.</p>
+        
+        <p>Our tool formats differences locally, highlighting added text in green and removed text in red.</p>
+
+        <h3>Why Visual Diffing Tools Improve Editing Speed</h3>
+        <p>Comparing document versions manually is difficult, especially for large files. Visual diffing tools highlight changes instantly, helping editors, writers, and developers review additions and deletions quickly.</p>
+
+        <h3>Real-Life Use Cases for Text Diffing</h3>
+        <ul>
+            <li><strong>Code Comparison:</strong> Checking code updates before merging branches.</li>
+            <li><strong>Content Review:</strong> Verifying edits between drafts.</li>
+            <li><strong>Translation Checks:</strong> Reviewing modifications in translated text blocks.</li>
+            <li><strong>Server Configurations:</strong> Spotting configuration changes between two files.</li>
+        </ul>
+
+        <h2>Understanding the Diffing Visual Codes</h2>
+        <p>Our tool uses standard color highlighting to display differences:</p>
+        <ul>
+            <li><strong>Green Highlight (+):</strong> Indicates lines added to the modified text that were not in the original.</li>
+            <li><strong>Red Highlight (-):</strong> Indicates lines present in the original text that were removed from the modified version.</li>
+            <li><strong>Muted Gray:</strong> Displays identical lines of text between the two versions.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Compare Two Text Blocks</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Original Text</strong> — Enter your source text in the "Original Text" input area.</li>
+            <li><strong>Step 2: Paste Modified Text</strong> — Enter the updated text version in the "Modified Text" box.</li>
+            <li><strong>Step 3: Run the Comparison</strong> — Click "Process Text Diff" to run the diffing engine.</li>
+            <li><strong>Step 4: Review Differences</strong> — Read the color-coded visual report and summary of insertions and deletions.</li>
+        </ol>
+
+        <h2>Core Features of this Text Diff Tool</h2>
+        <ul>
+            <li><strong>Detailed Color Coding:</strong> Visual highlights for added and removed lines.</li>
+            <li><strong>Summary Statistics:</strong> Displays counts of insertions, deletions, and matching lines.</li>
+            <li><strong>100% Client-Side Comparison:</strong> Compares text locally in your browser memory. Your documents are never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my documents uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All text diff processing occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the tool compare word-by-word or line-by-line?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: This tool compares text line-by-line, highlighting entire line insertions and deletions.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How secure is this tool for comparing source code?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: It is secure. Because all processing is client-side, your source code never leaves your device.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I compare text in languages other than English?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. The diffing engine processes standard Unicode characters, supporting multi-language comparisons.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Text Utilities on MultiTools Hub</h2>
+        <p>If you are editing textual formats, format strings with our <a href="../text/case-converter.html">Case Converter</a>, count letters using our <a href="../text/word-counter.html">Word Counter</a>, or generate mockups using our <a href="../text/lorem-ipsum.html">Lorem Ipsum Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://multitoolshub.co.in/tools/text/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Text Diff",
+            "item": "https://multitoolshub.co.in/tools/text/text-diff.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Text Diff",
+          "url": "https://multitoolshub.co.in/tools/text/text-diff.html",
+          "applicationCategory": "TextApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "regex-tester": """
+        <h2>Introduction to Regular Expressions and Pattern Testing</h2>
+        <p>Regular expressions (RegEx) are search patterns used to parse, validate, match, and manipulate text strings. From verifying email addresses and phone formats to scraping structured data from logs, regex is a key tool in software development. Our online <strong>Regex Tester</strong> lets you test regular expressions against sample text locally in your browser.</p>
+        
+        <p>Our tool runs match checks in browser memory, highlighting matching text blocks and listing captured groups for debugging.</p>
+
+        <h3>Why Regex Testing Saves Development Time</h3>
+        <p>Debugging regex syntax can be difficult. A single misplaced character like a bracket or asterisk can cause the expression to fail or match incorrect text. Testing patterns against text samples before deploying them in code helps developers identify syntax issues early.</p>
+
+        <h3>Real-Life Use Cases for Regex Testing</h3>
+        <ul>
+            <li><strong>Input Validation:</strong> Testing patterns for email, password, and phone number fields.</li>
+            <li><strong>Data Extraction:</strong> Crafting patterns to pull specific values (e.g. date strings or product keys) from log files.</li>
+            <li><strong>Search and Replace:</strong> Verifying complex search patterns before running mass search-and-replace actions in code editors.</li>
+            <li><strong>Log Parsing:</strong> Filtering server logs to locate specific warning signs or IP addresses.</li>
+        </ul>
+
+        <h2>Understanding Regular Expression Syntax</h2>
+        <p>Regex uses specific character classes and anchors to define search criteria:</p>
+        <ul>
+            <li><code>\\b</code>: Enforces word boundaries.</li>
+            <li><code>[A-Z]</code>: Matches any uppercase alphabetical character.</li>
+            <li><code>+</code>: Matches one or more repetitions of the preceding character.</li>
+            <li><code>( ... )</code>: Creates a capture group to extract specific parts of a match.</li>
+            <li><code>g, i, m flags</code>: Global search, case-insensitive, and multiline matching controls.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Test a Regex Pattern</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Enter Regex Pattern</strong> — Input your regex string (do not wrap it in forward slashes `/`, as the tool handles compilation).</li>
+            <li><strong>Step 2: Add Sample Text</strong> — Paste your test text into the test area.</li>
+            <li><strong>Step 3: Toggle Search Flags</strong> — Select global, ignore-case, or multiline flags based on your pattern criteria.</li>
+            <li><strong>Step 4: Analyze Results</strong> — Click "Process Regex Tester". The tool will highlight matching text and list any captured groups.</li>
+        </ol>
+
+        <h2>Core Features of this Regex Tester</h2>
+        <ul>
+            <li><strong>Interactive Visual Highlights:</strong> View matching text highlighted in a visual box.</li>
+            <li><strong>Captured Groups Breakdown:</strong> Lists captured group values for nesting patterns.</li>
+            <li><strong>100% Client-Side Evaluation:</strong> Evaluates regex patterns locally in your browser memory for data privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is a global (g) search flag?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The global flag tells the regex engine to find all matches in the text, rather than stopping after the first match.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What does case-insensitive (i) do?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The ignore-case flag ignores capital letters, matching both uppercase and lowercase characters (e.g. `[a-z]` matches both `a` and `A`).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my test texts uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All regex processing occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do I match a literal dot (.) in regex?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Escape special characters like dots with a backslash (e.g., `\\.` matches a literal period character, while `.` matches any character).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Developer Utilities on MultiTools Hub</h2>
+        <p>If you are encoding developer strings, convert values with our <a href="../dev/url-encoder.html">URL Encoder</a>, decode blocks with our <a href="../dev/url-decoder.html">URL Decoder</a>, or parse values using our <a href="../dev/base64-encoder.html">Base64 Encoder</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Regex Tester",
+            "item": "https://multitoolshub.co.in/tools/dev/regex-tester.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Regex Tester",
+          "url": "https://multitoolshub.co.in/tools/dev/regex-tester.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "countdown-timer": """
         <h2>Introduction to Time Management and Countdown Timers</h2>
         <p>Whether you are tracking project deadlines, planning online event launches, timing cooking recipes, or monitoring intervals, having a countdown timer is useful. Calculating durations and managing timers locally helps structure schedules. Our online <strong>Countdown Timer</strong> provides a visual countdown clock that supports custom date targets, relative duration timers, and a local buzzer alarm.</p>
@@ -6225,6 +6782,31 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "css-gradient": {
+        "title": "CSS Gradient Generator - Create Linear and Radial Gradients",
+        "description": "Generate linear and radial CSS gradients. Choose start/end colors, slide angles, preview changes, and copy cross-browser markup."
+    },
+
+    "website-status": {
+        "title": "Website Status Checker - Is It Down Right Now?",
+        "description": "Check if a domain is up or down. Get immediate HTTP status codes, latency times, and connection availability reports."
+    },
+
+    "world-clock": {
+        "title": "World Clock - Current Time in Major Global Cities",
+        "description": "View ticking live times across major cities including London, New York, Tokyo, Dubai, Delhi, and Sydney. Compare local UTC offsets."
+    },
+
+    "text-diff": {
+        "title": "Text Diff - Compare Two Text Blocks Online",
+        "description": "Compare two text versions line-by-line. Highlight line insertions, deletions, and differences instantly using our visual diffing utility."
+    },
+
+    "regex-tester": {
+        "title": "Regex Tester - Online Regular Expression Tester",
+        "description": "Test and evaluate regular expressions (regex) against text samples. View matching string highlights, flags parameters, and captured group segments."
+    },
+
     "countdown-timer": {
         "title": "Countdown Timer - Live Countdown Clock Online",
         "description": "Set a visual countdown timer for custom future target dates or relative minutes. Features pause controls and a buzzer alarm."

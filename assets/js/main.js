@@ -1125,17 +1125,24 @@ async function runCoreLogic(tool, input, output) {
         result = input.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
     } else if (tool.includes('regex tester')) {
         const pattern = document.getElementById('regexPattern')?.value || "";
-        const testText = document.getElementById('regexTestText')?.value || "";
+        const testText = input;
         const flagG = document.getElementById('flagGlobal')?.checked ? 'g' : '';
         const flagI = document.getElementById('flagIgnoreCase')?.checked ? 'i' : '';
         const flagM = document.getElementById('flagMultiline')?.checked ? 'm' : '';
         const flags = flagG + flagI + flagM;
+        
+        const reportDiv = document.getElementById('regexMatchReportAlert');
+        const highlightDiv = document.getElementById('regexHighlightContainer');
         const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         
         if (!pattern) {
-            result = "Please enter a regular expression pattern to test.";
+            result = "Validation Error: Please enter a regular expression pattern to test.";
+            if (reportDiv) reportDiv.style.display = 'none';
+            if (highlightDiv) highlightDiv.style.display = 'none';
         } else if (!testText) {
-            result = "Please enter text to test against.";
+            result = "Validation Error: Please enter test text content.";
+            if (reportDiv) reportDiv.style.display = 'none';
+            if (highlightDiv) highlightDiv.style.display = 'none';
         } else {
             try {
                 const regex = new RegExp(pattern, flags);
@@ -1155,6 +1162,9 @@ async function runCoreLogic(tool, input, output) {
                             index: match.index,
                             groups: match.slice(1)
                         });
+                        if (match[0].length === 0) {
+                            regex.lastIndex++;
+                        }
                     }
                 } else {
                     match = regex.exec(testText);
@@ -1168,16 +1178,20 @@ async function runCoreLogic(tool, input, output) {
                 }
                 
                 if (matches.length > 0) {
-                    result = `Found ${matches.length} match(es):\n\n`;
+                    let textResult = `Found ${matches.length} matches:\n\n`;
                     matches.forEach((m, idx) => {
-                        result += `Match ${idx + 1}: "${m.text}" (Index: ${m.index})\n`;
-                        if (m.groups && m.groups.length > 0) {
-                            m.groups.forEach((g, gIdx) => {
-                                result += `  - Group ${gIdx + 1}: "${g || ''}"\n`;
-                            });
+                        if (m.index === -1) {
+                            textResult += `${m.text}\n`;
+                        } else {
+                            textResult += `• Match ${idx + 1}: "${m.text}" (Index: ${m.index})\n`;
+                            if (m.groups && m.groups.length > 0) {
+                                m.groups.forEach((g, gIdx) => {
+                                    textResult += `  - Group ${gIdx + 1}: "${g || ''}"\n`;
+                                });
+                            }
                         }
-                        result += `\n`;
                     });
+                    result = textResult;
                     
                     let highlighted = "";
                     let lastIdx = 0;
@@ -1193,30 +1207,47 @@ async function runCoreLogic(tool, input, output) {
                     
                     nonOverlapping.forEach(m => {
                         highlighted += escapeHTML(testText.substring(lastIdx, m.index));
-                        highlighted += `<mark style="background-color: hsla(var(--p-hue), 90%, 65%, 0.35); color: var(--text-main); border-radius: 4px; padding: 2px; border: 1px solid var(--primary);">${escapeHTML(m.text)}</mark>`;
+                        highlighted += `<mark style="background-color: rgba(var(--p-hue), 90%, 65%, 0.3); color: var(--text-main); border-radius: 4px; padding: 2px; border: 1px solid var(--primary);">${escapeHTML(m.text)}</mark>`;
                         lastIdx = m.index + m.text.length;
                     });
                     highlighted += escapeHTML(testText.substring(lastIdx));
                     
-                    const resContainer = document.getElementById('imageResultContainer');
-                    if (resContainer) {
-                        resContainer.innerHTML = `
-                            <div style="text-align: left; margin-top: 15px;">
-                                <label style="display:block; margin-bottom: 10px; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Highlighted Matches</label>
-                                <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 15px; padding: 20px; font-family: monospace; white-space: pre-wrap; line-height: 1.6; max-height: 300px; overflow-y: auto;">${highlighted}</div>
-                            </div>
-                        `;
-                        resContainer.style.display = 'block';
+                    if (reportDiv) {
+                        reportDiv.style.display = 'block';
+                        reportDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                        reportDiv.style.border = '1px solid rgb(16, 185, 129)';
+                        reportDiv.style.color = 'rgb(52, 211, 153)';
+                        reportDiv.innerText = `Validation Success: Found ${matches.length} matching string segments in target text. Matches highlighted below.`;
+                    }
+                    if (highlightDiv) {
+                        highlightDiv.style.display = 'block';
+                        highlightDiv.innerHTML = highlighted;
                     }
                 } else {
-                    result = "No matches found.";
-                    const resContainer = document.getElementById('imageResultContainer');
-                    if (resContainer) resContainer.style.display = 'none';
+                    result = "Status: No matches found in the target test text.";
+                    if (reportDiv) {
+                        reportDiv.style.display = 'block';
+                        reportDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                        reportDiv.style.border = '1px solid rgb(239, 68, 68)';
+                        reportDiv.style.color = 'rgb(248, 113, 113)';
+                        reportDiv.innerText = "Status: Pattern syntax evaluated successfully, but no matches were found.";
+                    }
+                    if (highlightDiv) {
+                        highlightDiv.style.display = 'none';
+                    }
                 }
             } catch (err) {
-                result = `Regex Error: ${err.message}`;
-                const resContainer = document.getElementById('imageResultContainer');
-                if (resContainer) resContainer.style.display = 'none';
+                result = `Syntax Error in Regular Expression:\n${err.message}`;
+                if (reportDiv) {
+                    reportDiv.style.display = 'block';
+                    reportDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                    reportDiv.style.border = '1px solid rgb(239, 68, 68)';
+                    reportDiv.style.color = 'rgb(248, 113, 113)';
+                    reportDiv.innerText = `Regex Syntax Error: ${err.message}`;
+                }
+                if (highlightDiv) {
+                    highlightDiv.style.display = 'none';
+                }
             }
         }
     } else if (tool.includes('html to text')) {
@@ -1393,28 +1424,36 @@ async function runCoreLogic(tool, input, output) {
     } else if (tool.includes('fancy text')) {
         result = "Ⓕⓐⓝⓒⓨ Ⓣⓔⓧⓣ: " + input.split('').join(' ');
     } else if (tool.includes('text diff')) {
-        const originalText = document.getElementById('textDiffOriginal')?.value || "";
+        const originalText = input;
         const modifiedText = document.getElementById('textDiffModified')?.value || "";
+        const reportDiv = document.getElementById('diffReportAlert');
+        const diffContainer = document.getElementById('diffResultContainer');
         const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         
-        if (!originalText && !modifiedText) {
-            result = "Please enter some text in both fields to compare.";
+        if (!originalText.trim() && !modifiedText.trim()) {
+            result = "Validation Error: Please enter some text in both fields to compare.";
+            if (reportDiv) reportDiv.style.display = 'none';
+            if (diffContainer) diffContainer.style.display = 'none';
         } else {
             const originalLines = originalText.split('\n');
             const modifiedLines = modifiedText.split('\n');
             
-            let diffHTML = '<div style="font-family: monospace; line-height: 1.5; font-size: 0.95rem; text-align: left; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 15px; border: 1px solid var(--border); overflow-x: auto;">';
+            let diffHTML = '';
             let i = 0, j = 0;
             let changesFound = false;
+            let insertions = 0;
+            let deletions = 0;
+            let identical = 0;
             
             while (i < originalLines.length || j < modifiedLines.length) {
                 const lineOrig = originalLines[i];
                 const lineMod = modifiedLines[j];
                 
                 if (lineOrig === lineMod) {
-                    diffHTML += `<div style="color: var(--text-muted); padding: 2px 5px;">  ${escapeHTML(lineOrig || '')}</div>`;
+                    diffHTML += `<div style="color: var(--text-muted); padding: 4px 8px; border-left: 3px solid transparent; font-family: monospace;">  ${escapeHTML(lineOrig || '')}</div>`;
                     i++;
                     j++;
+                    identical++;
                 } else {
                     changesFound = true;
                     let lookAheadJ = j;
@@ -1429,32 +1468,48 @@ async function runCoreLogic(tool, input, output) {
                     
                     if (foundMatch && lookAheadJ > j) {
                         for (let k = j; k < lookAheadJ; k++) {
-                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 5px; font-weight: 600;">+ ${escapeHTML(modifiedLines[k])}</div>`;
+                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.1); color: rgb(52, 211, 153); padding: 4px 8px; border-left: 3px solid rgb(16, 185, 129); font-weight: 600; font-family: monospace;">+ ${escapeHTML(modifiedLines[k])}</div>`;
+                            insertions++;
                         }
                         j = lookAheadJ;
                     } else {
                         if (lineOrig !== undefined) {
-                            diffHTML += `<div style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 2px 5px; text-decoration: line-through;">- ${escapeHTML(lineOrig)}</div>`;
+                            diffHTML += `<div style="background: rgba(239, 68, 68, 0.1); color: rgb(248, 113, 113); padding: 4px 8px; border-left: 3px solid rgb(239, 68, 68); text-decoration: line-through; font-family: monospace;">- ${escapeHTML(lineOrig)}</div>`;
+                            deletions++;
                             i++;
                         }
                         if (lineMod !== undefined && !foundMatch) {
-                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 5px; font-weight: 600;">+ ${escapeHTML(lineMod)}</div>`;
+                            diffHTML += `<div style="background: rgba(16, 185, 129, 0.1); color: rgb(52, 211, 153); padding: 4px 8px; border-left: 3px solid rgb(16, 185, 129); font-weight: 600; font-family: monospace;">+ ${escapeHTML(lineMod)}</div>`;
+                            insertions++;
                             j++;
                         }
                     }
                 }
             }
-            diffHTML += '</div>';
-            
-            const resContainer = document.getElementById('imageResultContainer');
-            if (resContainer) {
-                resContainer.innerHTML = diffHTML;
-                resContainer.style.display = 'block';
-            }
             
             result = changesFound 
-                ? "Differences detected! View the detailed color-coded visual diff below." 
+                ? `Differences detected!\n========================================\n\n• Insertions (+): ${insertions} lines\n• Deletions (-):  ${deletions} lines\n• Identical:      ${identical} lines`
                 : "No differences found! The two texts are identical.";
+                
+            if (reportDiv) {
+                reportDiv.style.display = 'block';
+                if (changesFound) {
+                    reportDiv.style.background = 'rgba(245, 158, 11, 0.1)';
+                    reportDiv.style.border = '1px solid rgb(245, 158, 11)';
+                    reportDiv.style.color = 'rgb(251, 191, 36)';
+                    reportDiv.innerText = `Comparison Complete: Found ${insertions} insertions and ${deletions} deletions. Color-coded diff logs loaded below.`;
+                } else {
+                    reportDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                    reportDiv.style.border = '1px solid rgb(16, 185, 129)';
+                    reportDiv.style.color = 'rgb(52, 211, 153)';
+                    reportDiv.innerText = "Comparison Complete: No changes detected. The original and modified text blocks are identical.";
+                }
+            }
+            
+            if (diffContainer) {
+                diffContainer.style.display = 'block';
+                diffContainer.innerHTML = diffHTML;
+            }
         }
     }
 
@@ -2064,7 +2119,32 @@ async function runCoreLogic(tool, input, output) {
             result = hex.toUpperCase();
         } else { result = "Invalid RGB (format: 255, 255, 255)"; }
     } else if (tool.includes('gradient generator') || tool.includes('css gradient')) {
-        result = `background: linear-gradient(135deg, ${input || '#6366f1'}, #a855f7);`;
+        const type = document.getElementById('gradientType')?.value || "linear";
+        const c1 = document.getElementById('gradColorText1')?.value || "#6D28D9";
+        const c2 = document.getElementById('gradColorText2')?.value || "#3B82F6";
+        const angle = document.getElementById('gradAngle')?.value || "90";
+        
+        let gradRule = '';
+        if (type === 'radial') {
+            gradRule = `background: radial-gradient(circle, ${c1}, ${c2});`;
+        } else {
+            gradRule = `background: linear-gradient(${angle}deg, ${c1}, ${c2});`;
+        }
+        
+        const previewBox = document.getElementById('gradientPreviewBox');
+        if (previewBox) {
+            previewBox.style.background = type === 'radial' 
+                ? `radial-gradient(circle, ${c1}, ${c2})`
+                : `linear-gradient(${angle}deg, ${c1}, ${c2})`;
+        }
+        
+        result = `/* CSS Gradient Styles */\n` +
+                 `${gradRule}\n` +
+                 `background-image: ${type === 'radial' ? `radial-gradient(circle, ${c1}, ${c2})` : `linear-gradient(${angle}deg, ${c1}, ${c2})`};\n` +
+                 `\n` +
+                 `/* Cross-Browser Support */\n` +
+                 `-webkit-${gradRule}\n` +
+                 `-moz-${gradRule}`;
     } else if (tool.includes('color palette')) {
         result = `Palette based on ${input || '#6366f1'}:\n1. ${input || '#6366f1'}\n2. #a855f7\n3. #ec4899\n4. #06b6d4`;
     } else if (tool.includes('css shadow')) {
@@ -3207,7 +3287,20 @@ async function runCoreLogic(tool, input, output) {
         result = "Stopwatch started!";
     } else if (tool.includes('world clock')) {
         const now = new Date();
-        result = `London: ${now.toLocaleTimeString('en-GB', {timeZone:'Europe/London'})}\nNew York: ${now.toLocaleTimeString('en-US', {timeZone:'America/New_York'})}\nTokyo: ${now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo'})}\nDubai: ${now.toLocaleTimeString('en-US', {timeZone:'Asia/Dubai'})}\nDelhi: ${now.toLocaleTimeString('en-GB', {timeZone:'Asia/Kolkata'})}`;
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        
+        result = `World Clock Report (Ticking live below)\n` +
+                 `========================================\n\n` +
+                 `• London (GMT/BST):   ${now.toLocaleTimeString('en-GB', { timeZone: 'Europe/London', ...timeOptions })} - ${now.toLocaleDateString('en-GB', { timeZone: 'Europe/London', ...dateOptions })}\n` +
+                 `• New York (EST/EDT):  ${now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', ...timeOptions })} - ${now.toLocaleDateString('en-US', { timeZone: 'America/New_York', ...dateOptions })}\n` +
+                 `• Tokyo (JST):         ${now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo', ...timeOptions })} - ${now.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo', ...dateOptions })}\n` +
+                 `• Dubai (GST):         ${now.toLocaleTimeString('en-US', { timeZone: 'Asia/Dubai', ...timeOptions })} - ${now.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', ...dateOptions })}\n` +
+                 `• Delhi (IST):         ${now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', ...timeOptions })} - ${now.toLocaleDateString('en-GB', { timeZone: 'Asia/Kolkata', ...dateOptions })}\n` +
+                 `• Sydney (AEST/AEDT):  ${now.toLocaleTimeString('en-US', { timeZone: 'Australia/Sydney', ...timeOptions })} - ${now.toLocaleDateString('en-US', { timeZone: 'Australia/Sydney', ...dateOptions })}\n\n` +
+                 `Offset Comparisons:\n` +
+                 `• Local Timezone:      ${Intl.DateTimeFormat().resolvedOptions().timeZone}\n` +
+                 `• Local Time:          ${now.toLocaleTimeString('en-US', timeOptions)} - ${now.toLocaleDateString('en-US', dateOptions)}`;
     } else if (tool.includes('leap year')) {
         const isRange = document.getElementById('leapRangeToggle')?.checked;
         const singleYear = parseInt(document.getElementById('leapYearInput')?.value, 10);
@@ -3522,25 +3615,74 @@ MM/DD/YYYY:         ${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate(
         }
     } else if (tool.includes('website status')) {
         const url = input.trim();
+        const reportDiv = document.getElementById('websiteStatusReport');
+        
         if (!url) {
-            result = "Please enter a website URL.";
+            result = "Validation Error: Please enter a website URL.";
+            if (reportDiv) reportDiv.style.display = 'none';
         } else {
             const cleanUrl = url.startsWith('http') ? url : `https://${url}`;
+            let parsedDomain = "";
+            try {
+                parsedDomain = new URL(cleanUrl).hostname;
+            } catch(e) {
+                result = "Validation Error: Please enter a valid URL or domain name (e.g. example.com).";
+                if (reportDiv) reportDiv.style.display = 'none';
+                return;
+            }
+            
             toggleLoader(true, "Checking website status...");
             try {
                 const startTime = performance.now();
                 const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(cleanUrl)}`);
                 const endTime = performance.now();
                 toggleLoader(false);
+                
                 if (response.ok) {
+                    const resJson = await response.json();
                     const duration = Math.round(endTime - startTime);
-                    result = `Website: ${cleanUrl}\nStatus: Up ✅\nResponse Time: ${duration}ms\nConnection: Successful`;
+                    const isUp = resJson && resJson.status && resJson.status.http_code < 400;
+                    
+                    if (isUp) {
+                        result = `Website: ${cleanUrl}\nDomain Name: ${parsedDomain}\nStatus: UP ✅\nResponse Time: ${duration}ms\nCORS Access: Enabled\nConnection: Successful`;
+                        if (reportDiv) {
+                            reportDiv.style.display = 'block';
+                            reportDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                            reportDiv.style.border = '1px solid rgb(16, 185, 129)';
+                            reportDiv.style.color = 'rgb(52, 211, 153)';
+                            reportDiv.innerHTML = `<strong>Domain Status: ONLINE</strong><br>The website <strong>${parsedDomain}</strong> is responding normally with a latency of ${duration}ms.`;
+                        }
+                    } else {
+                        const httpCode = resJson && resJson.status ? resJson.status.http_code : 500;
+                        result = `Website: ${cleanUrl}\nDomain Name: ${parsedDomain}\nStatus: DOWN or UNREACHABLE ❌\nHTTP Code: ${httpCode}\nConnection: Failed`;
+                        if (reportDiv) {
+                            reportDiv.style.display = 'block';
+                            reportDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                            reportDiv.style.border = '1px solid rgb(239, 68, 68)';
+                            reportDiv.style.color = 'rgb(248, 113, 113)';
+                            reportDiv.innerHTML = `<strong>Domain Status: UNREACHABLE</strong><br>The website <strong>${parsedDomain}</strong> returned HTTP code ${httpCode} or failed to respond.`;
+                        }
+                    }
                 } else {
-                    result = `Website: ${cleanUrl}\nStatus: Down or Unreachable ❌\nResponse Code: ${response.status}`;
+                    result = `Website: ${cleanUrl}\nDomain Name: ${parsedDomain}\nStatus: Down or Unreachable ❌\nResponse Code: ${response.status}`;
+                    if (reportDiv) {
+                        reportDiv.style.display = 'block';
+                        reportDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                        reportDiv.style.border = '1px solid rgb(239, 68, 68)';
+                        reportDiv.style.color = 'rgb(248, 113, 113)';
+                        reportDiv.innerHTML = `<strong>Domain Status: OFFLINE</strong><br>The remote server did not return a valid response (HTTP status ${response.status}).`;
+                    }
                 }
             } catch (err) {
                 toggleLoader(false);
-                result = `Website: ${cleanUrl}\nStatus: Unreachable ❌\nDetails: Could not connect to the domain. It may be offline or the URL is invalid.`;
+                result = `Website: ${cleanUrl}\nDomain Name: ${parsedDomain}\nStatus: Unreachable ❌\nDetails: Could not connect to the domain. It may be offline or blocking proxy access.`;
+                if (reportDiv) {
+                    reportDiv.style.display = 'block';
+                    reportDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                    reportDiv.style.border = '1px solid rgb(239, 68, 68)';
+                    reportDiv.style.color = 'rgb(248, 113, 113)';
+                    reportDiv.innerHTML = `<strong>Domain Status: ERROR</strong><br>Unable to resolve or access <strong>${parsedDomain}</strong>. Server connection timed out or is refused.`;
+                }
             }
         }
     } else if (tool.includes('favicon generator')) {

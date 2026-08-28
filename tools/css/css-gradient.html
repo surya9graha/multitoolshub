@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Css Gradient | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Css Gradient on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>CSS Gradient Generator - Create Linear and Radial Gradients</title>
+    <meta name="description" content="Generate linear and radial CSS gradients. Choose start/end colors, slide angles, preview changes, and copy cross-browser markup.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,14 +64,84 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="gradientType">Gradient Type</label>
+            <select id="gradientType" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="linear" selected>Linear Gradient</option>
+                <option value="radial">Radial Gradient</option>
+            </select>
+        </div>
+        <div>
+            <label for="gradColor1">Start Color</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="color" id="gradColor1" value="#6d28d9" style="width: 50px; height: 50px; border: none; border-radius: 10px; background: none; cursor: pointer; padding: 0;">
+                <input type="text" id="gradColorText1" value="#6D28D9" class="form-control" style="padding: 10px; font-family: monospace; text-transform: uppercase;">
+            </div>
+        </div>
+        <div>
+            <label for="gradColor2">End Color</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="color" id="gradColor2" value="#3b82f6" style="width: 50px; height: 50px; border: none; border-radius: 10px; background: none; cursor: pointer; padding: 0;">
+                <input type="text" id="gradColorText2" value="#3B82F6" class="form-control" style="padding: 10px; font-family: monospace; text-transform: uppercase;">
+            </div>
+        </div>
+        <div id="angleSliderContainer">
+            <label for="gradAngle">Angle (Degrees: <span id="angleValueDisplay">90</span>°)</label>
+            <input type="range" id="gradAngle" min="0" max="360" value="90" style="width: 100%; height: 50px; accent-color: var(--primary);">
+        </div>
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    
+    <div id="gradientPreviewBox" style="width: 100%; height: 180px; border-radius: 15px; border: 1px solid var(--border); background: linear-gradient(90deg, #6d28d9, #3b82f6); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);"></div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    const picker1 = document.getElementById('gradColor1');
+    const txt1 = document.getElementById('gradColorText1');
+    const picker2 = document.getElementById('gradColor2');
+    const txt2 = document.getElementById('gradColorText2');
+    const angle = document.getElementById('gradAngle');
+    const type = document.getElementById('gradientType');
+    
+    const syncAndRefresh = (p, t) => {
+        p.addEventListener('input', (e) => {
+            t.value = e.target.value.toUpperCase();
+            triggerGradientProcess();
+        });
+        t.addEventListener('input', (e) => {
+            if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                p.value = e.target.value;
+                triggerGradientProcess();
+            }
+        });
+    };
+    
+    syncAndRefresh(picker1, txt1);
+    syncAndRefresh(picker2, txt2);
+    
+    angle?.addEventListener('input', (e) => {
+        const val = document.getElementById('angleValueDisplay');
+        if (val) val.innerText = e.target.value;
+        triggerGradientProcess();
+    });
+    
+    type?.addEventListener('change', (e) => {
+        const slider = document.getElementById('angleSliderContainer');
+        if (slider) {
+            slider.style.display = e.target.value === 'radial' ? 'none' : 'block';
+        }
+        triggerGradientProcess();
+    });
+    
+    function triggerGradientProcess() {
+        const trg = document.getElementById('toolInput');
+        if (trg) {
+            const evt = new Event('input', { bubbles: true });
+            trg.dispatchEvent(evt);
+        }
+    }
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -102,22 +172,113 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Css Gradient Online</h2>
-        <p>Our <strong>Css Gradient</strong> is a dedicated utility nested within our CSS suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Advanced designers need detailed color structures. The CSS Gradient Designer generates complex multi-stop layouts, utilizing advanced CSS parameters to achieve high-performance gradients.</p>
+            <h2>Introduction to CSS Gradients and Modern Web Layouts</h2>
+        <p>In modern web design, gradients are a key styling element for buttons, headers, backgrounds, and cards. Instead of loading heavy image assets, developers use CSS gradients, which render quickly and scale smoothly. Our online <strong>CSS Gradient Generator</strong> generates linear and radial CSS gradient rules with custom color inputs, angles, and real-time previews.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Configuring multi-color linear and radial blends for backgrounds.</li><li>Exporting clean, vendor-prefixed CSS gradient declarations.</li><li>Saving visual presets for design systems.</li>
+        <p>Our tool compiles gradient code locally in your browser, generating copyable CSS syntax ready for your stylesheet.</p>
+
+        <h3>Why CSS Gradients Improve Page Performance</h3>
+        <p>Image files (like PNGs or JPGs) take time to download, increasing page load times. CSS gradients are rendered natively by browser engines, reducing network requests and keeping layouts crisp on high-resolution displays.</p>
+
+        <h3>Real-Life Use Cases for CSS Gradient Generation</h3>
+        <ul>
+            <li><strong>Web Layout Styling:</strong> Creating gradient backgrounds for sections and hero banners.</li>
+            <li><strong>UI Components:</strong> Styling call-to-action buttons, cards, and navigation headers.</li>
+            <li><strong>Design Prototyping:</strong> Tweaking color palettes visually before exporting styles.</li>
+            <li><strong>CSS Coding Study:</strong> Learning syntax rules for linear and radial gradients.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Every layout visualizer and styling tool executes 100% in your local browser window. They utilize modern web APIs and HTML5 Canvas objects to generate and preview styles immediately. This client-side execution means you can style, tweak, and copy code without lag or server dependencies. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the CSS Gradient Types</h2>
+        <p>CSS supports multiple gradient structures:</p>
+        <ul>
+            <li><strong>Linear Gradients:</strong> Colors transition along a straight line. The direction is set by angles (e.g., 90deg, 180deg) or keywords (e.g., to bottom, to right).</li>
+            <li><strong>Radial Gradients:</strong> Colors radiate outward from a central point, transitioning in circular or elliptical shapes.</li>
+            <li><strong>Color Stops:</strong> Define color transition points along the gradient path.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate CSS Gradient Code</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Gradient Type</strong> — Select either a Linear or Radial gradient layout.</li>
+            <li><strong>Step 2: Choose Start and End Colors</strong> — Use the color pickers or type hex values into the text inputs.</li>
+            <li><strong>Step 3: Adjust Gradient Angle (Linear Only)</strong> — Slide the angle selector from 0° to 360° to set the transition direction.</li>
+            <li><strong>Step 4: Copy Code</strong> — Preview the gradient in the box, then copy the CSS code from the output panel.</li>
+        </ol>
+
+        <h2>Core Features of this CSS Gradient Generator</h2>
+        <ul>
+            <li><strong>Dual Color Picker Sync:</strong> Syncs visual color pickers with hex text inputs.</li>
+            <li><strong>Live CSS Preview:</strong> Displays color changes immediately in a preview box.</li>
+            <li><strong>Cross-Browser Support:</strong> Generates cross-browser CSS prefixes (e.g. -webkit-, -moz-).</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Are these CSS classes compatible with all modern browsers?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, the CSS styles generated by our tools adhere to standard W3C specifications. When using advanced attributes like gradients or shadows, standard styles are output that work across Chrome, Safari, Firefox, and Edge.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can I use these visual layout helpers for responsive design?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Absolutely. Tools like our Flexbox and Grid layout generators let you preview layouts, resize windows dynamically, and see how the flex items adjust in real time.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Is there a fee or attribution required to use the CSS styles?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: No, all generated code, styling classes, and layout rules are 100% open-source and free to copy. You can use them for personal, academic, or commercial projects without attribution.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are vendor prefixes still required for CSS gradients?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Modern web browsers support standard gradient syntax, but vendor prefixes (like `-webkit-`) are still useful to support older browsers.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do I sync hex inputs with color pickers?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Changing the visual color picker updates the text field, and entering a valid 6-character hex value updates the picker immediately.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I use CSS gradients in background-image styles?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Gradients are treated as images in CSS, so they should be assigned to `background` or `background-image` properties.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Is my design data private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All gradient compilation runs locally in your browser memory. No color or design data is sent to a server.</p>
+            </div>
         </div>
+
+        <h2>Explore Related CSS Utilities on MultiTools Hub</h2>
+        <p>If you are building stylesheets, convert values with our <a href="../css/hex-to-rgb.html">Hex to RGB Converter</a>, convert RGB colors using our <a href="../css/rgb-to-hex.html">RGB to Hex Converter</a>, or generate layouts with our <a href="../css/css-shadow.html">CSS Box Shadow Generator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "CSS Tools",
+            "item": "https://multitoolshub.co.in/tools/css/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "CSS Gradient",
+            "item": "https://multitoolshub.co.in/tools/css/css-gradient.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "CSS Gradient Generator",
+          "url": "https://multitoolshub.co.in/tools/css/css-gradient.html",
+          "applicationCategory": "CSSApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Css Gradient</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

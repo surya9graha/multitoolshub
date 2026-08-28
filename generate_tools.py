@@ -2127,6 +2127,216 @@ INPUT_COUNTDOWN_TIMER = """
 </script>
 """
 
+INPUT_REGEX_TESTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="regexPattern">Regular Expression Pattern</label>
+            <input type="text" id="regexPattern" class="form-control" placeholder="e.g. \\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b" style="padding: 15px; font-family: monospace;">
+        </div>
+        <div>
+            <label for="toolInput">Test Text</label>
+            <textarea id="toolInput" class="form-control" placeholder="Enter text here to test against the regex pattern..." style="height: 150px;"></textarea>
+        </div>
+    </div>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="flagGlobal" checked style="accent-color: var(--primary);"> Global (g)
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="flagIgnoreCase" style="accent-color: var(--primary);"> Ignore Case (i)
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="flagMultiline" style="accent-color: var(--primary);"> Multiline (m)
+        </label>
+    </div>
+    
+    <div id="regexMatchReportAlert" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+    
+    <div id="regexHighlightContainer" style="display: none; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 12px; padding: 20px; line-height: 1.6; word-break: break-all; white-space: pre-wrap;"></div>
+</div>
+"""
+
+INPUT_TEXT_DIFF = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="toolInput">Original Text</label>
+            <textarea id="toolInput" class="form-control" placeholder="Paste the original version of your text block here..." style="height: 200px;"></textarea>
+        </div>
+        <div>
+            <label for="textDiffModified">Modified Text</label>
+            <textarea id="textDiffModified" class="form-control" placeholder="Paste the modified version here to compare..." style="height: 200px;"></textarea>
+        </div>
+    </div>
+    
+    <div id="diffReportAlert" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; background: rgba(255,255,255,0.02); border: 1px solid var(--border);"></div>
+    
+    <div id="diffResultContainer" style="display: none; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-family: monospace; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto;"></div>
+</div>
+"""
+
+INPUT_WORLD_CLOCK = """
+<div class="input-group" style="display: grid; gap: 25px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">London (GMT/BST)</h4>
+            <div id="clockLondon" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateLondon" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">New York (EST/EDT)</h4>
+            <div id="clockNewYork" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateNewYork" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">Tokyo (JST)</h4>
+            <div id="clockTokyo" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateTokyo" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">Dubai (GST)</h4>
+            <div id="clockDubai" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateDubai" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">Delhi (IST)</h4>
+            <div id="clockDelhi" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateDelhi" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 20px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">Sydney (AEST/AEDT)</h4>
+            <div id="clockSydney" style="font-family: monospace; font-size: 2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">00:00:00</div>
+            <div id="dateSydney" style="font-size: 0.85rem; color: var(--text-muted);">Date...</div>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    function startWorldClockTicker() {
+        const updateClocks = () => {
+            const now = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            
+            document.getElementById('clockLondon').innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Europe/London', ...timeOptions });
+            document.getElementById('dateLondon').innerText = now.toLocaleDateString('en-GB', { timeZone: 'Europe/London', ...dateOptions });
+            
+            document.getElementById('clockNewYork').innerText = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', ...timeOptions });
+            document.getElementById('dateNewYork').innerText = now.toLocaleDateString('en-US', { timeZone: 'America/New_York', ...dateOptions });
+            
+            document.getElementById('clockTokyo').innerText = now.toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo', ...timeOptions });
+            document.getElementById('dateTokyo').innerText = now.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo', ...dateOptions });
+            
+            document.getElementById('clockDubai').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Dubai', ...timeOptions });
+            document.getElementById('dateDubai').innerText = now.toLocaleDateString('en-US', { timeZone: 'Asia/Dubai', ...dateOptions });
+            
+            document.getElementById('clockDelhi').innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', ...timeOptions });
+            document.getElementById('dateDelhi').innerText = now.toLocaleDateString('en-GB', { timeZone: 'Asia/Kolkata', ...dateOptions });
+            
+            document.getElementById('clockSydney').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Australia/Sydney', ...timeOptions });
+            document.getElementById('dateSydney').innerText = now.toLocaleDateString('en-US', { timeZone: 'Australia/Sydney', ...dateOptions });
+        };
+        setInterval(updateClocks, 1000);
+        updateClocks();
+    }
+    setTimeout(startWorldClockTicker, 100);
+</script>
+"""
+
+INPUT_WEBSITE_STATUS = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput">Input Domain or Web Link URL to Check</label>
+        <input type="url" id="toolInput" class="form-control" placeholder="e.g. https://multitoolshub.co.in" style="padding: 15px;">
+    </div>
+    
+    <div id="websiteStatusReport" style="display: none; padding: 20px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; font-weight: 500;"></div>
+</div>
+"""
+
+INPUT_CSS_GRADIENT = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+        <div>
+            <label for="gradientType">Gradient Type</label>
+            <select id="gradientType" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="linear" selected>Linear Gradient</option>
+                <option value="radial">Radial Gradient</option>
+            </select>
+        </div>
+        <div>
+            <label for="gradColor1">Start Color</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="color" id="gradColor1" value="#6d28d9" style="width: 50px; height: 50px; border: none; border-radius: 10px; background: none; cursor: pointer; padding: 0;">
+                <input type="text" id="gradColorText1" value="#6D28D9" class="form-control" style="padding: 10px; font-family: monospace; text-transform: uppercase;">
+            </div>
+        </div>
+        <div>
+            <label for="gradColor2">End Color</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="color" id="gradColor2" value="#3b82f6" style="width: 50px; height: 50px; border: none; border-radius: 10px; background: none; cursor: pointer; padding: 0;">
+                <input type="text" id="gradColorText2" value="#3B82F6" class="form-control" style="padding: 10px; font-family: monospace; text-transform: uppercase;">
+            </div>
+        </div>
+        <div id="angleSliderContainer">
+            <label for="gradAngle">Angle (Degrees: <span id="angleValueDisplay">90</span>°)</label>
+            <input type="range" id="gradAngle" min="0" max="360" value="90" style="width: 100%; height: 50px; accent-color: var(--primary);">
+        </div>
+    </div>
+    
+    <div id="gradientPreviewBox" style="width: 100%; height: 180px; border-radius: 15px; border: 1px solid var(--border); background: linear-gradient(90deg, #6d28d9, #3b82f6); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);"></div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    const picker1 = document.getElementById('gradColor1');
+    const txt1 = document.getElementById('gradColorText1');
+    const picker2 = document.getElementById('gradColor2');
+    const txt2 = document.getElementById('gradColorText2');
+    const angle = document.getElementById('gradAngle');
+    const type = document.getElementById('gradientType');
+    
+    const syncAndRefresh = (p, t) => {
+        p.addEventListener('input', (e) => {
+            t.value = e.target.value.toUpperCase();
+            triggerGradientProcess();
+        });
+        t.addEventListener('input', (e) => {
+            if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                p.value = e.target.value;
+                triggerGradientProcess();
+            }
+        });
+    };
+    
+    syncAndRefresh(picker1, txt1);
+    syncAndRefresh(picker2, txt2);
+    
+    angle?.addEventListener('input', (e) => {
+        const val = document.getElementById('angleValueDisplay');
+        if (val) val.innerText = e.target.value;
+        triggerGradientProcess();
+    });
+    
+    type?.addEventListener('change', (e) => {
+        const slider = document.getElementById('angleSliderContainer');
+        if (slider) {
+            slider.style.display = e.target.value === 'radial' ? 'none' : 'block';
+        }
+        triggerGradientProcess();
+    });
+    
+    function triggerGradientProcess() {
+        const trg = document.getElementById('toolInput');
+        if (trg) {
+            const evt = new Event('input', { bubbles: true });
+            trg.dispatchEvent(evt);
+        }
+    }
+</script>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -2549,6 +2759,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_HTML_MINIFIER
         elif tool_name == "countdown-timer":
             current_input = INPUT_COUNTDOWN_TIMER
+        elif tool_name == "regex-tester":
+            current_input = INPUT_REGEX_TESTER
+        elif tool_name == "text-diff":
+            current_input = INPUT_TEXT_DIFF
+        elif tool_name == "world-clock":
+            current_input = INPUT_WORLD_CLOCK
+        elif tool_name == "website-status":
+            current_input = INPUT_WEBSITE_STATUS
+        elif tool_name == "css-gradient":
+            current_input = INPUT_CSS_GRADIENT
             
         seo_content = get_seo_content(category, tool_name, title)
         
