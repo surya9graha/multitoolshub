@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitemap Generator | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Sitemap Generator on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Sitemap Generator - Create XML Sitemaps Online</title>
+    <meta name="description" content="Generate standard-compliant XML sitemaps for search engines. Add priorities, change frequencies, and download ready sitemaps.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,34 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Site & Content Details</label>
-    <textarea id="toolInput" class="form-control" style="height: 180px;" placeholder="Title: MultiTools Hub&#10;Description: Professional online tools for developers and creators.&#10;Keywords: tools, developer, online, free"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">For generators: Use 'Attribute: Value' format. For analyzers: Paste your content directly.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput" style="font-weight: 600;">Website URLs (One per line)</label>
+        <textarea id="toolInput" class="form-control" placeholder="https://multitoolshub.co.in/&#10;https://multitoolshub.co.in/tools/text/word-counter.html" style="height: 180px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="sitemapFrequency">Change Frequency</label>
+            <select id="sitemapFrequency" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="hourly">Hourly</option>
+                <option value="daily" selected>Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+                <option value="never">Never</option>
+            </select>
+        </div>
+        <div>
+            <label for="sitemapPriority">Default Priority</label>
+            <select id="sitemapPriority" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="1.0" selected>1.0 (Homepage / Root)</option>
+                <option value="0.8">0.8 (Categories / Main tools)</option>
+                <option value="0.6">0.6 (Standard pages)</option>
+                <option value="0.4">0.4 (Low-value archive pages)</option>
+            </select>
+        </div>
+    </div>
 </div>
 
                     
@@ -99,22 +123,115 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Sitemap Generator Online</h2>
-        <p>Our <strong>Sitemap Generator</strong> is a dedicated utility nested within our SEO suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Submit structured lists of your pages to search consoles. The XML Sitemap Generator maps domain page structures, compiling compliant XML indexes for Google and Bing.</p>
+            <h2>Introduction to Web Indexation and XML Sitemaps</h2>
+        <p>A sitemap is an XML document that lists the critical pages of a website, serving as an index for search engine crawlers. Search engine bots (like Googlebot) read this file to discover, crawl, and index your website's URLs efficiently. Our online <strong>Sitemap Generator</strong> allows webmasters to generate compliant XML sitemaps with custom page priorities and change frequencies.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Generating XML index maps for newly launched sites.</li><li>Establishing page priority and frequency indexes.</li><li>Accelerating search indexing for new landing pages.</li>
+        <p>Our tool formats XML sitemap tags locally in your browser, enabling you to download a sitemap ready to be uploaded to your domain's root folder.</p>
+
+        <h3>Why XML Sitemaps Accelerate Search Discovery</h3>
+        <p>Search engines discover content by crawling web links. For new websites with few backlinks, or large platforms with nested directories, search crawlers can struggle to find every URL. An XML sitemap acts as a roadmap, directing bots to all key pages instantly.</p>
+
+        <h3>Real-Life Use Cases for Sitemap Generation</h3>
+        <ul>
+            <li><strong>New Website Launches:</strong> Providing search engines with your site's URL structure to start indexing.</li>
+            <li><strong>Content Updates:</strong> Listing updated pages so search crawlers re-index them sooner.</li>
+            <li><strong>E-commerce Platforms:</strong> Indexing deep category and product pages that might not have direct internal links.</li>
+            <li><strong>Portfolio Sites:</strong> Ensuring showcase pages are visible to search crawlers.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. These SEO tools parse website configurations, generate index directives, and check tags locally. Sitemaps and Robots rules are formulated instantly based on standards defined by Google and major search engines. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the XML Sitemap Protocol Tags</h2>
+        <p>XML sitemaps use specific XML tags to communicate page metadata to crawlers:</p>
+        <ul>
+            <li><code>&lt;loc&gt;</code>: The absolute URL of the page (must start with the protocol, e.g., <code>https://</code>).</li>
+            <li><code>&lt;lastmod&gt;</code>: The date the page was last modified (formatted as YYYY-MM-DD).</li>
+            <li><code>&lt;changefreq&gt;</code>: Tells search engines how frequently the page's content is likely to change (e.g., hourly, daily, weekly, monthly, yearly, never).</li>
+            <li><code>&lt;priority&gt;</code>: Indicates the relative importance of a page compared to other pages on the site, ranging from <code>0.0</code> to <code>1.0</code>.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate an XML Sitemap</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input URL List</strong> — Paste your website's page URLs into the input box, one per line.</li>
+            <li><strong>Step 2: Choose Change Frequency</strong> — Select the change frequency setting based on how often your pages are updated.</li>
+            <li><strong>Step 3: Define Default Priority</strong> — Choose a priority setting (e.g., 1.0 for the homepage, 0.8 for tools or category pages).</li>
+            <li><strong>Step 4: Generate XML</strong> — Click "Process Sitemap" to compile the XML sitemap.</li>
+            <li><strong>Step 5: Download or Copy</strong> — Copy the code or click the download option to save the XML file.</li>
+        </ol>
+
+        <h2>Core Features of this Sitemap Generator</h2>
+        <ul>
+            <li><strong>Multi-URL Processing:</strong> Generate sitemap entries for multiple URLs simultaneously.</li>
+            <li><strong>Customizable XML Tags:</strong> Set priority and change frequency settings easily.</li>
+            <li><strong>100% Client-Side:</strong> All sitemap code formatting runs locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How do robots.txt generator files help my SEO?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: A robots.txt file guides search bots on which pages to crawl or avoid. Restricting crawlers from scanning administrative or private directories saves crawl budget and prevents duplicate indexation issues.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What are Open Graph tags, and why are they necessary?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Open Graph (OG) tags are special meta tags that control how your website's preview card is displayed on platforms like Facebook, Twitter, and LinkedIn. A descriptive title and high-resolution image tag increase CTR by up to 150%.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Do your analyzers run live requests on remote websites?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Certain analyzer tools evaluate local parameters client-side. For analyzers that inspect live URL meta tags, minor requests are funneled through secure cloud APIs purely to retrieve header schemas, without storing queries.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where should I upload my sitemap.xml file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Upload the sitemap file to the root directory of your website domain (e.g., <code>https://example.com/sitemap.xml</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do search engines find my sitemap?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: You can submit the sitemap URL directly through Google Search Console or Bing Webmaster Tools, or list the sitemap path in your robots.txt file.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my page URLs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All XML code generation occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does Google guarantee indexing if I submit a sitemap?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Sitemaps are a request to search engine crawlers, not a guarantee. Crawling and indexing depend on page content quality, structure, and domain authority.</p>
+            </div>
         </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, generate crawler instructions with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, build headers with our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Sitemap Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/sitemap-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Sitemap Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/sitemap-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Sitemap Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

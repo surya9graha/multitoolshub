@@ -1937,6 +1937,196 @@ INPUT_URL_SHORTENER = """
 </div>
 """
 
+INPUT_SITEMAP_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput" style="font-weight: 600;">Website URLs (One per line)</label>
+        <textarea id="toolInput" class="form-control" placeholder="https://multitoolshub.co.in/&#10;https://multitoolshub.co.in/tools/text/word-counter.html" style="height: 180px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <label for="sitemapFrequency">Change Frequency</label>
+            <select id="sitemapFrequency" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="hourly">Hourly</option>
+                <option value="daily" selected>Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+                <option value="never">Never</option>
+            </select>
+        </div>
+        <div>
+            <label for="sitemapPriority">Default Priority</label>
+            <select id="sitemapPriority" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="1.0" selected>1.0 (Homepage / Root)</option>
+                <option value="0.8">0.8 (Categories / Main tools)</option>
+                <option value="0.6">0.6 (Standard pages)</option>
+                <option value="0.4">0.4 (Low-value archive pages)</option>
+            </select>
+        </div>
+    </div>
+</div>
+"""
+
+INPUT_META_TAG_GENERATOR = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="metaTagTitle">Site Title (Max 60 characters recommended)</label>
+            <input type="text" id="metaTagTitle" class="form-control" placeholder="e.g. MultiTools Hub - Free Online Web Utilities" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="metaTagDesc">Site Description (Max 160 characters recommended)</label>
+            <textarea id="metaTagDesc" class="form-control" placeholder="e.g. Free and secure online tools for developers, SEO specialists, writers, and daily productivity tasks." style="height: 80px;"></textarea>
+        </div>
+        <div>
+            <label for="metaTagKeywords">Keywords (Comma separated)</label>
+            <input type="text" id="metaTagKeywords" class="form-control" placeholder="e.g. online tools, word counter, json validator, timezone converter" style="padding: 15px;">
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="robotsIndex">Robots Indexing</label>
+            <select id="robotsIndex" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="index" selected>Index (Allow Indexing)</option>
+                <option value="noindex">Noindex (Block Indexing)</option>
+            </select>
+        </div>
+        <div>
+            <label for="robotsFollow">Robots Following</label>
+            <select id="robotsFollow" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="follow" selected>Follow (Follow links)</option>
+                <option value="nofollow">Nofollow (Ignore links)</option>
+            </select>
+        </div>
+        <div>
+            <label for="metaTagLang">Content Language</label>
+            <select id="metaTagLang" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="English" selected>English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Bengali">Bengali</option>
+            </select>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label for="metaTagAuthor">Author (Optional)</label>
+            <input type="text" id="metaTagAuthor" class="form-control" placeholder="e.g. MultiTools Hub" style="padding: 15px;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+"""
+
+INPUT_HEX_CONVERTER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="hexMode">Conversion Mode</label>
+            <select id="hexMode" class="form-control" style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="hexToDec" selected>Hexadecimal to Decimal</option>
+                <option value="decToHex">Decimal to Hexadecimal</option>
+                <option value="hexToBin">Hexadecimal to Binary</option>
+                <option value="hexToOct">Hexadecimal to Octal</option>
+            </select>
+        </div>
+        <div>
+            <label for="toolInput">Value to Convert</label>
+            <input type="text" id="toolInput" class="form-control" placeholder="Enter hex string (e.g. A3F)" style="padding: 15px;">
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('hexMode')?.addEventListener('change', (e) => {
+        const inp = document.getElementById('toolInput');
+        if (inp) {
+            inp.value = '';
+            if (e.target.value === 'decToHex') {
+                inp.placeholder = 'Enter decimal integer (e.g. 2623)';
+            } else {
+                inp.placeholder = 'Enter hex string (e.g. A3F)';
+            }
+        }
+    });
+</script>
+"""
+
+INPUT_HTML_MINIFIER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div>
+        <label for="toolInput" style="font-weight: 600;">HTML Source Code</label>
+        <textarea id="toolInput" class="form-control" placeholder="Paste your raw HTML markup here..." style="height: 250px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;"></textarea>
+    </div>
+    
+    <div style="display:flex; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="minCollapseWhitespace" checked style="accent-color: var(--primary);"> Collapse Whitespace
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; margin: 0; color: var(--text-muted);">
+            <input type="checkbox" id="minStripComments" checked style="accent-color: var(--primary);"> Strip Comments
+        </label>
+    </div>
+    
+    <div id="minifierReportAlert" style="display: none; padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); color: rgb(52, 211, 153);"></div>
+</div>
+"""
+
+INPUT_COUNTDOWN_TIMER = """
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="timerTarget">Target Date & Time</label>
+            <input type="datetime-local" id="timerTarget" class="form-control" style="padding: 12px; height: 50px;">
+        </div>
+        <div style="display: flex; align-items: end; gap: 10px;">
+            <button type="button" onclick="setTimerDuration(5)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+5 Min</button>
+            <button type="button" onclick="setTimerDuration(30)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+30 Min</button>
+            <button type="button" onclick="setTimerDuration(60)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+1 Hour</button>
+        </div>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 25px; text-align: center;">
+        <div id="countdownClockDisplay" style="font-family: monospace; font-size: 2.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; letter-spacing: 2px;">00d 00h 00m 00s</div>
+        
+        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+            <div id="countdownProgressBar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease;"></div>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <button type="button" id="btnPauseResume" onclick="toggleTimerRunning()" class="category-label active" style="padding: 10px 25px; margin: 0; display: none;">Pause</button>
+            <button type="button" id="btnResetTimer" onclick="resetCountdownTimer()" class="category-label" style="border: 1px solid var(--border); padding: 10px 25px; margin: 0; display: none;">Clear</button>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
+</div>
+<script>
+    const trg = document.getElementById('timerTarget');
+    if (trg) {
+        const now = new Date();
+        now.setHours(now.getHours() + 1);
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        trg.value = now.toISOString().slice(0, 16);
+    }
+    
+    function setTimerDuration(mins) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + mins);
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        const trg = document.getElementById('timerTarget');
+        if (trg) {
+            trg.value = now.toISOString().slice(0, 16);
+            const evt = new Event('input', { bubbles: true });
+            trg.dispatchEvent(evt);
+        }
+    }
+</script>
+"""
+
 INPUT_ASPECT_RATIO = """
 <div class="input-group" style="display: grid; gap: 20px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -2349,6 +2539,16 @@ for category, tools in tools_data.items():
             current_input = INPUT_TIMEZONE_CONVERTER
         elif tool_name == "url-shortener":
             current_input = INPUT_URL_SHORTENER
+        elif tool_name == "sitemap-generator":
+            current_input = INPUT_SITEMAP_GENERATOR
+        elif tool_name == "meta-tag-generator":
+            current_input = INPUT_META_TAG_GENERATOR
+        elif tool_name == "hex-converter":
+            current_input = INPUT_HEX_CONVERTER
+        elif tool_name == "html-minifier":
+            current_input = INPUT_HTML_MINIFIER
+        elif tool_name == "countdown-timer":
+            current_input = INPUT_COUNTDOWN_TIMER
             
         seo_content = get_seo_content(category, tool_name, title)
         

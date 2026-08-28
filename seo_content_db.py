@@ -154,6 +154,448 @@ CATEGORY_INFO = {
 
 # Detailed Custom SEO texts for major tools to ensure maximum value
 TOOL_SPECIFIC_SEO = {
+    "countdown-timer": """
+        <h2>Introduction to Time Management and Countdown Timers</h2>
+        <p>Whether you are tracking project deadlines, planning online event launches, timing cooking recipes, or monitoring intervals, having a countdown timer is useful. Calculating durations and managing timers locally helps structure schedules. Our online <strong>Countdown Timer</strong> provides a visual countdown clock that supports custom date targets, relative duration timers, and a local buzzer alarm.</p>
+        
+        <p>Our tool uses browser APIs to run the countdown timer locally, featuring pause, resume, and clear options without requiring server requests.</p>
+
+        <h3>Why Tracking Time Remaining Enhances Focus</h3>
+        <p>Visual timer displays help people track time limits, plan schedules, and pace projects. Having a clear indicator of time remaining is key for time management methods (like the Pomodoro technique).</p>
+
+        <h3>Real-Life Use Cases for Countdown Timers</h3>
+        <ul>
+            <li><strong>Project Management:</strong> Timing sprints, standups, or presentation deadlines.</li>
+            <li><strong>Marketing Launches:</strong> Coordinating product releases or sale deadlines.</li>
+            <li><strong>Study Sessions:</strong> Timing intervals and study breaks.</li>
+            <li><strong>Daily Tasks:</strong> Managing timing loops for exercises or workouts.</li>
+        </ul>
+
+        <h2>Understanding the Timer Calculation Mechanics</h2>
+        <p>Our countdown clock processes timing limits using standard JavaScript methods:</p>
+        <ul>
+            <li><strong>Millisecond Accuracy:</strong> Computes the difference in milliseconds between the system clock and the target date-time.</li>
+            <li><strong>Interval Loops:</strong> Runs a periodic update loop every 1000 milliseconds to update the display.</li>
+            <li><strong>Local Audio Synth:</strong> Uses the HTML5 Web Audio API to synthesize a buzzer alarm locally when the timer reaches zero, without downloading audio files.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Use the Countdown Timer</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Set Target Date</strong> — Select your target date and time using the datetime-local picker.</li>
+            <li><strong>Step 2: Add Relative Time (Optional)</strong> — Click the quick presets (e.g. +5 Min, +30 Min, +1 Hour) to set a duration from the current time.</li>
+            <li><strong>Step 3: Start the Timer</strong> — Click "Process Countdown Timer" to start the countdown loop.</li>
+            <li><strong>Step 4: Use Controls</strong> — Click "Pause" to pause the countdown, "Resume" to continue, or "Clear" to reset the timer.</li>
+        </ol>
+
+        <h2>Core Features of this Countdown Timer</h2>
+        <ul>
+            <li><strong>Relative Duration Presets:</strong> Quickly add 5 minutes, 30 minutes, or 1 hour to the timer.</li>
+            <li><strong>Interactive Visual Progress:</strong> View the countdown status on a progress bar.</li>
+            <li><strong>100% Client-Side Privacy:</strong> The timer runs locally in your browser tab. Your schedules and dates are never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the timer run if I close the browser tab?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The timer processes updates locally in your browser tab, so closing the tab stops the countdown script.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does the alarm buzzer work?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool uses the browser's Web Audio API to synthesize a buzzer sound locally. It does not require downloading external audio files.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my target dates private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All timing loops are processed locally in your browser memory. No data is sent to a server.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I pause and resume the timer?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Use the "Pause" button to pause the countdown, and click "Resume" to continue from where you paused.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Time Utilities on MultiTools Hub</h2>
+        <p>If you are managing schedules, check elapsed time with our <a href="../time/stopwatch.html">Stopwatch</a>, check world times using our <a href="../time/world-clock.html">World Clock</a>, or convert offsets with our <a href="../time/timezone-converter.html">Timezone Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time Tools",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Countdown Timer",
+            "item": "https://multitoolshub.co.in/tools/time/countdown-timer.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Countdown Timer",
+          "url": "https://multitoolshub.co.in/tools/time/countdown-timer.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "html-minifier": """
+        <h2>Introduction to Web Optimization and Code Minification</h2>
+        <p>Page load speed is a critical ranking factor for search engine optimization (SEO) and affects user experience (UX). Heavy HTML files containing comments, extra spaces, and empty lines take longer to download and parse. Our online <strong>HTML Minifier</strong> compresses your HTML code by stripping comments and collapsing whitespace locally in your browser.</p>
+        
+        <p>Our tool displays character reduction metrics, helping you track how much page weight is saved before deploying web templates.</p>
+
+        <h3>Why Code Minification Speeds Up Page Load Times</h3>
+        <p>When web browsers download pages, they parse HTML characters sequentially. Removing white spaces, comments, and line breaks reduces file sizes, saving network bandwidth and speeding up rendering times.</p>
+
+        <h3>Real-Life Use Cases for HTML Minification</h3>
+        <ul>
+            <li><strong>Production Deployments:</strong> Compressing static site layouts before pushing to live host servers.</li>
+            <li><strong>SEO Audits:</strong> Minifying homepages to improve page speed scores.</li>
+            <li><strong>Web Performance:</strong> Reducing database size requirements for dynamic page templates.</li>
+            <li><strong>Email Templates:</strong> Compressing HTML emails to prevent clipping in inbox providers (e.g. Gmail).</li>
+        </ul>
+
+        <h2>How HTML Minification Works</h2>
+        <p>The minifier parses your code using specific search-and-replace rules:</p>
+        <ul>
+            <li><strong>Strip Comments:</strong> Locates comment blocks starting with <code>&lt;!--</code> and ending with <code>--&gt;</code> and removes them.</li>
+            <li><strong>Collapse Whitespace:</strong> Replaces consecutive spaces, tabs, and line breaks with a single space.</li>
+            <li><strong>Clean Tag Spacing:</strong> Removes spaces between tags (e.g. converting <code>&lt;div&gt; &lt;p&gt;</code> to <code>&lt;div&gt;&lt;p&gt;</code>).</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Minify HTML Code</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Paste Code</strong> — Enter your raw HTML code into the input panel.</li>
+            <li><strong>Step 2: Choose Settings</strong> — Toggle options for collapsing whitespace and stripping comments.</li>
+            <li><strong>Step 3: Minify Code</strong> — Click "Process HTML Minifier" to compress.</li>
+            <li><strong>Step 4: Copy Output and Review Metrics</strong> — Review the character savings report and copy the minified code.</li>
+        </ol>
+
+        <h2>Core Features of this HTML Minifier</h2>
+        <ul>
+            <li><strong>Optimization Settings:</strong> Toggle comment removal and whitespace collapsing based on your needs.</li>
+            <li><strong>Size Reduction Report:</strong> Displays the original size, minified size, and percentage of characters saved.</li>
+            <li><strong>100% Client-Side Privacy:</strong> All minification runs locally in browser memory. Your code is never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What is the difference between minification and compression?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Minification removes unnecessary characters from code without changing its functionality. Compression (e.g., GZIP) uses algorithms to package files for transmission over the network.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does minifying HTML break javascript?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Inline Javascript containing single-line comments (<code>//</code>) can break if line breaks are removed. It is recommended to use block comments (<code>/* ... */</code>) or load scripts from external minified files.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my codes uploaded to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All parsing runs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I restore minified HTML?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Minifying is a lossy formatting process because original comments and spacing are removed. Keep a backup of your unminified code for editing.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing web code, check parameters using our <a href="../dev/json-validator.html">JSON Validator</a>, parse structures with our <a href="../web/html-preview.html">HTML Previewer</a>, or convert content with our <a href="../web/markdown-converter.html">Markdown Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://multitoolshub.co.in/tools/dev/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HTML Minifier",
+            "item": "https://multitoolshub.co.in/tools/dev/html-minifier.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "HTML Minifier",
+          "url": "https://multitoolshub.co.in/tools/dev/html-minifier.html",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "hex-converter": """
+        <h2>Introduction to Positional Number Systems and Hex Converter</h2>
+        <p>Hexadecimal (base-16) numbering is widely used in computer science, software engineering, digital electronics, and graphic design (e.g. HEX color codes). While decimal integers are based on powers of 10, hexadecimal numbers are based on powers of 16. Our online <strong>Hex Converter</strong> converts hexadecimal strings to decimal, binary, and octal numbers, and vice versa.</p>
+        
+        <p>Our tool validates inputs and displays a positional expansion or division step breakdown to explain the mathematical process.</p>
+
+        <h3>Why Base-16 Notation is Used in Computing</h3>
+        <p>Computers process binary data (bits), but reading long binary strings is difficult. Because one hexadecimal digit represents exactly four binary bits, hex provides a more human-readable way to represent binary code and memory addresses.</p>
+
+        <h3>Real-Life Use Cases for Hexadecimal Conversion</h3>
+        <ul>
+            <li><strong>Debugging Memory Addresses:</strong> Reading memory dump values during software development.</li>
+            <li><strong>Graphic Design:</strong> Converting RGB values to HEX codes to style user interfaces.</li>
+            <li><strong>Network Configuration:</strong> Converting IPv6 address segments to decimal values.</li>
+            <li><strong>Computer Architecture Studies:</strong> Learning binary and octal conversion steps.</li>
+        </ul>
+
+        <h2>Understanding the Base-16 Translation Math</h2>
+        <p>The hexadecimal system uses numbers <code>0-9</code> and letters <code>A-F</code> to represent values:</p>
+        <ul>
+            <li><strong>Hex Digits:</strong> `A` (10), `B` (11), `C` (12), `D` (13), `E` (14), `F` (15).</li>
+            <li><strong>Hex to Decimal:</strong> Multiply each digit value by its positional power of 16 (e.g., `1A` is 1*16^1 + 10*16^0 = 26).</li>
+            <li><strong>Decimal to Hex:</strong> Divide the decimal integer by 16 repeatedly, listing the remainders from bottom to top to form the hex value.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Use the Hex Converter</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Choose Conversion Mode</strong> — Select your direction (e.g. Hexadecimal to Decimal or Decimal to Hexadecimal).</li>
+            <li><strong>Step 2: Input Value</strong> — Enter your hexadecimal value (e.g. A3F) or decimal integer (e.g. 2623).</li>
+            <li><strong>Step 3: Run the Conversion</strong> — Click "Process Hex Converter" to convert the value.</li>
+            <li><strong>Step 4: Review Calculations</strong> — Read the step-by-step division steps or positional expansion breakdown.</li>
+        </ol>
+
+        <h2>Core Features of this Hex Converter</h2>
+        <ul>
+            <li><strong>Dual-Direction Support:</strong> Convert hexadecimal values to decimal and vice versa.</li>
+            <li><strong>Mathematical Step Logs:</strong> Explains calculations with clear math breakdowns.</li>
+            <li><strong>100% Client-Side Processing:</strong> All conversions are processed locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What are base-16 letters?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The letters A through F represent values 10 through 15 in the hexadecimal numbering system.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do you write hexadecimal prefixes?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Hex values are often written with a prefix like `0x` (e.g., 0xA3F) or `#` for color codes (e.g., #FFA500). Our tool handles both formats automatically.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are calculations processed on a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All calculations run locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Why is hexadecimal preferred over binary in software logs?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Hexadecimal represents data in a more compact format. A single byte is represented by two hex digits, compared to eight binary digits (bits).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related Math Utilities on MultiTools Hub</h2>
+        <p>If you are exploring numerical conversions, check roman numerals with our <a href="../math/roman-numeral.html">Roman Numeral Converter</a>, calculate numbers with our <a href="../math/binary-converter.html">Binary Converter</a>, or compute scales using our <a href="../math/percentage-calc.html">Percentage Calculator</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Math Tools",
+            "item": "https://multitoolshub.co.in/tools/math/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Hex Converter",
+            "item": "https://multitoolshub.co.in/tools/math/hex-converter.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Hex Converter",
+          "url": "https://multitoolshub.co.in/tools/math/hex-converter.html",
+          "applicationCategory": "MathApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
+    "sitemap-generator": """
+        <h2>Introduction to Web Indexation and XML Sitemaps</h2>
+        <p>A sitemap is an XML document that lists the critical pages of a website, serving as an index for search engine crawlers. Search engine bots (like Googlebot) read this file to discover, crawl, and index your website's URLs efficiently. Our online <strong>Sitemap Generator</strong> allows webmasters to generate compliant XML sitemaps with custom page priorities and change frequencies.</p>
+        
+        <p>Our tool formats XML sitemap tags locally in your browser, enabling you to download a sitemap ready to be uploaded to your domain's root folder.</p>
+
+        <h3>Why XML Sitemaps Accelerate Search Discovery</h3>
+        <p>Search engines discover content by crawling web links. For new websites with few backlinks, or large platforms with nested directories, search crawlers can struggle to find every URL. An XML sitemap acts as a roadmap, directing bots to all key pages instantly.</p>
+
+        <h3>Real-Life Use Cases for Sitemap Generation</h3>
+        <ul>
+            <li><strong>New Website Launches:</strong> Providing search engines with your site's URL structure to start indexing.</li>
+            <li><strong>Content Updates:</strong> Listing updated pages so search crawlers re-index them sooner.</li>
+            <li><strong>E-commerce Platforms:</strong> Indexing deep category and product pages that might not have direct internal links.</li>
+            <li><strong>Portfolio Sites:</strong> Ensuring showcase pages are visible to search crawlers.</li>
+        </ul>
+
+        <h2>Understanding the XML Sitemap Protocol Tags</h2>
+        <p>XML sitemaps use specific XML tags to communicate page metadata to crawlers:</p>
+        <ul>
+            <li><code>&lt;loc&gt;</code>: The absolute URL of the page (must start with the protocol, e.g., <code>https://</code>).</li>
+            <li><code>&lt;lastmod&gt;</code>: The date the page was last modified (formatted as YYYY-MM-DD).</li>
+            <li><code>&lt;changefreq&gt;</code>: Tells search engines how frequently the page's content is likely to change (e.g., hourly, daily, weekly, monthly, yearly, never).</li>
+            <li><code>&lt;priority&gt;</code>: Indicates the relative importance of a page compared to other pages on the site, ranging from <code>0.0</code> to <code>1.0</code>.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate an XML Sitemap</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input URL List</strong> — Paste your website's page URLs into the input box, one per line.</li>
+            <li><strong>Step 2: Choose Change Frequency</strong> — Select the change frequency setting based on how often your pages are updated.</li>
+            <li><strong>Step 3: Define Default Priority</strong> — Choose a priority setting (e.g., 1.0 for the homepage, 0.8 for tools or category pages).</li>
+            <li><strong>Step 4: Generate XML</strong> — Click "Process Sitemap" to compile the XML sitemap.</li>
+            <li><strong>Step 5: Download or Copy</strong> — Copy the code or click the download option to save the XML file.</li>
+        </ol>
+
+        <h2>Core Features of this Sitemap Generator</h2>
+        <ul>
+            <li><strong>Multi-URL Processing:</strong> Generate sitemap entries for multiple URLs simultaneously.</li>
+            <li><strong>Customizable XML Tags:</strong> Set priority and change frequency settings easily.</li>
+            <li><strong>100% Client-Side:</strong> All sitemap code formatting runs locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where should I upload my sitemap.xml file?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Upload the sitemap file to the root directory of your website domain (e.g., <code>https://example.com/sitemap.xml</code>).</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How do search engines find my sitemap?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: You can submit the sitemap URL directly through Google Search Console or Bing Webmaster Tools, or list the sitemap path in your robots.txt file.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my page URLs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All XML code generation occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does Google guarantee indexing if I submit a sitemap?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. Sitemaps are a request to search engine crawlers, not a guarantee. Crawling and indexing depend on page content quality, structure, and domain authority.</p>
+            </div>
+        </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, generate crawler instructions with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, build headers with our <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Sitemap Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/sitemap-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Sitemap Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/sitemap-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
+
     "url-shortener": """
         <h2>Introduction to Web Sharing and URL Shortening</h2>
         <p>Long, complex URLs containing tracking tokens, analytics parameters, or nested folders can be difficult to share, print on flyers, or copy into social media updates. Short URLs improve link readability and visual clean lines. Our online <strong>URL Shortener</strong> shortens long web links instantly using the TinyURL API.</p>
@@ -5557,15 +5999,118 @@ TOOL_SPECIFIC_SEO = {
         <p>We analyze your text right inside your browser window. No drafts are sent to server databases, protecting your unpublished articles, client copy, and content drafts. Simply copy your draft, run the density analyzer, and refine your copy to hit the sweet spot for search engines.</p>
     """,
     "meta-tag-generator": """
-        <h2>Create SEO-Friendly HTML Meta Tags for Higher Rankings</h2>
-        <p>Meta tags are snippets of code that tell search engines and social media networks what a webpage is about. Correctly formatted tags (including titles, descriptions, and Open Graph objects) are critical for SEO and click-through rates. Our <strong>Meta Tag Generator</strong> provides a simple, structured form that outputs fully compliant HTML tags in seconds.</p>
+        <h2>Introduction to Web Metadata and HTML Header tags</h2>
+        <p>Meta tags are HTML snippets placed in a page's header section that provide search engines and social networks with information about your content. Because these tags are read by search crawlers, they are crucial for search indexing and click-through rates. Our online <strong>Meta Tag Generator</strong> creates optimized HTML meta tags with custom title lengths, meta descriptions, search engine indexing parameters, and language settings.</p>
         
-        <h3>Boost Search CTR and Social Sharing</h3>
-        <p>If your website links are shared on Facebook or Twitter without Open Graph (OG) meta tags, they will display as bare links, which look uninviting. Our generator structures header attributes so that your posts display beautiful preview cards with custom image overlays and tags, improving engagement and trust. Simply fill out the details, copy the generated code, and paste it into your page headers.</p>
-        
-        <h3>Modern Standards with Clean Code Output</h3>
-        <p>All output tags conform to current Google Webmaster guidelines and Open Graph protocols. The tool processes entries locally, generating code instantly in your workspace. Elevate your SEO workflow and ensure your site headers are configured for search success.</p>
-    """,
+        <p>Our tool formats the generated meta tags locally in your browser, ready to be pasted directly into your page's head section.</p>
+
+        <h3>Why SEO Metadata Improves Search CTR</h3>
+        <p>When search engines display search results, they pull the title and description snippet from your HTML meta tags. Writing descriptive title tags and meta descriptions can improve your click-through rate (CTR) and site traffic.</p>
+
+        <h3>Real-Life Use Cases for Meta Tag Generation</h3>
+        <ul>
+            <li><strong>Page Optimization:</strong> Creating meta titles and descriptions for new posts.</li>
+            <li><strong>Robots Directives:</strong> Adding noindex/nofollow tags to block search engines from crawling specific pages (e.g. login pages).</li>
+            <li><strong>Social Sharing:</strong> Adding author or content language properties to pages.</li>
+            <li><strong>Web Development:</strong> Generating standard templates for new client pages.</li>
+        </ul>
+
+        <h2>Key Meta Tags Generated by this Tool</h2>
+        <p>This tool generates standard HTML meta tags for your head section:</p>
+        <ul>
+            <li><code>&lt;title&gt;</code>: The title displayed on browser tabs and search engine results pages (SERPs). Keep under 60 characters.</li>
+            <li><code>&lt;meta name="description"&gt;</code>: A summary of the page content displayed in search snippets. Keep under 160 characters.</li>
+            <li><code>&lt;meta name="keywords"&gt;</code>: A list of relevant keywords for search engines.</li>
+            <li><code>&lt;meta name="robots"&gt;</code>: Directs search crawlers whether to index the page and follow its links.</li>
+            <li><code>&lt;meta name="language"&gt;</code>: Identifies the language of the page content (e.g., English, Spanish).</li>
+            <li><code>&lt;meta name="author"&gt;</code>: Names the author or publisher of the page.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate HTML Meta Tags</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Page Title</strong> — Enter the page title (keep under 60 characters).</li>
+            <li><strong>Step 2: Enter Meta Description</strong> — Input a summary of the page content (keep under 160 characters).</li>
+            <li><strong>Step 3: Define Keywords</strong> — Add comma-separated keywords related to the page.</li>
+            <li><strong>Step 4: Configure Robots Settings</strong> — Choose indexing preferences (e.g. index/noindex, follow/nofollow).</li>
+            <li><strong>Step 5: Generate and Copy</strong> — Click "Process Meta Tag Generator" and copy the code to your clipboard.</li>
+        </ol>
+
+        <h2>Core Features of this Meta Tag Generator</h2>
+        <ul>
+            <li><strong>SEO Character Guidelines:</strong> Formats titles and descriptions within standard search engine length limits.</li>
+            <li><strong>Detailed Robots Options:</strong> Configure crawler indexation rules easily.</li>
+            <li><strong>100% Client-Side:</strong> All tag generation runs locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where do I place the generated meta tags?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Paste the generated tags in the header section of your HTML file, between the opening <code>&lt;head&gt;</code> and closing <code>&lt;/head&gt;</code> tags.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are keywords still important for Google?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Google does not use the keywords tag in search ranking, but other search engines and directories still read them.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my inputs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All code generation occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens if my meta description is too long?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Search engines may truncate descriptions longer than 160 characters in search results, replacing the trailing text with ellipses (...).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, generate crawler instructions with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, build sitemaps using our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Meta Tag Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/meta-tag-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Meta Tag Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/meta-tag-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
+""",
     "youtube-video-downloader": """
         <h2>Ultimate Guide to Downloading YouTube Videos Online Stably & Safely</h2>
         <p>In today's digital era, online video has evolved into the primary medium for information consumption, educational lectures, technical tutorials, and creative entertainment. While streaming platforms like YouTube provide an almost infinite catalog of content, active internet connections are not always reliable or available. Whether you are traveling through remote areas with limited cellular coverage, preparing for a long commute, or gathering reference materials for high-fidelity video editing projects, having offline access to video files is an invaluable asset. Our <strong>YouTube Video Downloader</strong> at MultiTools Hub offers a modern, high-speed, and secure way to extract video configurations, preview files, and access download options instantly from your web browser.</p>
@@ -5680,6 +6225,26 @@ TOOL_SPECIFIC_SEO = {
 
 # Batch 1: Custom SEO Titles and Meta Descriptions
 TOOL_META_DATA = {
+    "countdown-timer": {
+        "title": "Countdown Timer - Live Countdown Clock Online",
+        "description": "Set a visual countdown timer for custom future target dates or relative minutes. Features pause controls and a buzzer alarm."
+    },
+
+    "html-minifier": {
+        "title": "HTML Minifier - Compress HTML Code Online",
+        "description": "Compress HTML code by stripping comments and collapsing whitespace. Improve page speed load times and character savings metrics."
+    },
+
+    "hex-converter": {
+        "title": "Hex Converter - Hexadecimal to Decimal Converter",
+        "description": "Convert hexadecimal values to decimal, binary, and octal. Learn positional weight maths with step-by-step conversion tables."
+    },
+
+    "sitemap-generator": {
+        "title": "Sitemap Generator - Create XML Sitemaps Online",
+        "description": "Generate standard-compliant XML sitemaps for search engines. Add priorities, change frequencies, and download ready sitemaps."
+    },
+
     "url-shortener": {
         "title": "URL Shortener - Shorten Links Online",
         "description": "Create shortened URLs for cleaner links and easier sharing. Validate destination protocols and get secure shortened redirects."

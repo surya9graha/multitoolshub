@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer | MultiTools Hub - Professional Online Tool</title>
-    <meta name="description" content="Free and professional Countdown Timer on MultiTools Hub. Fast, secure, and user-friendly online tool for everyone.">
+    <title>Countdown Timer - Live Countdown Clock Online</title>
+    <meta name="description" content="Set a visual countdown timer for custom future target dates or relative minutes. Features pause controls and a buzzer alarm.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,11 +64,54 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Date, Time, or Timestamp</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px;" placeholder="e.g. 2026-04-01, 1711785600000, or leave blank for NOW"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Format: Standard date strings or Unix timestamps in milliseconds.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <label for="timerTarget">Target Date & Time</label>
+            <input type="datetime-local" id="timerTarget" class="form-control" style="padding: 12px; height: 50px;">
+        </div>
+        <div style="display: flex; align-items: end; gap: 10px;">
+            <button type="button" onclick="setTimerDuration(5)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+5 Min</button>
+            <button type="button" onclick="setTimerDuration(30)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+30 Min</button>
+            <button type="button" onclick="setTimerDuration(60)" class="category-label" style="border: 1px solid var(--border); padding: 12px 15px; margin: 0; flex-grow: 1;">+1 Hour</button>
+        </div>
+    </div>
+    
+    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 15px; padding: 25px; text-align: center;">
+        <div id="countdownClockDisplay" style="font-family: monospace; font-size: 2.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; letter-spacing: 2px;">00d 00h 00m 00s</div>
+        
+        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+            <div id="countdownProgressBar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease;"></div>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <button type="button" id="btnPauseResume" onclick="toggleTimerRunning()" class="category-label active" style="padding: 10px 25px; margin: 0; display: none;">Pause</button>
+            <button type="button" id="btnResetTimer" onclick="resetCountdownTimer()" class="category-label" style="border: 1px solid var(--border); padding: 10px 25px; margin: 0; display: none;">Clear</button>
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
+<script>
+    const trg = document.getElementById('timerTarget');
+    if (trg) {
+        const now = new Date();
+        now.setHours(now.getHours() + 1);
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        trg.value = now.toISOString().slice(0, 16);
+    }
+    
+    function setTimerDuration(mins) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + mins);
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        const trg = document.getElementById('timerTarget');
+        if (trg) {
+            trg.value = now.toISOString().slice(0, 16);
+            const evt = new Event('input', { bubbles: true });
+            trg.dispatchEvent(evt);
+        }
+    }
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">
@@ -99,22 +142,113 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Comprehensive Guide to using Countdown Timer Online</h2>
-        <p>Our <strong>Countdown Timer</strong> is a dedicated utility nested within our TIME suite at MultiTools Hub. This application is designed to solve common task bottlenecks by offering a responsive, high-speed, and intuitive interface. Track productivity intervals with clean countdown alerts. Ideal for timing tasks, workouts, and design sprints in your browser.</p>
+            <h2>Introduction to Time Management and Countdown Timers</h2>
+        <p>Whether you are tracking project deadlines, planning online event launches, timing cooking recipes, or monitoring intervals, having a countdown timer is useful. Calculating durations and managing timers locally helps structure schedules. Our online <strong>Countdown Timer</strong> provides a visual countdown clock that supports custom date targets, relative duration timers, and a local buzzer alarm.</p>
         
-        <h3>Key Applications and Use Cases</h3>
-        <p>Whether you are a seasoned engineer or a casual web explorer, integrating this tool into your daily operations brings several benefits:</p>
-        <ul style="color: var(--text-muted); margin-bottom: 30px; padding-left: 20px; line-height: 1.8;">
-            <li>Timing focused work intervals (Pomodoro technique).</li><li>Tracking countdown intervals in online webinars.</li><li>Setting alerts for step-by-step activities.</li>
+        <p>Our tool uses browser APIs to run the countdown timer locally, featuring pause, resume, and clear options without requiring server requests.</p>
+
+        <h3>Why Tracking Time Remaining Enhances Focus</h3>
+        <p>Visual timer displays help people track time limits, plan schedules, and pace projects. Having a clear indicator of time remaining is key for time management methods (like the Pomodoro technique).</p>
+
+        <h3>Real-Life Use Cases for Countdown Timers</h3>
+        <ul>
+            <li><strong>Project Management:</strong> Timing sprints, standups, or presentation deadlines.</li>
+            <li><strong>Marketing Launches:</strong> Coordinating product releases or sale deadlines.</li>
+            <li><strong>Study Sessions:</strong> Timing intervals and study breaks.</li>
+            <li><strong>Daily Tasks:</strong> Managing timing loops for exercises or workouts.</li>
         </ul>
-        
-        <h3>Under the Hood: Privacy & Performance</h3>
-        <p>Privacy is the central design tenet of MultiTools Hub. Datetime parsing uses local system clocks and browser timezones. Timestamps are translated using built-in Unix date logic inside client-side scripts. By eliminating server uploads, we block data interception, reduce page load times, and offer a tool that works regardless of bandwidth limits once cached. Standard security protocols are implemented to keep operations sandboxed.</p>
-        
-        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions</h3>
+
+        <h2>Understanding the Timer Calculation Mechanics</h2>
+        <p>Our countdown clock processes timing limits using standard JavaScript methods:</p>
+        <ul>
+            <li><strong>Millisecond Accuracy:</strong> Computes the difference in milliseconds between the system clock and the target date-time.</li>
+            <li><strong>Interval Loops:</strong> Runs a periodic update loop every 1000 milliseconds to update the display.</li>
+            <li><strong>Local Audio Synth:</strong> Uses the HTML5 Web Audio API to synthesize a buzzer alarm locally when the timer reaches zero, without downloading audio files.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Use the Countdown Timer</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Set Target Date</strong> — Select your target date and time using the datetime-local picker.</li>
+            <li><strong>Step 2: Add Relative Time (Optional)</strong> — Click the quick presets (e.g. +5 Min, +30 Min, +1 Hour) to set a duration from the current time.</li>
+            <li><strong>Step 3: Start the Timer</strong> — Click "Process Countdown Timer" to start the countdown loop.</li>
+            <li><strong>Step 4: Use Controls</strong> — Click "Pause" to pause the countdown, "Resume" to continue, or "Clear" to reset the timer.</li>
+        </ol>
+
+        <h2>Core Features of this Countdown Timer</h2>
+        <ul>
+            <li><strong>Relative Duration Presets:</strong> Quickly add 5 minutes, 30 minutes, or 1 hour to the timer.</li>
+            <li><strong>Interactive Visual Progress:</strong> View the countdown status on a progress bar.</li>
+            <li><strong>100% Client-Side Privacy:</strong> The timer runs locally in your browser tab. Your schedules and dates are never sent to a server.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
         <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
-            <div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: How does timezone conversion handle daylight saving time (DST)?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: The timezone tool utilizes the browser's native internationalization API (`Intl.DateTimeFormat`) which references the global IANA Time Zone Database to automatically resolve DST transitions.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: What is a Unix epoch timestamp?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: A Unix timestamp represents the total number of seconds (or milliseconds) that have elapsed since January 1, 1970 (UTC), excluding leap seconds. It is a standard format for database systems.</p></div><div class='faq-item' style='margin-bottom: 25px;'><h4 style='color: var(--primary); margin-bottom: 10px;'>Q: Can I calculate days between dates across centuries?</h4><p style='color: var(--text-muted); line-height: 1.6;'>A: Yes, our calculator supports standard Gregorian calendar calculations spanning thousands of years, adjusting automatically for historical leap years.</p></div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Does the timer run if I close the browser tab?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. The timer processes updates locally in your browser tab, so closing the tab stops the countdown script.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: How does the alarm buzzer work?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: The tool uses the browser's Web Audio API to synthesize a buzzer sound locally. It does not require downloading external audio files.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my target dates private?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. All timing loops are processed locally in your browser memory. No data is sent to a server.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Can I pause and resume the timer?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Yes. Use the "Pause" button to pause the countdown, and click "Resume" to continue from where you paused.</p>
+            </div>
         </div>
+
+        <h2>Explore Related Time Utilities on MultiTools Hub</h2>
+        <p>If you are managing schedules, check elapsed time with our <a href="../time/stopwatch.html">Stopwatch</a>, check world times using our <a href="../time/world-clock.html">World Clock</a>, or convert offsets with our <a href="../time/timezone-converter.html">Timezone Converter</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Time Tools",
+            "item": "https://multitoolshub.co.in/tools/time/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Countdown Timer",
+            "item": "https://multitoolshub.co.in/tools/time/countdown-timer.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Countdown Timer",
+          "url": "https://multitoolshub.co.in/tools/time/countdown-timer.html",
+          "applicationCategory": "TimeApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Countdown Timer</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

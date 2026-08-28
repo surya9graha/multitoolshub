@@ -64,10 +64,56 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Site & Content Details</label>
-    <textarea id="toolInput" class="form-control" style="height: 180px;" placeholder="Title: MultiTools Hub&#10;Description: Professional online tools for developers and creators.&#10;Keywords: tools, developer, online, free"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">For generators: Use 'Attribute: Value' format. For analyzers: Paste your content directly.</p>
+<div class="input-group" style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+        <div>
+            <label for="metaTagTitle">Site Title (Max 60 characters recommended)</label>
+            <input type="text" id="metaTagTitle" class="form-control" placeholder="e.g. MultiTools Hub - Free Online Web Utilities" style="padding: 15px;">
+        </div>
+        <div>
+            <label for="metaTagDesc">Site Description (Max 160 characters recommended)</label>
+            <textarea id="metaTagDesc" class="form-control" placeholder="e.g. Free and secure online tools for developers, SEO specialists, writers, and daily productivity tasks." style="height: 80px;"></textarea>
+        </div>
+        <div>
+            <label for="metaTagKeywords">Keywords (Comma separated)</label>
+            <input type="text" id="metaTagKeywords" class="form-control" placeholder="e.g. online tools, word counter, json validator, timezone converter" style="padding: 15px;">
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+        <div>
+            <label for="robotsIndex">Robots Indexing</label>
+            <select id="robotsIndex" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="index" selected>Index (Allow Indexing)</option>
+                <option value="noindex">Noindex (Block Indexing)</option>
+            </select>
+        </div>
+        <div>
+            <label for="robotsFollow">Robots Following</label>
+            <select id="robotsFollow" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="follow" selected>Follow (Follow links)</option>
+                <option value="nofollow">Nofollow (Ignore links)</option>
+            </select>
+        </div>
+        <div>
+            <label for="metaTagLang">Content Language</label>
+            <select id="metaTagLang" class="form-control" style="padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); width: 100%; height: auto;">
+                <option value="English" selected>English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Bengali">Bengali</option>
+            </select>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div>
+            <label for="metaTagAuthor">Author (Optional)</label>
+            <input type="text" id="metaTagAuthor" class="form-control" placeholder="e.g. MultiTools Hub" style="padding: 15px;">
+        </div>
+    </div>
+    <textarea id="toolInput" style="display:none"></textarea>
 </div>
 
                     
@@ -99,14 +145,117 @@
         </div>
 
         <section class="seo-content tool-workspace" style="margin-top: 60px; background: transparent; border: none; box-shadow: none;">
-            <h2>Create SEO-Friendly HTML Meta Tags for Higher Rankings</h2>
-        <p>Meta tags are snippets of code that tell search engines and social media networks what a webpage is about. Correctly formatted tags (including titles, descriptions, and Open Graph objects) are critical for SEO and click-through rates. Our <strong>Meta Tag Generator</strong> provides a simple, structured form that outputs fully compliant HTML tags in seconds.</p>
+            <h2>Introduction to Web Metadata and HTML Header tags</h2>
+        <p>Meta tags are HTML snippets placed in a page's header section that provide search engines and social networks with information about your content. Because these tags are read by search crawlers, they are crucial for search indexing and click-through rates. Our online <strong>Meta Tag Generator</strong> creates optimized HTML meta tags with custom title lengths, meta descriptions, search engine indexing parameters, and language settings.</p>
         
-        <h3>Boost Search CTR and Social Sharing</h3>
-        <p>If your website links are shared on Facebook or Twitter without Open Graph (OG) meta tags, they will display as bare links, which look uninviting. Our generator structures header attributes so that your posts display beautiful preview cards with custom image overlays and tags, improving engagement and trust. Simply fill out the details, copy the generated code, and paste it into your page headers.</p>
-        
-        <h3>Modern Standards with Clean Code Output</h3>
-        <p>All output tags conform to current Google Webmaster guidelines and Open Graph protocols. The tool processes entries locally, generating code instantly in your workspace. Elevate your SEO workflow and ensure your site headers are configured for search success.</p>
+        <p>Our tool formats the generated meta tags locally in your browser, ready to be pasted directly into your page's head section.</p>
+
+        <h3>Why SEO Metadata Improves Search CTR</h3>
+        <p>When search engines display search results, they pull the title and description snippet from your HTML meta tags. Writing descriptive title tags and meta descriptions can improve your click-through rate (CTR) and site traffic.</p>
+
+        <h3>Real-Life Use Cases for Meta Tag Generation</h3>
+        <ul>
+            <li><strong>Page Optimization:</strong> Creating meta titles and descriptions for new posts.</li>
+            <li><strong>Robots Directives:</strong> Adding noindex/nofollow tags to block search engines from crawling specific pages (e.g. login pages).</li>
+            <li><strong>Social Sharing:</strong> Adding author or content language properties to pages.</li>
+            <li><strong>Web Development:</strong> Generating standard templates for new client pages.</li>
+        </ul>
+
+        <h2>Key Meta Tags Generated by this Tool</h2>
+        <p>This tool generates standard HTML meta tags for your head section:</p>
+        <ul>
+            <li><code>&lt;title&gt;</code>: The title displayed on browser tabs and search engine results pages (SERPs). Keep under 60 characters.</li>
+            <li><code>&lt;meta name="description"&gt;</code>: A summary of the page content displayed in search snippets. Keep under 160 characters.</li>
+            <li><code>&lt;meta name="keywords"&gt;</code>: A list of relevant keywords for search engines.</li>
+            <li><code>&lt;meta name="robots"&gt;</code>: Directs search crawlers whether to index the page and follow its links.</li>
+            <li><code>&lt;meta name="language"&gt;</code>: Identifies the language of the page content (e.g., English, Spanish).</li>
+            <li><code>&lt;meta name="author"&gt;</code>: Names the author or publisher of the page.</li>
+        </ul>
+
+        <h2>Step-by-Step Guide: How to Generate HTML Meta Tags</h2>
+        <ol style="line-height: 1.8; margin-bottom: 30px;">
+            <li><strong>Step 1: Input Page Title</strong> — Enter the page title (keep under 60 characters).</li>
+            <li><strong>Step 2: Enter Meta Description</strong> — Input a summary of the page content (keep under 160 characters).</li>
+            <li><strong>Step 3: Define Keywords</strong> — Add comma-separated keywords related to the page.</li>
+            <li><strong>Step 4: Configure Robots Settings</strong> — Choose indexing preferences (e.g. index/noindex, follow/nofollow).</li>
+            <li><strong>Step 5: Generate and Copy</strong> — Click "Process Meta Tag Generator" and copy the code to your clipboard.</li>
+        </ol>
+
+        <h2>Core Features of this Meta Tag Generator</h2>
+        <ul>
+            <li><strong>SEO Character Guidelines:</strong> Formats titles and descriptions within standard search engine length limits.</li>
+            <li><strong>Detailed Robots Options:</strong> Configure crawler indexation rules easily.</li>
+            <li><strong>100% Client-Side:</strong> All tag generation runs locally in your browser memory for privacy.</li>
+        </ul>
+
+        <h3 style="margin-top: 40px; margin-bottom: 25px;">Frequently Asked Questions (FAQ)</h3>
+        <div class="faq-container" style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px;">
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Where do I place the generated meta tags?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Paste the generated tags in the header section of your HTML file, between the opening <code>&lt;head&gt;</code> and closing <code>&lt;/head&gt;</code> tags.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are keywords still important for Google?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Google does not use the keywords tag in search ranking, but other search engines and directories still read them.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: Are my inputs sent to a server?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: No. All code generation occurs locally in your browser memory, ensuring privacy.</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">Q: What happens if my meta description is too long?</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">A: Search engines may truncate descriptions longer than 160 characters in search results, replacing the trailing text with ellipses (...).</p>
+            </div>
+        </div>
+
+        <h2>Explore Related SEO Utilities on MultiTools Hub</h2>
+        <p>If you are optimizing search configurations, generate crawler instructions with our <a href="../seo/robots-generator.html">Robots.txt Generator</a>, build sitemaps using our <a href="../seo/sitemap-generator.html">Sitemap Generator</a>, or analyze keywords with our <a href="../seo/keyword-density.html">Keyword Density Tool</a>.</p>
+
+        <!-- Schemas -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://multitoolshub.co.in/"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SEO Tools",
+            "item": "https://multitoolshub.co.in/tools/seo/"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Meta Tag Generator",
+            "item": "https://multitoolshub.co.in/tools/seo/meta-tag-generator.html"
+          }]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Meta Tag Generator",
+          "url": "https://multitoolshub.co.in/tools/seo/meta-tag-generator.html",
+          "applicationCategory": "SEOApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5, CSS3, and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "creator": {
+            "@type": "Organization",
+            "name": "MultiTools Hub",
+            "url": "https://multitoolshub.co.in"
+          }
+        }
+        </script>
             
             <h2>Technical Details & Privacy</h2>
             <p>Our <strong>Meta Tag Generator</strong> is part of the premier suite at MultiTools Hub. This digital utility is optimized for professional performance and user privacy. No files are ever saved on our servers.</p>

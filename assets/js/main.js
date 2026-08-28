@@ -1087,7 +1087,38 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('html minifier')) {
-        result = input.replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ').trim();
+        const collapseWhitespace = document.getElementById('minCollapseWhitespace')?.checked;
+        const stripComments = document.getElementById('minStripComments')?.checked;
+        const reportDiv = document.getElementById('minifierReportAlert');
+        
+        if (!input.trim()) {
+            result = "Validation Error: Please enter some HTML code to minify.";
+            if (reportDiv) reportDiv.style.display = 'none';
+        } else {
+            let minified = input;
+            
+            if (stripComments) {
+                minified = minified.replace(/<!--[\s\S]*?-->/g, '');
+            }
+            
+            if (collapseWhitespace) {
+                minified = minified.replace(/\s+/g, ' ')
+                                   .replace(/>\s+</g, '><');
+            }
+            
+            minified = minified.trim();
+            result = minified;
+            
+            if (reportDiv) {
+                const originalSize = input.length;
+                const minifiedSize = minified.length;
+                const saved = originalSize - minifiedSize;
+                const percent = originalSize > 0 ? ((saved / originalSize) * 100).toFixed(1) : 0;
+                
+                reportDiv.style.display = 'block';
+                reportDiv.innerText = `Optimization Report: Size reduced from ${originalSize.toLocaleString()} to ${minifiedSize.toLocaleString()} characters. Saved ${saved.toLocaleString()} characters (${percent}% reduction).`;
+            }
+        }
     } else if (tool.includes('css minifier')) {
         result = input.replace(/\s+/g, ' ').replace(/\/\*.*?\*\//g, '').replace(/\s*([{};:])\s*/g, '$1').trim();
     } else if (tool.includes('js minifier')) {
@@ -1910,14 +1941,34 @@ async function runCoreLogic(tool, input, output) {
 
     // SEO Tools
     else if (tool.includes('meta tag generator')) {
-        const lines = input.split('\n');
-        let title = "Website Title", desc = "Description here", keys = "keywords";
-        lines.forEach(l => {
-            if (l.toLowerCase().includes('title:')) title = l.split(':')[1].trim();
-            if (l.toLowerCase().includes('desc')) desc = l.split(':')[1].trim();
-            if (l.toLowerCase().includes('key')) keys = l.split(':')[1].trim();
-        });
-        result = `<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta name="keywords" content="${keys}">\n<meta name="robots" content="index, follow">`;
+        const title = document.getElementById('metaTagTitle')?.value || "Website Title";
+        const desc = document.getElementById('metaTagDesc')?.value || "";
+        const keywords = document.getElementById('metaTagKeywords')?.value || "";
+        const index = document.getElementById('robotsIndex')?.value || "index";
+        const follow = document.getElementById('robotsFollow')?.value || "follow";
+        const lang = document.getElementById('metaTagLang')?.value || "English";
+        const author = document.getElementById('metaTagAuthor')?.value || "";
+        
+        let tags = `<!-- HTML Meta Tags Generated via MultiTools Hub -->\n`;
+        tags += `<title>${title}</title>\n`;
+        tags += `<meta name="title" content="${title}">\n`;
+        
+        if (desc.trim().length > 0) {
+            tags += `<meta name="description" content="${desc.trim()}">\n`;
+        }
+        if (keywords.trim().length > 0) {
+            tags += `<meta name="keywords" content="${keywords.trim()}">\n`;
+        }
+        
+        tags += `<meta name="robots" content="${index}, ${follow}">\n`;
+        tags += `<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n`;
+        tags += `<meta name="language" content="${lang}">\n`;
+        
+        if (author.trim().length > 0) {
+            tags += `<meta name="author" content="${author.trim()}">\n`;
+        }
+        
+        result = tags;
     } else if (tool.includes('og generator')) {
         const title = input.match(/title:\s*(.*)/i)?.[1] || "Site Title";
         result = `<meta property="og:title" content="${title}">\n<meta property="og:description" content="Professional tools for everyone.">\n<meta property="og:type" content="website">\n<meta property="og:url" content="https://example.com">\n<meta property="og:image" content="https://example.com/og-image.jpg">`;
@@ -1962,7 +2013,33 @@ async function runCoreLogic(tool, input, output) {
         
         result = txt;
     } else if (tool.includes('sitemap generator')) {
-        result = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>https://${input || 'example.com'}/</loc>\n    <lastmod>2026-03-30</lastmod>\n    <priority>1.0</priority>\n  </url>\n</urlset>`;
+        const urlList = input.split('\n').map(u => u.trim()).filter(u => u.length > 0);
+        const freq = document.getElementById('sitemapFrequency')?.value || "daily";
+        const priority = document.getElementById('sitemapPriority')?.value || "1.0";
+        
+        if (urlList.length === 0) {
+            result = "Validation Error: Please enter at least one URL to generate a sitemap.";
+        } else {
+            const today = new Date().toISOString().slice(0, 10);
+            let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+            xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+            
+            urlList.forEach(u => {
+                let formattedUrl = u;
+                if (!u.startsWith('http://') && !u.startsWith('https://')) {
+                    formattedUrl = 'https://' + u;
+                }
+                xml += `  <url>\n`;
+                xml += `    <loc>${formattedUrl}</loc>\n`;
+                xml += `    <lastmod>${today}</lastmod>\n`;
+                xml += `    <changefreq>${freq}</changefreq>\n`;
+                xml += `    <priority>${priority}</priority>\n`;
+                xml += `  </url>\n`;
+            });
+            
+            xml += `</urlset>`;
+            result = xml;
+        }
     } else if (tool.includes('keyword density')) {
         const words = input.toLowerCase().match(/\w+/g) || [];
         const freq = {};
@@ -2797,16 +2874,72 @@ async function runCoreLogic(tool, input, output) {
             result = textResult;
         }
     } else if (tool.includes('hex converter')) {
-        const cleanInput = input.trim().replace(/^0x|^#/i, '');
-        if (/^[0-9a-fA-F]+$/.test(cleanInput)) {
-            const dec = parseInt(cleanInput, 16);
-            result = `Hexadecimal: ${cleanInput.toUpperCase()}\nDecimal: ${dec}\nBinary: ${dec.toString(2)}\nOctal: ${dec.toString(8)}`;
+        const mode = document.getElementById('hexMode')?.value || "hexToDec";
+        const val = input.trim();
+        
+        if (!val) {
+            result = "Validation Error: Please enter a value to convert.";
         } else {
-            const dec = parseInt(input.trim());
-            if (!isNaN(dec)) {
-                result = `Decimal: ${dec}\nHexadecimal: ${dec.toString(16).toUpperCase()}\nBinary: ${dec.toString(2)}\nOctal: ${dec.toString(8)}`;
+            if (mode === 'decToHex') {
+                const dec = parseInt(val, 10);
+                if (isNaN(dec) || dec < 0) {
+                    result = "Validation Error: Please enter a non-negative decimal integer.";
+                } else {
+                    const hex = dec.toString(16).toUpperCase();
+                    const bin = dec.toString(2);
+                    const oct = dec.toString(8);
+                    
+                    let steps = [];
+                    let temp = dec;
+                    if (temp === 0) steps.push("0 / 16 = 0 (Remainder: 0)");
+                    while (temp > 0) {
+                        const rem = temp % 16;
+                        const hexDigit = rem.toString(16).toUpperCase();
+                        steps.push(`${temp} / 16 = ${Math.floor(temp / 16)} (Remainder: ${rem} -> ${hexDigit})`);
+                        temp = Math.floor(temp / 16);
+                    }
+                    
+                    result = `Decimal Integer: ${dec}\n` +
+                             `========================================\n\n` +
+                             `• Hexadecimal: ${hex}\n` +
+                             `• Binary:      ${bin}\n` +
+                             `• Octal:       ${oct}\n\n` +
+                             `Mathematical Division Steps (Base 10 to Base 16):\n` +
+                             `• Divide decimal number by 16 repeatedly. List remainders from bottom to top:\n` +
+                             `  ${steps.join('\n  ')}`;
+                }
             } else {
-                result = "Please enter a valid Hexadecimal string (e.g., 1A) or a Decimal number (e.g., 26).";
+                const cleanHex = val.replace(/^0x|^#/i, '');
+                if (!/^[0-9a-fA-F]+$/.test(cleanHex)) {
+                    result = "Validation Error: Input is not a valid Hexadecimal string (use characters 0-9 and A-F).";
+                } else {
+                    const dec = parseInt(cleanHex, 16);
+                    const bin = dec.toString(2);
+                    const oct = dec.toString(8);
+                    
+                    let steps = [];
+                    const digits = cleanHex.toUpperCase().split('');
+                    const len = digits.length;
+                    let sumStr = [];
+                    
+                    digits.forEach((d, idx) => {
+                        const power = len - 1 - idx;
+                        const digitVal = parseInt(d, 16);
+                        const termVal = digitVal * Math.pow(16, power);
+                        sumStr.push(`(${digitVal} * 16^${power})`);
+                        steps.push(`Position ${power}: Digit "${d}" -> value ${digitVal} * 16^${power} = ${termVal.toLocaleString()}`);
+                    });
+                    
+                    result = `Hexadecimal: ${cleanHex.toUpperCase()}\n` +
+                             `========================================\n\n` +
+                             `• Decimal (Base 10): ${dec.toLocaleString()}\n` +
+                             `• Binary (Base 2):   ${bin}\n` +
+                             `• Octal (Base 8):    ${oct}\n\n` +
+                             `Positional Expansion Steps (Base 16 to Base 10):\n` +
+                             `• ${sumStr.join(' + ')} = ${dec.toLocaleString()}\n\n` +
+                             `• Position Breakdown:\n` +
+                             `  ${steps.join('\n  ')}`;
+                }
             }
         }
     } else if (tool.includes('octal converter')) {
@@ -2933,19 +3066,136 @@ async function runCoreLogic(tool, input, output) {
             }
         }
     } else if (tool.includes('countdown timer')) {
-        let sec = parseInt(input) || 60;
-        if (TIMER_INTERVAL) clearInterval(TIMER_INTERVAL);
-        TIMER_INTERVAL = setInterval(() => {
-            if (sec <= 0) {
-                clearInterval(TIMER_INTERVAL);
-                output.innerText = "TIME IS UP! 🔔";
+        const targetVal = document.getElementById('timerTarget')?.value;
+        const clockDisplay = document.getElementById('countdownClockDisplay');
+        const progressBar = document.getElementById('countdownProgressBar');
+        const btnPauseResume = document.getElementById('btnPauseResume');
+        const btnResetTimer = document.getElementById('btnResetTimer');
+        
+        if (!targetVal) {
+            result = "Validation Error: Please select a target date and time.";
+            return;
+        }
+        
+        const targetDate = new Date(targetVal);
+        const targetMs = targetDate.getTime();
+        const nowMs = Date.now();
+        
+        if (targetMs <= nowMs) {
+            result = "Validation Error: Target date must be in the future.";
+            return;
+        }
+        
+        if (window.countdownIntervalId) {
+            clearInterval(window.countdownIntervalId);
+        }
+        
+        window.countdownEndTime = targetMs;
+        window.countdownTotalDuration = targetMs - nowMs;
+        window.countdownIsPaused = false;
+        window.countdownPausedRemaining = 0;
+        
+        if (btnPauseResume) btnPauseResume.style.display = 'inline-block';
+        if (btnResetTimer) btnResetTimer.style.display = 'inline-block';
+        if (btnPauseResume) btnPauseResume.innerText = 'Pause';
+        
+        const updateTick = () => {
+            if (window.countdownIsPaused) return;
+            
+            const currentNow = Date.now();
+            const remaining = window.countdownEndTime - currentNow;
+            
+            if (remaining <= 0) {
+                clearInterval(window.countdownIntervalId);
+                if (clockDisplay) clockDisplay.innerText = "00d 00h 00m 00s";
+                if (progressBar) progressBar.style.width = "100%";
+                
+                try {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) {
+                        const ctx = new AudioCtx();
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.frequency.setValueAtTime(880, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 1.5);
+                    }
+                } catch(e) {}
+                
+                const outArea = document.getElementById('toolOutput');
+                if (outArea) outArea.innerText = "TIME IS UP! 🔔\nThe countdown has completed.";
                 return;
             }
-            sec--;
-            const m = Math.floor(sec / 60), s = sec % 60;
-            output.innerText = `Time Remaining: ${m}:${s.toString().padStart(2, '0')}`;
-        }, 1000);
-        result = `Countdown started for ${sec} seconds...`;
+            
+            const secTotal = Math.floor(remaining / 1000);
+            const days = Math.floor(secTotal / (24 * 3600));
+            const hours = Math.floor((secTotal % (24 * 3600)) / 3600);
+            const minutes = Math.floor((secTotal % 3600) / 60);
+            const seconds = secTotal % 60;
+            
+            const fmt = `${days.toString().padStart(2, '0')}d ` +
+                        `${hours.toString().padStart(2, '0')}h ` +
+                        `${minutes.toString().padStart(2, '0')}m ` +
+                        `${seconds.toString().padStart(2, '0')}s`;
+                        
+            if (clockDisplay) clockDisplay.innerText = fmt;
+            
+            const elapsed = window.countdownTotalDuration - remaining;
+            const pct = Math.min(100, Math.max(0, (elapsed / window.countdownTotalDuration) * 100));
+            if (progressBar) progressBar.style.width = `${pct}%`;
+            
+            const outArea = document.getElementById('toolOutput');
+            if (outArea) {
+                outArea.innerText = `Countdown Active:\nTime Remaining: ${fmt}\nElapsed: ${pct.toFixed(1)}%`;
+            }
+        };
+        
+        window.toggleTimerRunning = () => {
+            const btn = document.getElementById('btnPauseResume');
+            if (!btn) return;
+            
+            if (window.countdownIsPaused) {
+                window.countdownEndTime = Date.now() + window.countdownPausedRemaining;
+                window.countdownIsPaused = false;
+                btn.innerText = 'Pause';
+            } else {
+                window.countdownPausedRemaining = window.countdownEndTime - Date.now();
+                window.countdownIsPaused = true;
+                btn.innerText = 'Resume';
+            }
+        };
+        
+        window.resetCountdownTimer = () => {
+            if (window.countdownIntervalId) {
+                clearInterval(window.countdownIntervalId);
+            }
+            window.countdownEndTime = 0;
+            window.countdownTotalDuration = 0;
+            window.countdownIsPaused = false;
+            window.countdownPausedRemaining = 0;
+            
+            const clk = document.getElementById('countdownClockDisplay');
+            const pb = document.getElementById('countdownProgressBar');
+            const pr = document.getElementById('btnPauseResume');
+            const rst = document.getElementById('btnResetTimer');
+            
+            if (clk) clk.innerText = "00d 00h 00m 00s";
+            if (pb) pb.style.width = "0%";
+            if (pr) pr.style.display = 'none';
+            if (rst) rst.style.display = 'none';
+            
+            const outArea = document.getElementById('toolOutput');
+            if (outArea) outArea.innerText = "Countdown cleared. Select a date above to start a new countdown.";
+        };
+        
+        window.countdownIntervalId = setInterval(updateTick, 1000);
+        updateTick();
+        
+        result = `Countdown started for target: ${targetDate.toString()}`;
     } else if (tool.includes('stopwatch')) {
         let sec = 0;
         if (TIMER_INTERVAL) clearInterval(TIMER_INTERVAL);
