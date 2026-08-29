@@ -779,6 +779,59 @@ function initToolEngine() {
         if (aInput) aInput.addEventListener('input', updateColor);
     }
     
+    
+    // Live CSS Shadow Preview
+    if (h1.includes('css shadow')) {
+        const ho = document.getElementById('hOffset');
+        const vo = document.getElementById('vOffset');
+        const bl = document.getElementById('blurRadius');
+        const sp = document.getElementById('spreadRadius');
+        const co = document.getElementById('shadowColor');
+        const ins = document.getElementById('insetShadow');
+        const prev = document.getElementById('shadowPreviewBox');
+        
+        const updateShadow = () => {
+            if (!prev) return;
+            document.getElementById('hOffsetVal').innerText = ho.value;
+            document.getElementById('vOffsetVal').innerText = vo.value;
+            document.getElementById('blurVal').innerText = bl.value;
+            document.getElementById('spreadVal').innerText = sp.value;
+            
+            const insetStr = ins.checked ? "inset " : "";
+            prev.style.boxShadow = `${insetStr}${ho.value}px ${vo.value}px ${bl.value}px ${sp.value}px ${co.value}`;
+        };
+        
+        [ho, vo, bl, sp, co, ins].forEach(el => {
+            if (el) el.addEventListener('input', updateShadow);
+        });
+    }
+
+    // Live Gradient Preview
+    if (h1.includes('gradient generator')) {
+        const c1 = document.getElementById('gradColor1');
+        const c2 = document.getElementById('gradColor2');
+        const type = document.getElementById('gradType');
+        const ang = document.getElementById('gradAngle');
+        const prev = document.getElementById('gradPreviewBox');
+        const angGroup = document.getElementById('angleControlGroup');
+        
+        const updateGrad = () => {
+            if (!prev) return;
+            if (type.value === "linear") {
+                angGroup.style.display = "block";
+                document.getElementById('gradAngleVal').innerText = ang.value;
+                prev.style.background = `linear-gradient(${ang.value}deg, ${c1.value}, ${c2.value})`;
+            } else {
+                angGroup.style.display = "none";
+                prev.style.background = `radial-gradient(circle, ${c1.value}, ${c2.value})`;
+            }
+        };
+        
+        [c1, c2, type, ang].forEach(el => {
+            if (el) el.addEventListener('input', updateGrad);
+        });
+    }
+
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1019,6 +1072,117 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 15 INJECTIONS
+    if (tool.includes('css shadow')) {
+        const hOffset = document.getElementById('hOffset')?.value || "0";
+        const vOffset = document.getElementById('vOffset')?.value || "0";
+        const blurR = document.getElementById('blurRadius')?.value || "0";
+        const spreadR = document.getElementById('spreadRadius')?.value || "0";
+        const color = document.getElementById('shadowColor')?.value || "#000000";
+        const inset = document.getElementById('insetShadow')?.checked ? "inset " : "";
+        
+        const cssRule = `box-shadow: ${inset}${hOffset}px ${vOffset}px ${blurR}px ${spreadR}px ${color};`;
+        result = `/* CSS Box Shadow Rule */\n${cssRule}\n\n/* Browser compatibility prefixes (legacy) */\n-webkit-${cssRule}\n-moz-${cssRule}`;
+        
+    } else if (tool.includes('gradient generator')) {
+        const c1 = document.getElementById('gradColor1')?.value || "#ff0080";
+        const c2 = document.getElementById('gradColor2')?.value || "#7928ca";
+        const type = document.getElementById('gradType')?.value || "linear";
+        const angle = document.getElementById('gradAngle')?.value || "90";
+        
+        let cssRule = "";
+        if (type === "linear") {
+            cssRule = `background: linear-gradient(${angle}deg, ${c1}, ${c2});`;
+        } else {
+            cssRule = `background: radial-gradient(circle, ${c1}, ${c2});`;
+        }
+        
+        result = `/* CSS Background Gradient */\nbackground: ${c1}; /* Fallback */\n${cssRule}`;
+        
+    } else if (tool.includes('user agent')) {
+        const ua = (input || "").trim();
+        if (!ua) {
+            result = "Validation Error: Please provide a User-Agent string to parse.";
+        } else {
+            // Simple heuristic UA parser
+            let browser = "Unknown Browser";
+            if (ua.includes("Firefox/")) browser = "Mozilla Firefox";
+            else if (ua.includes("Edg/")) browser = "Microsoft Edge";
+            else if (ua.includes("Chrome/") && !ua.includes("Edg/")) browser = "Google Chrome";
+            else if (ua.includes("Safari/") && !ua.includes("Chrome/")) browser = "Apple Safari";
+            else if (ua.includes("MSIE ") || ua.includes("Trident/")) browser = "Internet Explorer";
+            else if (ua.includes("Opera") || ua.includes("OPR/")) browser = "Opera";
+            
+            let os = "Unknown OS";
+            if (ua.includes("Windows NT 10.0")) os = "Windows 10 / 11";
+            else if (ua.includes("Windows NT 6.3")) os = "Windows 8.1";
+            else if (ua.includes("Windows NT 6.2")) os = "Windows 8";
+            else if (ua.includes("Windows NT 6.1")) os = "Windows 7";
+            else if (ua.includes("Mac OS X")) os = "macOS";
+            else if (ua.includes("Android")) os = "Android";
+            else if (ua.includes("iPhone") || ua.includes("iPad")) os = "iOS";
+            else if (ua.includes("Linux")) os = "Linux";
+            
+            let deviceType = "Desktop";
+            if (/Mobi|Android|iPhone|iPad/i.test(ua)) deviceType = "Mobile / Tablet";
+            
+            result = `Parsed User-Agent Data:\n\nBrowser:\t${browser}\nOS:\t\t${os}\nDevice:\t\t${deviceType}\n\nOriginal String:\n${ua}`;
+        }
+        
+    } else if (tool.includes('screen resolution')) {
+        // Read directly from window object
+        const screenW = window.screen.width;
+        const screenH = window.screen.height;
+        const viewW = window.innerWidth;
+        const viewH = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        const colorDepth = window.screen.colorDepth;
+        
+        result = `Screen & Viewport Analysis:\n\n` +
+                 `Hardware Screen Resolution:  ${screenW} x ${screenH} px\n` +
+                 `Current Browser Viewport:    ${viewW} x ${viewH} px\n\n` +
+                 `Device Pixel Ratio (DPR):    ${dpr}\n` +
+                 `Physical Pixel Resolution:   ${screenW * dpr} x ${screenH * dpr} px\n` +
+                 `Color Depth:                 ${colorDepth}-bit`;
+                 
+    } else if (tool.includes('text to html')) {
+        let text = input;
+        if (!text.trim()) {
+            result = "Validation Error: Please enter some text to convert.";
+        } else {
+            const encode = document.getElementById('encodeEntities')?.checked;
+            const paragraphs = document.getElementById('wrapParagraphs')?.checked;
+            const lineBreaks = document.getElementById('preserveLineBreaks')?.checked;
+            
+            // 1. Encode HTML entities first
+            if (encode) {
+                text = text.replace(/&/g, "&amp;")
+                           .replace(/</g, "&lt;")
+                           .replace(/>/g, "&gt;")
+                           .replace(/"/g, "&quot;")
+                           .replace(/'/g, "&#39;");
+            }
+            
+            // 2. Wrap paragraphs (blocks separated by double newline)
+            if (paragraphs) {
+                // Split by 2 or more newlines
+                const blocks = text.split(/\n\s*\n/);
+                for (let i = 0; i < blocks.length; i++) {
+                    if (blocks[i].trim()) {
+                        blocks[i] = `<p>\n${blocks[i].trim()}\n</p>`;
+                    }
+                }
+                text = blocks.join("\n\n");
+            }
+            
+            // 3. Line breaks for remaining single newlines
+            if (lineBreaks) {
+                text = text.replace(/(?<!>)\n(?!<)/g, "<br>\n");
+            }
+            
+            result = text;
+        }
+    } else 
     // BATCH 14 INJECTIONS
     if (tool.includes('username generator')) {
         const baseWord = document.getElementById('baseWordInput')?.value.trim() || "";

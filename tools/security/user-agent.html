@@ -64,11 +64,18 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<div class="tool-input-group">
+    <label class="tool-label">User Agent String (Auto-filled with your browser)</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 100px;"></textarea>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const uaInput = document.getElementById("toolInput");
+        if (uaInput && !uaInput.value) {
+            uaInput.value = navigator.userAgent;
+        }
+    });
+</script>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

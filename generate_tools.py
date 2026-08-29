@@ -3075,6 +3075,102 @@ INPUT_MORSE_CODE = '''
 '''
 
 
+
+INPUT_CSS_SHADOW = '''
+<div class="tool-input-group" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Horizontal Offset (<span id="hOffsetVal">10</span>px)</label>
+        <input type="range" id="hOffset" min="-50" max="50" value="10" style="width: 100%;">
+        
+        <label class="tool-label" style="margin-top: 15px;">Vertical Offset (<span id="vOffsetVal">10</span>px)</label>
+        <input type="range" id="vOffset" min="-50" max="50" value="10" style="width: 100%;">
+        
+        <label class="tool-label" style="margin-top: 15px;">Blur Radius (<span id="blurVal">15</span>px)</label>
+        <input type="range" id="blurRadius" min="0" max="100" value="15" style="width: 100%;">
+        
+        <label class="tool-label" style="margin-top: 15px;">Spread Radius (<span id="spreadVal">0</span>px)</label>
+        <input type="range" id="spreadRadius" min="-50" max="50" value="0" style="width: 100%;">
+        
+        <label class="tool-label" style="margin-top: 15px;">Shadow Color</label>
+        <input type="color" id="shadowColor" value="#000000" style="width: 100%; height: 40px; cursor: pointer;">
+        
+        <label class="tool-label" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
+            <input type="checkbox" id="insetShadow"> Inset Shadow
+        </label>
+    </div>
+    <div style="flex: 1; min-width: 250px; display: flex; justify-content: center; align-items: center; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color); padding: 50px;">
+        <div id="shadowPreviewBox" style="width: 200px; height: 200px; background: var(--bg-main); border-radius: 8px; box-shadow: 10px 10px 15px 0px rgba(0,0,0,1);"></div>
+    </div>
+</div>
+'''
+
+INPUT_GRADIENT_GENERATOR = '''
+<div class="tool-input-group" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div style="flex: 1; min-width: 250px;">
+        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <label class="tool-label">Color 1</label>
+                <input type="color" id="gradColor1" value="#ff0080" style="width: 100%; height: 40px; cursor: pointer;">
+            </div>
+            <div style="flex: 1;">
+                <label class="tool-label">Color 2</label>
+                <input type="color" id="gradColor2" value="#7928ca" style="width: 100%; height: 40px; cursor: pointer;">
+            </div>
+        </div>
+        
+        <label class="tool-label">Gradient Type</label>
+        <select id="gradType" class="tool-select">
+            <option value="linear">Linear</option>
+            <option value="radial">Radial</option>
+        </select>
+        
+        <div id="angleControlGroup" style="margin-top: 15px;">
+            <label class="tool-label">Angle (<span id="gradAngleVal">90</span>&deg;)</label>
+            <input type="range" id="gradAngle" min="0" max="360" value="90" style="width: 100%;">
+        </div>
+    </div>
+    <div style="flex: 1; min-width: 250px; display: flex; justify-content: center; align-items: center; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color); padding: 20px;">
+        <div id="gradPreviewBox" style="width: 100%; height: 200px; background: linear-gradient(90deg, #ff0080, #7928ca); border-radius: 8px;"></div>
+    </div>
+</div>
+'''
+
+INPUT_USER_AGENT = '''
+<div class="tool-input-group">
+    <label class="tool-label">User Agent String (Auto-filled with your browser)</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 100px;"></textarea>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const uaInput = document.getElementById("toolInput");
+        if (uaInput && !uaInput.value) {
+            uaInput.value = navigator.userAgent;
+        }
+    });
+</script>
+'''
+
+INPUT_SCREEN_RESOLUTION = '''
+<div class="tool-input-group" style="text-align: center; padding: 30px; background: var(--bg-secondary); border-radius: 8px; border: 1px dashed var(--border-color);">
+    <i class="fas fa-desktop" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+    <p style="font-size: 1.1rem; margin-bottom: 20px;">Click the button below to detect your exact monitor and viewport dimensions.</p>
+</div>
+'''
+
+INPUT_TEXT_TO_HTML = '''
+<div class="tool-input-group">
+    <label class="tool-label">Options</label>
+    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+        <label style="display: flex; align-items: center; gap: 5px;"><input type="checkbox" id="wrapParagraphs" checked> Wrap Paragraphs (&lt;p&gt;)</label>
+        <label style="display: flex; align-items: center; gap: 5px;"><input type="checkbox" id="preserveLineBreaks" checked> Insert Line Breaks (&lt;br&gt;)</label>
+        <label style="display: flex; align-items: center; gap: 5px;"><input type="checkbox" id="encodeEntities" checked> Encode Special Chars (&amp;)</label>
+    </div>
+    <label class="tool-label">Enter Plain Text</label>
+    <textarea id="toolInput" class="tool-textarea" placeholder="Paste your unformatted plain text here..."></textarea>
+</div>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3126,6 +3222,18 @@ for category, tools in tools_data.items():
 
         elif tool_name == "username-generator":
             current_input = INPUT_USERNAME_GENERATOR
+
+        elif tool_name == "css-shadow":
+            current_input = INPUT_CSS_SHADOW
+        elif tool_name == "gradient-generator":
+            current_input = INPUT_GRADIENT_GENERATOR
+        elif tool_name == "user-agent":
+            current_input = INPUT_USER_AGENT
+        elif tool_name == "screen-resolution":
+            current_input = INPUT_SCREEN_RESOLUTION
+        elif tool_name == "text-to-html":
+            current_input = INPUT_TEXT_TO_HTML
+
         elif tool_name == "rgb-to-hex":
             current_input = INPUT_RGB_TO_HEX
         elif tool_name == "byte-converter":
