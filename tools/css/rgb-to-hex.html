@@ -64,13 +64,27 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Red (R)</label>
+        <input type="number" id="rInput" class="tool-input" value="255" min="0" max="255">
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Green (G)</label>
+        <input type="number" id="gInput" class="tool-input" value="87" min="0" max="255">
+    </div>
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Blue (B)</label>
+        <input type="number" id="bInput" class="tool-input" value="51" min="0" max="255">
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Alpha / Opacity (Optional: 0 to 1)</label>
+    <input type="range" id="rgbAlphaInput" min="0" max="1" step="0.01" value="1" style="width: 100%;">
+    <div style="text-align: right; font-size: 0.9em; margin-top: 5px;" id="rgbAlphaValDisplay">1.00</div>
+</div>
+<div class="tool-input-group">
+    <div id="rgbPreviewBox" style="width: 100%; height: 80px; border-radius: 8px; background: rgba(255, 87, 51, 1); border: 1px solid var(--border-color); box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
 </div>
 
                     

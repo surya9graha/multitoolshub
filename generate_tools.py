@@ -2987,6 +2987,94 @@ INPUT_FANCY_TEXT = """
 """
 
 # Generate the files
+
+INPUT_USERNAME_GENERATOR = '''
+<div class="tool-input-group">
+    <label class="tool-label">Base Word / Name (Optional)</label>
+    <input type="text" id="baseWordInput" class="tool-input" placeholder="e.g., shadow, ninja, alex">
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Quantity</label>
+    <input type="number" id="usernameQty" class="tool-input" value="10" min="1" max="50">
+</div>
+<div class="tool-input-group checkbox-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <input type="checkbox" id="includeNumbers" checked> Include Numbers
+    </label>
+    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <input type="checkbox" id="includeSpecial" checked> Include Special Characters (_, .)
+    </label>
+</div>
+'''
+
+INPUT_RGB_TO_HEX = '''
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Red (R)</label>
+        <input type="number" id="rInput" class="tool-input" value="255" min="0" max="255">
+    </div>
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Green (G)</label>
+        <input type="number" id="gInput" class="tool-input" value="87" min="0" max="255">
+    </div>
+    <div style="flex: 1; min-width: 80px;">
+        <label class="tool-label">Blue (B)</label>
+        <input type="number" id="bInput" class="tool-input" value="51" min="0" max="255">
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Alpha / Opacity (Optional: 0 to 1)</label>
+    <input type="range" id="rgbAlphaInput" min="0" max="1" step="0.01" value="1" style="width: 100%;">
+    <div style="text-align: right; font-size: 0.9em; margin-top: 5px;" id="rgbAlphaValDisplay">1.00</div>
+</div>
+<div class="tool-input-group">
+    <div id="rgbPreviewBox" style="width: 100%; height: 80px; border-radius: 8px; background: rgba(255, 87, 51, 1); border: 1px solid var(--border-color); box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+</div>
+'''
+
+INPUT_BYTE_CONVERTER = '''
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+    <div style="flex: 2; min-width: 150px;">
+        <label class="tool-label">Data Value</label>
+        <input type="number" id="dataValueInput" class="tool-input" value="1024" step="any">
+    </div>
+    <div style="flex: 1; min-width: 120px;">
+        <label class="tool-label">From Unit</label>
+        <select id="fromUnitSelect" class="tool-select">
+            <option value="b">Bits (b)</option>
+            <option value="B">Bytes (B)</option>
+            <option value="KB">Kilobytes (KB)</option>
+            <option value="MB" selected>Megabytes (MB)</option>
+            <option value="GB">Gigabytes (GB)</option>
+            <option value="TB">Terabytes (TB)</option>
+            <option value="PB">Petabytes (PB)</option>
+        </select>
+    </div>
+</div>
+'''
+
+INPUT_NATO_ALPHABET = '''
+<div class="tool-input-group">
+    <label class="tool-label">Enter Text</label>
+    <textarea id="toolInput" class="tool-textarea" placeholder="Type letters or words here to convert to NATO phonetic spelling..."></textarea>
+</div>
+'''
+
+INPUT_MORSE_CODE = '''
+<div class="tool-input-group">
+    <label class="tool-label">Select Mode</label>
+    <select id="morseModeSelect" class="tool-select">
+        <option value="text_to_morse">Text to Morse Code</option>
+        <option value="morse_to_text">Morse Code to Text</option>
+    </select>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Input Data</label>
+    <textarea id="toolInput" class="tool-textarea" placeholder="Enter text or morse code (use spaces between letters and slashes for words)..."></textarea>
+</div>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3035,6 +3123,18 @@ for category, tools in tools_data.items():
             current_input = INPUT_GRID_LAYOUT
         elif tool_name == "password-generator":
             current_input = INPUT_PASSWORD_GENERATOR
+
+        elif tool_name == "username-generator":
+            current_input = INPUT_USERNAME_GENERATOR
+        elif tool_name == "rgb-to-hex":
+            current_input = INPUT_RGB_TO_HEX
+        elif tool_name == "byte-converter":
+            current_input = INPUT_BYTE_CONVERTER
+        elif tool_name == "nato-alphabet":
+            current_input = INPUT_NATO_ALPHABET
+        elif tool_name == "morse-code":
+            current_input = INPUT_MORSE_CODE
+
         elif tool_name == "uuid-generator":
             current_input = INPUT_UUID_GENERATOR
         elif tool_name == "aspect-ratio":

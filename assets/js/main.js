@@ -749,6 +749,36 @@ function initToolEngine() {
     }
 
     
+    // Live RGB to HEX Preview logic
+    if (h1.includes('rgb to hex')) {
+        const rInput = document.getElementById('rInput');
+        const gInput = document.getElementById('gInput');
+        const bInput = document.getElementById('bInput');
+        const aInput = document.getElementById('rgbAlphaInput');
+        const aDisp = document.getElementById('rgbAlphaValDisplay');
+        const prev = document.getElementById('rgbPreviewBox');
+        
+        const updateColor = () => {
+            if (!rInput || !gInput || !bInput || !prev) return;
+            let r = parseInt(rInput.value);
+            let g = parseInt(gInput.value);
+            let b = parseInt(bInput.value);
+            let alpha = aInput ? parseFloat(aInput.value).toFixed(2) : "1.00";
+            if (aDisp) aDisp.innerText = alpha;
+            
+            if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+                r = Math.max(0, Math.min(255, r));
+                g = Math.max(0, Math.min(255, g));
+                b = Math.max(0, Math.min(255, b));
+                prev.style.background = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+        };
+        if (rInput) rInput.addEventListener('input', updateColor);
+        if (gInput) gInput.addEventListener('input', updateColor);
+        if (bInput) bInput.addEventListener('input', updateColor);
+        if (aInput) aInput.addEventListener('input', updateColor);
+    }
+    
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -989,6 +1019,219 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 14 INJECTIONS
+    if (tool.includes('username generator')) {
+        const baseWord = document.getElementById('baseWordInput')?.value.trim() || "";
+        const qty = parseInt(document.getElementById('usernameQty')?.value || "10");
+        const incNum = document.getElementById('includeNumbers')?.checked;
+        const incSpec = document.getElementById('includeSpecial')?.checked;
+        
+        if (isNaN(qty) || qty < 1 || qty > 100) {
+            result = "Validation Error: Quantity must be between 1 and 100.";
+        } else {
+            const prefixes = ["Shadow", "Ninja", "Cyber", "Neon", "Ghost", "Pixel", "Quantum", "Sonic", "Lunar", "Solar", "Nova", "Cosmic", "Mystic", "Iron", "Silent", "Dark", "Light", "Pro", "Elite", "Alpha"];
+            const suffixes = ["Strike", "Blade", "Walker", "Rider", "Hunter", "Master", "Lord", "King", "Queen", "Heart", "Soul", "Spirit", "Wolf", "Dragon", "Phoenix", "Byte", "Code", "Net", "Pulse", "Storm"];
+            const specialChars = ["_", "."];
+            
+            let usernames = [];
+            for (let i = 0; i < qty; i++) {
+                let name = "";
+                
+                // Construct base string
+                if (baseWord) {
+                    // Mix base word with random prefix or suffix
+                    const choice = Math.random();
+                    if (choice < 0.33) {
+                        name = prefixes[Math.floor(Math.random() * prefixes.length)] + baseWord;
+                    } else if (choice < 0.66) {
+                        name = baseWord + suffixes[Math.floor(Math.random() * suffixes.length)];
+                    } else {
+                        name = baseWord;
+                    }
+                } else {
+                    name = prefixes[Math.floor(Math.random() * prefixes.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+                }
+                
+                // Add Special Characters
+                if (incSpec && Math.random() > 0.5) {
+                    const char = specialChars[Math.floor(Math.random() * specialChars.length)];
+                    // insert in middle or end
+                    if (Math.random() > 0.5) name += char;
+                    else name = name.substring(0, Math.floor(name.length/2)) + char + name.substring(Math.floor(name.length/2));
+                }
+                
+                // Add Numbers
+                if (incNum) {
+                    if (Math.random() > 0.3) {
+                        // Add 2 to 4 digits
+                        const num = Math.floor(Math.random() * 9999) + 1;
+                        name += num.toString();
+                    }
+                }
+                
+                usernames.push(name);
+            }
+            result = usernames.join('\n');
+        }
+    } else if (tool.includes('rgb to hex')) {
+        const rInput = document.getElementById('rInput');
+        const gInput = document.getElementById('gInput');
+        const bInput = document.getElementById('bInput');
+        const aInput = document.getElementById('rgbAlphaInput');
+        
+        if (!rInput || !gInput || !bInput) {
+            result = "Validation Error: Input elements missing.";
+        } else {
+            let r = parseInt(rInput.value);
+            let g = parseInt(gInput.value);
+            let b = parseInt(bInput.value);
+            let a = aInput ? parseFloat(aInput.value) : 1;
+            
+            if (isNaN(r) || isNaN(g) || isNaN(b) || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                result = "Validation Error: RGB values must be between 0 and 255.";
+            } else {
+                const toHex = (n) => {
+                    const hex = n.toString(16).toUpperCase();
+                    return hex.length === 1 ? "0" + hex : hex;
+                };
+                
+                let hexCode = "#" + toHex(r) + toHex(g) + toHex(b);
+                let hexA = "";
+                if (a < 1) {
+                    hexA = Math.round(a * 255).toString(16).toUpperCase();
+                    if (hexA.length === 1) hexA = "0" + hexA;
+                    hexCode += hexA;
+                }
+                
+                result = `RGB: rgb(${r}, ${g}, ${b})\nRGBA: rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})\nHEX: ${hexCode}`;
+                
+                // Live preview is handled by event listeners, but we update on process too
+                const preview = document.getElementById('rgbPreviewBox');
+                if (preview) preview.style.background = `rgba(${r}, ${g}, ${b}, ${a})`;
+            }
+        }
+    } else if (tool.includes('byte converter')) {
+        const valInput = document.getElementById('dataValueInput');
+        const fromUnit = document.getElementById('fromUnitSelect')?.value || "MB";
+        
+        if (!valInput || valInput.value.trim() === "") {
+            result = "Validation Error: Please enter a numeric data value.";
+        } else {
+            let val = parseFloat(valInput.value);
+            if (isNaN(val) || val < 0) {
+                result = "Validation Error: Data value must be a positive number.";
+            } else {
+                // Convert input to pure bytes first
+                let bytes = 0;
+                switch (fromUnit) {
+                    case "b": bytes = val / 8; break;
+                    case "B": bytes = val; break;
+                    case "KB": bytes = val * 1024; break;
+                    case "MB": bytes = val * Math.pow(1024, 2); break;
+                    case "GB": bytes = val * Math.pow(1024, 3); break;
+                    case "TB": bytes = val * Math.pow(1024, 4); break;
+                    case "PB": bytes = val * Math.pow(1024, 5); break;
+                }
+                
+                const bits = bytes * 8;
+                const kb = bytes / 1024;
+                const mb = bytes / Math.pow(1024, 2);
+                const gb = bytes / Math.pow(1024, 3);
+                const tb = bytes / Math.pow(1024, 4);
+                const pb = bytes / Math.pow(1024, 5);
+                
+                const formatNum = (num) => {
+                    // Prevent exponential notation for reasonably small numbers, limit decimals
+                    if (num === 0) return "0";
+                    if (num > 1e12 || num < 1e-6) return num.toExponential(4);
+                    // Use up to 4 decimal places, but strip trailing zeros
+                    return parseFloat(num.toFixed(6)).toString();
+                };
+                
+                result = [
+                    `Bits (b):\t\t${formatNum(bits)}`,
+                    `Bytes (B):\t${formatNum(bytes)}`,
+                    `Kilobytes (KB):\t${formatNum(kb)}`,
+                    `Megabytes (MB):\t${formatNum(mb)}`,
+                    `Gigabytes (GB):\t${formatNum(gb)}`,
+                    `Terabytes (TB):\t${formatNum(tb)}`,
+                    `Petabytes (PB):\t${formatNum(pb)}`
+                ].join('\n');
+            }
+        }
+    } else if (tool.includes('nato alphabet')) {
+        const cleanInput = input.trim();
+        if (!cleanInput) {
+            result = "Validation Error: Please enter some text to translate.";
+        } else {
+            const natoMap = {
+                'a':'Alpha', 'b':'Bravo', 'c':'Charlie', 'd':'Delta', 'e':'Echo', 'f':'Foxtrot',
+                'g':'Golf', 'h':'Hotel', 'i':'India', 'j':'Juliett', 'k':'Kilo', 'l':'Lima',
+                'm':'Mike', 'n':'November', 'o':'Oscar', 'p':'Papa', 'q':'Quebec', 'r':'Romeo',
+                's':'Sierra', 't':'Tango', 'u':'Uniform', 'v':'Victor', 'w':'Whiskey', 'x':'X-ray',
+                'y':'Yankee', 'z':'Zulu',
+                '0':'Zero', '1':'One', '2':'Two', '3':'Three', '4':'Four', '5':'Five',
+                '6':'Six', '7':'Seven', '8':'Eight', '9':'Niner'
+            };
+            
+            let words = cleanInput.split(/\s+/);
+            let outLines = [];
+            
+            for (let word of words) {
+                let phoneticWord = [];
+                for (let char of word) {
+                    let c = char.toLowerCase();
+                    if (natoMap[c]) phoneticWord.push(natoMap[c]);
+                    else phoneticWord.push(char); // Keep punctuation intact
+                }
+                outLines.push(phoneticWord.join('-'));
+            }
+            result = outLines.join(' ');
+        }
+    } else if (tool.includes('morse code')) {
+        const mode = document.getElementById('morseModeSelect')?.value || "text_to_morse";
+        const cleanInput = input.trim().toUpperCase();
+        if (!cleanInput) {
+            result = "Validation Error: Please enter data to translate.";
+        } else {
+            const morseDict = {
+                "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.",
+                "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..",
+                "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.",
+                "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-",
+                "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---",
+                "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...",
+                "8": "---..", "9": "----.", ".": ".-.-.-", ",": "--..--", "?": "..--..",
+                "'": ".----.", "!": "-.-.--", "/": "-..-.", "(": "-.--.", ")": "-.--.-",
+                "&": ".-...", ":": "---...", ";": "-.-.-.", "=": "-...-", "+": ".-.-.",
+                "-": "-....-", "_": "..--.-", "\"": ".-..-.", "$": "...-..-", "@": ".--.-."
+            };
+            
+            if (mode === "text_to_morse") {
+                let out = [];
+                for (let char of cleanInput) {
+                    if (char === ' ') out.push('/');
+                    else if (morseDict[char]) out.push(morseDict[char]);
+                }
+                result = out.join(' ');
+            } else {
+                // Invert dict
+                const textDict = {};
+                for (const [k, v] of Object.entries(morseDict)) {
+                    textDict[v] = k;
+                }
+                
+                let out = "";
+                let tokens = cleanInput.split(' ');
+                for (let token of tokens) {
+                    if (token === '/' || token === '|') out += " ";
+                    else if (textDict[token]) out += textDict[token];
+                    else out += "#"; // Unknown sequence
+                }
+                result = out.toLowerCase();
+            }
+        }
+    } else 
     // Developer / Dev Tools
     if (tool.includes('json formatter')) {
         if (!input.trim()) {
