@@ -8,8 +8,7 @@ BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
 tools_data = {
     "image": [
         "image-resizer", "image-compressor", "jpg-to-png", "png-to-jpg", "webp-to-jpg",
-        "image-cropper", "image-rotator", "image-flipper", "blur-image", "sharpen-image",
-        "image-watermark", "remove-background", "meme-generator", "thumbnail-preview"
+        "image-flipper", "blur-image", "image-watermark", "meme-generator", "thumbnail-preview"
     ],
     "css": [
         "gradient-generator", "color-palette", "hex-to-rgb", "rgb-to-hex", "css-button",
@@ -25,7 +24,7 @@ tools_data = {
         "keyword-density", "meta-tag-analyzer"
     ],
     "text": [
-        "word-counter", "char-counter", "sentence-counter", "paragraph-counter", "case-converter",
+        "word-counter", "char-counter", "sentence-counter", "case-converter",
         "title-case", "slug-generator", "random-name", "username-generator", "fancy-text",
         "text-reverser", "lorem-ipsum", "text-diff"
     ],
@@ -44,8 +43,7 @@ tools_data = {
     ],
     "web": [
         "html-preview", "markdown-converter", "url-shortener", "yt-thumbnail-downloader", "youtube-video-downloader", "favicon-generator",
-        "website-status", "page-speed", "broken-link", "dns-lookup", "whois",
-        "source-viewer", "redirect-checker", "favicon-grabber"
+        "website-status", "dns-lookup", "source-viewer", "favicon-grabber"
     ],
     "misc": [
         "morse-code", "nato-alphabet", "text-to-speech", "speech-to-text", "color-picker",
