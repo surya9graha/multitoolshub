@@ -64,19 +64,19 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Upload Your Image</label>
-    <div id="dropZone" style="border: 2px dashed var(--border); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <p>Drag & Drop or Click to Upload Image</p>
-        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-    </div>
-    <div id="filePreviewContainer" style="display:none; margin-top: 20px; text-align: center;">
-        <img id="filePreview" style="max-width: 200px; border-radius: 10px; border: 1px solid var(--border);">
-    </div>
-    <!-- Hidden text input for compatibility -->
-    <textarea id="toolInput" style="display:none"></textarea>
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-file-image" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select WebP Image
+        <input type="file" id="imgFile" accept="image/webp" style="display: none;">
+    </label>
+    <p id="imgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
 </div>
+<div id="imgPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="imgPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="imgDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="converted.jpg"><i class="fas fa-download"></i> Download JPG File</a>
+</div>
+<canvas id="imgCanvas" style="display: none;"></canvas>
 
                     
                     <div style="display: flex; gap: 15px; margin-top: 35px; margin-bottom: 40px; flex-wrap: wrap;">

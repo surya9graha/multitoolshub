@@ -3413,6 +3413,101 @@ INPUT_JPG_TO_PNG = '''
 '''
 
 
+
+INPUT_WEBP_TO_JPG = '''
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-file-image" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select WebP Image
+        <input type="file" id="imgFile" accept="image/webp" style="display: none;">
+    </label>
+    <p id="imgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
+</div>
+<div id="imgPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="imgPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="imgDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="converted.jpg"><i class="fas fa-download"></i> Download JPG File</a>
+</div>
+<canvas id="imgCanvas" style="display: none;"></canvas>
+'''
+
+INPUT_PNG_TO_JPG = '''
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-file-image" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select PNG Image
+        <input type="file" id="imgFile" accept="image/png" style="display: none;">
+    </label>
+    <p id="imgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
+</div>
+<div id="imgPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="imgPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="imgDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="converted.jpg"><i class="fas fa-download"></i> Download JPG File</a>
+</div>
+<canvas id="imgCanvas" style="display: none;"></canvas>
+'''
+
+INPUT_SENTENCE_COUNTER = '''
+<div class="tool-input-group" style="display: flex; gap: 15px; margin-bottom: 20px; justify-content: center;">
+    <div style="background: var(--bg-secondary); padding: 15px 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; flex: 1;">
+        <span style="display: block; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Sentences</span>
+        <strong id="rtSentences" style="font-size: 2rem; color: var(--primary);">0</strong>
+    </div>
+    <div style="background: var(--bg-secondary); padding: 15px 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; flex: 1;">
+        <span style="display: block; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Words</span>
+        <strong id="rtWords" style="font-size: 2rem; color: var(--text-color);">0</strong>
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Paste Your Text</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 250px; font-size: 1.1rem; line-height: 1.6;" placeholder="Paste your essay, article, or document here to instantly count the number of sentences..."></textarea>
+</div>
+'''
+
+INPUT_BLUR_IMAGE = '''
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-eye-slash" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select Image to Censor
+        <input type="file" id="imgFile" accept="image/jpeg, image/png, image/webp" style="display: none;">
+    </label>
+    <p id="imgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
+</div>
+<div class="tool-input-group" style="margin-top: 20px;">
+    <label class="tool-label">Blur Intensity Radius (px)</label>
+    <input type="range" id="blurRadius" min="1" max="50" value="10" class="tool-input" style="padding: 0;">
+    <div style="text-align: center; font-weight: bold; margin-top: 10px;"><span id="blurValDisplay">10</span> px</div>
+</div>
+<div id="imgPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="imgPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="imgDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="blurred-image.png"><i class="fas fa-download"></i> Download Blurred Image</a>
+</div>
+<canvas id="imgCanvas" style="display: none;"></canvas>
+'''
+
+INPUT_IMAGE_FLIPPER = '''
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-arrows-alt-h" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select Image to Mirror
+        <input type="file" id="imgFile" accept="image/jpeg, image/png, image/webp" style="display: none;">
+    </label>
+    <p id="imgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
+</div>
+<div class="tool-input-group" style="margin-top: 20px;">
+    <label class="tool-label">Mirror Direction</label>
+    <select id="flipDirection" class="tool-select">
+        <option value="horizontal">Horizontal (Left/Right)</option>
+        <option value="vertical">Vertical (Up/Down)</option>
+    </select>
+</div>
+<div id="imgPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="imgPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="imgDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="flipped-image.png"><i class="fas fa-download"></i> Download Mirrored Image</a>
+</div>
+<canvas id="imgCanvas" style="display: none;"></canvas>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3497,6 +3592,18 @@ for category, tools in tools_data.items():
             current_input = INPUT_MATH_SOLVER
         elif tool_name == "meta-tag-analyzer":
             current_input = INPUT_META_TAG_ANALYZER
+
+        elif tool_name == "webp-to-jpg":
+            current_input = INPUT_WEBP_TO_JPG
+        elif tool_name == "png-to-jpg":
+            current_input = INPUT_PNG_TO_JPG
+        elif tool_name == "sentence-counter":
+            current_input = INPUT_SENTENCE_COUNTER
+        elif tool_name == "blur-image":
+            current_input = INPUT_BLUR_IMAGE
+        elif tool_name == "image-flipper":
+            current_input = INPUT_IMAGE_FLIPPER
+
 
         elif tool_name == "dns-lookup":
             current_input = INPUT_DNS_LOOKUP

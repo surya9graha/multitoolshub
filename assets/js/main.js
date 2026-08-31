@@ -1022,6 +1022,55 @@ function initToolEngine() {
         }
     }
 
+    
+    // File Input Handlers (Universal)
+    if (h1.includes('webp to jpg') || h1.includes('png to jpg') || h1.includes('blur image') || h1.includes('image flipper')) {
+        const fileInput = document.getElementById('imgFile');
+        const nameDisplay = document.getElementById('imgFileName');
+        if (fileInput && nameDisplay) {
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    nameDisplay.innerText = `Selected: ${fileInput.files[0].name} (${(fileInput.files[0].size / 1024).toFixed(1)} KB)`;
+                }
+            });
+        }
+    }
+    
+    // Blur Slider Display Updater
+    if (h1.includes('blur image')) {
+        const radiusIn = document.getElementById('blurRadius');
+        const disp = document.getElementById('blurValDisplay');
+        if (radiusIn && disp) {
+            radiusIn.addEventListener('input', (e) => {
+                disp.innerText = e.target.value;
+            });
+        }
+    }
+    
+    // Sentence Counter Real-Time Processing
+    if (h1.includes('sentence counter')) {
+        const txtInput = document.getElementById('toolInput');
+        const sentDisp = document.getElementById('rtSentences');
+        const wordDisp = document.getElementById('rtWords');
+        
+        if (txtInput && sentDisp && wordDisp) {
+            txtInput.addEventListener('input', () => {
+                const text = txtInput.value;
+                // Count Words
+                const words = text.match(/\b\w+\b/g);
+                wordDisp.innerText = words ? words.length : 0;
+                
+                // Count Sentences (handling basic abbreviations roughly)
+                // A sentence ends with . ! or ? followed by whitespace or end of string.
+                const sents = text.match(/[^.!?\s][^.!?]*(?:[.!?](?!['"]?\s|$)[^.!?]*)*[.!?]?['"]?(?=\s|$)/g);
+                
+                // Alternative robust naive counter: 
+                const sentsNaive = text.match(/[^.!?]+[.!?]+/g);
+                sentDisp.innerText = sentsNaive ? sentsNaive.length : (text.trim().length > 0 ? 1 : 0);
+            });
+        }
+    }
+
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1262,6 +1311,160 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 20 INJECTIONS
+    if (tool.includes('webp to jpg') || tool.includes('png to jpg')) {
+        const fileInput = document.getElementById('imgFile');
+        const expectedFormat = tool.includes('webp') ? /image\/webp/ : /image\/png/;
+        
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            result = "Validation Error: Please select an image file first.";
+        } else {
+            const file = fileInput.files[0];
+            if (!file.type.match(expectedFormat)) {
+                result = "Validation Error: The selected file does not match the expected format.";
+            } else {
+                result = "Processing image...";
+                output.innerText = result;
+                
+                await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.getElementById('imgCanvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            
+                            // Fill background white for transparent images converting to JPG
+                            ctx.fillStyle = "#FFFFFF";
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(img, 0, 0);
+                            
+                            const jpgDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+                            const previewContainer = document.getElementById('imgPreviewContainer');
+                            
+                            if (previewContainer) {
+                                previewContainer.style.display = "block";
+                                document.getElementById('imgPreview').src = jpgDataUrl;
+                                document.getElementById('imgDownloadBtn').href = jpgDataUrl;
+                                document.getElementById('imgDownloadBtn').download = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+                            }
+                            result = `Success: Image converted to JPG.\nOriginal Dimensions: ${img.width}x${img.height} px`;
+                            resolve();
+                        };
+                        img.onerror = () => reject("Error loading image data.");
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => reject("Error reading file.");
+                    reader.readAsDataURL(file);
+                }).catch(err => { result = err; });
+            }
+        }
+        
+    } else if (tool.includes('sentence counter')) {
+        result = "Sentence metrics are updated in real-time. Please start typing above.";
+        
+    } else if (tool.includes('blur image')) {
+        const fileInput = document.getElementById('imgFile');
+        const radius = parseInt(document.getElementById('blurRadius')?.value || "10", 10);
+        
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            result = "Validation Error: Please select an image to blur.";
+        } else {
+            result = "Processing blur filter...";
+            output.innerText = result;
+            const file = fileInput.files[0];
+            
+            await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.getElementById('imgCanvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        
+                        // Apply CSS filter to Canvas context
+                        ctx.filter = `blur(${radius}px)`;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        const format = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+                        const ext = file.type === 'image/jpeg' ? 'jpg' : 'png';
+                        const dataUrl = canvas.toDataURL(format, 1.0);
+                        
+                        const previewContainer = document.getElementById('imgPreviewContainer');
+                        if (previewContainer) {
+                            previewContainer.style.display = "block";
+                            document.getElementById('imgPreview').src = dataUrl;
+                            document.getElementById('imgDownloadBtn').href = dataUrl;
+                            document.getElementById('imgDownloadBtn').download = `blurred-${file.name.replace(/\.[^/.]+$/, "")}.${ext}`;
+                        }
+                        result = `Success: Applied a ${radius}px Gaussian Blur.`;
+                        resolve();
+                    };
+                    img.onerror = () => reject("Error loading image.");
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject("Error reading file.");
+                reader.readAsDataURL(file);
+            }).catch(err => { result = err; });
+        }
+        
+    } else if (tool.includes('image flipper')) {
+        const fileInput = document.getElementById('imgFile');
+        const direction = document.getElementById('flipDirection')?.value || "horizontal";
+        
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            result = "Validation Error: Please select an image to flip.";
+        } else {
+            result = "Transforming coordinate matrix...";
+            output.innerText = result;
+            const file = fileInput.files[0];
+            
+            await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.getElementById('imgCanvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        
+                        ctx.save();
+                        if (direction === 'horizontal') {
+                            ctx.scale(-1, 1);
+                            ctx.drawImage(img, -canvas.width, 0);
+                        } else {
+                            ctx.scale(1, -1);
+                            ctx.drawImage(img, 0, -canvas.height);
+                        }
+                        ctx.restore();
+                        
+                        const format = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+                        const ext = file.type === 'image/jpeg' ? 'jpg' : 'png';
+                        const dataUrl = canvas.toDataURL(format, 1.0);
+                        
+                        const previewContainer = document.getElementById('imgPreviewContainer');
+                        if (previewContainer) {
+                            previewContainer.style.display = "block";
+                            document.getElementById('imgPreview').src = dataUrl;
+                            document.getElementById('imgDownloadBtn').href = dataUrl;
+                            document.getElementById('imgDownloadBtn').download = `flipped-${file.name.replace(/\.[^/.]+$/, "")}.${ext}`;
+                        }
+                        result = `Success: Image flipped ${direction}ly.`;
+                        resolve();
+                    };
+                    img.onerror = () => reject("Error loading image.");
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject("Error reading file.");
+                reader.readAsDataURL(file);
+            }).catch(err => { result = err; });
+        }
+    } else 
     // BATCH 18 INJECTIONS
     if (tool.includes('dns lookup')) {
         let domain = document.getElementById('dnsDomain')?.value.trim() || "";

@@ -64,9 +64,19 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Your Data Below</label>
-    <textarea id="toolInput" class="form-control" placeholder="Type or paste your content here..."></textarea>
+<div class="tool-input-group" style="display: flex; gap: 15px; margin-bottom: 20px; justify-content: center;">
+    <div style="background: var(--bg-secondary); padding: 15px 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; flex: 1;">
+        <span style="display: block; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Sentences</span>
+        <strong id="rtSentences" style="font-size: 2rem; color: var(--primary);">0</strong>
+    </div>
+    <div style="background: var(--bg-secondary); padding: 15px 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; flex: 1;">
+        <span style="display: block; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Words</span>
+        <strong id="rtWords" style="font-size: 2rem; color: var(--text-color);">0</strong>
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Paste Your Text</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 250px; font-size: 1.1rem; line-height: 1.6;" placeholder="Paste your essay, article, or document here to instantly count the number of sentences..."></textarea>
 </div>
 
                     
