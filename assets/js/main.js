@@ -1008,6 +1008,20 @@ function initToolEngine() {
         }
     }
 
+    
+    // File Input Listener for JPG to PNG
+    if (h1.includes('jpg to png')) {
+        const fileInput = document.getElementById('jpgFile');
+        const nameDisplay = document.getElementById('jpgFileName');
+        if (fileInput && nameDisplay) {
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    nameDisplay.innerText = `Selected: ${fileInput.files[0].name} (${(fileInput.files[0].size / 1024).toFixed(1)} KB)`;
+                }
+            });
+        }
+    }
+
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1248,6 +1262,159 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 18 INJECTIONS
+    if (tool.includes('dns lookup')) {
+        let domain = document.getElementById('dnsDomain')?.value.trim() || "";
+        const type = document.getElementById('dnsType')?.value || "A";
+        
+        if (!domain) {
+            result = "Validation Error: Please enter a domain name.";
+        } else {
+            result = "Querying DNS resolvers... Please wait.";
+            domain = domain.replace(/^https?:\/\//i, '').split('/')[0];
+            try {
+                const response = await fetch(`https://cloudflare-dns.com/dns-query?name=${domain}&type=${type}`, {
+                    headers: { 'Accept': 'application/dns-json' }
+                });
+                const data = await response.json();
+                
+                if (data.Status !== 0 || !data.Answer) {
+                    result = `Query completed.\nStatus Code: ${data.Status}\nNo records found for type ${type}.`;
+                } else {
+                    result = `DNS Query Results for ${domain} (${type}):\n\n`;
+                    data.Answer.forEach(ans => {
+                        const recType = (ans.type === 1) ? "A" : (ans.type === 28) ? "AAAA" : (ans.type === 15) ? "MX" : (ans.type === 16) ? "TXT" : (ans.type === 5) ? "CNAME" : (ans.type === 2) ? "NS" : ans.type;
+                        result += `[${recType}] TTL: ${ans.TTL}\tData: ${ans.data}\n`;
+                    });
+                }
+            } catch (e) {
+                result = "Error: Could not perform DNS query. The network request failed.";
+            }
+        }
+        
+    } else if (tool.includes('youtube thumbnail downloader')) {
+        const url = input.trim();
+        if (!url) {
+            result = "Validation Error: Please enter a YouTube URL.";
+        } else {
+            // Extract Video ID
+            const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^\/&?]{11})/);
+            if (match && match[1]) {
+                const videoId = match[1];
+                const hdUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                const sdUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                
+                const container = document.getElementById('ytPreviews');
+                if (container) {
+                    container.style.display = "block";
+                    document.getElementById('ytImgHD').src = hdUrl;
+                    document.getElementById('ytBtnHD').href = hdUrl;
+                    document.getElementById('ytBtnHD').download = `youtube-hd-${videoId}.jpg`;
+                    
+                    document.getElementById('ytImgSD').src = sdUrl;
+                    document.getElementById('ytBtnSD').href = sdUrl;
+                    document.getElementById('ytBtnSD').download = `youtube-sd-${videoId}.jpg`;
+                }
+                result = `Successfully extracted thumbnails for Video ID: ${videoId}`;
+            } else {
+                result = "Validation Error: Invalid YouTube URL format.";
+            }
+        }
+        
+    } else if (tool.includes('source viewer')) {
+        let url = input.trim();
+        if (!url) {
+            result = "Validation Error: Please enter a website URL.";
+        } else {
+            result = "Fetching source code via secure proxy... Please wait.";
+            if (!url.startsWith('http')) url = 'https://' + url;
+            try {
+                // Using allorigins secure proxy to bypass CORS
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+                if (response.ok) {
+                    const text = await response.text();
+                    result = text; // output block is innerText, so HTML renders as safe string text
+                } else {
+                    result = `HTTP Error: Received status ${response.status} from the target server.`;
+                }
+            } catch (e) {
+                result = "Error: Could not fetch source code. The target website may be blocking proxy requests.";
+            }
+        }
+        
+    } else if (tool.includes('bcrypt hash')) {
+        const text = input;
+        const costStr = document.getElementById('bcryptCost')?.value;
+        const cost = parseInt(costStr, 10) || 10;
+        
+        if (!text) {
+            result = "Validation Error: Please enter a string to hash.";
+        } else if (!window.dcodeIO || !window.dcodeIO.bcrypt) {
+            result = "Error: The Bcrypt.js client library failed to load. Please check your internet connection.";
+        } else {
+            result = `Generating Bcrypt hash (Cost: ${cost})... This may take a moment.`;
+            // Because bcrypt is computationally heavy, we give UI time to update
+            output.innerText = result; 
+            await new Promise(r => setTimeout(r, 50)); 
+            
+            try {
+                const bcrypt = window.dcodeIO.bcrypt;
+                const salt = bcrypt.genSaltSync(cost);
+                const hash = bcrypt.hashSync(text, salt);
+                
+                result = `Bcrypt Hash Generated Successfully:\n\n` +
+                         `Input:\t\t${text}\n` +
+                         `Cost Factor:\t${cost}\n` +
+                         `Output Hash:\t${hash}`;
+            } catch (e) {
+                result = `Error: Hash generation failed. Make sure cost is between 4 and 15.`;
+            }
+        }
+        
+    } else if (tool.includes('jpg to png')) {
+        const fileInput = document.getElementById('jpgFile');
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            result = "Validation Error: Please select a JPG file first.";
+        } else {
+            const file = fileInput.files[0];
+            if (!file.type.match(/image\/jpeg/)) {
+                result = "Validation Error: The selected file is not a valid JPG/JPEG.";
+            } else {
+                result = "Processing image...";
+                output.innerText = result;
+                
+                await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.getElementById('jpgCanvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
+                            
+                            const pngDataUrl = canvas.toDataURL('image/png');
+                            const previewContainer = document.getElementById('pngPreviewContainer');
+                            
+                            if (previewContainer) {
+                                previewContainer.style.display = "block";
+                                document.getElementById('pngPreview').src = pngDataUrl;
+                                document.getElementById('pngDownloadBtn').href = pngDataUrl;
+                                document.getElementById('pngDownloadBtn').download = file.name.replace(/\.[^/.]+$/, "") + ".png";
+                            }
+                            result = `Success: Image converted to PNG.\nOriginal Dimensions: ${img.width}x${img.height} px`;
+                            resolve();
+                        };
+                        img.onerror = () => reject("Error loading image data.");
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => reject("Error reading file.");
+                    reader.readAsDataURL(file);
+                }).catch(err => { result = err; });
+            }
+        }
+    } else 
     // BATCH 17 INJECTIONS
     if (tool.includes('speech to text')) {
         result = "Dictation logic is handled by real-time event listeners. Click 'Start Dictation' above.";

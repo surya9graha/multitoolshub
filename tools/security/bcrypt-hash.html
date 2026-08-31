@@ -64,10 +64,17 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<!-- Load Bcrypt.js client-side library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Plain Text Password</label>
+        <input type="text" id="toolInput" class="tool-input" placeholder="Enter string to hash...">
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Cost Factor (Salt Rounds)</label>
+        <input type="number" id="bcryptCost" class="tool-input" value="10" min="4" max="15">
+    </div>
 </div>
 
                     

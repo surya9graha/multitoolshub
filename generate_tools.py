@@ -3336,6 +3336,83 @@ INPUT_META_TAG_ANALYZER = '''
 '''
 
 
+
+INPUT_DNS_LOOKUP = '''
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 200px;">
+        <label class="tool-label">Domain Name</label>
+        <input type="text" id="dnsDomain" class="tool-input" placeholder="e.g. google.com">
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Record Type</label>
+        <select id="dnsType" class="tool-select">
+            <option value="A">A (IPv4)</option>
+            <option value="AAAA">AAAA (IPv6)</option>
+            <option value="MX">MX (Mail)</option>
+            <option value="TXT">TXT (Text)</option>
+            <option value="CNAME">CNAME (Alias)</option>
+            <option value="NS">NS (Name Server)</option>
+            <option value="ANY">ANY (All Records)</option>
+        </select>
+    </div>
+</div>
+'''
+
+INPUT_YT_THUMBNAIL = '''
+<div class="tool-input-group">
+    <label class="tool-label">YouTube Video URL</label>
+    <input type="text" id="toolInput" class="tool-input" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+</div>
+<div id="ytPreviews" class="tool-input-group" style="display: none; background: var(--bg-secondary); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 20px; text-align: center;">
+    <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Maximum Resolution (HD)</h3>
+    <img id="ytImgHD" src="" style="width: 100%; max-width: 640px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="ytBtnHD" class="tool-btn" style="display: inline-block; width: auto; margin-bottom: 30px; background: var(--primary);" download="thumbnail-hd.jpg"><i class="fas fa-download"></i> Download HD (1080p)</a>
+    
+    <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Standard Quality (SD)</h3>
+    <img id="ytImgSD" src="" style="width: 100%; max-width: 480px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="ytBtnSD" class="tool-btn" style="display: inline-block; width: auto; background: var(--primary);" download="thumbnail-sd.jpg"><i class="fas fa-download"></i> Download SD (480p)</a>
+</div>
+'''
+
+INPUT_SOURCE_VIEWER = '''
+<div class="tool-input-group">
+    <label class="tool-label">Website URL</label>
+    <input type="text" id="toolInput" class="tool-input" placeholder="https://example.com">
+</div>
+'''
+
+INPUT_BCRYPT_HASH = '''
+<!-- Load Bcrypt.js client-side library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Plain Text Password</label>
+        <input type="text" id="toolInput" class="tool-input" placeholder="Enter string to hash...">
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Cost Factor (Salt Rounds)</label>
+        <input type="number" id="bcryptCost" class="tool-input" value="10" min="4" max="15">
+    </div>
+</div>
+'''
+
+INPUT_JPG_TO_PNG = '''
+<div class="tool-input-group" style="text-align: center; padding: 40px; background: var(--bg-secondary); border: 2px dashed var(--border-color); border-radius: 8px;">
+    <i class="fas fa-file-image" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
+    <label class="tool-label" style="font-size: 1.2rem; cursor: pointer; color: var(--primary);">
+        Select JPG Image
+        <input type="file" id="jpgFile" accept="image/jpeg, image/jpg" style="display: none;">
+    </label>
+    <p id="jpgFileName" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">No file selected.</p>
+</div>
+<div id="pngPreviewContainer" class="tool-input-group" style="display: none; text-align: center; margin-top: 20px;">
+    <img id="pngPreview" src="" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px;">
+    <a id="pngDownloadBtn" class="tool-btn" style="display: inline-block; width: auto; background: #10b981;" download="converted.png"><i class="fas fa-download"></i> Download PNG File</a>
+</div>
+<canvas id="jpgCanvas" style="display: none;"></canvas>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3420,6 +3497,18 @@ for category, tools in tools_data.items():
             current_input = INPUT_MATH_SOLVER
         elif tool_name == "meta-tag-analyzer":
             current_input = INPUT_META_TAG_ANALYZER
+
+        elif tool_name == "dns-lookup":
+            current_input = INPUT_DNS_LOOKUP
+        elif tool_name == "yt-thumbnail-downloader":
+            current_input = INPUT_YT_THUMBNAIL
+        elif tool_name == "source-viewer":
+            current_input = INPUT_SOURCE_VIEWER
+        elif tool_name == "bcrypt-hash":
+            current_input = INPUT_BCRYPT_HASH
+        elif tool_name == "jpg-to-png":
+            current_input = INPUT_JPG_TO_PNG
+
 
 
 

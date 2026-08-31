@@ -64,10 +64,23 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+<div class="tool-input-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 200px;">
+        <label class="tool-label">Domain Name</label>
+        <input type="text" id="dnsDomain" class="tool-input" placeholder="e.g. google.com">
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Record Type</label>
+        <select id="dnsType" class="tool-select">
+            <option value="A">A (IPv4)</option>
+            <option value="AAAA">AAAA (IPv6)</option>
+            <option value="MX">MX (Mail)</option>
+            <option value="TXT">TXT (Text)</option>
+            <option value="CNAME">CNAME (Alias)</option>
+            <option value="NS">NS (Name Server)</option>
+            <option value="ANY">ANY (All Records)</option>
+        </select>
+    </div>
 </div>
 
                     
