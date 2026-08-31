@@ -64,10 +64,14 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Data to Process / Validate</label>
-    <textarea id="toolInput" class="form-control" style="height: 120px;" placeholder="Enter text, hash, or card number to validate..."></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Security Note: All processing happens locally on your device.</p>
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Enter IP Address (IPv4 or IPv6)</label>
+        <input type="text" id="ipInput" class="tool-input" placeholder="e.g. 8.8.8.8">
+    </div>
+    <div style="flex: 1; min-width: 200px; display: flex; align-items: flex-end;">
+        <button id="ipMyBtn" class="tool-btn" style="background: #10b981; height: 50px;"><i class="fas fa-crosshairs"></i> Lookup My Own IP</button>
+    </div>
 </div>
 
                     

@@ -929,6 +929,85 @@ function initToolEngine() {
         }
     }
 
+    
+    // Speech to Text Real-Time Listener
+    if (h1.includes('speech to text')) {
+        const startBtn = document.getElementById('sttStartBtn');
+        const stopBtn = document.getElementById('sttStopBtn');
+        const copyBtn = document.getElementById('sttCopyBtn');
+        const clearBtn = document.getElementById('sttClearBtn');
+        const txtArea = document.getElementById('toolInput');
+        const statusBox = document.getElementById('sttStatus');
+        
+        let recognition = null;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            
+            recognition.onstart = () => {
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                if (statusBox) {
+                    statusBox.innerHTML = '<i class="fas fa-microphone" style="color: #10b981;"></i> Recording Active... Speak Now';
+                    statusBox.style.borderColor = '#10b981';
+                }
+            };
+            
+            recognition.onresult = (event) => {
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript + ' ';
+                    }
+                }
+                if (finalTranscript && txtArea) {
+                    txtArea.value += finalTranscript;
+                }
+            };
+            
+            recognition.onerror = (event) => {
+                if (statusBox) statusBox.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Error: ${event.error}`;
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            };
+            
+            recognition.onend = () => {
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                if (statusBox) {
+                    statusBox.innerHTML = '<i class="fas fa-microphone-slash" style="color: #ef4444;"></i> Microphone Inactive';
+                    statusBox.style.borderColor = 'var(--border-color)';
+                }
+            };
+        } else {
+            if (statusBox) statusBox.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Browser Not Supported';
+            if (startBtn) startBtn.disabled = true;
+        }
+        
+        if (startBtn && recognition) startBtn.addEventListener('click', () => recognition.start());
+        if (stopBtn && recognition) stopBtn.addEventListener('click', () => recognition.stop());
+        if (clearBtn && txtArea) clearBtn.addEventListener('click', () => txtArea.value = "");
+        if (copyBtn && txtArea) copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(txtArea.value);
+            copyBtn.innerText = "Copied!";
+            setTimeout(() => copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text', 2000);
+        });
+    }
+
+    // IP Lookup 'My IP' Button
+    if (h1.includes('ip lookup')) {
+        const myBtn = document.getElementById('ipMyBtn');
+        const ipInput = document.getElementById('ipInput');
+        if (myBtn && pBtn) {
+            myBtn.addEventListener('click', () => {
+                if (ipInput) ipInput.value = ""; // Empty string triggers self-lookup in logic
+                pBtn.click(); // Trigger main process
+            });
+        }
+    }
+
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1169,6 +1248,122 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 17 INJECTIONS
+    if (tool.includes('speech to text')) {
+        result = "Dictation logic is handled by real-time event listeners. Click 'Start Dictation' above.";
+        
+    } else if (tool.includes('ip lookup')) {
+        const ip = (input || "").trim();
+        result = "Fetching geolocation data... Please wait.";
+        
+        try {
+            let url = 'https://ipapi.co/json/';
+            if (ip) url = `https://ipapi.co/${ip}/json/`;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data.error) {
+                result = `Error: ${data.reason}`;
+            } else {
+                result = `IP Geolocation Report:\n\n` +
+                         `IP Address:\t${data.ip}\n` +
+                         `Network/ISP:\t${data.org}\n` +
+                         `ASN:\t\t${data.asn}\n\n` +
+                         `City:\t\t${data.city}\n` +
+                         `Region/State:\t${data.region}\n` +
+                         `Country:\t\t${data.country_name} (${data.country_code})\n` +
+                         `Postal Code:\t${data.postal}\n\n` +
+                         `Timezone:\t${data.timezone}\n` +
+                         `Coordinates:\t${data.latitude}, ${data.longitude}`;
+            }
+        } catch (e) {
+            result = "Error: Could not connect to the geolocation API. Please check your internet connection or ad-blocker.";
+        }
+        
+    } else if (tool.includes('favicon grabber')) {
+        let domain = (input || "").trim();
+        if (!domain) {
+            result = "Validation Error: Please enter a valid website domain.";
+        } else {
+            // Clean URL to extract hostname
+            domain = domain.replace('http://', '').replace('https://', '').split('/')[0];
+            
+            const favUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=256`;
+            
+            const img = document.getElementById('favPreview');
+            const placeholder = document.getElementById('favPlaceholder');
+            const dlBtn = document.getElementById('favDownloadBtn');
+            
+            if (img && placeholder && dlBtn) {
+                img.src = favUrl;
+                img.style.display = "block";
+                placeholder.style.display = "none";
+                dlBtn.style.display = "inline-block";
+                dlBtn.href = favUrl;
+                dlBtn.download = `${domain}-favicon.png`;
+            }
+            
+            result = `Successfully queried the favicon for: ${domain}\nUse the download button in the preview box above.`;
+        }
+        
+    } else if (tool.includes('math solver')) {
+        let equation = (input || "").trim();
+        if (!equation) {
+            result = "Validation Error: Please enter a mathematical expression.";
+        } else {
+            // Sanitize input to prevent arbitrary code execution
+            const sanitized = equation.replace(/[^-()\d/*+%.pi\s^sqrtcossintan]/g, '');
+            
+            // Map common math strings to JavaScript Math object
+            let parsed = sanitized
+                .replace(/pi/g, 'Math.PI')
+                .replace(/sqrt/g, 'Math.sqrt')
+                .replace(/sin/g, 'Math.sin')
+                .replace(/cos/g, 'Math.cos')
+                .replace(/tan/g, 'Math.tan')
+                .replace(/\^/g, '**'); // Handle caret exponent
+                
+            try {
+                // Secure evaluation scope
+                const fn = new Function('"use strict"; return (' + parsed + ')');
+                const calc = fn();
+                if (calc === undefined || isNaN(calc)) {
+                    result = "Error: Invalid mathematical expression.";
+                } else {
+                    result = `Equation:\t${sanitized}\nResult:\t\t${calc}`;
+                }
+            } catch (e) {
+                result = "Syntax Error: Could not evaluate the expression. Please check your parentheses and operators.";
+            }
+        }
+        
+    } else if (tool.includes('meta tag analyzer')) {
+        const rawHTML = input;
+        if (!rawHTML || !rawHTML.includes('<html')) {
+            result = "Validation Error: Please paste valid raw HTML source code.";
+        } else {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(rawHTML, 'text/html');
+                
+                const title = doc.querySelector('title')?.innerText || "Not Found";
+                const desc = doc.querySelector('meta[name="description"]')?.content || "Not Found";
+                const robots = doc.querySelector('meta[name="robots"]')?.content || "Not Found";
+                const ogTitle = doc.querySelector('meta[property="og:title"]')?.content || "Not Found";
+                const ogImage = doc.querySelector('meta[property="og:image"]')?.content || "Not Found";
+                
+                result = `Offline SEO Meta Tag Analysis:\n\n` +
+                         `[TITLE TAG]\nValue:\t${title}\nLength:\t${title.length} characters (Optimal: 50-60)\n\n` +
+                         `[META DESCRIPTION]\nValue:\t${desc}\nLength:\t${desc.length} characters (Optimal: 150-160)\n\n` +
+                         `[ROBOTS DIRECTIVE]\nValue:\t${robots}\n\n` +
+                         `[OPEN GRAPH DATA]\nOG:Title:\t${ogTitle}\nOG:Image:\t${ogImage}`;
+                         
+            } catch (e) {
+                result = "Parsing Error: Could not extract DOM data from the provided HTML.";
+            }
+        }
+    } else 
     // BATCH 16 INJECTIONS
     if (tool.includes('color palette')) {
         const hex = document.getElementById('baseColor')?.value || "#3b82f6";

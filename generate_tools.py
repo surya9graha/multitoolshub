@@ -3262,6 +3262,80 @@ INPUT_DATE_FORMATTER = '''
 '''
 
 
+
+INPUT_SPEECH_TO_TEXT = '''
+<div class="tool-input-group" style="margin-bottom: 20px; text-align: center;">
+    <div id="sttStatus" style="display: inline-block; padding: 8px 16px; border-radius: 20px; background: var(--bg-secondary); border: 1px solid var(--border-color); font-weight: bold; color: var(--text-color); margin-bottom: 15px;">
+        <i class="fas fa-microphone-slash" style="color: #ef4444;"></i> Microphone Inactive
+    </div>
+    <div style="display: flex; gap: 15px; justify-content: center;">
+        <button id="sttStartBtn" class="tool-btn" style="background: var(--primary); width: auto; padding: 10px 25px;"><i class="fas fa-play"></i> Start Dictation</button>
+        <button id="sttStopBtn" class="tool-btn" style="background: #ef4444; width: auto; padding: 10px 25px;" disabled><i class="fas fa-stop"></i> Stop</button>
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Transcribed Text</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 300px; font-size: 1.1rem; line-height: 1.6;" placeholder="Your spoken words will appear here in real-time..."></textarea>
+</div>
+<div style="display: flex; justify-content: flex-end; gap: 10px;">
+    <button id="sttCopyBtn" class="tool-btn" style="width: auto;"><i class="fas fa-copy"></i> Copy Text</button>
+    <button id="sttClearBtn" class="tool-btn" style="width: auto; background: var(--bg-secondary); color: var(--text-color); border: 1px solid var(--border-color);"><i class="fas fa-trash"></i> Clear</button>
+</div>
+'''
+
+INPUT_IP_LOOKUP = '''
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Enter IP Address (IPv4 or IPv6)</label>
+        <input type="text" id="ipInput" class="tool-input" placeholder="e.g. 8.8.8.8">
+    </div>
+    <div style="flex: 1; min-width: 200px; display: flex; align-items: flex-end;">
+        <button id="ipMyBtn" class="tool-btn" style="background: #10b981; height: 50px;"><i class="fas fa-crosshairs"></i> Lookup My Own IP</button>
+    </div>
+</div>
+'''
+
+INPUT_FAVICON_GRABBER = '''
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Enter Website Domain</label>
+        <input type="text" id="favInput" class="tool-input" placeholder="e.g. apple.com or https://github.com">
+    </div>
+</div>
+<div class="tool-input-group" style="text-align: center; margin-top: 20px; padding: 30px; background: var(--bg-secondary); border: 1px dashed var(--border-color); border-radius: 8px;">
+    <label class="tool-label">Extracted Favicon (High Resolution)</label>
+    <img id="favPreview" src="" alt="Favicon Preview" style="display: none; max-width: 128px; border-radius: 8px; margin: 20px auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <div id="favPlaceholder" style="color: var(--text-muted);"><i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px; display: block;"></i> Preview will appear here</div>
+    <a id="favDownloadBtn" class="tool-btn" style="display: none; width: auto; margin: 0 auto; background: var(--primary);" download="favicon.png"><i class="fas fa-download"></i> Download Favicon</a>
+</div>
+'''
+
+INPUT_MATH_SOLVER = '''
+<div class="tool-input-group">
+    <label class="tool-label">Mathematical Expression</label>
+    <input type="text" id="toolInput" class="tool-input" style="font-size: 1.5rem; font-family: monospace; padding: 15px;" placeholder="e.g. (15 * 3) / 2 + sqrt(144)">
+</div>
+<div class="tool-input-group" style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+    <p style="margin-bottom: 5px; font-weight: bold;">Supported Operations:</p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.9rem;">
+        <span><strong>+, -, *, /</strong> (Basic Math)</span>
+        <span><strong>%</strong> (Modulo)</span>
+        <span><strong>**</strong> (Exponent)</span>
+        <span><strong>sqrt(x)</strong> (Square Root)</span>
+        <span><strong>sin(x), cos(x), tan(x)</strong> (Trigonometry)</span>
+        <span><strong>pi</strong> (3.14159...)</span>
+    </div>
+</div>
+'''
+
+INPUT_META_TAG_ANALYZER = '''
+<div class="tool-input-group">
+    <label class="tool-label">Paste Raw HTML Source Code</label>
+    <textarea id="toolInput" class="tool-textarea" style="height: 250px; font-family: monospace; font-size: 0.9rem;" placeholder="Right-click any webpage > View Page Source > Select All > Copy > Paste here..."></textarea>
+</div>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3335,6 +3409,18 @@ for category, tools in tools_data.items():
             current_input = INPUT_ONLINE_NOTEPAD
         elif tool_name == "date-formatter":
             current_input = INPUT_DATE_FORMATTER
+
+        elif tool_name == "speech-to-text":
+            current_input = INPUT_SPEECH_TO_TEXT
+        elif tool_name == "ip-lookup":
+            current_input = INPUT_IP_LOOKUP
+        elif tool_name == "favicon-grabber":
+            current_input = INPUT_FAVICON_GRABBER
+        elif tool_name == "math-solver":
+            current_input = INPUT_MATH_SOLVER
+        elif tool_name == "meta-tag-analyzer":
+            current_input = INPUT_META_TAG_ANALYZER
+
 
 
         elif tool_name == "rgb-to-hex":

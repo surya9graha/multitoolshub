@@ -64,10 +64,17 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Website URL or Source Code</label>
-    <textarea id="toolInput" class="form-control" style="height: 150px;" placeholder="https://example.com or <html>...</html>"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: For downloaders, paste the URL. For previews, paste the code.</p>
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 2; min-width: 250px;">
+        <label class="tool-label">Enter Website Domain</label>
+        <input type="text" id="favInput" class="tool-input" placeholder="e.g. apple.com or https://github.com">
+    </div>
+</div>
+<div class="tool-input-group" style="text-align: center; margin-top: 20px; padding: 30px; background: var(--bg-secondary); border: 1px dashed var(--border-color); border-radius: 8px;">
+    <label class="tool-label">Extracted Favicon (High Resolution)</label>
+    <img id="favPreview" src="" alt="Favicon Preview" style="display: none; max-width: 128px; border-radius: 8px; margin: 20px auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <div id="favPlaceholder" style="color: var(--text-muted);"><i class="fas fa-image" style="font-size: 3rem; margin-bottom: 10px; display: block;"></i> Preview will appear here</div>
+    <a id="favDownloadBtn" class="tool-btn" style="display: none; width: auto; margin: 0 auto; background: var(--primary);" download="favicon.png"><i class="fas fa-download"></i> Download Favicon</a>
 </div>
 
                     

@@ -64,10 +64,20 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Values (Numbers Only)</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px; font-size: 1.5rem;" placeholder="e.g. 20 500 (for percentage) or 70 175 (for BMI)"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Note: Enter multiple values separated by spaces for tools requiring more than one input.</p>
+<div class="tool-input-group">
+    <label class="tool-label">Mathematical Expression</label>
+    <input type="text" id="toolInput" class="tool-input" style="font-size: 1.5rem; font-family: monospace; padding: 15px;" placeholder="e.g. (15 * 3) / 2 + sqrt(144)">
+</div>
+<div class="tool-input-group" style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+    <p style="margin-bottom: 5px; font-weight: bold;">Supported Operations:</p>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.9rem;">
+        <span><strong>+, -, *, /</strong> (Basic Math)</span>
+        <span><strong>%</strong> (Modulo)</span>
+        <span><strong>**</strong> (Exponent)</span>
+        <span><strong>sqrt(x)</strong> (Square Root)</span>
+        <span><strong>sin(x), cos(x), tan(x)</strong> (Trigonometry)</span>
+        <span><strong>pi</strong> (3.14159...)</span>
+    </div>
 </div>
 
                     
