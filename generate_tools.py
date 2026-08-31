@@ -3171,6 +3171,97 @@ INPUT_TEXT_TO_HTML = '''
 '''
 
 
+
+INPUT_COLOR_PALETTE = '''
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Base Color</label>
+        <input type="color" id="baseColor" value="#3b82f6" style="width: 100%; height: 50px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 8px; padding: 0;">
+    </div>
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Harmony Type</label>
+        <select id="harmonyType" class="tool-select">
+            <option value="complementary">Complementary</option>
+            <option value="analogous">Analogous</option>
+            <option value="triadic">Triadic</option>
+            <option value="monochromatic">Monochromatic</option>
+        </select>
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Visual Preview</label>
+    <div id="palettePreview" style="display: flex; height: 100px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <!-- Filled dynamically by JS -->
+    </div>
+</div>
+'''
+
+INPUT_CHAR_COUNTER = '''
+<div class="tool-input-group">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+        <div style="text-align: center; flex: 1;"><strong id="rtChars" style="font-size: 1.5rem; color: var(--primary);">0</strong><br><small>Characters</small></div>
+        <div style="text-align: center; flex: 1; border-left: 1px solid var(--border-color);"><strong id="rtWords" style="font-size: 1.5rem; color: var(--primary);">0</strong><br><small>Words</small></div>
+        <div style="text-align: center; flex: 1; border-left: 1px solid var(--border-color);"><strong id="rtSentences" style="font-size: 1.5rem; color: var(--primary);">0</strong><br><small>Sentences</small></div>
+        <div style="text-align: center; flex: 1; border-left: 1px solid var(--border-color);"><strong id="rtReading" style="font-size: 1.5rem; color: var(--primary);">0m</strong><br><small>Reading Time</small></div>
+    </div>
+    <textarea id="toolInput" class="tool-textarea" style="height: 250px;" placeholder="Start typing or paste your document here to analyze instantly..."></textarea>
+</div>
+'''
+
+INPUT_TEXT_TO_SPEECH = '''
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 15px;">
+    <div style="flex: 2; min-width: 200px;">
+        <label class="tool-label">Select Voice</label>
+        <select id="voiceSelect" class="tool-select">
+            <option value="">Loading system voices...</option>
+        </select>
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Speed (<span id="rateVal">1.0</span>x)</label>
+        <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="1" style="width: 100%;">
+    </div>
+    <div style="flex: 1; min-width: 150px;">
+        <label class="tool-label">Pitch (<span id="pitchVal">1.0</span>)</label>
+        <input type="range" id="speechPitch" min="0" max="2" step="0.1" value="1" style="width: 100%;">
+    </div>
+</div>
+<div class="tool-input-group">
+    <textarea id="toolInput" class="tool-textarea" style="height: 150px;" placeholder="Type the text you want to hear..."></textarea>
+</div>
+<div class="tool-input-group" style="display: flex; gap: 10px;">
+    <button id="ttsPlayBtn" class="tool-btn" style="flex: 1; background: var(--primary);"><i class="fas fa-play"></i> Speak Text</button>
+    <button id="ttsStopBtn" class="tool-btn" style="flex: 1; background: #ef4444;"><i class="fas fa-stop"></i> Stop</button>
+</div>
+'''
+
+INPUT_ONLINE_NOTEPAD = '''
+<div class="tool-input-group">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <label class="tool-label" style="margin: 0;">Secure Browser Notepad</label>
+        <span id="notepadStatus" style="font-size: 0.85rem; color: #10b981; font-weight: bold;"></span>
+    </div>
+    <textarea id="toolInput" class="tool-textarea" style="height: 400px; font-family: monospace; font-size: 1rem; line-height: 1.5;" placeholder="Start typing... Your notes are automatically and securely saved to your local browser storage."></textarea>
+</div>
+<div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+    <button id="notepadDownload" class="tool-btn"><i class="fas fa-download"></i> Export as .txt</button>
+    <button id="notepadClear" class="tool-btn" style="background: #ef4444;"><i class="fas fa-trash"></i> Clear All</button>
+</div>
+'''
+
+INPUT_DATE_FORMATTER = '''
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Select Date & Time (Local)</label>
+        <input type="datetime-local" id="dateInput" class="tool-input">
+    </div>
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Or Input Unix Timestamp (Optional)</label>
+        <input type="number" id="timestampInput" class="tool-input" placeholder="e.g., 1718283748">
+    </div>
+</div>
+'''
+
+
 for category, tools in tools_data.items():
     category_path = os.path.join(BASE_DIR, category)
     if not os.path.exists(category_path):
@@ -3233,6 +3324,18 @@ for category, tools in tools_data.items():
             current_input = INPUT_SCREEN_RESOLUTION
         elif tool_name == "text-to-html":
             current_input = INPUT_TEXT_TO_HTML
+
+        elif tool_name == "color-palette":
+            current_input = INPUT_COLOR_PALETTE
+        elif tool_name == "char-counter":
+            current_input = INPUT_CHAR_COUNTER
+        elif tool_name == "text-to-speech":
+            current_input = INPUT_TEXT_TO_SPEECH
+        elif tool_name == "online-notepad":
+            current_input = INPUT_ONLINE_NOTEPAD
+        elif tool_name == "date-formatter":
+            current_input = INPUT_DATE_FORMATTER
+
 
         elif tool_name == "rgb-to-hex":
             current_input = INPUT_RGB_TO_HEX

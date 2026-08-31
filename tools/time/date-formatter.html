@@ -64,10 +64,15 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Enter Date, Time, or Timestamp</label>
-    <textarea id="toolInput" class="form-control" style="height: 100px;" placeholder="e.g. 2026-04-01, 1711785600000, or leave blank for NOW"></textarea>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Format: Standard date strings or Unix timestamps in milliseconds.</p>
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Select Date & Time (Local)</label>
+        <input type="datetime-local" id="dateInput" class="tool-input">
+    </div>
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Or Input Unix Timestamp (Optional)</label>
+        <input type="number" id="timestampInput" class="tool-input" placeholder="e.g., 1718283748">
+    </div>
 </div>
 
                     

@@ -832,6 +832,103 @@ function initToolEngine() {
         });
     }
 
+    
+    // Char Counter Real-Time Listener
+    if (h1.includes('char counter')) {
+        const tInput = document.getElementById('toolInput');
+        const updateMetrics = () => {
+            const text = tInput.value || "";
+            document.getElementById('rtChars').innerText = text.length;
+            const words = text.match(/\b\w+\b/g);
+            const wordC = words ? words.length : 0;
+            document.getElementById('rtWords').innerText = wordC;
+            const sents = text.match(/[^.!?]+[.!?]+/g);
+            document.getElementById('rtSentences').innerText = sents ? sents.length : 0;
+            document.getElementById('rtReading').innerText = Math.ceil(wordC / 200) + 'm';
+        };
+        if (tInput) tInput.addEventListener('input', updateMetrics);
+    }
+    
+    // Text to Speech Controls
+    if (h1.includes('text to speech')) {
+        const synth = window.speechSynthesis;
+        const voiceSelect = document.getElementById('voiceSelect');
+        const rateIn = document.getElementById('speechRate');
+        const pitchIn = document.getElementById('speechPitch');
+        
+        let voices = [];
+        const populateVoices = () => {
+            voices = synth.getVoices();
+            if (voiceSelect && voices.length > 0) {
+                voiceSelect.innerHTML = '';
+                voices.forEach(v => {
+                    const option = document.createElement('option');
+                    option.textContent = `${v.name} (${v.lang})`;
+                    option.value = v.name;
+                    voiceSelect.appendChild(option);
+                });
+            }
+        };
+        populateVoices();
+        if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = populateVoices;
+        
+        if (rateIn) rateIn.addEventListener('input', e => document.getElementById('rateVal').innerText = e.target.value);
+        if (pitchIn) pitchIn.addEventListener('input', e => document.getElementById('pitchVal').innerText = e.target.value);
+        
+        const playBtn = document.getElementById('ttsPlayBtn');
+        const stopBtn = document.getElementById('ttsStopBtn');
+        const textIn = document.getElementById('toolInput');
+        
+        if (playBtn) playBtn.addEventListener('click', () => {
+            const t = textIn?.value.trim();
+            if (!t) return;
+            synth.cancel();
+            const u = new SpeechSynthesisUtterance(t);
+            const sel = voices.find(v => v.name === voiceSelect?.value);
+            if (sel) u.voice = sel;
+            u.rate = parseFloat(rateIn?.value || 1);
+            u.pitch = parseFloat(pitchIn?.value || 1);
+            synth.speak(u);
+        });
+        if (stopBtn) stopBtn.addEventListener('click', () => synth.cancel());
+    }
+    
+    // Online Notepad Controls
+    if (h1.includes('online notepad')) {
+        const npInput = document.getElementById('toolInput');
+        const npStatus = document.getElementById('notepadStatus');
+        
+        if (npInput) {
+            const saved = localStorage.getItem('mth_notepad_cache');
+            if (saved) npInput.value = saved;
+            
+            npInput.addEventListener('input', () => {
+                localStorage.setItem('mth_notepad_cache', npInput.value);
+                if (npStatus) {
+                    npStatus.innerText = "Auto-saved";
+                    setTimeout(() => npStatus.innerText = "", 1500);
+                }
+            });
+            
+            document.getElementById('notepadClear')?.addEventListener('click', () => {
+                if(confirm('Are you sure you want to clear all notes?')) {
+                    npInput.value = '';
+                    localStorage.removeItem('mth_notepad_cache');
+                }
+            });
+            
+            document.getElementById('notepadDownload')?.addEventListener('click', () => {
+                const blob = new Blob([npInput.value], {type: "text/plain"});
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "multitoolshub-notes.txt";
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+        }
+    }
+
     pBtn.addEventListener('click', async () => {
         const input = document.getElementById('toolInput')?.value || "";
         const output = document.getElementById('toolOutput');
@@ -1072,6 +1169,166 @@ function handleImageProcessing(tool) {
 async function runCoreLogic(tool, input, output) {
     let result = "";
 
+    // BATCH 16 INJECTIONS
+    if (tool.includes('color palette')) {
+        const hex = document.getElementById('baseColor')?.value || "#3b82f6";
+        const rule = document.getElementById('harmonyType')?.value || "complementary";
+        
+        // Convert Hex to RGB
+        let r = 0, g = 0, b = 0;
+        if (hex.length === 7) {
+            r = parseInt(hex.substring(1, 3), 16);
+            g = parseInt(hex.substring(3, 5), 16);
+            b = parseInt(hex.substring(5, 7), 16);
+        }
+        
+        // Convert RGB to HSL
+        r /= 255, g /= 255, b /= 255;
+        let cmin = Math.min(r, g, b), cmax = Math.max(r, g, b), delta = cmax - cmin, h = 0, s = 0, l = 0;
+        if (delta === 0) h = 0;
+        else if (cmax === r) h = ((g - b) / delta) % 6;
+        else if (cmax === g) h = (b - r) / delta + 2;
+        else h = (r - g) / delta + 4;
+        h = Math.round(h * 60);
+        if (h < 0) h += 360;
+        l = (cmax + cmin) / 2;
+        s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        s = +(s * 100).toFixed(1);
+        l = +(l * 100).toFixed(1);
+
+        const hslToHex = (h, s, l) => {
+            s /= 100; l /= 100;
+            let c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs(((h / 60) % 2) - 1)), m = l - c / 2;
+            let rt = 0, gt = 0, bt = 0;
+            if (0 <= h && h < 60) { rt = c; gt = x; bt = 0; }
+            else if (60 <= h && h < 120) { rt = x; gt = c; bt = 0; }
+            else if (120 <= h && h < 180) { rt = 0; gt = c; bt = x; }
+            else if (180 <= h && h < 240) { rt = 0; gt = x; bt = c; }
+            else if (240 <= h && h < 300) { rt = x; gt = 0; bt = c; }
+            else if (300 <= h && h < 360) { rt = c; gt = 0; bt = x; }
+            let rHex = Math.round((rt + m) * 255).toString(16).padStart(2, '0');
+            let gHex = Math.round((gt + m) * 255).toString(16).padStart(2, '0');
+            let bHex = Math.round((bt + m) * 255).toString(16).padStart(2, '0');
+            return `#${rHex}${gHex}${bHex}`;
+        };
+
+        let colors = [hex];
+        if (rule === "complementary") {
+            colors.push(hslToHex((h + 180) % 360, s, l));
+        } else if (rule === "analogous") {
+            colors.push(hslToHex((h + 30) % 360, s, l));
+            colors.push(hslToHex((h + 330) % 360, s, l));
+        } else if (rule === "triadic") {
+            colors.push(hslToHex((h + 120) % 360, s, l));
+            colors.push(hslToHex((h + 240) % 360, s, l));
+        } else if (rule === "monochromatic") {
+            colors.push(hslToHex(h, s, Math.max(0, l - 30)));
+            colors.push(hslToHex(h, s, Math.min(100, l + 30)));
+        }
+        
+        result = `Color Palette Generated (${rule}):\n\n`;
+        colors.forEach((c, i) => {
+            result += `Color ${i+1}: ${c.toUpperCase()}\n`;
+        });
+        
+        // Draw visual blocks
+        const preview = document.getElementById('palettePreview');
+        if (preview) {
+            preview.innerHTML = "";
+            colors.forEach(c => {
+                const block = document.createElement('div');
+                block.style.flex = "1";
+                block.style.background = c;
+                preview.appendChild(block);
+            });
+        }
+        
+    } else if (tool.includes('char counter')) {
+        let text = input || "";
+        const charCount = text.length;
+        const charNoSpace = text.replace(/\s/g, "").length;
+        // Accurate word boundary split
+        const words = text.match(/\b\w+\b/g);
+        const wordCount = words ? words.length : 0;
+        // Sentence split (naive but fast)
+        const sentences = text.match(/[^.!?]+[.!?]+/g);
+        const sentenceCount = sentences ? sentences.length : 0;
+        // Reading time
+        const readingTime = Math.ceil(wordCount / 200); 
+
+        result = `Detailed Text Analysis:\n\n` +
+                 `Characters (with spaces):\t${charCount}\n` +
+                 `Characters (no spaces):\t\t${charNoSpace}\n` +
+                 `Word Count:\t\t\t${wordCount}\n` +
+                 `Sentence Count:\t\t\t${sentenceCount}\n` +
+                 `Est. Reading Time:\t\t${readingTime} minute(s)`;
+                 
+    } else if (tool.includes('text to speech')) {
+        const text = input.trim();
+        if (!text) {
+            result = "Validation Error: Please enter some text to speak.";
+        } else if (!('speechSynthesis' in window)) {
+            result = "Error: Web Speech API is not supported in this browser.";
+        } else {
+            result = "Audio playback initiated via system synthesizer...";
+            // We use the buttons below the textarea for actual control, but this processes a fallback log.
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voiceSelect = document.getElementById('voiceSelect');
+            const rate = document.getElementById('speechRate')?.value || 1;
+            const pitch = document.getElementById('speechPitch')?.value || 1;
+            
+            utterance.rate = parseFloat(rate);
+            utterance.pitch = parseFloat(pitch);
+            
+            const voices = window.speechSynthesis.getVoices();
+            if (voiceSelect && voiceSelect.value) {
+                const selected = voices.find(v => v.name === voiceSelect.value);
+                if (selected) utterance.voice = selected;
+            }
+            window.speechSynthesis.cancel(); // clear queue
+            window.speechSynthesis.speak(utterance);
+        }
+        
+    } else if (tool.includes('online notepad')) {
+        const text = input;
+        try {
+            localStorage.setItem('mth_notepad_cache', text);
+            result = "Success! Note safely saved to your local browser storage.";
+        } catch (e) {
+            result = "Error: Could not access localStorage. Please ensure cookies are enabled.";
+        }
+        
+    } else if (tool.includes('date formatter')) {
+        const dateVal = document.getElementById('dateInput')?.value;
+        const tsVal = document.getElementById('timestampInput')?.value;
+        
+        if (!dateVal && !tsVal) {
+            result = "Validation Error: Please input either a local date or a Unix timestamp.";
+        } else {
+            let d;
+            if (tsVal) {
+                let ts = parseInt(tsVal, 10);
+                if (tsVal.length > 11) {
+                    d = new Date(ts); // Milliseconds
+                } else {
+                    d = new Date(ts * 1000); // Seconds
+                }
+            } else {
+                d = new Date(dateVal);
+            }
+            
+            if (isNaN(d.getTime())) {
+                result = "Validation Error: Invalid date or timestamp provided.";
+            } else {
+                result = `Time Conversion Report:\n\n` +
+                         `Local String:\t${d.toString()}\n` +
+                         `UTC String:\t\t${d.toUTCString()}\n` +
+                         `ISO 8601:\t\t${d.toISOString()}\n\n` +
+                         `Unix Timestamp (s):\t${Math.floor(d.getTime() / 1000)}\n` +
+                         `Unix Timestamp (ms):\t${d.getTime()}`;
+            }
+        }
+    } else 
     // BATCH 15 INJECTIONS
     if (tool.includes('css shadow')) {
         const hOffset = document.getElementById('hOffset')?.value || "0";

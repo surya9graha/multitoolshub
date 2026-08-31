@@ -64,13 +64,26 @@
                 
                 <div id="tool-container">
                     
-<div class="input-group">
-    <label>Select Primary Color or Enter HEX/RGB</label>
-    <div style="display: flex; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 25px; border: 1px solid var(--border);">
-        <input type="color" id="colorPicker" value="#6366f1" style="width: 80px; height: 80px; border: none; border-radius: 15px; cursor: pointer; background: transparent;" oninput="document.getElementById('toolInput').value = this.value">
-        <textarea id="toolInput" class="form-control" placeholder="#6366f1" style="height: 80px; padding: 25px; min-height: unset;"></textarea>
+<div class="tool-input-group" style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Base Color</label>
+        <input type="color" id="baseColor" value="#3b82f6" style="width: 100%; height: 50px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 8px; padding: 0;">
     </div>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Tip: You can use the color picker or manually type HEX/RGB values.</p>
+    <div style="flex: 1; min-width: 250px;">
+        <label class="tool-label">Harmony Type</label>
+        <select id="harmonyType" class="tool-select">
+            <option value="complementary">Complementary</option>
+            <option value="analogous">Analogous</option>
+            <option value="triadic">Triadic</option>
+            <option value="monochromatic">Monochromatic</option>
+        </select>
+    </div>
+</div>
+<div class="tool-input-group">
+    <label class="tool-label">Visual Preview</label>
+    <div id="palettePreview" style="display: flex; height: 100px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <!-- Filled dynamically by JS -->
+    </div>
 </div>
 
                     
