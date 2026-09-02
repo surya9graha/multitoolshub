@@ -97,7 +97,7 @@
                 <h2>2. Masking User Identifiers in Logs</h2>
                 <p>Alongside screenshots, developers need the exact database IDs to recreate the bug. However, pasting a real customer's name (e.g., "John Doe") directly into a public bug tracker is poor practice. Instead, you should provide the developer with the user's UUID.</p>
                 
-                <p>If the user's ID is missing from the frontend UI, or if you need to generate dummy accounts to test the bug yourself, you can use a <a href="../tools/dev/uuid-generator.html">UUID Generator</a>. By spinning up mathematically unique v4 identifiers, you can create perfectly anonymous dummy users that mimic the exact database structure of the live environment, allowing developers to test the bug without touching real customer data.</p>
+                <p>If the user's ID is missing from the frontend UI, or if you need to generate dummy accounts to test the bug yourself, you can use a <a href="../tools/security/uuid-generator.html">UUID Generator</a>. By spinning up mathematically unique v4 identifiers, you can create perfectly anonymous dummy users that mimic the exact database structure of the live environment, allowing developers to test the bug without touching real customer data.</p>
 
                 <h2>3. Sanitizing and Formatting Error Payloads</h2>
                 <p>Finally, developers need to see the exact error payload that the server returned when the crash happened. QA testers often copy this from the browser's Network tab. Unfortunately, the raw payload is usually an unformatted, minified block of JSON code that is nearly impossible to read.</p>

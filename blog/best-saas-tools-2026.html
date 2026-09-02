@@ -111,7 +111,7 @@
                 
                 <p>Developers must salt and hash all passwords before they touch the database. The modern standard for this is Bcrypt. Unlike older algorithms that are designed for speed, Bcrypt is intentionally slow. It forces the computer to execute a "work factor," making it mathematically unfeasible for a hacker to crack the database via brute-force.</p>
                 
-                <p>When testing authentication logic, developers should use a client-side <a href="../tools/security/bcrypt-generator.html">Bcrypt Hash Generator</a>. This allows them to securely mock up hash comparisons locally without ever sending test credentials to a remote server, ensuring that their authentication pipeline is airtight before pushing code to production.</p>
+                <p>When testing authentication logic, developers should use a client-side <a href="../tools/security/bcrypt-hash.html">Bcrypt Hash Generator</a>. This allows them to securely mock up hash comparisons locally without ever sending test credentials to a remote server, ensuring that their authentication pipeline is airtight before pushing code to production.</p>
 
                 <h2>3. Verifying File Integrity Across Remote Teams</h2>
                 <p>When a remote developer pushes an essential software patch or a legal team emails a massive NDA to a client, you need absolute certainty that the file was not corrupted or altered in transit.</p>

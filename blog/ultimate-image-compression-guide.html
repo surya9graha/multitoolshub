@@ -108,7 +108,7 @@
                 <h2>3. Eliminating HTTP Requests via Base64</h2>
                 <p>The ultimate form of compression isn't just making the file smaller; it's eliminating the file completely. Every time a browser encounters an <code>&lt;img&gt;</code> tag, it must pause rendering to execute a network HTTP request to download that file. If you have 20 small UI icons, you have 20 latency-inducing network requests.</p>
                 
-                <p>For critical, above-the-fold icons, developers should utilize an <a href="../tools/dev/image-to-base64.html">Image to Base64 Encoder</a>. This converts the icon into a raw string of ASCII text. You embed this text directly into your HTML document. While Base64 encoding actually increases the raw kilobyte size of the graphic by about 33%, the performance gained by eliminating the HTTP network handshake vastly outweighs the byte penalty. (Note: Only use this for assets under 10KB).</p>
+                <p>For critical, above-the-fold icons, developers should utilize an <a href="../tools/image/png-to-jpg.html">Image to Base64 Encoder</a>. This converts the icon into a raw string of ASCII text. You embed this text directly into your HTML document. While Base64 encoding actually increases the raw kilobyte size of the graphic by about 33%, the performance gained by eliminating the HTTP network handshake vastly outweighs the byte penalty. (Note: Only use this for assets under 10KB).</p>
 
                 <h2>Common Compression Mistakes</h2>
                 <ul>

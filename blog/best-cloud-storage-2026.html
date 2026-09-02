@@ -105,7 +105,7 @@
                 <h2>1. Eliminating Naming Collisions with UUIDs</h2>
                 <p>The golden rule of cloud storage architecture is that you must never trust the user's filename. Instead, your application should assign a universally unique identifier to every single file the moment it is uploaded.</p>
                 
-                <p>A UUID (Universally Unique Identifier) is a 36-character string (e.g., <code>550e8400-e29b-41d4-a716-446655440000</code>) generated using deep algorithmic randomness. The mathematical probability of generating the exact same UUID twice is practically zero. When testing your database schema or configuring your storage bucket rules, you can use a <a href="../tools/dev/uuid-generator.html">UUID Generator</a> to instantly spin up compliant version-4 UUID strings. By renaming every incoming file to a UUID before saving it, you permanently eliminate the risk of accidental file overwrites.</p>
+                <p>A UUID (Universally Unique Identifier) is a 36-character string (e.g., <code>550e8400-e29b-41d4-a716-446655440000</code>) generated using deep algorithmic randomness. The mathematical probability of generating the exact same UUID twice is practically zero. When testing your database schema or configuring your storage bucket rules, you can use a <a href="../tools/security/uuid-generator.html">UUID Generator</a> to instantly spin up compliant version-4 UUID strings. By renaming every incoming file to a UUID before saving it, you permanently eliminate the risk of accidental file overwrites.</p>
 
                 <h2>2. Verifying File Integrity with Checksums</h2>
                 <p>When a user uploads a massive 500MB video file to your S3 bucket, how does your server know that the file wasn't corrupted during the 20-minute upload process? Network packets drop constantly, and a missing byte can render a video file completely unplayable.</p>
@@ -119,7 +119,7 @@
 
                 <h2>Common Cloud Upload Mistakes</h2>
                 <ul>
-                    <li><strong>Storing Passwords in Plaintext:</strong> If your application requires users to create accounts to access their cloud files, never store their passwords in plaintext. Always pass them through a <a href="../tools/security/bcrypt-generator.html">Bcrypt Hash Generator</a> to salt and secure the credentials in your database.</li>
+                    <li><strong>Storing Passwords in Plaintext:</strong> If your application requires users to create accounts to access their cloud files, never store their passwords in plaintext. Always pass them through a <a href="../tools/security/bcrypt-hash.html">Bcrypt Hash Generator</a> to salt and secure the credentials in your database.</li>
                     <li><strong>Exposing Raw Cloud URLs:</strong> Do not serve files directly from your raw cloud bucket URL. Always place a CDN (Content Delivery Network) in front of the bucket to handle caching, reduce bandwidth costs, and hide your origin server IP.</li>
                 </ul>
 
