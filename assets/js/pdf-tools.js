@@ -206,22 +206,29 @@ async function handleRotatePDF() {
 }
 
 async function handleProtectPDF() {
-    const password = prompt("Enter a password to protect this PDF:") || "1234";
+    const pwdInput = document.getElementById('toolInput');
+    const password = (pwdInput && pwdInput.value) ? pwdInput.value : "1234";
     const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
     const pdf = await PDFLib.PDFDocument.load(bytes);
+    // Note: PDF-lib doesn't support writing encrypted PDFs natively without lower level manipulation.
+    // Setting title is a placeholder as in original code.
     pdf.setTitle("Encrypted with MultiTools Hub");
     const pdfBytes = await pdf.save();
     showDownload(new Blob([pdfBytes], { type: 'application/pdf' }), 'secured.pdf');
 }
 
 async function handleUnlockPDF() {
-    const password = prompt("Enter the password to unlock (if known):") || "";
+    const pwdInput = document.getElementById('toolInput');
+    const password = (pwdInput && pwdInput.value) ? pwdInput.value : "";
     try {
         const bytes = await PDF_CURRENT_FILES[0].arrayBuffer();
         const pdf = await PDFLib.PDFDocument.load(bytes, { password });
         const pdfBytes = await pdf.save();
         showDownload(new Blob([pdfBytes], { type: 'application/pdf' }), 'unlocked.pdf');
-    } catch (e) { alert("Incorrect password or file not encrypted."); }
+    } catch (e) { 
+        alert("Incorrect password or file not encrypted."); 
+        updateStatus("Error: Incorrect password or file not encrypted.", false);
+    }
 }
 
 async function handleCompressPDF() {
