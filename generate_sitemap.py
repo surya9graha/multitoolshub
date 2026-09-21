@@ -30,7 +30,7 @@ for folder in ["tools", "blog"]:
 
 sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{"".join(sitemap_entries)}
+{"\n".join("  " + entry for entry in sitemap_entries)}
 </urlset>
 """
 
